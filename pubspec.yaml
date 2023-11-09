@@ -1,0 +1,37 @@
+name: connect_me
+description: A new Flutter project.
+publish_to: "none"
+version: 0.1.0
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  animate_do: ^3.0.2
+  auto_size_text: ^3.0.0
+  bootstrap_icons: ^1.11.1
+  cached_network_image: ^3.3.0
+  equatable: ^2.0.5
+  faker: ^2.1.0
+  flip_card: ^0.7.0
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^2.4.5
+  google_fonts: ^6.1.0
+  intl: ^0.18.1
+  rename: ^3.0.1
+  shared_preferences: ^2.2.2
+  shimmer: ^3.0.0
+  timeago: ^3.6.0
+  url_launcher: ^6.1.14
+
+dev_dependencies:
+  flutter_lints: ^2.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
