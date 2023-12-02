@@ -2,6 +2,7 @@ abstract class TextConstant {
   //
   static const appTitle = 'Connect Me';
 
+
 /*----------------------------------------------------------------------
           SIGN UP AND LOGIN SCREEN
 -----------------------------------------------------------------------*/
@@ -46,9 +47,10 @@ abstract class TextConstant {
   // static const lorem = 'or';
   // static const lorem = 'or';
   /*----------------------------------------------------------------------
-      SERMON SCREEN
+      HOME SCREEN
 -----------------------------------------------------------------------*/
   static const download = 'Download';
+  static const connect = 'Connect';
 
   // static const lorem = 'or';
   // static const lorem = 'or';

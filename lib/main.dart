@@ -70,9 +70,12 @@ class _SplashScreenState extends State<SplashScreen> {
             right: context.sizeWidth(0.0001),
             left: context.sizeWidth(0.0001),
             child: FadeInRightBig(
-                child: Image.asset(
-              ImagesConstant.appLogoBrown,
-              fit: BoxFit.contain,
+                child: Hero(
+              tag: 'logo',
+              child: Image.asset(
+                ImagesConstant.appLogoBrown,
+                fit: BoxFit.contain,
+              ),
             )),
           ),
           Positioned(

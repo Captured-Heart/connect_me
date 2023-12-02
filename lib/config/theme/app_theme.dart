@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'theme.dart';
 
-const Color _kPrimaryLightColor = Color(0xFF097cea);
+const Color _kPrimaryLightColor = Color(0xFF00aff0);
 const Color _kPrimaryDarkColor = Color(0xFF0905f7);
 const Color _kBackgroundDarkColor = Color(0xFF070707);
 // ignore: prefer_int_literals
@@ -63,16 +63,34 @@ ThemeData themeBuilder({
   //dark mode
   return ThemeData(
     useMaterial3: true,
-    primaryColor: _kPrimaryDarkColor,
+    primaryColor: colorScheme.primary,
     iconTheme: defaultTheme.iconTheme.copyWith(size: _kIconSize),
     primaryIconTheme: defaultTheme.primaryIconTheme.copyWith(size: _kIconSize),
     textTheme: GoogleFonts.solwayTextTheme().copyWith(
-      bodyLarge: GoogleFonts.solway(color: colorScheme.onSurface),
+      /// ListTile [TITLE]
+      bodyLarge: GoogleFonts.solway(
+        color: colorScheme.onSurface,
+        fontWeight: AppFontWeight.w500,
+      ),
+
+      /// [SUBTITLE] and [BODY TEXT]
       bodyMedium: GoogleFonts.solway(color: colorScheme.onSurface),
       bodySmall: GoogleFonts.solway(color: colorScheme.onSurface),
-      titleSmall: GoogleFonts.solway(color: colorScheme.onSurface),
-      titleMedium: GoogleFonts.solway(color: colorScheme.onSurface),
-      titleLarge: GoogleFonts.solway(color: colorScheme.onSurface),
+      titleSmall: GoogleFonts.solway(
+        color: colorScheme.onSurface,
+        fontWeight: AppFontWeight.w700,
+      ),
+
+      titleMedium: AppTextStyle.listTileSubTitle.copyWith(
+        color: colorScheme.onSurface,
+      ),
+
+      // APP BAR TITLE
+      titleLarge: AppTextStyle.listTileTitle.copyWith(
+        color: colorScheme.onSurface,
+        fontWeight: AppFontWeight.w600,
+        fontSize: 22,
+      ),
       labelSmall: GoogleFonts.solway(color: colorScheme.onSurface),
       labelMedium: GoogleFonts.solway(color: colorScheme.onSurface),
       labelLarge: GoogleFonts.solway(color: colorScheme.onSurface),

@@ -51,21 +51,25 @@ Widget circleCacheNetworkImage({
   String? imgUrl,
   required double height,
   double? width,
+  bool ? isNotCircle = false,
+  BorderRadiusGeometry? borderRadius,
 }) {
   return CachedNetworkImage(
     key: UniqueKey(),
     imageUrl: imgUrl ?? ImagesConstant.noImagePlaceholderHttp,
-    height: height,
-    width: width,
-    fit: BoxFit.fill,
+    // height: height,
+    // width: width,
+    // fit: BoxFit.fill,
     imageBuilder: (context, imageProvider) {
       return Container(
-        // height: height,
-
+        height: height,
+        width: width,
+        clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
-          shape: BoxShape.circle,
+          shape: isNotCircle == true ? BoxShape.rectangle :  BoxShape.circle,
+          borderRadius: borderRadius,
           image: DecorationImage(
-            image: CachedNetworkImageProvider(imgUrl ?? ImagesConstant.noImagePlaceholderHttp),
+            image: CachedNetworkImageProvider(imgUrl ?? ImagesConstant.noImagePlaceholderHttp,scale: 0.8),
             fit: BoxFit.fill,
           ),
         ),

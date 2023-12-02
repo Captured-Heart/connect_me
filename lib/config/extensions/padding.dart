@@ -138,10 +138,8 @@ extension MediaQuerySizeExtension on BuildContext {
 extension StringExtension on String {
   String toCapitalized() =>
       length > 0 ? '${this[0].toUpperCase()}${substring(1).toLowerCase()}' : '';
-  String toTitleCase() => replaceAll(RegExp(' +'), ' ')
-      .split(' ')
-      .map((str) => str.toCapitalized())
-      .join(' ');
+  String toTitleCase() =>
+      replaceAll(RegExp(' +'), ' ').split(' ').map((str) => str.toCapitalized()).join(' ');
 
   String toCommaPrices() {
     final formatter = NumberFormat("###,###.#", "en_US");
@@ -152,4 +150,48 @@ extension StringExtension on String {
       return price;
     }
   }
+}
+
+extension LinearGradientExtension on Widget {
+  Widget withLinearGradient({
+    List<Color>? colors,
+    Alignment? begin,
+    Alignment? end,
+    bool? isLongBTN = true,
+  }) {
+    return Container(
+      decoration: BoxDecoration(
+        gradient: orangeGradient(colors: colors, begin: begin, end: end),
+      ),
+
+      // orangeGradient(colors : colors, begin: begin, end: end),
+      child: this,
+    );
+  }
+}
+
+LinearGradient orangeGradient({
+  List<Color>? colors,
+  Alignment? begin,
+  Alignment? end,
+  bool? isLongBTN,
+}) {
+  return LinearGradient(
+    colors: isLongBTN == false
+        ? [
+            Colors.red.shade400,
+            Colors.orange.shade300,
+            Colors.orange.shade300,
+            Colors.red.shade300,
+            Colors.red.shade300,
+          ]
+        : colors ??
+            [
+              Colors.orange.shade800,
+              Colors.red.shade300,
+              Colors.red.shade400,
+            ],
+    begin: begin ?? Alignment.topLeft,
+    end: end ?? Alignment.bottomRight,
+  );
 }

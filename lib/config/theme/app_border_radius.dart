@@ -9,6 +9,8 @@ class AppBorderRadius {
   static const BorderRadius c8 = BorderRadius.all(Radius.circular(8));
   static const BorderRadius c12 = BorderRadius.all(Radius.circular(12));
   static const BorderRadius c16 = BorderRadius.all(Radius.circular(16));
+  static const BorderRadius c20 = BorderRadius.all(Radius.circular(20));
+
   static const BorderRadius c32 = BorderRadius.all(Radius.circular(32));
   static const BorderRadius c48 = BorderRadius.all(Radius.circular(48));
 
@@ -16,8 +18,11 @@ class AppBorderRadius {
 
 class AppEdgeInsets {
   AppEdgeInsets._();
+  static const EdgeInsets eA2 = EdgeInsets.all(2);
 
   static const EdgeInsets eA4 = EdgeInsets.all(4);
+  static const EdgeInsets eA6 = EdgeInsets.all(6);
+
   static const EdgeInsets eA8 = EdgeInsets.all(8);
   static const EdgeInsets eA12 = EdgeInsets.all(12);
   static const EdgeInsets eA16 = EdgeInsets.all(16);

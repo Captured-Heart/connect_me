@@ -9,7 +9,8 @@ export 'package:cached_network_image/cached_network_image.dart';
 export 'package:flip_card/flip_card.dart';
 export 'package:flip_card/flip_card_controller.dart';
 export 'package:shared_preferences/shared_preferences.dart';
-export 'package:bootstrap_icons/bootstrap_icons.dart';
+export 'package:icons_plus/icons_plus.dart';
+export 'package:google_fonts/google_fonts.dart';
 
 
 
@@ -20,3 +21,4 @@ export './src/utils/utils.dart';
 // fFEATURES
 export './main.dart';
 export './src/onboarding/onboarding.dart';
+export './src/home/home.dart';

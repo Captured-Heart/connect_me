@@ -1,6 +1,4 @@
 import 'package:connect_me/app.dart';
-import 'package:flip_card/flip_card.dart';
-import 'package:flip_card/flip_card_controller.dart';
 
 final flipCardControllerProvider = Provider.autoDispose<FlipCardController>((ref) {
   return FlipCardController();
@@ -152,10 +150,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   borderRadius: AppBorderRadius.c12,
                   color: context.colorScheme.onSurface,
                 ),
-                child: Image.asset(
-                  ImagesConstant.appLogoBrown,
-                  height: context.sizeWidth(0.18),
-                  fit: BoxFit.cover,
+                child: Hero(
+                  tag: 'logo',
+                  child: Image.asset(
+                    ImagesConstant.appLogoBrown,
+                    height: context.sizeWidth(0.18),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
 
@@ -224,7 +225,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             children: [
               TextButton(onPressed: () {}, child: const Text(TextConstant.forgottenPassword)),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  push(context, ProfileScreen());
+                },
                 child: Text(
                   TextConstant.continuebtn.toTitleCase(),
                 ),
