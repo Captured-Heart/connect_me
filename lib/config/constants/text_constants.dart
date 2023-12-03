@@ -2,7 +2,6 @@ abstract class TextConstant {
   //
   static const appTitle = 'Connect Me';
 
-
 /*----------------------------------------------------------------------
           SIGN UP AND LOGIN SCREEN
 -----------------------------------------------------------------------*/
@@ -51,8 +50,24 @@ abstract class TextConstant {
 -----------------------------------------------------------------------*/
   static const download = 'Download';
   static const connect = 'Connect';
+  /*----------------------------------------------------------------------
+      PROFILE SCREEN
+-----------------------------------------------------------------------*/
+  static const posts = 'Posts';
+  static const followers = 'Followers';
+  static const following = 'Following';
+  static const about = 'About';
 
   // static const lorem = 'or';
-  // static const lorem = 'or';
+  // static const lorem = 'or'; // static const lorem = 'or';
+  // static const lorem = 'or'; // static const lorem = 'or';
+  // static const lorem = 'or'; // static const lorem = 'or';
+  // static const lorem = 'or'; // static const lorem = 'or';
+  // static const lorem = 'or'; // static const lorem = 'or';
+  // static const lorem = 'or'; // static const lorem = 'or';
+  // static const lorem = 'or'; // static const lorem = 'or';
+  // static const lorem = 'or'; // static const lorem = 'or';
+  // static const lorem = 'or'; // static const lorem = 'or';
+  // static const lorem = 'or'; // static const lorem = 'or';
   // static const lorem = 'or';
 }

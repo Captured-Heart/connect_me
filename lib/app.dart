@@ -12,8 +12,6 @@ export 'package:shared_preferences/shared_preferences.dart';
 export 'package:icons_plus/icons_plus.dart';
 export 'package:google_fonts/google_fonts.dart';
 
-
-
 // CONFIG
 export './config/config.dart';
 export './src/utils/utils.dart';
@@ -22,3 +20,4 @@ export './src/utils/utils.dart';
 export './main.dart';
 export './src/onboarding/onboarding.dart';
 export './src/home/home.dart';
+export './src/profile/profile.dart';

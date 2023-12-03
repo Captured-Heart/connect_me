@@ -187,10 +187,32 @@ LinearGradient orangeGradient({
           ]
         : colors ??
             [
-              Colors.orange.shade800,
               Colors.red.shade300,
               Colors.red.shade400,
+              Colors.redAccent,
+
+              // Colors.red.shade300,
+              // Colors.orange.shade800,
+              // Colors.red.shade400,
             ],
+    begin: begin ?? Alignment.bottomLeft,
+    end: end ?? Alignment.topRight,
+  );
+}
+
+LinearGradient whiteGradient({
+  List<Color>? colors,
+  Alignment? begin,
+  Alignment? end,
+  bool? isLongBTN,
+  required BuildContext context,
+}) {
+  return LinearGradient(
+    colors: [
+      context.colorScheme.onSurface,
+      context.colorScheme.surface,
+      context.colorScheme.onSurface,
+    ],
     begin: begin ?? Alignment.topLeft,
     end: end ?? Alignment.bottomRight,
   );

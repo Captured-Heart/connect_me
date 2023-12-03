@@ -19,9 +19,11 @@ const IconData deleteIcon = Icons.delete;
 const IconData likeIcon = Bootstrap.hand_thumbs_up;
 const IconData chatCommentIcon = Bootstrap.chat;
 const IconData notificationIcon = HeroIcons.bell_alert;
-// const IconData copyIcon = Icons.copy;
-// const IconData copyIcon = Icons.copy;
-// const IconData copyIcon = Icons.copy;
-// const IconData copyIcon = Icons.copy;
+const IconData chatIcon = Bootstrap.chat_dots;
+const IconData mailIcon = OctIcons.mail_16;
+const IconData twitterIcon = EvaIcons.twitter_outline;
+const IconData telegramIcon = LineAwesome.telegram;
+const IconData linkedInIcon = LineAwesome.linkedin_in;
+const IconData whatsappIcon = IonIcons.logo_whatsapp;
 
 const IconData checkCircleIcon = Icons.check_circle;
