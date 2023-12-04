@@ -5,9 +5,9 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'theme.dart';
 
-const Color _kPrimaryLightColor = Color(0xFF00aff0);
-const Color _kPrimaryDarkColor = Color(0xFF0905f7);
-const Color _kBackgroundDarkColor = Color(0xFF070707);
+const Color _kPrimaryLightColor = Color(0xFFE57373); //New: 0xFFE57373  //prev: 0xFF00aff0
+const Color _kPrimaryDarkColor = Color.fromARGB(255, 232, 234, 237); // prev: 0xFF0905f7 //like1: 0xFFE8ECED
+const Color _kBackgroundDarkColor = Color(0xFF070707); //prev: 0xFF070707
 // ignore: prefer_int_literals
 const double _kIconSize = 20.0;
 

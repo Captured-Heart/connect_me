@@ -52,7 +52,9 @@ abstract class TextConstant {
   static const connect = 'Connect';
   static const home = 'Home';
   static const profile = 'Profile';
-  static const addViaQr = 'Add via QrCode';
+  static const displayMyQrCode = 'Display My QrCode';
+  static const scanQr = 'Scan QrCode';
+
 
   /*----------------------------------------------------------------------
       PROFILE SCREEN
@@ -61,8 +63,7 @@ abstract class TextConstant {
   static const followers = 'Followers';
   static const following = 'Following';
   static const about = 'About';
-
-  // static const lorem = 'or';
+  static const myConnect = 'My Connect';
   // static const lorem = 'or'; // static const lorem = 'or';
   // static const lorem = 'or'; // static const lorem = 'or';
   // static const lorem = 'or'; // static const lorem = 'or';

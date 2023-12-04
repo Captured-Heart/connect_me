@@ -22,6 +22,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       restorationScopeId: 'connectMe',
+      
       onGenerateTitle: (context) => TextConstant.appTitle,
       debugShowCheckedModeBanner: false,
       // scaffoldMessengerKey: rootScaffoldMessengerKey,

@@ -51,7 +51,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   Card signUpCardWidget() {
     return Card(
-        elevation: 0,
+        elevation: 3,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -96,7 +96,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   //textfields
                   authTextFieldWidget(
                     hintText: TextConstant.emailAddress,
-                    fillColor: context.colorScheme.surface,
+                    // fillColor: context.colorScheme.surface,
+                    fillColor: Colors.transparent,
+
                     controller: TextEditingController(),
                     context: context,
                     noBorders: true,
@@ -106,7 +108,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   //textfields
                   authTextFieldWidget(
                     hintText: TextConstant.password,
-                    fillColor: context.colorScheme.surface,
+                    fillColor: Colors.transparent,
+
+                    // fillColor: context.colorScheme.surface,
                     controller: TextEditingController(),
                     context: context,
                     noBorders: true,
@@ -133,7 +137,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   Card signInCardWidget(BuildContext context) {
     return Card(
-      elevation: 0,
+      elevation: 3,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -200,7 +204,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 //textfields
                 authTextFieldWidget(
                   hintText: TextConstant.emailAddress,
-                  fillColor: context.colorScheme.surface,
+                  fillColor: Colors.transparent,
+
+                  // fillColor: context.colorScheme.surface,
                   controller: TextEditingController(),
                   context: context,
                   noBorders: true,
@@ -210,7 +216,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 //textfields
                 authTextFieldWidget(
                   hintText: TextConstant.password,
-                  fillColor: context.colorScheme.surface,
+                  fillColor: Colors.transparent,
                   controller: TextEditingController(),
                   context: context,
                   noBorders: true,

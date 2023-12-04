@@ -1,12 +1,13 @@
-import 'dart:developer';
-
 import 'package:connect_me/app.dart';
 import 'package:faker/faker.dart';
 
 // ignore: must_be_immutable
 class ProfileScreen extends StatefulWidget {
-  ProfileScreen({super.key});
-
+  const ProfileScreen({
+    super.key,
+    this.implyLeading,
+  });
+  final bool? implyLeading;
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
@@ -45,7 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   SliverAppBar(
                     expandedHeight: context.sizeHeight(0.33),
                     collapsedHeight: kToolbarHeight,
-                    automaticallyImplyLeading: false,
+                    automaticallyImplyLeading: offset < 238 ? widget.implyLeading ?? false : false,
                     forceMaterialTransparency: true,
                     floating: true,
                     pinned: true,
@@ -53,25 +54,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     // stretch: true,
                     flexibleSpace: FlexibleSpaceBar(
                       background: const ProfileHeaderWidget().padSymmetric(horizontal: 20),
-                      collapseMode: CollapseMode.pin,
+                      collapseMode: CollapseMode.parallax,
                     ),
                   ),
                   SliverPersistentHeader(
-                    delegate: _SliverAppBarDelegate(
-                      const CustomTabBar(
-                        tabs: [
-                          Tab(
-                            text: TextConstant.posts,
-                          ),
-                          Tab(
-                            text: TextConstant.about,
-                          ),
-                        ],
-                      ),
-                    ),
+                    delegate: _SliverAppBarDelegate(const CustomTabBar(
+                      tabs: [
+                        Tab(
+                          text: TextConstant.posts,
+                        ),
+                        Tab(
+                          text: TextConstant.about,
+                        ),
+                      ],
+                    )),
                     pinned: offset > 238 ? true : false,
                     floating: true,
-                  )
+                  ),
                 ];
               },
               body: TabBarView(
@@ -185,7 +184,7 @@ class AboutMeWidget extends StatelessWidget {
             bottom: 15,
           ),
         ),
-      ],
+      ].columnInPadding(7)
     );
   }
 }
