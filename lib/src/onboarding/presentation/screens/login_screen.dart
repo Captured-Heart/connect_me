@@ -226,7 +226,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               TextButton(onPressed: () {}, child: const Text(TextConstant.forgottenPassword)),
               ElevatedButton(
                 onPressed: () {
-                  push(context, ProfileScreen());
+                  push(context, MainScreen());
                 },
                 child: Text(
                   TextConstant.continuebtn.toTitleCase(),

@@ -1,96 +1,90 @@
+import 'dart:developer';
+
 import 'package:connect_me/app.dart';
 import 'package:faker/faker.dart';
 
-class ProfileScreen extends ConsumerWidget {
+// ignore: must_be_immutable
+class ProfileScreen extends StatefulWidget {
   ProfileScreen({super.key});
-  final ScrollController _scrollController = ScrollController();
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        // appBar: AppBar(
-        //   automaticallyImplyLeading: false,
-        //   elevation: 0,
-        //   backgroundColor: Colors.transparent,
-        //   bottom: PreferredSize(
-        //     child: ProfileHeaderWidget().padSymmetric(horizontal: 20),
-        //     preferredSize: Size.fromHeight(
-        //       context.sizeHeight(0.4),
-        //     ),
-        //   ),
-        // ),
-        body: SafeArea(
-            child: CustomScrollView(
-          controller: _scrollController,
-          slivers: [
-            SliverAppBar(
-                expandedHeight: context.sizeHeight(0.4),
-                collapsedHeight: kToolbarHeight,
-                automaticallyImplyLeading: false,
-                forceMaterialTransparency: true,
-                floating: false,
-                pinned: true,
-                // snap: true,
-                // stretch: true,
-                flexibleSpace: FlexibleSpaceBar(
-                  background: ProfileHeaderWidget(
-                    // controller: _scrollController,
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    _scrollController.addListener(() {
+      offset = _scrollController.offset;
+      setState(() {});
+    });
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(() {});
+    super.dispose();
+  }
+
+  double offset = 0.0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: DefaultTabController(
+            length: 2,
+            child: NestedScrollView(
+              controller: _scrollController,
+              headerSliverBuilder: (context, innerBoxIsScrolled) {
+                return [
+                  SliverAppBar(
+                    expandedHeight: context.sizeHeight(0.33),
+                    collapsedHeight: kToolbarHeight,
+                    automaticallyImplyLeading: false,
+                    forceMaterialTransparency: true,
+                    floating: true,
+                    pinned: true,
+                    // snap: true,
+                    // stretch: true,
+                    flexibleSpace: FlexibleSpaceBar(
+                      background: const ProfileHeaderWidget().padSymmetric(horizontal: 20),
+                      collapseMode: CollapseMode.pin,
+                    ),
                   ),
-                  collapseMode: CollapseMode.pin,
-                ),
-                // ProfileHeaderWidget(controller: _scrollController,),
-                bottom: CustomTabBar(
-                  tabs: [
-                    Tab(
-                      text: TextConstant.posts,
+                  SliverPersistentHeader(
+                    delegate: _SliverAppBarDelegate(
+                      const CustomTabBar(
+                        tabs: [
+                          Tab(
+                            text: TextConstant.posts,
+                          ),
+                          Tab(
+                            text: TextConstant.about,
+                          ),
+                        ],
+                      ),
                     ),
-                    Tab(
-                      text: TextConstant.about,
-                    ),
-                  ],
-                ),
-                ),
-            SliverFillRemaining(
-              child: TabBarView(
-                physics: NeverScrollableScrollPhysics(),
+                    pinned: offset > 238 ? true : false,
+                    floating: true,
+                  )
+                ];
+              },
+              body: TabBarView(
                 children: [
                   AboutMeWidget(
-                    controller: _scrollController,
+                    offset: offset,
                   ),
                   AboutMeWidget(
-                    controller: _scrollController,
+                    offset: offset,
                   ),
                 ],
               ),
-            )
-          ],
-        )
-
-            //     Column(
-            //   // shrinkWrap: true,
-            //   children: [
-            //     ProfileHeaderWidget(),
-            //     SizedBox(
-            //       height: context.sizeHeight(0.5),
-            //       width: double.infinity,
-            //       child: TabBarView(
-            //         children: [
-            //           AboutMeWidget(),
-            //           AboutMeWidget(),
-            //         ],
-            //       ),
-            //     ),
-            //   ],
-            // )
-
-            //  TabBarView(
-            //   children: [
-            //     AboutMeWidget(),
-            //     AboutMeWidget(),
-            //   ],
-            // ),
-            ),
+            )),
       ),
     );
   }
@@ -99,50 +93,99 @@ class ProfileScreen extends ConsumerWidget {
 class AboutMeWidget extends StatelessWidget {
   const AboutMeWidget({
     super.key,
-    required this.controller,
+    this.offset = 0.0,
   });
-  final ScrollController controller;
+  final double? offset;
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      child: ListView(
-        controller: controller,
-        // physics: NeverScrollableScrollPhysics(),
-        children: [
-          SizedBox(
-            width: double.infinity,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                GradientShortBTN(
-                  iconData: mailIcon,
-                  iconSize: 21,
+    return ListView(
+      // controller: controller,
+      padding: offset! > 230 ? const EdgeInsets.only(top: 70) : EdgeInsets.zero,
+      children: [
+        Card(
+          elevation: 5,
+          child: Column(
+            // physics: NeverScrollableScrollPhysics(),
+            children: [
+              SizedBox(
+                width: double.infinity,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        pushAsVoid(context, QrCodeScreen());
+                      },
+                      child: GradientShortBTN(
+                        iconData: mailIcon,
+                        iconSize: 21,
+                      ),
+                    ),
+                    GradientShortBTN(
+                      iconData: twitterIcon,
+                      iconSize: 28,
+                    ),
+                    GradientShortBTN(
+                      iconData: whatsappIcon,
+                    ),
+                    GradientShortBTN(
+                      iconData: telegramIcon,
+                    ),
+                  ].rowInPadding(15),
                 ),
-                GradientShortBTN(
-                  iconData: twitterIcon,
-                  iconSize: 28,
+              ).padAll(10),
+              Text(
+                faker.lorem.sentences(10).toString(),
+                textAlign: TextAlign.justify,
+                softWrap: true,
+              )
+            ],
+          ).padOnly(
+            left: 12,
+            right: 12,
+            bottom: 15,
+          ),
+        ),
+        Card(
+          elevation: 5,
+          child: Column(
+            // physics: NeverScrollableScrollPhysics(),
+            children: [
+              SizedBox(
+                width: double.infinity,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    GradientShortBTN(
+                      iconData: mailIcon,
+                      iconSize: 21,
+                    ),
+                    GradientShortBTN(
+                      iconData: twitterIcon,
+                      iconSize: 28,
+                    ),
+                    GradientShortBTN(
+                      iconData: whatsappIcon,
+                    ),
+                    GradientShortBTN(
+                      iconData: telegramIcon,
+                    ),
+                  ].rowInPadding(15),
                 ),
-                GradientShortBTN(
-                  iconData: whatsappIcon,
-                ),
-                GradientShortBTN(
-                  iconData: telegramIcon,
-                ),
-              ].rowInPadding(15),
-            ),
-          ).padAll(10),
-          Text(
-            faker.lorem.sentences(100).toString(),
-            textAlign: TextAlign.justify,
-            softWrap: true,
-          )
-        ],
-      ).padOnly(
-        left: 12,
-        right: 12,
-        bottom: 15,
-      ),
+              ).padAll(10),
+              Text(
+                faker.lorem.sentences(10).toString(),
+                textAlign: TextAlign.justify,
+                softWrap: true,
+              )
+            ],
+          ).padOnly(
+            left: 12,
+            right: 12,
+            bottom: 15,
+          ),
+        ),
+      ],
     );
   }
 }
@@ -157,11 +200,11 @@ class ProfileHeaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      // controller: controller,
-      // crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         //profile picture
-        Center(child: const ProfilePicWidget()),
+        const Center(
+          child: ProfilePicWidget(),
+        ),
         customListTileWidget(
           context: context,
           title: faker.person.name(),
@@ -190,6 +233,7 @@ class ProfileHeaderWidget extends StatelessWidget {
             ),
           ],
         ),
+
         Row(
           children: const [
             Expanded(
@@ -216,5 +260,27 @@ class ProfileHeaderWidget extends StatelessWidget {
         // ),
       ].columnInPadding(15),
     );
+  }
+}
+
+class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
+  final PreferredSizeWidget _tabBar;
+
+  _SliverAppBarDelegate(this._tabBar);
+
+  @override
+  double get minExtent => _tabBar.preferredSize.height * 1.5;
+
+  @override
+  double get maxExtent => _tabBar.preferredSize.height * 1.5;
+
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return _tabBar;
+  }
+
+  @override
+  bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
+    return false;
   }
 }

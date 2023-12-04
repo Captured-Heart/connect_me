@@ -6,6 +6,7 @@ Column customListTileWidget({
   required String subtitle,
 }) {
   return Column(
+    mainAxisSize: MainAxisSize.min,
     children: [
       AutoSizeText(
         title,

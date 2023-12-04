@@ -9,15 +9,12 @@ class CustomTabBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10),
+      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       decoration: BoxDecoration(
         gradient: whiteGradient(context: context),
         borderRadius: BorderRadius.circular(15),
       ),
-      // shape: RoundedRectangleBorder(
-      //   side: BorderSide(width: 0.3, color: context.theme.primaryColor),
-      //   borderRadius: BorderRadius.circular(15),
-      // ),
+    
       child: Card(
         margin: EdgeInsets.symmetric(horizontal: 1, vertical: 1),
         shape: RoundedRectangleBorder(

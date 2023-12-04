@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:connect_me/app.dart';
 import 'package:faker/faker.dart';
 import 'package:status_view/status_view.dart';
@@ -8,10 +9,81 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
+      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showDialogForQrCodes(
+            context,
+            title: null,
+            content: SizedBox(
+              width: 500,
+              child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Center(
+                          child: Column(
+                            children: [
+                              const ProfilePicWidget(
+                                withoutBorder: true,
+                              ),
+                              customListTileWidget(
+                                context: context,
+                                title: faker.person.name(),
+                                subtitle: faker.person.name(),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Center(
+                          child: QrImageView(
+                            data: 'data is life forget it',
+                            backgroundColor: context.colorScheme.onSurface,
+                            eyeStyle: QrEyeStyle(
+                                color: context.colorScheme.surface, eyeShape: QrEyeShape.square),
+                            dataModuleStyle: QrDataModuleStyle(
+                                color: context.colorScheme.surface,
+                                dataModuleShape: QrDataModuleShape.circle),
+                            version:
+                                // QrVersions.auto,
+
+                                3,
+                            size: 200,
+                            gapless: false,
+                          ),
+                        )
+                      ].columnInPadding(20))
+                  .padAll(10),
+            ),
+          );
+        },
+        tooltip: TextConstant.addViaQr,
+        child: const Icon(
+          qrCodeIcon,
+          size: 28,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: context.theme.scaffoldBackgroundColor,
         centerTitle: true,
+        leading: Chip(
+          label: BounceInDown(
+            from: 70,
+            duration: Duration(seconds: 2),
+            child: Image.asset(
+              ImagesConstant.appLogoBrown,
+              fit: BoxFit.contain,
+              scale: 0.8,
+              // height: 80,
+            ),
+          ),
+          padding: EdgeInsets.all(2),
+          labelPadding: EdgeInsets.zero,
+          shape: CircleBorder(),
+          side: BorderSide(width: 2),
+        ),
         automaticallyImplyLeading: false,
         title: Text(
           TextConstant.connect,

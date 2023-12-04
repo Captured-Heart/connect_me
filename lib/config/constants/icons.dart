@@ -25,5 +25,6 @@ const IconData twitterIcon = EvaIcons.twitter_outline;
 const IconData telegramIcon = LineAwesome.telegram;
 const IconData linkedInIcon = LineAwesome.linkedin_in;
 const IconData whatsappIcon = IonIcons.logo_whatsapp;
+const IconData qrCodeIcon = HeroIcons.qr_code;
 
 const IconData checkCircleIcon = Icons.check_circle;

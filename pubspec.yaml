@@ -19,6 +19,7 @@ dependencies:
   google_fonts: ^6.1.0
   icons_plus: ^4.0.0
   intl: ^0.18.1
+  qr_flutter: ^4.1.0
   rename: ^3.0.1
   shared_preferences: ^2.2.2
   shimmer: ^3.0.0

@@ -59,3 +59,44 @@ void showScaffoldSnackBarMessageNoColor(
         duration: Duration(seconds: duration ?? 1),
       ),
     );
+
+Future<void> showDialogForQrCodes(
+  BuildContext context, {
+  String? title,
+  Widget? content,
+}) async {
+  return showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        titleTextStyle: context.textTheme.bodyLarge,
+        title: title != null
+            ? Text(
+                title,
+                textScaleFactor: 1.1,
+                textAlign: TextAlign.center,
+              ).padOnly(bottom: 10)
+            : null,
+        content: content,
+
+        contentPadding: const EdgeInsets.only(top: 5),
+        actionsAlignment: MainAxisAlignment.spaceAround,
+        contentTextStyle: context.theme.textTheme.bodyMedium,
+        // actionsPadding: EdgeInsets.zero,
+        // actions: [
+        // TextButton(
+        //     onPressed: onNegativeAction ??
+        //         () {
+        //           pop(context);
+        //         },
+        //     style: TextButton.styleFrom(foregroundColor: TagoLight.textError),
+        //     child: const Text(TextConstant.cancel)),
+        // TextButton(onPressed: onPostiveAction, child: const Text(TextConstant.confirm))
+        // ],
+      );
+    },
+  );
+}

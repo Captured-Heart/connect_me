@@ -24,7 +24,7 @@ class GradientLongBTN extends StatelessWidget {
           elevation: 0,
         ),
         child: Text(
-          'Follow',
+          'Connect',
           style: context.textTheme.bodyLarge?.copyWith(
             fontWeight: AppFontWeight.w600,
             color: AppThemeColorDark.textDark,

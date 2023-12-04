@@ -3,18 +3,21 @@ import 'package:connect_me/app.dart';
 class ProfilePicWidget extends StatelessWidget {
   const ProfilePicWidget({
     super.key,
+    this.withoutBorder = false,
   });
 
+  final bool withoutBorder;
   @override
   Widget build(BuildContext context) {
     return Container(
-      clipBehavior: Clip.antiAlias,
       padding: AppEdgeInsets.eA2,
-      decoration: BoxDecoration(
-        gradient: orangeGradient(isLongBTN: true),
-        borderRadius: AppBorderRadius.c32,
-        // border: Border.all(color: Colors.red)
-      ),
+      decoration: withoutBorder == true
+          ? null
+          : BoxDecoration(
+              gradient: orangeGradient(isLongBTN: true),
+              borderRadius: AppBorderRadius.c32,
+              // border: Border.all(color: Colors.red)
+            ),
       child: SizedBox(
         height: 90,
         width: 90,

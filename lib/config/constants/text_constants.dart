@@ -50,6 +50,10 @@ abstract class TextConstant {
 -----------------------------------------------------------------------*/
   static const download = 'Download';
   static const connect = 'Connect';
+  static const home = 'Home';
+  static const profile = 'Profile';
+  static const addViaQr = 'Add via QrCode';
+
   /*----------------------------------------------------------------------
       PROFILE SCREEN
 -----------------------------------------------------------------------*/
