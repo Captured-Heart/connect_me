@@ -1,0 +1,53 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+
+        
+      
+        {
+            "name": "captured_android_adb",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/main.dart",
+            "deviceId": "192.168.43.1:1031"
+
+        },
+        {
+            "name": "captured_android_physical",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/main.dart",
+            "deviceId": "2b13b1a5e91c7ece"
+
+        },
+        
+        {
+            "name": "ios_device_simulator",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/main.dart",
+            "deviceId": "A5E8313B-433D-47AC-AEFF-FC8244D52DB7"
+
+        },
+        {
+            "name": "android_device_simulator",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/main.dart",
+            "deviceId": "emulator-5554"
+        },
+        
+       
+    ],
+    "compounds": [
+        {
+            "name": "All Devices",
+            "configurations": [
+                "ios_device_simulator",
+                "captured_android_physical",
+                "captured_android_adb",
+                "android_device_simulator",
+            ],
+        }
+    ]
+  }

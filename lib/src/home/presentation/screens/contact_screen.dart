@@ -1,5 +1,4 @@
 import 'package:connect_me/app.dart';
-import 'package:faker/faker.dart';
 
 class ContactScreen extends ConsumerWidget {
   const ContactScreen({super.key});

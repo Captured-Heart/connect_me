@@ -19,14 +19,18 @@ CachedNetworkImage cachedNetworkImageWidget({
           ? const Center(
               child: CircularProgressIndicator.adaptive(),
             )
-          : shimmerWidget(
-              child: Container(
-                alignment: Alignment.center,
-                height: height,
-                width: width ?? context.sizeWidth(1),
-                decoration: BoxDecoration(
-                  color: AppThemeColorDark.indicatorActiveColor,
-                  borderRadius: BorderRadius.circular(20),
+          : ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: shimmerWidget(
+                child: Container(
+                  alignment: Alignment.center,
+                  margin: AppEdgeInsets.eA8,
+                  height: height,
+                  width: width ?? context.sizeWidth(1),
+                  decoration: BoxDecoration(
+                    color: AppThemeColorDark.indicatorActiveColor,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
                 ),
               ),
             );
@@ -51,7 +55,7 @@ Widget circleCacheNetworkImage({
   String? imgUrl,
   required double height,
   double? width,
-  bool ? isNotCircle = false,
+  bool? isNotCircle = false,
   BorderRadiusGeometry? borderRadius,
 }) {
   return CachedNetworkImage(
@@ -66,10 +70,11 @@ Widget circleCacheNetworkImage({
         width: width,
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
-          shape: isNotCircle == true ? BoxShape.rectangle :  BoxShape.circle,
+          shape: isNotCircle == true ? BoxShape.rectangle : BoxShape.circle,
           borderRadius: borderRadius,
           image: DecorationImage(
-            image: CachedNetworkImageProvider(imgUrl ?? ImagesConstant.noImagePlaceholderHttp,scale: 0.8),
+            image: CachedNetworkImageProvider(imgUrl ?? ImagesConstant.noImagePlaceholderHttp,
+                scale: 0.8),
             fit: BoxFit.fill,
           ),
         ),

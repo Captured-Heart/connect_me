@@ -12,6 +12,11 @@ export 'package:shared_preferences/shared_preferences.dart';
 export 'package:icons_plus/icons_plus.dart';
 export 'package:google_fonts/google_fonts.dart';
 export 'package:qr_flutter/qr_flutter.dart';
+export 'package:animate_do/animate_do.dart';
+export 'package:awesome_dialog/awesome_dialog.dart';
+export 'package:status_view/status_view.dart';
+export 'package:flutter_speed_dial/flutter_speed_dial.dart';
+export 'package:faker/faker.dart';
 
 
 // CONFIG
