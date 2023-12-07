@@ -46,3 +46,5 @@ app.*.map.json
 # "JSON to Dart Model" generator tracker files locations.
 /.json_models/
 models.jsonc
+/android/app/google-services.json
+/ios/firebase_app_id_file.json
