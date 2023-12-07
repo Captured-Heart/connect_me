@@ -14,9 +14,8 @@ class CustomTabBar extends StatelessWidget implements PreferredSizeWidget {
         gradient: whiteGradient(context: context),
         borderRadius: BorderRadius.circular(15),
       ),
-    
       child: Card(
-        margin: EdgeInsets.symmetric(horizontal: 1, vertical: 1),
+        margin: const EdgeInsets.symmetric(horizontal: 1, vertical: 1),
         shape: RoundedRectangleBorder(
           side: BorderSide(width: 0.3, color: context.theme.primaryColor),
           borderRadius: BorderRadius.circular(15),
@@ -53,6 +52,5 @@ class CustomTabBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  // TODO: implement preferredSize
-  Size get preferredSize => Size.fromHeight(50);
+  Size get preferredSize => const Size.fromHeight(50);
 }

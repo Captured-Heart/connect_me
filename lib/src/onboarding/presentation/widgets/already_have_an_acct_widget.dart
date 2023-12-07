@@ -16,7 +16,9 @@ class AlreadyHaveAnAcctWidget extends StatelessWidget {
       children: [
         Flexible(
           child: AutoSizeText(
-            isFrontOfCard == true ? TextConstant.alreadyHaveAnAcct : TextConstant.dontHaveAnAcct,
+            isFrontOfCard == true
+                ? TextConstant.alreadyHaveAnAcct
+                : TextConstant.dontHaveAnAcct,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),

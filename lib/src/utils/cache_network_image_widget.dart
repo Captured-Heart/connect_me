@@ -73,7 +73,8 @@ Widget circleCacheNetworkImage({
           shape: isNotCircle == true ? BoxShape.rectangle : BoxShape.circle,
           borderRadius: borderRadius,
           image: DecorationImage(
-            image: CachedNetworkImageProvider(imgUrl ?? ImagesConstant.noImagePlaceholderHttp,
+            image: CachedNetworkImageProvider(
+                imgUrl ?? ImagesConstant.noImagePlaceholderHttp,
                 scale: 0.8),
             fit: BoxFit.fill,
           ),

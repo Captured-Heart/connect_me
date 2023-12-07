@@ -1,9 +1,14 @@
 import 'package:connect_me/app.dart';
+import 'package:connect_me/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final container = ProviderContainer(
     observers: <ProviderObserver>[AppProviderObserver()],
+  );
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(
     UncontrolledProviderScope(

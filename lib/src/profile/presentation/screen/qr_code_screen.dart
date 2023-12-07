@@ -14,9 +14,12 @@ class QrCodeScreen extends ConsumerWidget {
           QrImageView(
             data: 'data is life forget it',
             backgroundColor: context.colorScheme.onSurface,
-            eyeStyle: QrEyeStyle(color: context.colorScheme.surface, eyeShape: QrEyeShape.square),
+            eyeStyle: QrEyeStyle(
+                color: context.colorScheme.surface,
+                eyeShape: QrEyeShape.square),
             dataModuleStyle: QrDataModuleStyle(
-                color: context.colorScheme.surface, dataModuleShape: QrDataModuleShape.circle),
+                color: context.colorScheme.surface,
+                dataModuleShape: QrDataModuleShape.circle),
             version: 3,
             size: 200,
             gapless: false,

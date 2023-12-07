@@ -17,14 +17,17 @@ export 'package:awesome_dialog/awesome_dialog.dart';
 export 'package:status_view/status_view.dart';
 export 'package:flutter_speed_dial/flutter_speed_dial.dart';
 export 'package:faker/faker.dart';
+export 'package:dartz/dartz.dart' hide State;
 
+//FIREBASE SERVICES
+export 'package:firebase_auth/firebase_auth.dart';
+export 'package:google_sign_in/google_sign_in.dart';
 
 // CONFIG
 export './config/config.dart';
 export './src/utils/utils.dart';
-
 // fFEATURES
 export './main.dart';
-export './src/onboarding/onboarding.dart';
 export './src/home/home.dart';
 export './src/profile/profile.dart';
+export './src/onboarding/onboarding.dart';

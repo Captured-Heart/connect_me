@@ -6,6 +6,19 @@ final bottomNavBarIndexProvider = StateProvider<int>((ref) {
 
 class MainScreen extends ConsumerWidget {
   const MainScreen({super.key});
+  Widget bodyWidget({required int currentIndex}) {
+    switch (currentIndex) {
+      case 0:
+        return HomeScreen();
+      case 1:
+        return const ProfileScreen();
+      case 2:
+        return const ContactScreen();
+
+      default:
+        return HomeScreen();
+    }
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -27,9 +40,14 @@ class MainScreen extends ConsumerWidget {
             label: TextConstant.profile,
             tooltip: TextConstant.profile,
           ),
+          BottomNavigationBarItem(
+            icon: Icon(IonIcons.ellipsis_horizontal_circle_sharp),
+            label: TextConstant.more,
+            tooltip: TextConstant.more,
+          ),
         ],
       ),
-      body: currentIndex < 1 ? HomeScreen() : const ProfileScreen(),
+      body: bodyWidget(currentIndex: currentIndex),
     );
   }
 }

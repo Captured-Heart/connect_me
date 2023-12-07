@@ -47,7 +47,8 @@ String dateFormattedWithSlash(DateTime dateTime) {
 String timeFormatted(TimeOfDay time) {
   var now = DateTime.now();
 
-  var formatter = DateTime(now.year, now.month, now.day, time.hour, time.minute);
+  var formatter =
+      DateTime(now.year, now.month, now.day, time.hour, time.minute);
   return DateFormat().add_jm().format(formatter);
 }
 

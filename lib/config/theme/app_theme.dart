@@ -5,8 +5,10 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'theme.dart';
 
-const Color _kPrimaryLightColor = Color(0xFFE57373); //New: 0xFFE57373  //prev: 0xFF00aff0
-const Color _kPrimaryDarkColor = Color.fromARGB(255, 232, 234, 237); // prev: 0xFF0905f7 //like1: 0xFFE8ECED
+const Color _kPrimaryLightColor =
+    Color(0xFFE57373); //New: 0xFFE57373  //prev: 0xFF00aff0
+const Color _kPrimaryDarkColor =
+    Color.fromARGB(255, 232, 234, 237); // prev: 0xFF0905f7 //like1: 0xFFE8ECED
 const Color _kBackgroundDarkColor = Color(0xFF070707); //prev: 0xFF070707
 // ignore: prefer_int_literals
 const double _kIconSize = 20.0;
@@ -31,7 +33,8 @@ ThemeData themeBuilder({
     seedColor: isDark ? _kPrimaryDarkColor : _kPrimaryLightColor,
     brightness: brightness,
   );
-  final Color scaffoldBackgroundColor = isDark ? _kBackgroundDarkColor : colorScheme.background;
+  final Color scaffoldBackgroundColor =
+      isDark ? _kBackgroundDarkColor : colorScheme.background;
 
   const OutlineInputBorder textFieldBorder = OutlineInputBorder(
     borderSide: BorderSide.none,

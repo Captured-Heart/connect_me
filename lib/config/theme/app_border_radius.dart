@@ -16,12 +16,8 @@ class AppBorderRadius {
   static const BorderRadius c28 = BorderRadius.all(Radius.circular(28));
   static const BorderRadius c30 = BorderRadius.all(Radius.circular(30));
 
-
-
-
   static const BorderRadius c32 = BorderRadius.all(Radius.circular(32));
   static const BorderRadius c48 = BorderRadius.all(Radius.circular(48));
-
 }
 
 class AppEdgeInsets {

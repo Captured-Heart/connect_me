@@ -24,17 +24,20 @@ void popAndPush(BuildContext context, Widget child) {
 
 //push_replacement
 void pushReplacement(BuildContext context, Widget child) =>
-    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => child));
+    Navigator.of(context)
+        .pushReplacement(MaterialPageRoute(builder: (context) => child));
 //push_replacement_named
 void pushReplaceNamed(BuildContext context, String routeName, {Object? args}) =>
     Navigator.pushReplacementNamed(context, routeName);
 //pop until main
-void popToMain(BuildContext context) => Navigator.of(context).popUntil((route) => route.isFirst);
+void popToMain(BuildContext context) =>
+    Navigator.of(context).popUntil((route) => route.isFirst);
 
 //.ofContext POP
 void pop(BuildContext context) => Navigator.of(context).pop();
 //.oFContext with rootNavigator POP
-void popRootNavigatorTrue(BuildContext context) => Navigator.of(context, rootNavigator: true).pop();
+void popRootNavigatorTrue(BuildContext context) =>
+    Navigator.of(context, rootNavigator: true).pop();
 
 //.ofContext PUSH with root navigator == true
 void pushReplacementOnRootNav(BuildContext context, Widget child) =>
@@ -52,4 +55,4 @@ void pushReplacementOnRootNav(BuildContext context, Widget child) =>
 //       screen: child,
 //       withNavBar: withNavBar,
 //       pageTransitionAnimation: PageTransitionAnimation.cupertino,
-    // );
+// );

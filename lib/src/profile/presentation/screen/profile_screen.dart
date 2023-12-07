@@ -1,5 +1,4 @@
 import 'package:connect_me/app.dart';
-import 'package:faker/faker.dart';
 
 // ignore: must_be_immutable
 class ProfileScreen extends StatefulWidget {
@@ -98,94 +97,93 @@ class AboutMeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      // controller: controller,
-      padding: offset! > 230 ? const EdgeInsets.only(top: 70) : EdgeInsets.zero,
-      children: [
-        Card(
-          elevation: 5,
-          child: Column(
-            // physics: NeverScrollableScrollPhysics(),
-            children: [
-              SizedBox(
-                width: double.infinity,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        pushAsVoid(context, QrCodeScreen());
-                      },
-                      child: GradientShortBTN(
+        // controller: controller,
+        padding: offset! > 230 ? const EdgeInsets.only(top: 70) : EdgeInsets.zero,
+        children: [
+          Card(
+            elevation: 5,
+            child: Column(
+              // physics: NeverScrollableScrollPhysics(),
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          pushAsVoid(context, QrCodeScreen());
+                        },
+                        child: GradientShortBTN(
+                          iconData: mailIcon,
+                          iconSize: 21,
+                        ),
+                      ),
+                      GradientShortBTN(
+                        iconData: twitterIcon,
+                        iconSize: 28,
+                      ),
+                      GradientShortBTN(
+                        iconData: whatsappIcon,
+                      ),
+                      GradientShortBTN(
+                        iconData: telegramIcon,
+                      ),
+                    ].rowInPadding(15),
+                  ),
+                ).padAll(10),
+                Text(
+                  faker.lorem.sentences(10).toString(),
+                  textAlign: TextAlign.justify,
+                  softWrap: true,
+                )
+              ],
+            ).padOnly(
+              left: 12,
+              right: 12,
+              bottom: 15,
+            ),
+          ),
+          Card(
+            elevation: 5,
+            child: Column(
+              // physics: NeverScrollableScrollPhysics(),
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      GradientShortBTN(
                         iconData: mailIcon,
                         iconSize: 21,
                       ),
-                    ),
-                    GradientShortBTN(
-                      iconData: twitterIcon,
-                      iconSize: 28,
-                    ),
-                    GradientShortBTN(
-                      iconData: whatsappIcon,
-                    ),
-                    GradientShortBTN(
-                      iconData: telegramIcon,
-                    ),
-                  ].rowInPadding(15),
-                ),
-              ).padAll(10),
-              Text(
-                faker.lorem.sentences(10).toString(),
-                textAlign: TextAlign.justify,
-                softWrap: true,
-              )
-            ],
-          ).padOnly(
-            left: 12,
-            right: 12,
-            bottom: 15,
+                      GradientShortBTN(
+                        iconData: twitterIcon,
+                        iconSize: 28,
+                      ),
+                      GradientShortBTN(
+                        iconData: whatsappIcon,
+                      ),
+                      GradientShortBTN(
+                        iconData: telegramIcon,
+                      ),
+                    ].rowInPadding(15),
+                  ),
+                ).padAll(10),
+                Text(
+                  faker.lorem.sentences(10).toString(),
+                  textAlign: TextAlign.justify,
+                  softWrap: true,
+                )
+              ],
+            ).padOnly(
+              left: 12,
+              right: 12,
+              bottom: 15,
+            ),
           ),
-        ),
-        Card(
-          elevation: 5,
-          child: Column(
-            // physics: NeverScrollableScrollPhysics(),
-            children: [
-              SizedBox(
-                width: double.infinity,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    GradientShortBTN(
-                      iconData: mailIcon,
-                      iconSize: 21,
-                    ),
-                    GradientShortBTN(
-                      iconData: twitterIcon,
-                      iconSize: 28,
-                    ),
-                    GradientShortBTN(
-                      iconData: whatsappIcon,
-                    ),
-                    GradientShortBTN(
-                      iconData: telegramIcon,
-                    ),
-                  ].rowInPadding(15),
-                ),
-              ).padAll(10),
-              Text(
-                faker.lorem.sentences(10).toString(),
-                textAlign: TextAlign.justify,
-                softWrap: true,
-              )
-            ],
-          ).padOnly(
-            left: 12,
-            right: 12,
-            bottom: 15,
-          ),
-        ),
-      ].columnInPadding(7)
-    );
+        ].columnInPadding(7));
   }
 }
 

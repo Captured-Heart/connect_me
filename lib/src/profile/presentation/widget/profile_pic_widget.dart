@@ -25,7 +25,8 @@ class ProfilePicWidget extends StatelessWidget {
         child: Card(
             elevation: 5,
             margin: EdgeInsets.zero,
-            shape: const RoundedRectangleBorder(borderRadius: AppBorderRadius.c32),
+            shape:
+                const RoundedRectangleBorder(borderRadius: AppBorderRadius.c32),
             child: circleCacheNetworkImage(
               imgUrl: ImagesConstant.imgPlaceholderHttp,
               height: 100,

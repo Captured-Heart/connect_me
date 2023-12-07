@@ -31,7 +31,8 @@ Widget authTextFieldWidget({
       ? InputBorder.none
       : OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(width: 0.3, color: context.theme.textTheme.bodyMedium!.color!),
+          borderSide: BorderSide(
+              width: 0.3, color: context.theme.textTheme.bodyMedium!.color!),
         );
 
   return Column(
@@ -65,7 +66,8 @@ Widget authTextFieldWidget({
           // style: AppTextStyle.bodyMedium,
           inputFormatters:
               // ignore: prefer_single_quotes
-              inputFormatters ?? [FilteringTextInputFormatter.deny(RegExp(r"\s\b|\b\s"))],
+              inputFormatters ??
+                  [FilteringTextInputFormatter.deny(RegExp(r"\s\b|\b\s"))],
           decoration: InputDecoration(
             hintText: hintText,
             prefixIcon: prefixIcon,

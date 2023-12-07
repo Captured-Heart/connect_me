@@ -1,4 +1,3 @@
-
 import 'package:connect_me/app.dart';
 
 class EmailAndPasswordWidget extends StatelessWidget {

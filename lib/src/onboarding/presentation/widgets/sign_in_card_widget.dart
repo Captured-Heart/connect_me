@@ -1,3 +1,4 @@
+import 'dart:developer';
 
 import 'package:connect_me/app.dart';
 
@@ -14,7 +15,6 @@ class SignInCardWidget extends StatelessWidget {
           //logo
           Column(
             children: [
-             
               Ink(
                 decoration: BoxDecoration(
                   borderRadius: AppBorderRadius.c12,
@@ -44,10 +44,20 @@ class SignInCardWidget extends StatelessWidget {
           ),
 
           //sign in with google btn
-          socialButtons(
-            iconData: googleIcon,
-            text: TextConstant.signInWithGoogle,
-          ),
+          Consumer(builder: (context, ref, _) {
+            final loadingstate = ref.watch(authNotifierProvider);
+            log('loading state: ${loadingstate.isLoading}, error: ${loadingstate.errorMessage}');
+            return SocialButtons(
+              iconData: googleIcon,
+              text: TextConstant.signInWithGoogle,
+              onTap: () {
+                log('message');
+                ref
+                    .read(authNotifierProvider.notifier)
+                    .createAccount(email: 'knkpozi@gmail.com', password: 'password123');
+              },
+            );
+          }),
 
           // divider with text
           Row(

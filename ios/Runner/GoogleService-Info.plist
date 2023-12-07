@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyAJORtam-OBsLm_GwcerXOIKnmSv2IX01g</string>
+	<key>GCM_SENDER_ID</key>
+	<string>43256663922</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.capturedHeart.connectMe</string>
+	<key>PROJECT_ID</key>
+	<string>connect-me-captured</string>
+	<key>STORAGE_BUCKET</key>
+	<string>connect-me-captured.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:43256663922:ios:e631777a38b1ac127b17eb</string>
+</dict>
+</plist>
