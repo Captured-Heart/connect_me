@@ -1,4 +1,5 @@
 import 'package:connect_me/app.dart';
+import 'package:flutter/gestures.dart';
 
 final flipCardControllerProvider = Provider.autoDispose<FlipCardController>((ref) {
   return FlipCardController();
@@ -13,37 +14,95 @@ class LoginScreen extends ConsumerStatefulWidget {
 
 class _LoginScreenState extends ConsumerState<LoginScreen> {
   bool isFrontOfCard = false;
+  final PageController pageController = PageController();
   @override
   Widget build(BuildContext context) {
     final controller = ref.watch(flipCardControllerProvider);
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Align(
-              child: FlipCard(
-                controller: controller,
-                flipOnTouch: false,
-                onFlipDone: (isFront) {
-                  setState(() {
-                    isFrontOfCard = isFront;
-                  });
-                },
-                fill: Fill.fillBack,
-                back: const SignUpCardWidget().padAll(15),
-                front: const SignInCardWidget().padAll(15),
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: AlreadyHaveAnAcctWidget(
-                controller: controller,
-                isFrontOfCard: isFrontOfCard,
-              ),
-            )
-          ],
+    final isLoading = ref.watch(authNotifierProvider).isLoading;
+    return FullScreenLoader(
+      isLoading: isLoading,
+      child: Scaffold(
+        resizeToAvoidBottomInset: true,
+        body: SafeArea(
+          child: PageView.custom(
+              controller: pageController,
+              physics: const NeverScrollableScrollPhysics(),
+              childrenDelegate: SliverChildListDelegate.fixed(
+                [
+                  Center(
+                    child: ListView(
+                      shrinkWrap: true,
+                      dragStartBehavior: DragStartBehavior.start,
+                      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+                      // mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        FlipCard(
+                          controller: controller,
+                          flipOnTouch: false,
+                          direction: FlipDirection.HORIZONTAL,
+                          onFlipDone: (isFront) {
+                            setState(() {
+                              isFrontOfCard = isFront;
+                            });
+                          },
+                          fill: Fill.fillBack,
+                          back: SignUpCardWidget(
+                            key: const Key('sign-up_key'),
+                          ).padAll(15),
+                          front: SignInCardWidget(
+                            key: const Key('sign-in_key'),
+                            pageController: pageController,
+                          ).padAll(15),
+                        ),
+                        AlreadyHaveAnAcctWidget(
+                          controller: controller,
+                          isFrontOfCard: isFrontOfCard,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Column(
+                    key: UniqueKey(),
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ForgotPasswordCard(
+                        pageController: pageController,
+                      ),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Flexible(
+                            child: Flash(
+                              duration: const Duration(seconds: 3),
+                              animate: true,
+                              infinite: true,
+                              child: const Icon(
+                                Icons.arrow_back,
+                                size: 23,
+                              ),
+                            ),
+                          ),
+                          Flexible(
+                            child: GestureDetector(
+                              onTap: () {
+                                pageController.jumpToPage(0);
+                              },
+                              child: AutoSizeText(
+                                TextConstant.returnToLogin,
+                                style: context.textTheme.bodyMedium?.copyWith(
+                                  decoration: TextDecoration.underline,
+                                ),
+                                maxLines: 1,
+                              ),
+                            ),
+                          )
+                        ].rowInPadding(10),
+                      ),
+                    ].columnInPadding(10),
+                  ).padSymmetric(horizontal: 10),
+                ],
+              )),
         ),
       ),
     );

@@ -17,7 +17,13 @@ export 'package:awesome_dialog/awesome_dialog.dart';
 export 'package:status_view/status_view.dart';
 export 'package:flutter_speed_dial/flutter_speed_dial.dart';
 export 'package:faker/faker.dart';
-export 'package:dartz/dartz.dart' hide State;
+export 'package:dartz/dartz.dart' hide State, Order;
+export 'package:lottie/lottie.dart';
+export 'package:cloud_firestore/cloud_firestore.dart';
+export 'package:qr_code_scanner/qr_code_scanner.dart';
+
+
+
 
 //FIREBASE SERVICES
 export 'package:firebase_auth/firebase_auth.dart';

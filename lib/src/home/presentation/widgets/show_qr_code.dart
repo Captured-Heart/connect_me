@@ -21,23 +21,22 @@ Future<void> showAwesomeQrDilaogs(BuildContext context) async {
         QrImageView(
           data: 'data is life forget it',
           backgroundColor: context.colorScheme.onSurface,
-          eyeStyle: QrEyeStyle(
-              color: context.colorScheme.surface, eyeShape: QrEyeShape.square),
+          eyeStyle: QrEyeStyle(color: context.colorScheme.surface, eyeShape: QrEyeShape.square),
           dataModuleStyle: QrDataModuleStyle(
-              color: context.colorScheme.surface,
-              dataModuleShape: QrDataModuleShape.circle),
+            color: context.colorScheme.surface,
+            dataModuleShape: QrDataModuleShape.circle,
+          ),
           version:
               // QrVersions.auto,
 
               3,
           size: 200,
           gapless: false,
-          embeddedImage: const CachedNetworkImageProvider(
-            ImagesConstant.imgPlaceholderHttp,
-            maxHeight: 40,
-            maxWidth: 40,
-          ),
-          embeddedImageStyle: QrEmbeddedImageStyle(),
+          // embeddedImage: const CachedNetworkImageProvider(
+          //   ImagesConstant.imgPlaceholderHttp,
+          //   maxHeight: 40,
+          //   maxWidth: 40,
+          // ),
         ),
       ].columnInPadding(10),
     ),

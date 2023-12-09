@@ -11,6 +11,8 @@ abstract class TextConstant {
   static const emailAddress = 'Email Address';
   static const password = 'Password';
   static const alreadyHaveAnAcct = 'Already have an account?';
+  static const returnToLogin = 'Return to login';
+
   static const signUp = 'Sign Up';
   static const or = 'or';
   static const orContinueWith = 'Or continue with';
@@ -39,9 +41,10 @@ abstract class TextConstant {
   static const confirmPassword = 'Confirm Password';
   static const updatePassword = 'Update Password';
   static const continuebtn = 'continue';
-  // static const lorem = 'or';
-  // static const lorem = 'or'; // static const lorem = 'or';
-  // static const lorem = 'or';
+  static const enterRegisteredEmail = 'Enter your registered Email';
+  static const confirm = 'Confirm'; 
+  static const cancel = 'Cancel';
+  static const ok = 'Ok';
   // static const lorem = 'or'; // static const lorem = 'or';
   // static const lorem = 'or';
   // static const lorem = 'or';

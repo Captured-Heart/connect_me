@@ -1,17 +1,18 @@
+import 'dart:developer';
+
 import 'package:connect_me/app.dart';
 
-// ignore: must_be_immutable
-class ProfileScreen extends StatefulWidget {
+class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({
     super.key,
     this.implyLeading,
   });
   final bool? implyLeading;
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
+  ConsumerState<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   final ScrollController _scrollController = ScrollController();
 
   @override
@@ -34,6 +35,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(authNotifierProvider, (previous, next) {
+      if (next.user == null) {
+        log('i popped off screen');
+        pushReplacement(context, const LoginScreen());
+      }
+    });
     return Scaffold(
       body: SafeArea(
         child: DefaultTabController(
@@ -43,7 +50,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               headerSliverBuilder: (context, innerBoxIsScrolled) {
                 return [
                   SliverAppBar(
-                    expandedHeight: context.sizeHeight(0.33),
+                    expandedHeight: context.sizeHeight(0.4),
                     collapsedHeight: kToolbarHeight,
                     automaticallyImplyLeading: offset < 238 ? widget.implyLeading ?? false : false,
                     forceMaterialTransparency: true,
@@ -76,186 +83,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 children: [
                   AboutMeWidget(
                     offset: offset,
-                  ),
+                  ).padSymmetric(horizontal: 15),
                   AboutMeWidget(
                     offset: offset,
-                  ),
+                  ).padSymmetric(horizontal: 15)
                 ],
               ),
             )),
       ),
-    );
-  }
-}
-
-class AboutMeWidget extends StatelessWidget {
-  const AboutMeWidget({
-    super.key,
-    this.offset = 0.0,
-  });
-  final double? offset;
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-        // controller: controller,
-        padding: offset! > 230 ? const EdgeInsets.only(top: 70) : EdgeInsets.zero,
-        children: [
-          Card(
-            elevation: 5,
-            child: Column(
-              // physics: NeverScrollableScrollPhysics(),
-              children: [
-                SizedBox(
-                  width: double.infinity,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          pushAsVoid(context, QrCodeScreen());
-                        },
-                        child: GradientShortBTN(
-                          iconData: mailIcon,
-                          iconSize: 21,
-                        ),
-                      ),
-                      GradientShortBTN(
-                        iconData: twitterIcon,
-                        iconSize: 28,
-                      ),
-                      GradientShortBTN(
-                        iconData: whatsappIcon,
-                      ),
-                      GradientShortBTN(
-                        iconData: telegramIcon,
-                      ),
-                    ].rowInPadding(15),
-                  ),
-                ).padAll(10),
-                Text(
-                  faker.lorem.sentences(10).toString(),
-                  textAlign: TextAlign.justify,
-                  softWrap: true,
-                )
-              ],
-            ).padOnly(
-              left: 12,
-              right: 12,
-              bottom: 15,
-            ),
-          ),
-          Card(
-            elevation: 5,
-            child: Column(
-              // physics: NeverScrollableScrollPhysics(),
-              children: [
-                SizedBox(
-                  width: double.infinity,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      GradientShortBTN(
-                        iconData: mailIcon,
-                        iconSize: 21,
-                      ),
-                      GradientShortBTN(
-                        iconData: twitterIcon,
-                        iconSize: 28,
-                      ),
-                      GradientShortBTN(
-                        iconData: whatsappIcon,
-                      ),
-                      GradientShortBTN(
-                        iconData: telegramIcon,
-                      ),
-                    ].rowInPadding(15),
-                  ),
-                ).padAll(10),
-                Text(
-                  faker.lorem.sentences(10).toString(),
-                  textAlign: TextAlign.justify,
-                  softWrap: true,
-                )
-              ],
-            ).padOnly(
-              left: 12,
-              right: 12,
-              bottom: 15,
-            ),
-          ),
-        ].columnInPadding(7));
-  }
-}
-
-class ProfileHeaderWidget extends StatelessWidget {
-  const ProfileHeaderWidget({
-    super.key,
-    // required this.controller,
-  });
-
-  // final ScrollController controller;
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        //profile picture
-        const Center(
-          child: ProfilePicWidget(),
-        ),
-        customListTileWidget(
-          context: context,
-          title: faker.person.name(),
-          subtitle: faker.person.name(),
-        ),
-
-        // stats for /// [following] [posts]
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            customListTileWidget(
-              context: context,
-              title: '15',
-              subtitle: TextConstant.posts,
-            ),
-            customListTileWidget(
-              context: context,
-              title: '15',
-              subtitle: TextConstant.followers,
-            ),
-            customListTileWidget(
-              context: context,
-              title: '15',
-              subtitle: TextConstant.following,
-            ),
-          ],
-        ),
-
-        Row(
-          children: const [
-            Expanded(
-              child: GradientLongBTN(),
-            ),
-            GradientShortBTN(
-              isWhiteGradient: true,
-              isThinBorder: true,
-              height: 45,
-              iconData: chatIcon,
-              iconSize: 23,
-            ),
-          ].rowInPadding(20),
-        ),
-        // const CustomTabBar(
-        //   tabs: [
-        //     Tab(
-        //       text: TextConstant.posts,
-        //     ),
-        //     Tab(
-        //       text: TextConstant.about,
-        //     ),
-        //   ],
-        // ),
-      ].columnInPadding(15),
     );
   }
 }

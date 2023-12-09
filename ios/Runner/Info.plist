@@ -47,5 +47,22 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>GIDClientID</key>
+	<string>43256663922-cnpnklfmg6c26nio8bh1c5vp2rqv0qc5.apps.googleusercontent.com</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This app needs camera access to scan QR codes</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app needs photos access to get QR code from photo library</string>		
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>				
+				<string>com.googleusercontent.apps.43256663922-cnpnklfmg6c26nio8bh1c5vp2rqv0qc5</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>

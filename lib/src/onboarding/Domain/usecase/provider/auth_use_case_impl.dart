@@ -11,8 +11,10 @@ class AuthUseCaseImpl implements AuthUseCase {
   AuthUseCaseImpl(this._authRepository);
 
   @override
-  Future<Either<AppException, User?>> createAccount(
-      {required String email, required String password}) async {
+  Future<Either<AppException, User?>> createAccount({
+    required String email,
+    required String password,
+  }) async {
     return await _authRepository.signUpWithEmail(email: email, password: password);
   }
 
@@ -30,5 +32,14 @@ class AuthUseCaseImpl implements AuthUseCase {
   @override
   Future resetPassWord({required String email}) async {
     return await _authRepository.resetPassWord(email: email);
+  }
+
+  @override
+  Future<Either<AppException, User?>> loginWithGoogle() async {
+    try {
+      return await _authRepository.signInWithGoogle();
+    } on AppException catch (e, stackTrace) {
+      Error.throwWithStackTrace(e, stackTrace);
+    }
   }
 }

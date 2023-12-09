@@ -23,19 +23,21 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      restorationScopeId: 'connectMe',
-
-      onGenerateTitle: (context) => TextConstant.appTitle,
-      debugShowCheckedModeBanner: false,
-      // scaffoldMessengerKey: rootScaffoldMessengerKey,
-      theme: themeBuilder(
-        defaultTheme: ThemeData.light(),
-      ),
-      darkTheme: themeBuilder(
-        defaultTheme: ThemeData.dark(),
-      ),
-      home: const SplashScreen(),
-    );
+    return Consumer(builder: (context, ref, _) {
+      final user = ref.watch(authStateChangesProvider);
+      return MaterialApp(
+        restorationScopeId: 'connectMe',
+        onGenerateTitle: (context) => TextConstant.appTitle,
+        debugShowCheckedModeBanner: false,
+        scaffoldMessengerKey: rootScaffoldMessengerKey,
+        theme: themeBuilder(
+          defaultTheme: ThemeData.light(),
+        ),
+        darkTheme: themeBuilder(
+          defaultTheme: ThemeData.dark(),
+        ),
+        home: user.value?.uid != null ? const MainScreen() : const SplashScreen(),
+      );
+    });
   }
 }

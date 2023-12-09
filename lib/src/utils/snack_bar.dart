@@ -15,23 +15,26 @@ void showScaffoldSnackBarMessage(
 }) =>
     rootScaffoldMessengerKey.currentState?.showSnackBar(
       SnackBar(
-        backgroundColor: isError
-            ? AppThemeColorDark.textError.withOpacity(0.6)
-            : AppThemeColorDark.successColor,
+        backgroundColor:
+            isError ? AppThemeColorDark.textError.withOpacity(0.6) : AppThemeColorDark.successColor,
         content: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(
               isError ? Icons.cancel_outlined : Icons.check_circle,
-              color: isError
-                  ? AppThemeColorDark.textError
-                  : AppThemeColorDark.textDark,
-              size: 35,
-            ),
+              color: AppThemeColorDark.textDark,
+              size: 23,
+            ).padSymmetric(horizontal: 5),
             Expanded(
               child: Text(
-                message,
+                message.toTitleCase(),
                 textAlign: TextAlign.left,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: AppTextStyle.bodyLarge.copyWith(
+                  color: AppThemeColorDark.textDark,
+                ),
+                textScaleFactor: 0.85,
               ),
             ),
           ].rowInPadding(5),
@@ -49,18 +52,36 @@ void showScaffoldSnackBarMessageNoColor(
 }) =>
     rootScaffoldMessengerKey.currentState?.showSnackBar(
       SnackBar(
-        width: width ?? 200,
-        backgroundColor:
-            context.theme.snackBarTheme.backgroundColor?.withOpacity(0.3),
-        behavior: SnackBarBehavior.floating,
-        shape: const RoundedRectangleBorder(borderRadius: AppBorderRadius.c48),
-        content: AutoSizeText(
-          message,
-          textAlign: TextAlign.center,
-          maxLines: 1,
-          minFontSize: 9,
+        elevation: 0,
+        // width: width ?? context.sizeWidth(0.7),
+        // showCloseIcon: true,
+        margin: EdgeInsets.only(
+          bottom: context.sizeHeight(0.82),
+          left: context.sizeWidth(0.15),
+          right: context.sizeWidth(0.15),
         ),
-        duration: Duration(seconds: duration ?? 1),
+        // closeIconColor: context.colorScheme.onSurface,
+        backgroundColor: !isError
+            ? AppThemeColorDark.successColor.withOpacity(0.8)
+            : AppThemeColorDark.textError.withOpacity(0.8),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: AppBorderRadius.c48,
+          side: BorderSide(
+            color: context.colorScheme.primary,
+            width: 0.3,
+          ),
+        ),
+        content: AutoSizeText(
+          message.toTitleCase(),
+          textAlign: TextAlign.center,
+          maxLines: 2,
+          minFontSize: 8,
+          maxFontSize: 12,
+          overflow: TextOverflow.ellipsis,
+          style: context.textTheme.bodyLarge?.copyWith(color: AppThemeColorDark.textDark),
+        ),
+        duration: Duration(seconds: duration ?? 2),
       ),
     );
 

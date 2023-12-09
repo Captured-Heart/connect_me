@@ -28,3 +28,7 @@ const IconData whatsappIcon = IonIcons.logo_whatsapp;
 const IconData qrCodeIcon = HeroIcons.qr_code;
 
 const IconData checkCircleIcon = Icons.check_circle;
+const IconData logOutIcon = Bootstrap.power;
+
+const IconData showPasswordIcon = Icons.visibility;
+const IconData hidePasswordIcon = Icons.visibility_off;

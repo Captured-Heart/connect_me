@@ -45,8 +45,8 @@
             "configurations": [
                 "ios_device_simulator",
                 "captured_android_physical",
-                "captured_android_adb",
-                "android_device_simulator",
+                // "captured_android_adb",
+                // "android_device_simulator",
             ],
         }
     ]
