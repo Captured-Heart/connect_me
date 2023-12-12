@@ -4,6 +4,17 @@ abstract class ImagesConstant {
   static const String lottieForgotPasswordImg = 'assets/images/lottie_forgot_password.json';
   static const String appLogoBrown = 'assets/images/aboutMeLogo_brown.png'; //
   static const String noImagePlaceholder = 'assets/images/No-Image-Placeholder.png';
+  static const String darkBG = 'assets/images/dark_bg.jpeg';
+  static const String leafBG = 'assets/images/leaf_bg.jpeg';
+  static const String puzzleBG1 = 'assets/images/puzzle_bg1.jpeg';
+  static const String puzzleBG3 = 'assets/images/puzzleBG3.jpeg';
+
+  static const String puzzleBG2 = 'assets/images/puzzle_bg2.jpeg';
+  static const String waterBG = 'assets/images/waterBG.jpeg';
+  static const String waterBG2 = 'assets/images/waterBG2.jpeg';
+
+
+//
   static const String noImagePlaceholderHttp =
       'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/660px-No-Image-Placeholder.svg.png?20200912122019';
   static const String imgPlaceholderHttp =

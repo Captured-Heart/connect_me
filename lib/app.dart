@@ -21,6 +21,7 @@ export 'package:dartz/dartz.dart' hide State, Order;
 export 'package:lottie/lottie.dart';
 export 'package:cloud_firestore/cloud_firestore.dart';
 export 'package:qr_code_scanner/qr_code_scanner.dart';
+export 'package:share_plus/share_plus.dart';
 
 
 
@@ -37,3 +38,4 @@ export './main.dart';
 export './src/home/home.dart';
 export './src/profile/profile.dart';
 export './src/onboarding/onboarding.dart';
+export './src/more/more.dart';

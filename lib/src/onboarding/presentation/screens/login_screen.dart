@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:connect_me/app.dart';
 import 'package:flutter/gestures.dart';
 
@@ -23,7 +25,21 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       isLoading: isLoading,
       child: Scaffold(
         resizeToAvoidBottomInset: true,
-        body: SafeArea(
+        body:
+
+            // Container(
+            //   decoration: const BoxDecoration(
+            //     image: DecorationImage(
+            //       image: AssetImage(ImagesConstant.waterBG2),
+            //       fit: BoxFit.fitHeight,
+            //       colorFilter: ColorFilter.mode(Colors.black12, BlendMode.darken),
+            //     ),
+            //   ),
+            //   child: BackdropFilter(
+            //     filter: ImageFilter.blur(sigmaX: 0.3, sigmaY: 0.5),
+            //     child:
+
+            SafeArea(
           child: PageView.custom(
               controller: pageController,
               physics: const NeverScrollableScrollPhysics(),
@@ -103,6 +119,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   ).padSymmetric(horizontal: 10),
                 ],
               )),
+          //     ),
+          //   ),
         ),
       ),
     );

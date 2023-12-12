@@ -1,6 +1,7 @@
 {
     "version": "0.2.0",
     "configurations": [
+    
 
         
       
@@ -36,6 +37,14 @@
             "program": "lib/main.dart",
             "deviceId": "emulator-5554"
         },
+
+        {
+            "name": "ios_physical_device",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/main.dart",
+            "deviceId": "00008020-001A2D183A42002E"
+        },
         
        
     ],
@@ -45,7 +54,7 @@
             "configurations": [
                 "ios_device_simulator",
                 "captured_android_physical",
-                // "captured_android_adb",
+                "ios_physical_device",
                 // "android_device_simulator",
             ],
         }

@@ -3,7 +3,7 @@ import 'package:connect_me/app.dart';
 Column customListTileWidget({
   required BuildContext context,
   required String title,
-  required String subtitle,
+  String? subtitle,
 }) {
   return Column(
     mainAxisSize: MainAxisSize.min,
@@ -14,14 +14,16 @@ Column customListTileWidget({
         style: context.textTheme.bodyLarge,
         textScaleFactor: 0.95,
       ),
-      AutoSizeText(
-        subtitle,
-        maxLines: 1,
-        textScaleFactor: 0.95,
-        style: context.textTheme.bodySmall?.copyWith(
-          color: context.colorScheme.onSurface.withOpacity(0.85),
-        ),
-      ),
+      subtitle == null
+          ? const SizedBox.shrink()
+          : AutoSizeText(
+              '@$subtitle',
+              maxLines: 1,
+              textScaleFactor: 0.95,
+              style: context.textTheme.bodySmall?.copyWith(
+                color: context.colorScheme.onSurface.withOpacity(0.85),
+              ),
+            ),
     ],
   );
 }

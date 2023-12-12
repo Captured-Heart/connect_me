@@ -59,6 +59,8 @@ abstract class TextConstant {
 
   static const displayMyQrCode = 'Display My QrCode';
   static const scanQr = 'Scan QrCode';
+  static const shareProfile = 'Share Profile';
+
 
   /*----------------------------------------------------------------------
       PROFILE SCREEN

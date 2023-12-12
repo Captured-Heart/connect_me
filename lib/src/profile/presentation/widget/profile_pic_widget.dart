@@ -23,17 +23,17 @@ class ProfilePicWidget extends StatelessWidget {
         width: 90,
         // width: double.minPositive,
         child: Card(
-            elevation: 5,
-            margin: EdgeInsets.zero,
-            shape:
-                const RoundedRectangleBorder(borderRadius: AppBorderRadius.c32),
-            child: circleCacheNetworkImage(
-              imgUrl: ImagesConstant.imgPlaceholderHttp,
-              height: 100,
-              width: context.sizeWidth(0.2),
-              isNotCircle: true,
-              borderRadius: AppBorderRadius.c28,
-            ).padAll(6)),
+          elevation: 5,
+          margin: EdgeInsets.zero,
+          shape: const RoundedRectangleBorder(borderRadius: AppBorderRadius.c32),
+          child: circleCacheNetworkImage(
+            imgUrl: ImagesConstant.imgPlaceholderHttp,
+            height: 100,
+            width: context.sizeWidth(0.2),
+            isNotCircle: true,
+            borderRadius: AppBorderRadius.c28,
+          ).padAll(6),
+        ),
       ),
     );
   }

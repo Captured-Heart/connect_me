@@ -48,7 +48,7 @@ class _QrCodeScreenState extends ConsumerState<QrCodeScreen> {
       body: Column(
         children: [
           QrImageView(
-            data: 'data is life forget it',
+            data: 'data jfutukftkuyfyg ygluyigui',
             backgroundColor: context.colorScheme.onSurface,
             eyeStyle: QrEyeStyle(color: context.colorScheme.surface, eyeShape: QrEyeShape.square),
             dataModuleStyle: QrDataModuleStyle(

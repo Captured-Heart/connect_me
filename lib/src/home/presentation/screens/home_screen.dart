@@ -20,7 +20,7 @@ class HomeScreen extends ConsumerWidget {
             label: TextConstant.displayMyQrCode,
             backgroundColor: Colors.blue,
             onTap: () {
-              showAwesomeQrDilaogs(context);
+              // showAwesomeQrDilaogs(context);
             },
           ),
           SpeedDialChild(

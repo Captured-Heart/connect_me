@@ -3,7 +3,9 @@ import 'package:connect_me/app.dart';
 class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
   const HomeScreenAppBar({
     super.key,
+    this.hideTitle = false,
   });
+  final bool hideTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -11,8 +13,8 @@ class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       backgroundColor: context.theme.scaffoldBackgroundColor,
       centerTitle: true,
-
       // leading in appbar
+      leadingWidth: 80,
       leading: GestureDetector(
         onTap: () {
           pushAsVoid(
@@ -40,19 +42,29 @@ class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       automaticallyImplyLeading: false,
-      title: Text(
-        TextConstant.connect,
-        style: context.textTheme.titleLarge?.copyWith(
-          fontWeight: AppFontWeight.w600,
-        ),
-      ),
+      title: hideTitle == true
+          ? null
+          : Text(
+              TextConstant.connect,
+              style: context.textTheme.titleLarge?.copyWith(
+                fontWeight: AppFontWeight.w600,
+              ),
+            ),
       actions: [
-        Chip(
-          label: const Icon(notificationIcon),
-          shape: const CircleBorder(),
-          side: BorderSide(width: 0.5, color: context.colorScheme.onSurface),
+        GestureDetector(
+          onTap: () {
+            pushAsVoid(
+              context,
+              const QrCodeScreen(),
+            );
+          },
+          child: Chip(
+            label: const Icon(notificationIcon),
+            shape: const CircleBorder(),
+            side: BorderSide(width: 0.5, color: context.colorScheme.onSurface),
+          ),
         ),
-      ],
+      ].rowInPadding(10),
     );
   }
 
