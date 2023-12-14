@@ -48,6 +48,7 @@ void showScaffoldSnackBarMessageNoColor(
   bool isError = false,
   int? duration,
   double? width,
+  bool? appearsBottom = false,
   required BuildContext context,
 }) =>
     rootScaffoldMessengerKey.currentState?.showSnackBar(
@@ -56,7 +57,8 @@ void showScaffoldSnackBarMessageNoColor(
         // width: width ?? context.sizeWidth(0.7),
         // showCloseIcon: true,
         margin: EdgeInsets.only(
-          bottom: context.sizeHeight(0.82),
+          bottom: appearsBottom == true ? 0.0 : context.sizeHeight(0.8),
+          top: appearsBottom == true ? context.sizeHeight(0.8) : 0.0,
           left: context.sizeWidth(0.15),
           right: context.sizeWidth(0.15),
         ),

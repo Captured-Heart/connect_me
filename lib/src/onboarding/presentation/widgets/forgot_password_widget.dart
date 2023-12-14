@@ -11,7 +11,7 @@ class ForgotPasswordCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(textEditingControllerProvider);
-    ref.listen(authNotifierProvider, (previous, next) {
+    ref.listen(resetPasswordNotifierProvider, (previous, next) {
       if (next.errorMessage == 'reset') {
         warningDialogs(
           context: context,
@@ -87,7 +87,7 @@ class ForgotPasswordCard extends ConsumerWidget {
                 // );
                 if (forgotPassformKey.currentState!.validate()) {
                   ref
-                      .read(authNotifierProvider.notifier)
+                      .read(resetPasswordNotifierProvider.notifier)
                       .sendResetPassowrd(email: controller.emailController.text.trim());
                 }
               },

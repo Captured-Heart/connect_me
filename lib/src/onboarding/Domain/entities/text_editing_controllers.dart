@@ -15,6 +15,8 @@ class TextEditingControllerClass {
   TextEditingController confirmPassWordController = TextEditingController();
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
+
   TextEditingController genderController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController dobController = TextEditingController();
@@ -37,6 +39,7 @@ class TextEditingControllerClass {
   FocusNode phoneNoFocusMode = FocusNode();
   FocusNode passwordFocusMode = FocusNode();
   FocusNode emailFocusMode = FocusNode();
+  FocusNode userNameFocusMode = FocusNode();
 
   fieldFocusChange(
     BuildContext context, {
@@ -52,6 +55,7 @@ class TextEditingControllerClass {
   void disposeControllers() {
     passWordController.clear();
     emailController.clear();
+    usernameController.clear();
     // phoneNoController.dispose();
     // otpCode.dispose();
   }

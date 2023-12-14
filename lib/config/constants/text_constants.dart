@@ -9,6 +9,8 @@ abstract class TextConstant {
   static const weAreGladYouAreHere = 'We are glad you are here';
   static const weAreGladYouAreBack = 'We are glad you are back';
   static const emailAddress = 'Email Address';
+  static const username = 'Username';
+
   static const password = 'Password';
   static const alreadyHaveAnAcct = 'Already have an account?';
   static const returnToLogin = 'Return to login';
@@ -53,6 +55,8 @@ abstract class TextConstant {
 -----------------------------------------------------------------------*/
   static const download = 'Download';
   static const connect = 'Connect';
+  static const connects = 'Connects';
+
   static const home = 'Home';
   static const profile = 'Profile';
   static const more = 'More';

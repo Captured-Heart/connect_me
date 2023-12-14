@@ -3,10 +3,12 @@ import 'package:connect_me/app.dart';
 class ProfileHeaderWidget extends StatelessWidget {
   const ProfileHeaderWidget({
     super.key,
-    // required this.controller,
+    required this.users,
+    this.isMyProfile = false,
   });
 
-  // final ScrollController controller;
+  final AsyncValue<AuthUserModel> users;
+  final bool isMyProfile;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -26,7 +28,7 @@ class ProfileHeaderWidget extends StatelessWidget {
                     title: 'Are you sure you want to log out?',
                     content: null,
                     onPostiveAction: () {
-                      ref.read(authNotifierProvider.notifier).logOutFromApp();
+                      ref.read(logOutNotifierProvider.notifier).signOutUsers();
                     },
                   ),
                 );
@@ -34,54 +36,72 @@ class ProfileHeaderWidget extends StatelessWidget {
             );
           }),
         ),
-        //profile picture
-        const Center(
-          child: ProfilePicWidget(),
-        ),
-        customListTileWidget(
-          context: context,
-          title: faker.person.name(),
-          subtitle: faker.person.name(),
-        ),
 
-        // stats for /// [following] [posts]
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            customListTileWidget(
-              context: context,
-              title: '15',
-              subtitle: TextConstant.posts,
-            ),
-            customListTileWidget(
-              context: context,
-              title: '15',
-              subtitle: TextConstant.followers,
-            ),
-            customListTileWidget(
-              context: context,
-              title: '15',
-              subtitle: TextConstant.following,
-            ),
-          ],
-        ),
+        // USERS DATA
+        users.when(
+          data: (data) {
+            return Column(
+              children: [
+                //profile picture
+                Column(
+                    children: [
+                  Center(
+                    child: ProfilePicWidget(
+                      authUserModel: data,
+                    ),
+                  ),
+                  CustomListTileWidget(
+                    title: data.username ?? '',
+                    showAtsign: true,
+                    // subtitle: faker.person.name(),
+                  ),
+                ].columnInPadding(5)),
 
-        Row(
-          children: const [
-            Expanded(
-              child: GradientLongBTN(),
-            ),
-            GradientShortBTN(
-              isWhiteGradient: true,
-              isThinBorder: true,
-              height: 45,
-              iconData: chatIcon,
-              iconSize: 23,
-            ),
-          ].rowInPadding(20),
+                // stats for /// [following] [posts]
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    CustomListTileWidget(
+                      title: data.posts?.length.toString() ?? '0',
+                      subtitle: TextConstant.posts,
+                    ),
+                    // CustomListTileWidget(
+                    //   title: '15',
+                    //   subtitle: TextConstant.followers,
+                    // ),
+                    CustomListTileWidget(
+                      title: data.connects?.length.toString() ?? '0',
+                      subtitle: TextConstant.connects,
+                    ),
+                  ],
+                ),
+
+                isMyProfile == true
+                    ? const SizedBox.shrink()
+                    : Row(
+                        children: const [
+                          Expanded(
+                            child: GradientLongBTN(),
+                          ),
+                          GradientShortBTN(
+                            isWhiteGradient: true,
+                            isThinBorder: true,
+                            height: 45,
+                            iconData: chatIcon,
+                            iconSize: 23,
+                          ),
+                        ].rowInPadding(20),
+                      ),
+              ].columnInPadding(16),
+            );
+          },
+          error: (error, _) => Text(error.toString()),
+          loading: () => const Center(
+            child: CircularProgressIndicator.adaptive(),
+          ),
         ),
-      ].columnInPadding(13),
+      ],
     ).padOnly(top: 20);
   }
 }

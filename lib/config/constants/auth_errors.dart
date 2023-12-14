@@ -12,6 +12,15 @@ enum AuthErrors {
 
   otpisInvalid('otp code is invalid'),
 
+  invalidEmail('This email is invalid!'),
+  userDisabled('This account is disabled!'),
+  userNotFound('This account cannot be found'),
+  tooManyRequests('try again later, too many requests'),
+  networkRequestFailed('Network error, try again'),
+  wrongPassword('The password is incorrect'),
+  requiresRecentLogin('requires recrent login'),
+  invalidLoginCredentials('invalid login credentials'),
+
   passwordDoesNotMatch('passwords do not match');
 
   const AuthErrors(this.errorMessage);

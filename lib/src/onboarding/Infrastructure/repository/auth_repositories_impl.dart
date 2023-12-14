@@ -4,8 +4,6 @@ import 'dart:developer';
 
 import 'package:connect_me/app.dart';
 import 'package:flutter/services.dart';
-import 'package:googleapis/people/v1.dart' as people;
-import 'package:googleapis/oauth2/v2.dart' as oauth;
 
 class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl(
@@ -34,7 +32,27 @@ class AuthRepositoryImpl implements AuthRepository {
 
       return Right(result.user);
     } on FirebaseAuthException catch (e) {
-      return Left(AppException(e.message ?? ''));
+      switch (e.code) {
+        case 'invalid-email':
+          return Left(AppException(AuthErrors.invalidEmail.errorMessage));
+        case 'user-disabled':
+          return Left(AppException(AuthErrors.userDisabled.errorMessage));
+        case 'user-not-found':
+          return Left(AppException(AuthErrors.userNotFound.errorMessage));
+        case 'too-many-requests':
+          return Left(AppException(AuthErrors.tooManyRequests.errorMessage));
+        case 'wrong-password':
+          return Left(AppException(AuthErrors.wrongPassword.errorMessage));
+        case 'network-request-failed':
+          return Left(AppException(AuthErrors.networkRequestFailed.errorMessage));
+        case 'requires-recent-login':
+          return Left(AppException(AuthErrors.requiresRecentLogin.errorMessage));
+        //
+        case 'INVALID_LOGIN_CREDENTIALS':
+          return Left(AppException(AuthErrors.invalidLoginCredentials.errorMessage));
+        default:
+          return Left(AppException(AuthErrors.networkFailure.errorMessage));
+      }
     }
   }
 
@@ -43,6 +61,7 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Either<AppException, User?>> signUpWithEmail({
     required String email,
     required String password,
+    required String username,
   }) async {
     // try {
     try {
@@ -53,12 +72,21 @@ class AuthRepositoryImpl implements AuthRepository {
         await _firebaseFirestore
             .collection(FirebaseCollectionEnums.users.value)
             .doc(user.user?.uid)
-            .set(AuthUserModel(email: email, docId: user.user?.uid).toJson())
-            .onError((error, stackTrace) => throw Left(
-                  AppException(
-                    error.toString(),
-                  ),
-                ));
+            .set(
+              AuthUserModel(
+                email: email,
+                docId: user.user?.uid,
+                username: username,
+                isGoogleSigned: false,
+              ).toJson(),
+            )
+            .onError(
+              (error, stackTrace) => throw Left(
+                AppException(
+                  error.toString(),
+                ),
+              ),
+            );
       }
 
       return Right(user.user);
@@ -115,7 +143,8 @@ class AuthRepositoryImpl implements AuthRepository {
               email: currentUser.email,
               docId: currentUser.id,
               imgUrl: currentUser.photoUrl ?? '',
-              name: currentUser.displayName,
+              username: currentUser.displayName,
+              isGoogleSigned: true,
             ).toJson())
             .onError(
               (error, stackTrace) => throw Left(
@@ -128,53 +157,42 @@ class AuthRepositoryImpl implements AuthRepository {
       } else {
         return Left(AppException('failed'));
       }
-    } on FirebaseAuthException catch (e, stackTrace) {
+    } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case 'invalid-email':
-          Left(Error.throwWithStackTrace(
-            AppException(e.message ?? ''),
-            stackTrace,
-          ));
+          return Left(AppException(AuthErrors.invalidEmail.errorMessage));
         case 'user-disabled':
-          Left(Error.throwWithStackTrace(
-            AppException(e.message ?? ''),
-            stackTrace,
-          ));
+          return Left(AppException(AuthErrors.userDisabled.errorMessage));
         case 'user-not-found':
-          Left(Error.throwWithStackTrace(
-            AppException(e.message ?? ''),
-            stackTrace,
-          ));
+          return Left(AppException(AuthErrors.userNotFound.errorMessage));
         case 'too-many-requests':
-          Left(Error.throwWithStackTrace(
-            AppException(e.message ?? ''),
-            stackTrace,
-          ));
+          return Left(AppException(AuthErrors.tooManyRequests.errorMessage));
+        default:
+          return Left(AppException(AuthErrors.networkFailure.errorMessage));
       }
-      Error.throwWithStackTrace(Exception(e.toString()), stackTrace);
-    } on PlatformException catch (e, stackTrace) {
+    } on PlatformException catch (e) {
       switch (e.code) {
         case GoogleSignIn.kSignInCanceledError:
-          Left(
+          return Left(
             AppException(e.message ?? ''),
           );
         case GoogleSignIn.kSignInFailedError:
-          Left(Error.throwWithStackTrace(
+          return Left(
             AppException(e.message ?? ''),
-            stackTrace,
-          ));
+          );
         case GoogleSignIn.kNetworkError:
-          Left(Error.throwWithStackTrace(
+          return Left(
             AppException(e.message ?? ''),
-            stackTrace,
-          ));
+          );
         case 'popup_blocked_by_browser':
-          Left(Error.throwWithStackTrace(
+          return Left(
             AppException(e.message ?? ''),
-            stackTrace,
-          ));
+          );
+        default:
+          return Left(
+            AppException(e.message ?? ''),
+          );
       }
-      Left(Error.throwWithStackTrace(Exception(e.toString()), stackTrace));
     }
   }
 }

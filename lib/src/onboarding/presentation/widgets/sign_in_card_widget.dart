@@ -5,7 +5,7 @@ final obscureTextProvider = StateProvider<bool>((ref) {
 });
 
 class SignInCardWidget extends ConsumerWidget {
-   SignInCardWidget({
+  SignInCardWidget({
     super.key,
     required this.pageController,
   });
@@ -19,7 +19,7 @@ class SignInCardWidget extends ConsumerWidget {
       return false;
     }
   }
- 
+
   final GlobalKey<FormState> signInformKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -27,10 +27,10 @@ class SignInCardWidget extends ConsumerWidget {
     final ValueNotifier<String> emailNotifier = ValueNotifier<String>('');
     final ValueNotifier<String> passwordNotifier = ValueNotifier<String>('');
     final obscureText = ref.watch(obscureTextProvider);
-    ref.listen(authNotifierProvider, (previous, next) {
+    ref.listen(loginWithEmailNotifierProvider, (previous, next) {
       if (next.user?.uid != null) {
         controller.disposeControllers();
-        push(context, const MainScreen());
+        pushReplacement(context, const MainScreen());
       }
       if (next.errorMessage != null) {
         showScaffoldSnackBarMessageNoColor(
@@ -48,6 +48,15 @@ class SignInCardWidget extends ConsumerWidget {
           controller.passwordFocusMode,
         ]),
         builder: (context, child) {
+          bool isFormValidated() {
+            if (controller.emailController.text.isNotEmpty &&
+                controller.passWordController.text.isNotEmpty) {
+              return true;
+            } else {
+              return false;
+            }
+          }
+
           return GestureDetector(
             onTap: () {
               controller.passwordFocusMode.unfocus();
@@ -95,7 +104,7 @@ class SignInCardWidget extends ConsumerWidget {
                     text: TextConstant.signInWithGoogle,
                     onTap: () {
                       // if (Platform.isAndroid) {
-                      ref.read(authNotifierProvider.notifier).signinWithGoogle();
+                      ref.read(signInGoogleNotifierProvider.notifier).signinWithGoogle();
                       // } else {}
                     },
                   ),
@@ -202,9 +211,8 @@ class SignInCardWidget extends ConsumerWidget {
                         width: context.sizeWidth(1),
                         child: ElevatedButton(
                           onPressed: () {
-                            if (fieldIsEmpty(controller)) {
-                              ref.read(authNotifierProvider.notifier).loggingUser(
-                                    context: context,
+                            if (isFormValidated() == true) {
+                              ref.read(loginWithEmailNotifierProvider.notifier).loggingUser(
                                     email: controller.emailController.text.trim(),
                                     password: controller.passWordController.text.trim(),
                                   );

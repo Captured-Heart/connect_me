@@ -20,7 +20,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final controller = ref.watch(flipCardControllerProvider);
-    final isLoading = ref.watch(authNotifierProvider).isLoading;
+    final isLoading = ref.watch(loginWithEmailNotifierProvider ).isLoading;
     return FullScreenLoader(
       isLoading: isLoading,
       child: Scaffold(
@@ -41,7 +41,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
             SafeArea(
           child: PageView.custom(
-              controller: pageController,
+              controller: pageController, 
               physics: const NeverScrollableScrollPhysics(),
               childrenDelegate: SliverChildListDelegate.fixed(
                 [

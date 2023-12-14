@@ -4,9 +4,11 @@ class ProfilePicWidget extends StatelessWidget {
   const ProfilePicWidget({
     super.key,
     this.withoutBorder = false,
+    this.authUserModel,
   });
 
   final bool withoutBorder;
+  final AuthUserModel? authUserModel;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,8 +28,22 @@ class ProfilePicWidget extends StatelessWidget {
           elevation: 5,
           margin: EdgeInsets.zero,
           shape: const RoundedRectangleBorder(borderRadius: AppBorderRadius.c32),
-          child: circleCacheNetworkImage(
-            imgUrl: ImagesConstant.imgPlaceholderHttp,
+          child:
+
+              //TODO: ADD AVATAR TO THE IMG SECTION
+
+              //  authUserModel?.imgUrl == null
+              //     ? Card(
+              //         shape: const RoundedRectangleBorder(borderRadius: AppBorderRadius.c32),
+              //         child: Text(
+              //           authUserModel?.username?.substring(0, 1).toString() ?? '?',
+              //           // style: AppTextStyle.bodyLarge.copyWith(color: Colors.black),
+              //         ),
+              //       )
+              //     :
+
+              circleCacheNetworkImage(
+            imgUrl: authUserModel?.imgUrl ?? ImagesConstant.imgPlaceholderHttp,
             height: 100,
             width: context.sizeWidth(0.2),
             isNotCircle: true,

@@ -8,99 +8,107 @@ class MoreScreen extends ConsumerWidget {
     return Scaffold(
       body: SafeArea(
         child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-          children: const [
-            // MY ACCOUNT
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Your Account'),
-                MoreCustomListTileWidget(
-                  icon: homeIcon,
-                  title: 'Account Information',
-                  subtitle: 'Name, display picture, website',
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+            children: const [
+              // MY ACCOUNT
+              Text('Your Account'),
+              Card(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    MoreCustomListTileWidget(
+                      icon: homeIcon,
+                      title: 'Account Information',
+                      subtitle: 'Name, display picture, website',
+                    ),
+                    // Text(
+                    //   'Manage your connect experiences by updating your name, ',
+                    //   style: context.textTheme.bodySmall?.copyWith(
+                    //     color: context.colorScheme.onSurface.withOpacity(0.8),
+                    //   ),
+                    //   textScaleFactor: 0.8,
+                    // ).padSymmetric(horizontal: 20)
+                  ],
                 ),
-                // Text(
-                //   'Manage your connect experiences by updating your name, ',
-                //   style: context.textTheme.bodySmall?.copyWith(
-                //     color: context.colorScheme.onSurface.withOpacity(0.8),
-                //   ),
-                //   textScaleFactor: 0.8,
-                // ).padSymmetric(horizontal: 20)
-              ],
-            ),
-            DottedLineDividerWidget(),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Other Information'),
-                MoreCustomListTileWidget(
-                  icon: homeIcon,
-                  title: 'Education',
-                ),
-                MoreCustomListTileWidget(
-                  icon: homeIcon,
-                  title: 'Social Media Handles',
-                ),
-                MoreCustomListTileWidget(
-                  icon: homeIcon,
-                  title: 'My Portfolio',
-                ),
-              ],
-            ),
-            DottedLineDividerWidget(),
+              ),
+              // DottedLineDividerWidget(),
+              Text('Other Information'),
 
-            //CAREER
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Career'),
-                MoreCustomListTileWidget(
-                  icon: homeIcon,
-                  title: 'Skills',
+              Card(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    MoreCustomListTileWidget(
+                      icon: homeIcon,
+                      title: 'Education',
+                    ),
+                    MoreCustomListTileWidget(
+                      icon: homeIcon,
+                      title: 'Social Media Handles',
+                    ),
+                    MoreCustomListTileWidget(
+                      icon: homeIcon,
+                      title: 'My Portfolio',
+                    ),
+                  ],
                 ),
-                MoreCustomListTileWidget(
-                  icon: homeIcon,
-                  title: 'Accomplishment',
-                ),
-                MoreCustomListTileWidget(
-                  icon: homeIcon,
-                  title: 'My Portfolio',
-                ),
-              ],
-            ),
-            DottedLineDividerWidget(),
+              ),
+              // DottedLineDividerWidget(),
 
-            // SETTINGS
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Settings'),
-                MoreCustomListTileWidget(
-                  icon: homeIcon,
-                  title: 'Account Privacy',
+              //CAREER
+              Text('Career'),
+              Card(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    MoreCustomListTileWidget(
+                      icon: homeIcon,
+                      title: 'Skills',
+                    ),
+                    MoreCustomListTileWidget(
+                      icon: homeIcon,
+                      title: 'Accomplishment',
+                    ),
+                    MoreCustomListTileWidget(
+                      icon: homeIcon,
+                      title: 'My Portfolio',
+                    ),
+                  ],
                 ),
-                MoreCustomListTileWidget(
-                  icon: homeIcon,
-                  title: 'Feedbacks',
+              ),
+              // DottedLineDividerWidget(),
+
+              // SETTINGS
+              Text('Settings'),
+              Card(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    MoreCustomListTileWidget(
+                      icon: homeIcon,
+                      title: 'Account Privacy',
+                    ),
+                    MoreCustomListTileWidget(
+                      icon: homeIcon,
+                      title: 'Feedbacks',
+                    ),
+                    MoreCustomListTileWidget(
+                      icon: homeIcon,
+                      title: 'About',
+                    ),
+                    MoreCustomListTileWidget(
+                      icon: homeIcon,
+                      title: 'Support',
+                    ),
+                    MoreCustomListTileWidget(
+                      icon: homeIcon,
+                      title: 'Licenses',
+                    ),
+                  ],
                 ),
-                MoreCustomListTileWidget(
-                  icon: homeIcon,
-                  title: 'About',
-                ),
-                MoreCustomListTileWidget(
-                  icon: homeIcon,
-                  title: 'Support',
-                ),
-                MoreCustomListTileWidget(
-                  icon: homeIcon,
-                  title: 'Licenses',
-                ),
-              ],
-            ),
-            DottedLineDividerWidget(),
-          ],
-        ),
+              ),
+              // DottedLineDividerWidget(),
+            ].columnInPadding(10)),
       ),
     );
   }

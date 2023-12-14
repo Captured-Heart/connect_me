@@ -2,72 +2,101 @@ import 'package:connect_me/app.dart';
 import 'package:equatable/equatable.dart';
 
 class AuthUserModel extends Equatable {
-  final String? name;
+  final String? username;
   final String? email;
   final String? phone;
   final String? docId;
   final String? imgUrl;
+  final String? bio;
+
   final bool? isGoogleSigned;
   final Timestamp? date;
+  final List<dynamic>? connects;
+  final List<dynamic>? posts;
+  final Map<String, dynamic>? socials;
 
   const AuthUserModel({
-    this.name,
+    this.username,
     this.email,
     this.phone,
     this.docId,
     this.imgUrl,
     this.isGoogleSigned,
     this.date,
+    this.connects,
+    this.posts,
+    this.socials,
+    this.bio,
   });
 
   factory AuthUserModel.fromJson(Map<String, dynamic> json) => AuthUserModel(
-        name: json['name'] as String?,
+        username: json['username'] as String?,
         email: json['email'] as String?,
         phone: json['phone'] as String?,
         docId: json['docId'] as String?,
         imgUrl: json['imgUrl'] as String?,
+        bio: json['bio'] as String?,
         isGoogleSigned: json['isGoogleSigned'] as bool?,
         date: json['date'] as Timestamp?,
+        connects: json['connects'] as List<dynamic>?,
+        posts: json['posts'] as List<dynamic>?,
+        socials: json['socials'] as Map<String, dynamic>?,
       );
 
   Map<String, dynamic> toJson() => {
-        'name': name,
+        'username': username,
         'email': email,
         'phone': phone,
         'docId': docId,
         'imgUrl': imgUrl,
         'isGoogleSigned': isGoogleSigned,
         'date': Timestamp.now(),
+        'posts': posts,
+        'connects': connects,
+        'socials': socials,
+        'bio': bio,
       };
 
   AuthUserModel copyWith({
-    String? name,
+    String? username,
     String? email,
     String? phone,
     String? docId,
     String? imgUrl,
+    String? bio,
     bool? isGoogleSigned,
     Timestamp? date,
+    List<dynamic>? posts,
+    List<dynamic>? connects,
+    Map<String, dynamic>? socials,
   }) {
     return AuthUserModel(
-      name: name ?? this.name,
+      username: username ?? this.username,
       email: email ?? this.email,
       phone: phone ?? this.phone,
       docId: docId ?? this.docId,
       imgUrl: imgUrl ?? this.imgUrl,
       isGoogleSigned: isGoogleSigned ?? this.isGoogleSigned,
       date: date ?? this.date,
+      connects: connects ?? this.connects,
+      posts: posts ?? this.posts,
+      socials: socials ?? this.socials,
+      bio: bio ?? this.bio,
     );
   }
 
   @override
   List<Object?> get props => [
-        name,
+        username,
         email,
         phone,
         docId,
         imgUrl,
         isGoogleSigned,
         date,
+        connects,
+        posts,
+        socials,
+        bio,
       ];
 }

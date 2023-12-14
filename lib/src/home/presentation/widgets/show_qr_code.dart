@@ -14,8 +14,7 @@ Future<void> showAwesomeQrDilaogs(BuildContext context,
     body: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        customListTileWidget(
-          context: context,
+        CustomListTileWidget(
           title: faker.person.name(),
           subtitle: faker.person.name(),
         ),
@@ -68,8 +67,7 @@ class ShareQrCodeTemplate extends StatelessWidget {
           body: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              customListTileWidget(
-                context: context,
+              CustomListTileWidget(
                 title: faker.person.name(),
                 subtitle: faker.person.name(),
               ),

@@ -6,8 +6,12 @@ class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({
     super.key,
     this.implyLeading,
+    this.isMyProfile = true,
+    this.uuid,
   });
   final bool? implyLeading;
+  final bool isMyProfile;
+  final String ? uuid;
   @override
   ConsumerState<ProfileScreen> createState() => _ProfileScreenState();
 }
@@ -35,12 +39,16 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(authNotifierProvider, (previous, next) {
-      if (next.user == null) {
+    ref.listen(authStateChangesProvider, (previous, next) {
+      if (next.value?.uid == null) {
         log('i popped off screen');
         pushReplacement(context, const LoginScreen());
       }
     });
+    final users = ref.watch(fetchProfileProvider(widget.uuid ?? ''));
+    inspect(users);
+
+    // inspect(users);
     return Scaffold(
       body: SafeArea(
         child: DefaultTabController(
@@ -50,7 +58,9 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               headerSliverBuilder: (context, innerBoxIsScrolled) {
                 return [
                   SliverAppBar(
-                    expandedHeight: context.sizeHeight(0.4),
+                    expandedHeight: widget.isMyProfile == false
+                        ? context.sizeHeight(0.37)
+                        : context.sizeHeight(0.315),
                     collapsedHeight: kToolbarHeight,
                     automaticallyImplyLeading: offset < 238 ? widget.implyLeading ?? false : false,
                     forceMaterialTransparency: true,
@@ -59,7 +69,10 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     // snap: true,
                     // stretch: true,
                     flexibleSpace: FlexibleSpaceBar(
-                      background: const ProfileHeaderWidget().padSymmetric(horizontal: 20),
+                      background: ProfileHeaderWidget(
+                        users: users,
+                        isMyProfile: widget.isMyProfile,
+                      ).padSymmetric(horizontal: 20),
                       collapseMode: CollapseMode.parallax,
                     ),
                   ),
