@@ -75,10 +75,10 @@ class HomeScreen extends ConsumerWidget {
                   children: [
                     ListTile(
                       dense: true,
-                      leading: SizedBox(
+                      leading: const SizedBox(
                         height: 40,
                         width: 40,
-                        child: circleCacheNetworkImage(
+                        child: CircleCacheNetworkImage(
                           height: 40,
                           width: 40,
                           imgUrl: ImagesConstant.imgPlaceholderHttp,
@@ -93,7 +93,7 @@ class HomeScreen extends ConsumerWidget {
                     ),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: cachedNetworkImageWidget(
+                      child: CachedNetworkImageWidget(
                         imgUrl: ImagesConstant.imgPlaceholderHttp,
                         height: context.sizeHeight(0.25),
                       ),

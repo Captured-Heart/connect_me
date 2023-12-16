@@ -26,6 +26,8 @@ abstract class TextConstant {
   static const signintoYourAcct = 'Sign in to your account';
   static const createYourAcct = 'Create your account';
   static const login = 'Login';
+  static const logOut = 'Log out';
+
   static const forgottenPassword = 'Forgotten Password?';
   static const dontHaveAnAcct = "Don't have an account?";
   static const loginWithSpace = 'Log in';
@@ -44,7 +46,7 @@ abstract class TextConstant {
   static const updatePassword = 'Update Password';
   static const continuebtn = 'continue';
   static const enterRegisteredEmail = 'Enter your registered Email';
-  static const confirm = 'Confirm'; 
+  static const confirm = 'Confirm';
   static const cancel = 'Cancel';
   static const ok = 'Ok';
   // static const lorem = 'or'; // static const lorem = 'or';
@@ -64,7 +66,9 @@ abstract class TextConstant {
   static const displayMyQrCode = 'Display My QrCode';
   static const scanQr = 'Scan QrCode';
   static const shareProfile = 'Share Profile';
-
+  static const flipCamera = 'Switch camera';
+  static const flash = 'Flash';
+  // static const lorem = 'or';
 
   /*----------------------------------------------------------------------
       PROFILE SCREEN
@@ -74,6 +78,11 @@ abstract class TextConstant {
   static const following = 'Following';
   static const about = 'About';
   static const myConnect = 'My Connect';
+  static const email = 'Email';
+  static const twitter = 'Twitter';
+  static const whatsapp = 'Whatsapp';
+  static const telegram = 'Telegram';
+  static const message = 'Message'; // static const lorem = 'or';
   // static const lorem = 'or'; // static const lorem = 'or';
   // static const lorem = 'or'; // static const lorem = 'or';
   // static const lorem = 'or'; // static const lorem = 'or';
@@ -81,8 +90,34 @@ abstract class TextConstant {
   // static const lorem = 'or'; // static const lorem = 'or';
   // static const lorem = 'or'; // static const lorem = 'or';
   // static const lorem = 'or'; // static const lorem = 'or';
-  // static const lorem = 'or'; // static const lorem = 'or';
-  // static const lorem = 'or'; // static const lorem = 'or';
-  // static const lorem = 'or'; // static const lorem = 'or';
+  // static const lorem = 'or';
+
+  /*----------------------------------------------------------------------
+      MORE SCREEN
+-----------------------------------------------------------------------*/
+  static const save = 'Save';
+  static const accountInformation = 'Account information';
+  static const additionalDetails = 'Additional Details';
+  static const education = 'Education';
+  static const addEducation = 'Add Education';
+
+  static const profilePhotoRequired = 'Profile photo (Required)';
+  static const addAPhoto = 'Add a photo';
+  static const yourAccount = 'Your Account';
+  static const nameDisplayPicture = 'Name, display picture, website, etc';
+  static const otherInformation = 'Other Information';
+  static const addressCareerEtc = 'Address, career, etc';
+  static const workExperience = 'Work Experience';
+  static const socialMediaHandles = 'Social Media Handles';
+  static const delete = 'Delete';
+  // static const lorem = 'or';
+  // static const lorem = 'or';
+  // static const lorem = 'or';
+  // static const lorem = 'or';
+  // static const lorem = 'or';
+  // static const lorem = 'or';
+  // static const lorem = 'or';
+  // static const lorem = 'or';
+  // static const lorem = 'or';
   // static const lorem = 'or';
 }

@@ -11,7 +11,7 @@ class ProfileScreen extends ConsumerStatefulWidget {
   });
   final bool? implyLeading;
   final bool isMyProfile;
-  final String ? uuid;
+  final String? uuid;
   @override
   ConsumerState<ProfileScreen> createState() => _ProfileScreenState();
 }
@@ -41,12 +41,12 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   Widget build(BuildContext context) {
     ref.listen(authStateChangesProvider, (previous, next) {
       if (next.value?.uid == null) {
-        log('i popped off screen');
+        // log('i popped off screen');
         pushReplacement(context, const LoginScreen());
       }
     });
     final users = ref.watch(fetchProfileProvider(widget.uuid ?? ''));
-    inspect(users);
+    // inspect(users);
 
     // inspect(users);
     return Scaffold(

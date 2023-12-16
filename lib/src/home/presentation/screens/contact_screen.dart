@@ -1,18 +1,16 @@
-import 'dart:developer';
-
 import 'package:connect_me/app.dart';
 
 class ContactScreen extends ConsumerWidget {
   const ContactScreen({
     super.key,
-    this.message,
+    required this.connectsList,
   });
 
-  final String? message;
+  final List<dynamic> connectsList;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final contacts = ref.watch(fetchListProfileProvider);
-    // inspect(contacts.valueOrNull);
+    final contacts = ref.watch(fetchListProfileProvider(connectsList));
+
     return Scaffold(
         appBar: AppBar(
           title: const Text(TextConstant.myConnect),

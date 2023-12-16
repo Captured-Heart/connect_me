@@ -22,9 +22,8 @@ export 'package:lottie/lottie.dart';
 export 'package:cloud_firestore/cloud_firestore.dart';
 export 'package:qr_code_scanner/qr_code_scanner.dart';
 export 'package:share_plus/share_plus.dart';
-
-
-
+export 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
+export 'package:animated_custom_dropdown/custom_dropdown.dart';
 
 //FIREBASE SERVICES
 export 'package:firebase_auth/firebase_auth.dart';

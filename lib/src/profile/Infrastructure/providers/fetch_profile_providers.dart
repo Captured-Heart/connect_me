@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:connect_me/app.dart';
 
 final fetchProfileProvider =
@@ -20,27 +18,10 @@ final fetchContactsProvider = FutureProvider.autoDispose<List<dynamic>>((ref) as
 });
 
 //
-final fetchListProfileProvider =
-    StreamProvider.autoDispose<List<AuthUserModel>>((ref) async* {
-  String uuid = ref.watch(authStateChangesProvider).value!.uid;
-
-  log('uuid: $uuid');
-
-//
-  final connectsList =
-      ref.read(fetchProfileProvider(uuid).select((value) => value.value?.connects));
-  log('connectsList: ${connectsList}');
-
+final fetchListProfileProvider = StreamProvider.autoDispose
+    .family<List<AuthUserModel>, List<dynamic>>((ref, connectsList) async* {
   final fetchProfileRepoImpl = ref.read(fetchProfileRepoImplProvider);
-  if (connectsList != null) {
-    yield* fetchProfileRepoImpl.fetchListOfConnects(connectsList: connectsList);
-  } else {
-    yield* fetchProfileRepoImpl.fetchListOfConnects(connectsList: [
-      'AHRx3LI1W0gFuvpMJILp63PPLm92',
-      '115684057306909864809',
-    ]);
-  }
-  //
+  yield* fetchProfileRepoImpl.fetchListOfConnects(connectsList: connectsList);
 });
 
 // class FetchContactNotifier extends AsyncNotifier<List<Future<AuthUserModel>>> {

@@ -49,12 +49,12 @@ class _QrCodeScreenState extends ConsumerState<QrCodeScreen> {
         controller.stopCamera();
 
         if (context.mounted) {
-          push(
-            context,
-            ContactScreen(
-              message: scanData.code,
-            ),
-          );
+          // push(
+          //   context,
+          // ContactScreen(
+          //   message: scanData.code,
+          // ),
+          // );
         }
 
         // setState(() {
@@ -70,7 +70,7 @@ class _QrCodeScreenState extends ConsumerState<QrCodeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('QR code screen tests'),
+        title: const Text('QR code screen tests'),
       ),
       body: Column(
         children: [
@@ -88,6 +88,7 @@ class _QrCodeScreenState extends ConsumerState<QrCodeScreen> {
                             GradientShortBTN(
                               iconData: Icons.flip_camera_ios_outlined,
                               isThinBorder: true,
+                              tooltip: TextConstant.flipCamera,
                               onTap: () async {
                                 var cameraFront =
                                     await controller?.getCameraInfo().then((value) => value.name);
@@ -107,6 +108,7 @@ class _QrCodeScreenState extends ConsumerState<QrCodeScreen> {
                                   ? Icons.flashlight_off
                                   : Icons.flashlight_on_rounded,
                               isThinBorder: true,
+                              tooltip: TextConstant.flash,
                               onTap: () async {
                                 var cameraFront =
                                     await controller?.getCameraInfo().then((value) => value.name);

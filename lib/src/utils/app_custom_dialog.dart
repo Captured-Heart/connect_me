@@ -54,7 +54,7 @@ class _AppCustomDialogWarningState extends State<AppCustomDialogWarning> {
                 children: [
                   widget.dialogModel.hasImage == false
                       ? const SizedBox.shrink()
-                      : cachedNetworkImageWidget(
+                      : CachedNetworkImageWidget(
                           imgUrl: widget.dialogModel.imgUrl,
                           height: widget.dialogModel.height ?? 80,
                         ),

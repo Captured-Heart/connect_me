@@ -10,9 +10,9 @@ class MainScreen extends ConsumerWidget {
   Widget bodyWidget({required int currentIndex}) {
     switch (currentIndex) {
       case 0:
-        return HomeScreen2();
+        return const HomeScreen2();
       case 1:
-        return const MoreScreen();
+        return MoreScreen();
 
       default:
         return HomeScreen();
@@ -45,7 +45,7 @@ class MainScreen extends ConsumerWidget {
           //   tooltip: TextConstant.profile,
           // ),
           BottomNavigationBarItem(
-            icon: Icon(IonIcons.ellipsis_horizontal_circle_sharp),
+            icon: Icon(moreIcon),
             label: TextConstant.more,
             tooltip: TextConstant.more,
           ),

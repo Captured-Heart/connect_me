@@ -6,23 +6,28 @@ class SocialButtons extends StatelessWidget {
     required this.iconData,
     required this.text,
     this.onTap,
+    this.elevation,
+    this.isDense = false,
   });
 
   final IconData iconData;
   final String text;
   final VoidCallback? onTap;
+  final double? elevation;
+  final bool isDense;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Card(
         shape: RoundedRectangleBorder(
-            side: BorderSide(
-              color: context.colorScheme.onSurface,
-              width: 0.3,
-            ),
-            borderRadius: BorderRadius.circular(15)),
-        elevation: 3,
+          side: BorderSide(
+            color: context.colorScheme.onSurface,
+            width: 0.3,
+          ),
+          borderRadius: BorderRadius.circular(isDense == true ? 10 : 15),
+        ),
+        elevation: elevation ?? 3,
         child: Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -35,7 +40,7 @@ class SocialButtons extends StatelessWidget {
               ),
             ),
           ].rowInPadding(10),
-        ).padAll(10),
+        ).padAll(isDense == true ? 5 : 10),
       ),
     );
   }

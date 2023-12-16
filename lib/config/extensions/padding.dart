@@ -125,23 +125,29 @@ extension ColumnChildrenSpacing on List<Widget> {
   }
 }
 
+extension TooltipExtension on Widget {
+  Widget tooltipWidget(String message) {
+    return Tooltip(
+      message: message,
+    );
+  }
+}
+
 extension MediaQuerySizeExtension on BuildContext {
   double sizeWidth(double w) {
-    return MediaQuery.of(this).size.width * w;
+    return MediaQuery.sizeOf(this).width * w;
   }
 
   double sizeHeight(double h) {
-    return MediaQuery.of(this).size.height * h;
+    return MediaQuery.sizeOf(this).height * h;
   }
 }
 
 extension StringExtension on String {
   String toCapitalized() =>
       length > 0 ? '${this[0].toUpperCase()}${substring(1).toLowerCase()}' : '';
-  String toTitleCase() => replaceAll(RegExp(' +'), ' ')
-      .split(' ')
-      .map((str) => str.toCapitalized())
-      .join(' ');
+  String toTitleCase() =>
+      replaceAll(RegExp(' +'), ' ').split(' ').map((str) => str.toCapitalized()).join(' ');
 
   String toCommaPrices() {
     final formatter = NumberFormat("###,###.#", "en_US");

@@ -28,17 +28,21 @@ class AboutMeWidget extends StatelessWidget {
                         child: const GradientShortBTN(
                           iconData: mailIcon,
                           iconSize: 21,
+                          tooltip: TextConstant.email,
                         ),
                       ),
                       const GradientShortBTN(
                         iconData: twitterIcon,
                         iconSize: 28,
+                        tooltip: TextConstant.twitter,
                       ),
                       const GradientShortBTN(
                         iconData: whatsappIcon,
+                        tooltip: TextConstant.whatsapp,
                       ),
                       const GradientShortBTN(
                         iconData: telegramIcon,
+                        tooltip: TextConstant.telegram,
                       ),
                     ].rowInPadding(15),
                   ),
@@ -64,20 +68,29 @@ class AboutMeWidget extends StatelessWidget {
                   width: double.infinity,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      GradientShortBTN(
-                        iconData: mailIcon,
-                        iconSize: 21,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          pushAsVoid(context, const QrCodeScreen());
+                        },
+                        child: const GradientShortBTN(
+                          iconData: mailIcon,
+                          iconSize: 21,
+                          tooltip: TextConstant.email,
+                        ),
                       ),
-                      GradientShortBTN(
+                      const GradientShortBTN(
                         iconData: twitterIcon,
                         iconSize: 28,
+                        tooltip: TextConstant.twitter,
                       ),
-                      GradientShortBTN(
+                      const GradientShortBTN(
                         iconData: whatsappIcon,
+                        tooltip: TextConstant.whatsapp,
                       ),
-                      GradientShortBTN(
+                      const GradientShortBTN(
                         iconData: telegramIcon,
+                        tooltip: TextConstant.telegram,
                       ),
                     ].rowInPadding(15),
                   ),

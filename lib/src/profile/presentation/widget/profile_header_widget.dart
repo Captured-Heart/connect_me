@@ -18,6 +18,7 @@ class ProfileHeaderWidget extends StatelessWidget {
           child: Consumer(builder: (context, ref, _) {
             return GradientShortBTN(
               iconData: logOutIcon,
+              tooltip: TextConstant.logOut,
               iconSize: 18,
               width: 35,
               height: 35,
@@ -90,6 +91,7 @@ class ProfileHeaderWidget extends StatelessWidget {
                             height: 45,
                             iconData: chatIcon,
                             iconSize: 23,
+                            tooltip: TextConstant.message,
                           ),
                         ].rowInPadding(20),
                       ),

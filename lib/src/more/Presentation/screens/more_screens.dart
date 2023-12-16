@@ -1,77 +1,192 @@
+import 'dart:developer';
+
 import 'package:connect_me/app.dart';
+import 'package:flutter/rendering.dart';
+
+class ColorTile extends StatelessWidget {
+  final Color color;
+
+  const ColorTile({super.key, required this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: color,
+      height: 600,
+      child: Center(
+        child: Text(
+          color.toString(),
+          style: TextStyle(
+            color: color.computeLuminance() > 0.5 ? Colors.black : Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+List<Color> get allMaterialColors {
+  List<Color> allMaterialColorsWithShades = [];
+
+  for (MaterialColor color in Colors.primaries) {
+    allMaterialColorsWithShades.add(color.shade100);
+    allMaterialColorsWithShades.add(color.shade200);
+    allMaterialColorsWithShades.add(color.shade300);
+  }
+  return allMaterialColorsWithShades;
+}
 
 class MoreScreen extends ConsumerWidget {
-  const MoreScreen({super.key});
+  MoreScreen({super.key});
+
+  final materialColorsInGrid = allMaterialColors.take(20).toList();
+  final materialColorsInSliverList = allMaterialColors.sublist(20, 25);
+  final materialColorsInSpinner = allMaterialColors.sublist(30, 50);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final pageIndexNotifier = ValueNotifier(0);
+    // SliverWoltModalSheetPage page2(BuildContext modalSheetContext, TextTheme textTheme) {
+    //   return SliverWoltModalSheetPage(
+    //     pageTitle: Padding(
+    //       padding: const EdgeInsets.all(10),
+    //       child: Text(
+    //         'Material Colors',
+    //         style: textTheme.headlineMedium!.copyWith(fontWeight: FontWeight.bold),
+    //       ),
+    //     ),
+    //     // heroImage: const Image(
+    //     //   image: AssetImage(
+    //     //     ImagesConstant.puzzleBG1,
+    //     //   ),
+    //     //   fit: BoxFit.cover,
+    //     // ),
+    //     // leadingNavBarWidget: IconButton(
+    //     //   padding: const EdgeInsets.all(10),
+    //     //   icon: const Icon(Icons.arrow_back_rounded),
+    //     //   onPressed: () {
+    //     //     // pageIndexNotifier.value = pageIndexNotifier.value - 1;
+    //     //   },
+    //     // ),
+    //     trailingNavBarWidget: IconButton(
+    //       padding: const EdgeInsets.all(10),
+    //       icon: const Icon(Icons.close),
+    //       onPressed: () {
+    //         Navigator.of(modalSheetContext).pop();
+    //       },
+    //     ),
+    //     mainContentSlivers: [
+    //       SliverGrid(
+    //         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+    //           crossAxisCount: 2,
+    //           mainAxisSpacing: 10.0,
+    //           crossAxisSpacing: 10.0,
+    //           childAspectRatio: 2.0,
+    //         ),
+    //         delegate: SliverChildBuilderDelegate(
+    //           (_, index) => ColorTile(color: materialColorsInGrid[index]),
+    //           childCount: materialColorsInGrid.length,
+    //         ),
+    //       ),
+    //       SliverList(
+    //         delegate: SliverChildBuilderDelegate(
+    //           (_, index) => ColorTile(color: materialColorsInSliverList[index]),
+    //           childCount: materialColorsInSliverList.length,
+    //         ),
+    //       ),
+    //       ...materialColorsInSpinner.map((e) => Shifter(child: ColorTile(color: e))).toList(),
+    //       SliverPadding(
+    //         padding: const EdgeInsets.all(10),
+    //         sliver: SliverToBoxAdapter(
+    //           child: TextButton(
+    //             onPressed: Navigator.of(modalSheetContext).pop,
+    //             child: const Text('Close'),
+    //           ),
+    //         ),
+    //       ),
+    //     ],
+    //   );
+    // }
+
     return Scaffold(
       body: SafeArea(
         child: ListView(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-            children: const [
+            children: [
               // MY ACCOUNT
-              Text('Your Account'),
+              const Text(TextConstant.yourAccount),
               Card(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     MoreCustomListTileWidget(
-                      icon: homeIcon,
-                      title: 'Account Information',
-                      subtitle: 'Name, display picture, website',
-                    ),
-                    // Text(
-                    //   'Manage your connect experiences by updating your name, ',
-                    //   style: context.textTheme.bodySmall?.copyWith(
-                    //     color: context.colorScheme.onSurface.withOpacity(0.8),
-                    //   ),
-                    //   textScaleFactor: 0.8,
-                    // ).padSymmetric(horizontal: 20)
-                  ],
-                ),
-              ),
-              // DottedLineDividerWidget(),
-              Text('Other Information'),
-
-              Card(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    MoreCustomListTileWidget(
-                      icon: homeIcon,
-                      title: 'Education',
-                    ),
-                    MoreCustomListTileWidget(
-                      icon: homeIcon,
-                      title: 'Social Media Handles',
-                    ),
-                    MoreCustomListTileWidget(
-                      icon: homeIcon,
-                      title: 'My Portfolio',
+                      icon: accountCircleIcon,
+                      title: TextConstant.accountInformation,
+                      subtitle: TextConstant.nameDisplayPicture,
+                      onTap: () {
+                        WoltModalSheet.show(
+                          context: context,
+                          pageListBuilder: (context) {
+                            return [
+                              accountInformationModal(context, context.textTheme),
+                            ];
+                          },
+                        );
+                      },
                     ),
                   ],
                 ),
               ),
               // DottedLineDividerWidget(),
+              const Text(TextConstant.otherInformation),
 
-              //CAREER
-              Text('Career'),
+// ADDITIONAL DETAILS
               Card(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    MoreCustomListTileWidget(
-                      icon: homeIcon,
-                      title: 'Skills',
+                    const MoreCustomListTileWidget(
+                      icon: additionalDetailsIcon,
+                      title: TextConstant.additionalDetails,
+                      subtitle: TextConstant.addressCareerEtc,
                     ),
+
+                    // EDUCATION
                     MoreCustomListTileWidget(
-                      icon: homeIcon,
-                      title: 'Accomplishment',
+                      icon: educationCapIcon,
+                      title: TextConstant.education,
+                      onTap: () {
+                        WoltModalSheet.show(
+                          context: context,
+                          pageListBuilder: (context) {
+                            return [
+                              educationModal(context, context.textTheme),
+                            ];
+                          },
+                        );
+                      },
                     ),
+
+                    // WORK EXPERIENCE
                     MoreCustomListTileWidget(
-                      icon: homeIcon,
-                      title: 'My Portfolio',
+                      icon: workExperienceIcon,
+                      title: TextConstant.workExperience,
+                      onTap: () {
+                        WoltModalSheet.show(
+                          context: context,
+                          pageListBuilder: (context) {
+                            return [
+                              workExperienceModal(context, context.textTheme),
+                            ];
+                          },
+                        );
+                      },
+                    ),
+
+                    const MoreCustomListTileWidget(
+                      icon: socialMediaIcon,
+                      title: TextConstant.socialMediaHandles,
                     ),
                   ],
                 ),
@@ -79,7 +194,7 @@ class MoreScreen extends ConsumerWidget {
               // DottedLineDividerWidget(),
 
               // SETTINGS
-              Text('Settings'),
+              const Text('Settings'),
               Card(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -103,6 +218,16 @@ class MoreScreen extends ConsumerWidget {
                     MoreCustomListTileWidget(
                       icon: homeIcon,
                       title: 'Licenses',
+                      onTap: () {
+                        showLicensePage(
+                          context: context,
+                          applicationVersion: 'v1.0.0',
+                          applicationIcon: Image.asset(
+                            ImagesConstant.appLogoBrown,
+                            height: 50,
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -114,94 +239,145 @@ class MoreScreen extends ConsumerWidget {
   }
 }
 
-class MoreCustomListTileWidget extends StatelessWidget {
-  const MoreCustomListTileWidget({
-    super.key,
-    this.subtitle,
-    this.icon,
-    required this.title,
-  });
+class Shifter extends SingleChildRenderObjectWidget {
+  /// Creates an instance of [Shifter].
+  const Shifter({
+    Key? key,
+    required Widget child,
+  }) : super(key: key, child: child);
 
-  final String? subtitle;
-  final String title;
-
-  final IconData? icon;
   @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      dense: true,
-      leading: icon == null
-          ? null
-          : Icon(
-              icon,
-              size: 22,
-            ),
-      title: Text(title),
-      subtitle: subtitle != null
-          ? Text(
-              subtitle ?? '',
-              textScaleFactor: 0.85,
-            )
-          : null,
-      trailing: const Icon(
-        iosArrowForwardIcon,
-        size: 17,
-      ),
-    ).padOnly();
+  RenderObject createRenderObject(BuildContext context) {
+    return _SpinnerRenderSliver();
   }
 }
 
-class DottedLineDividerWidget extends StatelessWidget {
-  const DottedLineDividerWidget({super.key});
+class _SpinnerRenderSliver extends RenderSliver with RenderObjectWithChildMixin<RenderBox> {
+  final LayerHandle<TransformLayer> _transformLayer = LayerHandle<TransformLayer>();
+  Matrix4? _paintTransform;
 
   @override
-  Widget build(BuildContext context) {
-    return CustomPaint(
-      painter: DottedLinePainter(
-        context: context,
-        strokeWidthDouble: 0.2,
-        dashLength: context.sizeWidth(0.25),
-      ),
-    ).padSymmetric(vertical: 15);
-  }
-}
-
-class DottedLinePainter extends CustomPainter {
-  final BuildContext context;
-  final double? dashSpacing;
-  final double? dashLength;
-  final double? strokeWidthDouble;
-
-  DottedLinePainter({
-    required this.context,
-    this.dashSpacing,
-    this.dashLength,
-    this.strokeWidthDouble,
-  });
-  @override
-  void paint(Canvas canvas, Size size) {
-    Paint paint = Paint()
-      ..color = context.colorScheme.onSurface.withOpacity(0.7)
-      ..strokeCap = StrokeCap.round
-      ..strokeWidth = strokeWidthDouble ?? 1.0;
-
-    double dashWidth = dashLength ?? 5.0;
-    double dashSpace = dashSpacing ?? 8.0;
-
-    double currentX = 0.0;
-
-    while (currentX < size.width) {
-      canvas.drawLine(
-        Offset(currentX, 0.0),
-        Offset(currentX + dashWidth, 0.0),
-        paint,
-      );
-      currentX += dashWidth + dashSpace;
+  void setupParentData(RenderObject child) {
+    if (child.parentData is! SliverPhysicalParentData) {
+      child.parentData = SliverPhysicalParentData();
     }
   }
 
   @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    return true;
+  void performLayout() {
+    _paintTransform = null;
+
+    final constraints = this.constraints;
+    child!.layout(constraints.asBoxConstraints(), parentUsesSize: true);
+    final double childExtent;
+    final childSizeWidth = child!.size.width;
+    switch (constraints.axis) {
+      case Axis.horizontal:
+        childExtent = childSizeWidth;
+        break;
+      case Axis.vertical:
+        childExtent = child!.size.height;
+        break;
+    }
+
+    final paintedChildSize = calculatePaintOffset(
+      constraints,
+      from: 0.0,
+      to: childExtent,
+    );
+    final cacheExtent = calculateCacheOffset(
+      constraints,
+      from: 0.0,
+      to: childExtent,
+    );
+
+    final scrollOffset = constraints.scrollOffset;
+
+    if (scrollOffset > 0 && paintedChildSize > 0) {
+      final shift = (1 - paintedChildSize / childExtent) * childSizeWidth;
+
+      _paintTransform = Matrix4.identity()..translate(shift, 0.0);
+    }
+
+    assert(paintedChildSize.isFinite);
+    assert(paintedChildSize >= 0.0);
+    geometry = SliverGeometry(
+      scrollExtent: childExtent,
+      paintExtent: paintedChildSize,
+      cacheExtent: cacheExtent,
+      maxPaintExtent: childExtent,
+      hitTestExtent: paintedChildSize,
+      hasVisualOverflow:
+          childExtent > constraints.remainingPaintExtent || constraints.scrollOffset > 0.0,
+    );
+
+    _setChildParentData(child!, constraints, geometry!);
+  }
+
+  @override
+  void paint(PaintingContext context, Offset offset) {
+    if (child != null && geometry!.visible) {
+      _transformLayer.layer = context.pushTransform(
+        needsCompositing,
+        offset,
+        _paintTransform ?? Matrix4.identity(),
+        _paintChild,
+        oldLayer: _transformLayer.layer,
+      );
+    } else {
+      _transformLayer.layer = null;
+    }
+  }
+
+  @override
+  void applyPaintTransform(covariant RenderObject child, Matrix4 transform) {
+    if (_paintTransform != null) {
+      transform.multiply(_paintTransform!);
+    }
+    final childParentData = child.parentData! as SliverPhysicalParentData;
+
+    // for make it more readable
+    // ignore: cascade_invocations
+    childParentData.applyPaintTransform(transform);
+  }
+
+  @override
+  void dispose() {
+    _transformLayer.layer = null;
+    super.dispose();
+  }
+
+  void _paintChild(PaintingContext context, Offset offset) {
+    final childParentData = child!.parentData! as SliverPhysicalParentData;
+    context.paintChild(child!, offset + childParentData.paintOffset);
+  }
+
+  void _setChildParentData(
+    RenderObject child,
+    SliverConstraints constraints,
+    SliverGeometry geometry,
+  ) {
+    final childParentData = child.parentData! as SliverPhysicalParentData;
+    var dx = 0.0;
+    var dy = 0.0;
+    switch (applyGrowthDirectionToAxisDirection(
+      constraints.axisDirection,
+      constraints.growthDirection,
+    )) {
+      case AxisDirection.up:
+        dy = -(geometry.scrollExtent - (geometry.paintExtent + constraints.scrollOffset));
+        break;
+      case AxisDirection.right:
+        dx = -constraints.scrollOffset;
+        break;
+      case AxisDirection.down:
+        dy = -constraints.scrollOffset;
+        break;
+      case AxisDirection.left:
+        dx = -(geometry.scrollExtent - (geometry.paintExtent + constraints.scrollOffset));
+        break;
+    }
+
+    childParentData.paintOffset = Offset(dx, dy);
   }
 }

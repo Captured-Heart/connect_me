@@ -27,6 +27,8 @@ class AuthTextFieldWidget extends StatelessWidget {
     this.readOnly,
     this.textInputAction,
     this.validator,
+    this.labelMaterial,
+    this.maxLines,
   });
   final TextEditingController controller;
 
@@ -46,7 +48,11 @@ class AuthTextFieldWidget extends StatelessWidget {
   final bool? readOnly;
   final Color? fillColor;
   final int? maxLength;
+  final int? maxLines;
+
   final String? label;
+  final String? labelMaterial;
+
   final bool? noBorders;
   final TextInputAction? textInputAction;
   final String? Function(String?)? validator;
@@ -56,13 +62,16 @@ class AuthTextFieldWidget extends StatelessWidget {
   //         borderRadius: BorderRadius.circular(8),
   //         borderSide: BorderSide(width: 0.3, color: context.theme.textTheme.bodyMedium!.color!),
   //       );
-  InputBorder borderDesign(BuildContext context) {
+  InputBorder borderDesign(BuildContext context, {bool isFocused = false}) {
     if (noBorders == true) {
       return InputBorder.none;
     } else {
       return OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
-        borderSide: BorderSide(width: 0.3, color: context.theme.textTheme.bodyMedium!.color!),
+        borderSide: BorderSide(
+          width: isFocused == true ? 0.7 : 0.1,
+          color: context.theme.textTheme.bodyMedium!.color!,
+        ),
       );
     }
   }
@@ -77,9 +86,8 @@ class AuthTextFieldWidget extends StatelessWidget {
               ? const SizedBox.shrink()
               : Text(
                   label ?? '',
-                  style: context.textTheme.bodyMedium?.copyWith(
-                    fontWeight: AppFontWeight.w600,
-                  ),
+                  style: context.textTheme.bodyMedium,
+                  textScaleFactor: 0.9,
                 ).padOnly(bottom: 7),
           TextFormField(
             onTap: onTap,
@@ -92,6 +100,7 @@ class AuthTextFieldWidget extends StatelessWidget {
             keyboardType: keyboardType,
             onChanged: onChanged,
             maxLength: maxLength,
+            maxLines: maxLines,
             textInputAction: textInputAction ?? TextInputAction.next,
             cursorColor: context.theme.primaryColor,
             autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -103,6 +112,23 @@ class AuthTextFieldWidget extends StatelessWidget {
                 inputFormatters ?? [FilteringTextInputFormatter.deny(RegExp(r"\s\b|\b\s"))],
             decoration: InputDecoration(
               hintText: hintText,
+              hintStyle: context.textTheme.bodySmall?.copyWith(
+                fontWeight: AppFontWeight.w100,
+                color: context.colorScheme.onSurface.withOpacity(0.5),
+              ),
+
+              // label: labelMaterial != null
+              //     ? AutoSizeText(
+              //         labelMaterial ?? '',
+              //         maxLines: 1,
+              //         textAlign: TextAlign.start,
+              //       )
+              //     : null,
+              labelStyle: context.textTheme.bodyMedium?.copyWith(
+                fontWeight: AppFontWeight.w100,
+                color: context.colorScheme.onSurface.withOpacity(0.5),
+              ),
+              labelText: labelMaterial,
               prefixIcon: prefixIcon,
               suffixIcon: suffixIcon,
               fillColor: fillColor ?? context.theme.scaffoldBackgroundColor,
@@ -114,7 +140,7 @@ class AuthTextFieldWidget extends StatelessWidget {
               // ),
 
               border: borderDesign(context),
-              focusedBorder: borderDesign(context),
+              focusedBorder: borderDesign(context, isFocused: true),
               enabledBorder: borderDesign(context),
               errorBorder: borderDesign(context),
               errorMaxLines: 1,

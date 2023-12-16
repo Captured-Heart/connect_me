@@ -1,6 +1,6 @@
 import 'package:connect_me/app.dart';
 
-class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
+class HomeScreenAppBar extends ConsumerWidget implements PreferredSizeWidget {
   const HomeScreenAppBar({
     super.key,
     this.hideTitle = false,
@@ -8,7 +8,9 @@ class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool hideTitle;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final connectsList =
+        ref.watch(fetchProfileProvider('').select((value) => value.value?.connects));
     return AppBar(
       elevation: 0,
       backgroundColor: context.theme.scaffoldBackgroundColor,
@@ -17,10 +19,17 @@ class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
       leadingWidth: 80,
       leading: GestureDetector(
         onTap: () {
-          pushAsVoid(
-            context,
-            const ContactScreen(),
-          );
+          if (connectsList != null) {
+            pushAsVoid(
+              context,
+              ContactScreen(
+                connectsList: connectsList,
+              ),
+            );
+          } else {
+            showScaffoldSnackBarMessageNoColor(AuthErrors.networkFailure.errorMessage,
+                context: context);
+          }
         },
         child: Chip(
           label: Swing(

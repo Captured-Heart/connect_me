@@ -17,9 +17,6 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> {
     final isLoading = ref.watch(qrcodeShareNotifierProvider);
     final users = ref.watch(fetchProfileProvider(''));
 
-    log(isLoading.errorMessage ?? '');
-    // shareQrCodeTemplate(context, globalKey: _globalKey);
-
     return FullScreenLoader(
       isLoading: isLoading.isLoading ?? false,
       child: Scaffold(
@@ -82,6 +79,13 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> {
                       children: [
                         ProfilePicWidget(
                           authUserModel: data,
+                          onTap: () {
+                            pushAsVoid(
+                                context,
+                                const ProfileScreen(
+                                  implyLeading: true,
+                                ));
+                          },
                         ),
                         CustomListTileWidget(
                           title: data.username ?? '',
@@ -103,14 +107,11 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> {
                             : const SizedBox.shrink()
                       ].columnInPadding(10),
                     ),
-
-                    //
                     Flexible(
                       child: Container(
                         margin: AppEdgeInsets.eA12,
                         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 1),
                         decoration: BoxDecoration(
-                          // border: Border.all(color: Colors.white),
                           gradient: whiteGradient(context: context),
                         ),
                         child: QrImageView(
@@ -133,48 +134,37 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> {
                 ),
               );
             },
-            error: (error, _) {},
-            loading: () => CircularProgressIndicator.adaptive(),
+            error: (error, _) {
+              return Center(
+                child: Text(
+                  error.toString(),
+                ),
+              );
+            },
+
+            // SHIMMER LOADER
+            loading: () => ShimmerWidget(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  const ProfilePicWidget(),
+                  const CustomListTileWidget(
+                    title: 'Username',
+                    showAtsign: true,
+                  ),
+                  Container(
+                    margin: AppEdgeInsets.eA12,
+                    height: context.sizeHeight(0.45),
+                    padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 1),
+                    decoration: BoxDecoration(
+                      // border: Border.all(color: Colors.white),
+                      gradient: whiteGradient(context: context),
+                    ),
+                  ).padOnly(top: 15)
+                ],
+              ),
+            ),
           )),
     );
-  }
-
-  Color convertGradientToSingleColor(List<Color> gradientColors) {
-    // Calculate the average color of the gradient
-    int totalRed = 0;
-    int totalGreen = 0;
-    int totalBlue = 0;
-
-    for (Color color in gradientColors) {
-      totalRed += color.red;
-      totalGreen += color.green;
-      totalBlue += color.blue;
-    }
-
-    int averageRed = (totalRed / gradientColors.length).round();
-    int averageGreen = (totalGreen / gradientColors.length).round();
-    int averageBlue = (totalBlue / gradientColors.length).round();
-
-    // Create and return the average color
-    return Color.fromARGB(255, averageRed, averageGreen, averageBlue);
-  }
-
-  Color gradientToSingleColor(LinearGradient gradient, double position) {
-    assert(position >= 0.0 && position <= 1.0);
-
-    // Evaluate the gradient at the specified position
-    List<Color> colors = gradient.colors;
-    List<double> stops =
-        gradient.stops ?? List.generate(colors.length, (index) => index / (colors.length - 1));
-
-    for (int i = 0; i < stops.length - 1; i++) {
-      if (position >= stops[i] && position <= stops[i + 1]) {
-        double t = (position - stops[i]) / (stops[i + 1] - stops[i]);
-        return Color.lerp(colors[i], colors[i + 1], t)!;
-      }
-    }
-
-    // Return the color at the last stop if position is greater than 1.0
-    return colors.last;
   }
 }
