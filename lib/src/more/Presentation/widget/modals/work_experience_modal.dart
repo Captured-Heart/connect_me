@@ -1,6 +1,7 @@
 // EDUCATION MODEL
 import 'package:connect_me/app.dart';
 
+//0113343316
 SliverWoltModalSheetPage workExperienceModal(BuildContext modalSheetContext, TextTheme textTheme) {
   return WoltModalSheetPage(
     hasSabGradient: true,
@@ -40,12 +41,7 @@ class WorkExperienceBody extends StatelessWidget {
           label: 'Title*',
         ),
 
-        //employment type
-        AuthTextFieldWidget(
-          controller: TextEditingController(),
-          label: 'Employment type*',
-        ),
-
+//
         // company name
         AuthTextFieldWidget(
           controller: TextEditingController(),

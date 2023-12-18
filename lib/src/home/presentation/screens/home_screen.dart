@@ -6,37 +6,6 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      // FLOATING ACTION BUTTON
-      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
-      floatingActionButton: SpeedDial(
-        icon: qrCodeIcon,
-        overlayOpacity: 0.6,
-        children: [
-          SpeedDialChild(
-            child: const Icon(
-              qrCodeIcon,
-              color: Colors.white,
-            ),
-            label: TextConstant.displayMyQrCode,
-            backgroundColor: Colors.blue,
-            onTap: () {
-              // showAwesomeQrDilaogs(context);
-            },
-          ),
-          SpeedDialChild(
-            child: const Icon(
-              Bootstrap.camera,
-              color: Colors.white,
-            ),
-            label: TextConstant.scanQr,
-            backgroundColor: Colors.red,
-          )
-        ],
-        spacing: 10,
-        mini: false,
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-
       // APPBAR
       appBar: const HomeScreenAppBar(),
       body: ListView(

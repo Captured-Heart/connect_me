@@ -82,7 +82,8 @@ abstract class TextConstant {
   static const twitter = 'Twitter';
   static const whatsapp = 'Whatsapp';
   static const telegram = 'Telegram';
-  static const message = 'Message'; // static const lorem = 'or';
+  static const message = 'Message';
+  static const support = 'Support';
   // static const lorem = 'or'; // static const lorem = 'or';
   // static const lorem = 'or'; // static const lorem = 'or';
   // static const lorem = 'or'; // static const lorem = 'or';
@@ -110,14 +111,14 @@ abstract class TextConstant {
   static const workExperience = 'Work Experience';
   static const socialMediaHandles = 'Social Media Handles';
   static const delete = 'Delete';
-  // static const lorem = 'or';
-  // static const lorem = 'or';
-  // static const lorem = 'or';
-  // static const lorem = 'or';
-  // static const lorem = 'or';
-  // static const lorem = 'or';
-  // static const lorem = 'or';
-  // static const lorem = 'or';
+  static const helpCenter247 = '24/7 Help Center';
+  static const tellUsHowWeCanHelpYou = 'Tell us how we can help you';
+  static const superHumansWithABody =
+      'Super humans with a body are standing by for service and support';
+  static const contactUs = 'Contact us';
+  static const chatWithUsOnWhatsapp = 'Chat with us on whatsapp';
+  static const tellUsHowWeCanHelpYouOnX = 'Tell us how we can help you on X';
+  static const getYourSolutionsViaEmail = 'Get your solution via emails';
   // static const lorem = 'or';
   // static const lorem = 'or';
 }

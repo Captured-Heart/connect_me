@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:connect_me/app.dart';
 import 'package:flutter/rendering.dart';
 
@@ -15,6 +13,7 @@ class ColorTile extends StatelessWidget {
       height: 600,
       child: Center(
         child: Text(
+          //
           color.toString(),
           style: TextStyle(
             color: color.computeLuminance() > 0.5 ? Colors.black : Colors.white,
@@ -37,15 +36,22 @@ List<Color> get allMaterialColors {
   return allMaterialColorsWithShades;
 }
 
-class MoreScreen extends ConsumerWidget {
+class MoreScreen extends ConsumerStatefulWidget {
   MoreScreen({super.key});
 
+  @override
+  ConsumerState<MoreScreen> createState() => _MoreScreenState();
+}
+
+class _MoreScreenState extends ConsumerState<MoreScreen> {
   final materialColorsInGrid = allMaterialColors.take(20).toList();
+
   final materialColorsInSliverList = allMaterialColors.sublist(20, 25);
+
   final materialColorsInSpinner = allMaterialColors.sublist(30, 50);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final pageIndexNotifier = ValueNotifier(0);
     // SliverWoltModalSheetPage page2(BuildContext modalSheetContext, TextTheme textTheme) {
     //   return SliverWoltModalSheetPage(
@@ -146,10 +152,20 @@ class MoreScreen extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const MoreCustomListTileWidget(
+                    MoreCustomListTileWidget(
                       icon: additionalDetailsIcon,
                       title: TextConstant.additionalDetails,
                       subtitle: TextConstant.addressCareerEtc,
+                      onTap: () {
+                        WoltModalSheet.show(
+                          context: context,
+                          pageListBuilder: (context) {
+                            return [
+                              additionalInfoModal(context, context.textTheme),
+                            ];
+                          },
+                        );
+                      },
                     ),
 
                     // EDUCATION
@@ -184,12 +200,22 @@ class MoreScreen extends ConsumerWidget {
                       },
                     ),
 
-                    const MoreCustomListTileWidget(
+                    MoreCustomListTileWidget(
                       icon: socialMediaIcon,
                       title: TextConstant.socialMediaHandles,
+                      onTap: () {
+                        WoltModalSheet.show(
+                          context: context,
+                          pageListBuilder: (context) {
+                            return [
+                              socialMediaModal(context, context.textTheme),
+                            ];
+                          },
+                        );
+                      },
                     ),
                   ],
-                ),
+                ).padOnly(bottom: 7),
               ),
               // DottedLineDividerWidget(),
 
@@ -200,23 +226,40 @@ class MoreScreen extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     MoreCustomListTileWidget(
-                      icon: homeIcon,
+                      icon: privacyIcon,
                       title: 'Account Privacy',
                     ),
+                    // MoreCustomListTileWidget(
+                    //   icon: feedbackSpeakerIcon,
+                    //   title: 'Feedbacks',
+                    //   iconSize: 26,
+                    // ),
                     MoreCustomListTileWidget(
-                      icon: homeIcon,
-                      title: 'Feedbacks',
+                      icon: helpCenterIcon,
+                      title: 'Help Center / Feedbacks',
+                      onTap: () {
+                        pushAsVoid(context, const HelpCenterScreen());
+                      },
+                    ),
+
+                    //
+
+                    MoreCustomListTileWidget(
+                      icon: supportMoneyIcon,
+                      title: TextConstant.support,
+                      onTap: () {
+                        WoltModalSheet.show(
+                          context: context,
+                          pageListBuilder: (context) {
+                            return [
+                              supportModal(context, context.textTheme),
+                            ];
+                          },
+                        );
+                      },
                     ),
                     MoreCustomListTileWidget(
-                      icon: homeIcon,
-                      title: 'About',
-                    ),
-                    MoreCustomListTileWidget(
-                      icon: homeIcon,
-                      title: 'Support',
-                    ),
-                    MoreCustomListTileWidget(
-                      icon: homeIcon,
+                      icon: EvaIcons.link,
                       title: 'Licenses',
                       onTap: () {
                         showLicensePage(
@@ -230,7 +273,7 @@ class MoreScreen extends ConsumerWidget {
                       },
                     ),
                   ],
-                ),
+                ).padOnly(bottom: 7, top: 4),
               ),
               // DottedLineDividerWidget(),
             ].columnInPadding(10)),

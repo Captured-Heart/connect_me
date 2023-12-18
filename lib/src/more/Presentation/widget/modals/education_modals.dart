@@ -1,8 +1,6 @@
 // EDUCATION MODEL
 import 'package:connect_me/app.dart';
 
-
-
 SliverWoltModalSheetPage educationModal(BuildContext modalSheetContext, TextTheme textTheme) {
   return WoltModalSheetPage(
     hasSabGradient: true,
@@ -104,6 +102,12 @@ class EducationModalBody extends StatelessWidget {
           controller: TextEditingController(),
           label: 'Grade',
           hintText: 'Ex: First Class Honours',
+        ),
+        AuthTextFieldWidget(
+          controller: TextEditingController(),
+          label: 'Award/Honours',
+          maxLines: 3,
+          hintText: 'Ex: Distinction in Anatomy 2nd MBBS',
         ),
         AuthTextFieldWidget(
           controller: TextEditingController(),

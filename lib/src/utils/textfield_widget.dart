@@ -112,6 +112,7 @@ class AuthTextFieldWidget extends StatelessWidget {
                 inputFormatters ?? [FilteringTextInputFormatter.deny(RegExp(r"\s\b|\b\s"))],
             decoration: InputDecoration(
               hintText: hintText,
+              contentPadding: const EdgeInsets.all(12),
               hintStyle: context.textTheme.bodySmall?.copyWith(
                 fontWeight: AppFontWeight.w100,
                 color: context.colorScheme.onSurface.withOpacity(0.5),

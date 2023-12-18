@@ -34,8 +34,9 @@ ThemeData themeBuilder({
   );
   final Color scaffoldBackgroundColor = isDark ? _kBackgroundDarkColor : colorScheme.background;
 
-  const OutlineInputBorder textFieldBorder = OutlineInputBorder(
+   OutlineInputBorder textFieldBorder = OutlineInputBorder(
     borderSide: BorderSide.none,
+    borderRadius: BorderRadius.circular(10)
   );
   final OutlineInputBorder textFieldErrorBorder = textFieldBorder.copyWith(
     borderSide: BorderSide(color: colorScheme.error),
@@ -116,8 +117,10 @@ ThemeData themeBuilder({
       enabledBorder: textFieldBorder,
       errorBorder: textFieldErrorBorder,
       focusedErrorBorder: textFieldErrorBorder,
-      contentPadding: const EdgeInsets.all(12),
+      contentPadding: EdgeInsets.zero,
+      //  const EdgeInsets.all(12),
       filled: true,
+      // isDense: true,
     ),
   );
 }

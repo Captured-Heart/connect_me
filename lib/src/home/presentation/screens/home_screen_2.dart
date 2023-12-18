@@ -22,49 +22,10 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> {
       child: Scaffold(
           appBar: const HomeScreenAppBar(
             hideTitle: true,
+            // onTap: () {
+            //   ref.read(qrcodeShareNotifierProvider.notifier).shareQrToOtherApps(_globalKey);
+            // },
           ),
-          floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
-          floatingActionButton: SpeedDial(
-            icon: qrCodeIcon,
-            overlayOpacity: 0.6,
-            direction: SpeedDialDirection.up,
-            children: [
-              SpeedDialChild(
-                child: const Icon(
-                  Bootstrap.camera,
-                  color: Colors.white,
-                ),
-                onTap: () {
-                  // scan qr scan
-                },
-                label: TextConstant.scanQr,
-                backgroundColor: Colors.red,
-              ),
-              SpeedDialChild(
-                child: const Icon(
-                  shareIcon,
-                  color: Colors.white,
-                ),
-                label: TextConstant.shareProfile,
-                backgroundColor: Colors.blue,
-                onTap: () {
-                  //share QR
-                  // showAwesomeQrDilaogs(
-                  //   context,
-                  //   globalKey: _globalKey,
-                  //   onShareQrcode: () {
-                  //     ref.read(qrcodeShareNotifierProvider.notifier).shareQrToOtherApps(_globalKey);
-                  //   },
-                  // );
-
-                  ref.read(qrcodeShareNotifierProvider.notifier).shareQrToOtherApps(_globalKey);
-                },
-              ),
-            ],
-            spacing: 10,
-            mini: false,
-          ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
           body: users.when(
             data: (data) {
               return RepaintBoundary(

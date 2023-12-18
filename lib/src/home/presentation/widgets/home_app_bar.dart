@@ -6,7 +6,6 @@ class HomeScreenAppBar extends ConsumerWidget implements PreferredSizeWidget {
     this.hideTitle = false,
   });
   final bool hideTitle;
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final connectsList =
@@ -60,6 +59,23 @@ class HomeScreenAppBar extends ConsumerWidget implements PreferredSizeWidget {
               ),
             ),
       actions: [
+        //share screen
+        GestureDetector(
+          onTap: (){
+             pushAsVoid(
+              context,
+              const ShareQrCodeScreen(),
+            );
+          },
+          child: Chip(
+            backgroundColor: context.colorScheme.inversePrimary.withOpacity(0.4),
+            label: const Icon(shareIcon),
+            shape: const CircleBorder(),
+            side: BorderSide(width: 0.5, color: context.colorScheme.onSurface),
+          ),
+        ),
+
+        //camera
         GestureDetector(
           onTap: () {
             pushAsVoid(
@@ -68,12 +84,13 @@ class HomeScreenAppBar extends ConsumerWidget implements PreferredSizeWidget {
             );
           },
           child: Chip(
-            label: const Icon(notificationIcon),
+            backgroundColor: context.colorScheme.inversePrimary.withOpacity(0.4),
+            label: const Icon(cameraIcon),
             shape: const CircleBorder(),
             side: BorderSide(width: 0.5, color: context.colorScheme.onSurface),
           ),
         ),
-      ].rowInPadding(10),
+      ],
     );
   }
 

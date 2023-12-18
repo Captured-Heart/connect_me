@@ -42,7 +42,20 @@ const IconData socialMediaIcon = Icons.group_add_outlined;
 const IconData addIcon = Icons.add;
 const IconData additionalDetailsIcon = Icons.person_pin_circle_outlined;
 const IconData workExperienceIcon = Icons.work_outline_outlined;
-// const IconData copyIcon = Icons.copy;
-// const IconData copyIcon = Icons.copy;
-// const IconData copyIcon = Icons.copy;
+const IconData cameraIcon = Bootstrap.camera;
+const IconData helpCenterIcon = Icons.live_help_outlined;
+const IconData privacyIcon = Icons.privacy_tip_outlined;
+const IconData feedbackSpeakerIcon = Icons.campaign_outlined;
+const IconData supportMoneyIcon = Icons.payments_outlined;
+const IconData buymeacoffeeIcon = BoxIcons.bx_coffee_togo;
+// const IconData addIcon = Icons.add;
+// const IconData addIcon = Icons.add;
+// const IconData addIcon = Icons.add;
+// const IconData addIcon = Icons.add;
+// const IconData addIcon = Icons.add;
+// const IconData addIcon = Icons.add;
+// const IconData addIcon = Icons.add;
+// const IconData addIcon = Icons.add;
+// const IconData addIcon = Icons.add;
+
 

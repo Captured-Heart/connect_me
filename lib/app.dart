@@ -15,7 +15,6 @@ export 'package:qr_flutter/qr_flutter.dart';
 export 'package:animate_do/animate_do.dart';
 export 'package:awesome_dialog/awesome_dialog.dart';
 export 'package:status_view/status_view.dart';
-export 'package:flutter_speed_dial/flutter_speed_dial.dart';
 export 'package:faker/faker.dart';
 export 'package:dartz/dartz.dart' hide State, Order;
 export 'package:lottie/lottie.dart';
@@ -24,6 +23,8 @@ export 'package:qr_code_scanner/qr_code_scanner.dart';
 export 'package:share_plus/share_plus.dart';
 export 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 export 'package:animated_custom_dropdown/custom_dropdown.dart';
+export 'package:country_code_picker/country_code_picker.dart';
+export 'package:csc_picker/csc_picker.dart';
 
 //FIREBASE SERVICES
 export 'package:firebase_auth/firebase_auth.dart';

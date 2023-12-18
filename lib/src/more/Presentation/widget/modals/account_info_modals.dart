@@ -31,6 +31,7 @@ SliverWoltModalSheetPage accountInformationModal(
               child: AuthTextFieldWidget(
                 controller: TextEditingController(),
                 labelMaterial: 'first name',
+                hintText: 'Ex: Endo',
               ),
             ),
             const SizedBox(
@@ -40,6 +41,7 @@ SliverWoltModalSheetPage accountInformationModal(
               child: AuthTextFieldWidget(
                 controller: TextEditingController(),
                 labelMaterial: 'last name',
+                hintText: 'Ex: Trent',
               ),
             ),
           ],
@@ -51,9 +53,13 @@ SliverWoltModalSheetPage accountInformationModal(
         ),
 
         //USE COUNTRY CODE WIDGET HERE
+
         AuthTextFieldWidget(
           controller: TextEditingController(),
           labelMaterial: 'Phone',
+          prefixIcon: CountryCodeCustomWidget(
+            onChanged: (value) {},
+          ),
           // prefixIcon: Align(
           //   alignment: Alignment.centerLeft,
           //     child: Text(
@@ -64,10 +70,15 @@ SliverWoltModalSheetPage accountInformationModal(
         AuthTextFieldWidget(
           controller: TextEditingController(),
           labelMaterial: 'website',
+          hintText: 'https://connectme.com',
         ),
         AuthTextFieldWidget(
           controller: TextEditingController(),
           labelMaterial: 'bio',
+          hintText: '''
+Ex: I am an experienced tailor and social worker.
+
+NB: This is diplayed in your Qr_Code card and is visible to all''',
           maxLength: 200,
           maxLines: 4,
         ),

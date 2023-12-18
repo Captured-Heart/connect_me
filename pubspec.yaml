@@ -13,6 +13,8 @@ dependencies:
   awesome_dialog: ^3.1.0
   cached_network_image: ^3.3.0
   cloud_firestore: ^4.13.5
+  country_code_picker: ^3.0.0
+  csc_picker: ^0.2.7
   dartz: ^0.10.1
   equatable: ^2.0.5
   faker: ^2.1.0
@@ -22,7 +24,6 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_riverpod: ^2.4.5
-  flutter_speed_dial: ^7.0.0
   google_fonts: ^6.1.0
   google_sign_in: ^6.1.6
   icons_plus: ^4.0.0
