@@ -57,6 +57,8 @@ class ShareQrCodeScreen extends ConsumerWidget {
                               color: Colors.white,
                               dataModuleShape: QrDataModuleShape.circle,
                             ),
+                            embeddedImage: AssetImage('assets/images/aboutMeLogo_brown.png',),
+                            embeddedImageStyle: QrEmbeddedImageStyle(size: Size(65, 60)),
                             version: 5,
                             size: context.sizeHeight(0.3),
                             gapless: false,
