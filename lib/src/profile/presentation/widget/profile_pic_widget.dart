@@ -6,11 +6,16 @@ class ProfilePicWidget extends StatelessWidget {
     this.withoutBorder = false,
     this.authUserModel,
     this.onTap,
+    this.isStaticTheme = false,
+    this.height,
+    this.width,
   });
 
   final bool withoutBorder;
   final AuthUserModel? authUserModel;
   final VoidCallback? onTap;
+  final bool isStaticTheme;
+  final double? height, width;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -21,17 +26,19 @@ class ProfilePicWidget extends StatelessWidget {
             ? null
             : BoxDecoration(
                 gradient: orangeGradient(isLongBTN: true),
-                borderRadius: AppBorderRadius.c32,
+                borderRadius: height != null ? AppBorderRadius.c16 : AppBorderRadius.c32,
                 // border: Border.all(color: Colors.red)
               ),
         child: SizedBox(
-          height: 90,
-          width: 90,
+          height: height ?? 90,
+          width: width ?? 90,
           // width: double.minPositive,
           child: Card(
             elevation: 5,
+            color: isStaticTheme == true ? Colors.white : null,
             margin: EdgeInsets.zero,
-            shape: const RoundedRectangleBorder(borderRadius: AppBorderRadius.c32),
+            shape: RoundedRectangleBorder(
+                borderRadius: height != null ? AppBorderRadius.c16 : AppBorderRadius.c32),
             child:
 
                 //TODO: ADD AVATAR TO THE IMG SECTION
@@ -51,8 +58,8 @@ class ProfilePicWidget extends StatelessWidget {
               height: 100,
               width: context.sizeWidth(0.2),
               isNotCircle: true,
-              borderRadius: AppBorderRadius.c28,
-            ).padAll(6),
+              borderRadius: height != null ? AppBorderRadius.c16 : AppBorderRadius.c28,
+            ).padAll(height != null ? 3 : 6),
           ),
         ),
       ),

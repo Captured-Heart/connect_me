@@ -36,12 +36,14 @@ class CustomListTileWidget extends StatelessWidget {
     this.showAtsign = false,
     this.subtitleMaxLines,
     this.subtitleTextAlign,
+    this.isStaticTheme = false,
   });
   final String title;
   final String? subtitle;
   final bool showAtsign;
   final int? subtitleMaxLines;
   final TextAlign? subtitleTextAlign;
+  final bool isStaticTheme;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -54,7 +56,9 @@ class CustomListTileWidget extends StatelessWidget {
           showAtsign == true ? '@$title' : title,
           maxLines: 1,
           textAlign: subtitleTextAlign ?? TextAlign.center,
-          style: context.textTheme.bodyLarge,
+          style: context.textTheme.bodyLarge?.copyWith(
+            color: isStaticTheme == true ? Colors.black : null,
+          ),
           textScaleFactor: 0.95,
         ),
         subtitle == null
@@ -66,7 +70,9 @@ class CustomListTileWidget extends StatelessWidget {
                 textAlign: subtitleTextAlign ?? TextAlign.center,
                 textScaleFactor: 0.95,
                 style: context.textTheme.bodySmall?.copyWith(
-                  color: context.colorScheme.onSurface.withOpacity(0.85),
+                  color: isStaticTheme == true
+                      ? Colors.black
+                      : context.colorScheme.onSurface.withOpacity(0.85),
                 ),
               ),
       ],

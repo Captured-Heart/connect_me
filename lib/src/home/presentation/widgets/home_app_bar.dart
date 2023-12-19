@@ -64,7 +64,7 @@ class HomeScreenAppBar extends ConsumerWidget implements PreferredSizeWidget {
           onTap: (){
              pushAsVoid(
               context,
-              const ShareQrCodeScreen(),
+               const ShareQrCodeScreen(),
             );
           },
           child: Chip(

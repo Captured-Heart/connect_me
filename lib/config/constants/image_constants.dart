@@ -12,6 +12,9 @@ abstract class ImagesConstant {
   static const String puzzleBG2 = 'assets/images/puzzle_bg2.jpeg';
   static const String waterBG = 'assets/images/waterBG.jpeg';
   static const String waterBG2 = 'assets/images/waterBG2.jpeg';
+  static const String qrCodeBG0 = 'assets/images/qrcode_BG0.png';
+  static const String qrCodeBG1 = 'assets/images/qrcode_BG1.png';
+  static const String qrCodeBG2 = 'assets/images/qrcode_BG2.png';
 
 
 //
