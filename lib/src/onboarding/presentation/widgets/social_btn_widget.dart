@@ -9,6 +9,7 @@ class SocialButtons extends StatelessWidget {
     this.elevation,
     this.isDense = false,
     this.color,
+    this.textColor,
   });
 
   final IconData iconData;
@@ -16,7 +17,8 @@ class SocialButtons extends StatelessWidget {
   final VoidCallback? onTap;
   final double? elevation;
   final bool isDense;
-  final Color? color;
+  final Color? color, textColor;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -35,11 +37,17 @@ class SocialButtons extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(iconData),
+            Icon(
+              iconData,
+              color: textColor ?? context.theme.iconTheme.color,
+            ),
             Flexible(
               child: AutoSizeText(
                 text,
                 maxLines: 1,
+                style: context.textTheme.bodyMedium?.copyWith(
+                  color: textColor ?? context.colorScheme.onBackground,
+                ),
               ),
             ),
           ].rowInPadding(10),

@@ -7,10 +7,11 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       // APPBAR
-      appBar: const HomeScreenAppBar(),
+      // appBar:  HomeScreenAppBar(authUserModel: ,),
       body: ListView(
         padding: AppEdgeInsets.eH12,
         controller: scrollController,
+        
         // shrinkWrap: true,
         children: [
           SizedBox(

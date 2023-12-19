@@ -4,8 +4,10 @@ class HomeScreenAppBar extends ConsumerWidget implements PreferredSizeWidget {
   const HomeScreenAppBar({
     super.key,
     this.hideTitle = false,
+    required this.authUserModel,
   });
   final bool hideTitle;
+  final AuthUserModel? authUserModel;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final connectsList =
@@ -61,11 +63,20 @@ class HomeScreenAppBar extends ConsumerWidget implements PreferredSizeWidget {
       actions: [
         //share screen
         GestureDetector(
-          onTap: (){
-             pushAsVoid(
-              context,
-               const ShareQrCodeScreen(),
-            );
+          onTap: () {
+            if (authUserModel != null) {
+              pushAsVoid(
+                context,
+                ShareQrCodeScreen(
+                  authUserModel: authUserModel ?? const AuthUserModel(),
+                ),
+              );
+            } else {
+              showScaffoldSnackBarMessageNoColor(
+                AuthErrors.networkFailure.errorMessage,
+                context: context,
+              );
+            }
           },
           child: Chip(
             backgroundColor: context.colorScheme.inversePrimary.withOpacity(0.4),

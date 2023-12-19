@@ -9,48 +9,43 @@ class CustomTabBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      padding: const EdgeInsets.only(bottom: 5, top: 5),
       decoration: BoxDecoration(
-        gradient: whiteGradient(context: context),
-        borderRadius: BorderRadius.circular(15),
+        color: context.colorScheme.surface,
+        border: Border(
+          top: BorderSide(width: 0.15, color: context.colorScheme.onSurface),
+          bottom: BorderSide(width: 0.1, color: context.colorScheme.onSurface),
+        ),
       ),
-      child: Card(
-        margin: const EdgeInsets.symmetric(horizontal: 1, vertical: 1),
-        shape: RoundedRectangleBorder(
-          side: BorderSide(width: 0.3, color: context.theme.primaryColor),
-          borderRadius: BorderRadius.circular(15),
+      child: TabBar(
+        isScrollable: true,
+        indicatorColor: Colors.transparent,
+        padding: AppEdgeInsets.eA1,
+        labelStyle: context.textTheme.bodyLarge?.copyWith(
+          fontWeight: AppFontWeight.w500,
+          fontSize: 12,
         ),
-        child: TabBar(
-          isScrollable: false,
-          indicatorColor: Colors.transparent,
-          padding: AppEdgeInsets.eA1,
-          labelStyle: context.textTheme.bodyLarge?.copyWith(
-            fontWeight: AppFontWeight.w700,
-          ),
-          labelColor: AppThemeColorDark.textDark,
-          dividerColor: Colors.transparent,
-          indicatorWeight: 4,
-          indicatorSize: TabBarIndicatorSize.tab,
-          indicatorPadding: const EdgeInsets.symmetric(vertical: 9, horizontal: 20),
-          indicator: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: context.theme.indicatorColor),
-            gradient: orangeGradient(),
-          ),
-          splashBorderRadius: BorderRadius.circular(40),
-          splashFactory: NoSplash.splashFactory,
-          overlayColor: MaterialStateProperty.resolveWith<Color?>(
-            (states) => states.contains(MaterialState.selected) ? null : Colors.transparent,
-          ),
-          // onTap: (value) {
-          //   log(value.toString());
-          // },
-          tabs: tabs,
+        labelColor: context.colorScheme.onBackground,
+        dividerColor: Colors.transparent,
+        indicatorWeight: 1,
+        indicatorSize: TabBarIndicatorSize.label,
+
+        indicator: UnderlineTabIndicator(
+          borderSide: BorderSide(color: context.colorScheme.onBackground, width: 2),
         ),
+        splashBorderRadius: BorderRadius.circular(40),
+        splashFactory: NoSplash.splashFactory,
+        overlayColor: MaterialStateProperty.resolveWith<Color?>(
+          (states) => states.contains(MaterialState.selected) ? null : Colors.transparent,
+        ),
+        // onTap: (value) {
+        //   log(value.toString());
+        // },
+        tabs: tabs,
       ),
     );
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(50);
+  Size get preferredSize => const Size.fromHeight(40);
 }

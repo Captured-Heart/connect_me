@@ -1,16 +1,11 @@
-import 'dart:developer';
-
 import 'package:connect_me/app.dart';
 
 class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({
     super.key,
-    this.implyLeading,
-    this.isMyProfile = true,
     this.uuid,
   });
-  final bool? implyLeading;
-  final bool isMyProfile;
+
   final String? uuid;
   @override
   ConsumerState<ProfileScreen> createState() => _ProfileScreenState();
@@ -46,63 +41,82 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       }
     });
     final users = ref.watch(fetchProfileProvider(widget.uuid ?? ''));
-    // inspect(users);
 
     // inspect(users);
     return Scaffold(
       body: SafeArea(
         child: DefaultTabController(
-            length: 2,
+            length: 4,
             child: NestedScrollView(
-              controller: _scrollController,
-              headerSliverBuilder: (context, innerBoxIsScrolled) {
-                return [
-                  SliverAppBar(
-                    expandedHeight: widget.isMyProfile == false
-                        ? context.sizeHeight(0.37)
-                        : context.sizeHeight(0.315),
-                    collapsedHeight: kToolbarHeight,
-                    automaticallyImplyLeading: offset < 238 ? widget.implyLeading ?? false : false,
-                    forceMaterialTransparency: true,
-                    floating: true,
-                    pinned: true,
-                    // snap: true,
-                    // stretch: true,
-                    flexibleSpace: FlexibleSpaceBar(
-                      background: ProfileHeaderWidget(
-                        users: users,
-                        isMyProfile: widget.isMyProfile,
-                      ).padSymmetric(horizontal: 20),
-                      collapseMode: CollapseMode.parallax,
+                controller: _scrollController,
+                headerSliverBuilder: (context, innerBoxIsScrolled) {
+                  return [
+                    SliverAppBar(
+                      expandedHeight: context.sizeHeight(0.24),
+                      collapsedHeight: kToolbarHeight,
+                      automaticallyImplyLeading:
+                          _scrollController.position.pixels < 100.0 ? true : false,
+                      forceMaterialTransparency: true,
+                      floating: true,
+                      pinned: true,
+                      // snap: true,
+                      // stretch: true,
+                      flexibleSpace: FlexibleSpaceBar(
+                        background: ProfileHeaderWidget(
+                          users: users,
+                        ).padSymmetric(horizontal: 20),
+                        collapseMode: CollapseMode.parallax,
+                      ),
                     ),
-                  ),
-                  SliverPersistentHeader(
-                    delegate: _SliverAppBarDelegate(const CustomTabBar(
-                      tabs: [
-                        Tab(
-                          text: TextConstant.posts,
+                    SliverPersistentHeader(
+                      delegate: _SliverAppBarDelegate(
+                        const CustomTabBar(
+                          tabs: [
+                            Tab(
+                              icon: Icon(userProfileIcon),
+                              iconMargin: EdgeInsets.zero,
+                              text: TextConstant.about,
+                            ),
+                            Tab(
+                              icon: Icon(educationCapIcon),
+                              text: TextConstant.education,
+                              iconMargin: EdgeInsets.zero,
+                            ),
+                            Tab(
+                              icon: Icon(socialMediaIcon),
+                              iconMargin: EdgeInsets.zero,
+                              text: TextConstant.social,
+                            ),
+                            Tab(
+                              icon: Icon(workExperienceIcon),
+                              iconMargin: EdgeInsets.zero,
+                              text: TextConstant.workExperience,
+                            ),
+                          ],
                         ),
-                        Tab(
-                          text: TextConstant.about,
-                        ),
-                      ],
-                    )),
-                    pinned: offset > 238 ? true : false,
-                    floating: true,
-                  ),
-                ];
-              },
-              body: TabBarView(
-                children: [
-                  AboutMeWidget(
-                    offset: offset,
-                  ).padSymmetric(horizontal: 15),
-                  AboutMeWidget(
-                    offset: offset,
-                  ).padSymmetric(horizontal: 15)
-                ],
-              ),
-            )),
+                      ),
+                      pinned: offset > 238 ? true : false,
+                      // pinned: false,
+                      floating: true,
+                    ),
+                  ];
+                },
+                body: TabBarView(
+                  children: [
+                    AboutMeWidget(
+                      offset: offset,
+                    ).padSymmetric(horizontal: 15),
+                    AboutMeWidget(
+                      offset: offset,
+                    ).padSymmetric(horizontal: 15),
+                    AboutMeWidget(
+                      offset: offset,
+                    ).padSymmetric(horizontal: 15),
+                    AboutMeWidget(
+                      offset: offset,
+                    ).padSymmetric(horizontal: 15)
+                  ],
+                ).padOnly(top: 15))),
       ),
     );
   }

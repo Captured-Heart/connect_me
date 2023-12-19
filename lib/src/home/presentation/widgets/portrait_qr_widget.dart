@@ -3,9 +3,9 @@ import 'package:connect_me/app.dart';
 class PortraitQrCodeWidget extends StatelessWidget {
   const PortraitQrCodeWidget({
     super.key,
-    this.authUserModel,
+    required this.authUserModel,
   });
-  final AuthUserModel? authUserModel;
+  final AuthUserModel authUserModel;
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -21,11 +21,11 @@ class PortraitQrCodeWidget extends StatelessWidget {
             width: 60,
           ),
         ),
-        const Center(
+        Center(
           child: CustomListTileWidget(
-            title: 'CapturedHeart',
-            subtitle: 'aeaefqafqwdwdfdqwfqwffq',
-            subtitleTextAlign: TextAlign.start,
+            title: authUserModel.username ?? '',
+            subtitle: authUserModel.bio,
+            subtitleTextAlign: TextAlign.center,
             showAtsign: true,
             isStaticTheme: true,
           ),
@@ -36,7 +36,7 @@ class PortraitQrCodeWidget extends StatelessWidget {
             Container(
               margin: const EdgeInsets.only(top: 15, right: 10, left: 10, bottom: 3),
               child: QrImageView(
-                data: 'data.docId!',
+                data: authUserModel.docId ?? '',
 
                 backgroundColor: Colors.black,
                 eyeStyle: const QrEyeStyle(
@@ -59,7 +59,7 @@ class PortraitQrCodeWidget extends StatelessWidget {
               ),
             ),
             AutoSizeText(
-              'Scan QR code to connect',
+              TextConstant.scanQrCodeToConnect,
               style: context.textTheme.bodySmall?.copyWith(
                 color: Colors.black,
               ),

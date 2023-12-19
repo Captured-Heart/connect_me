@@ -68,7 +68,14 @@ abstract class TextConstant {
   static const shareProfile = 'Share Profile';
   static const flipCamera = 'Switch camera';
   static const flash = 'Flash';
+  static const shareQrCode = 'Share QR Code';
+  static const switchToLandscap = 'Switch to landscape mode';
+  static const switchToPortrait = 'Switch to portrait mode';
+  static const scanQrCodeToConnect = 'Scan QR code to connect';
   // static const lorem = 'or';
+  // static const lorem = 'or';
+  // static const lorem = 'or';
+
 
   /*----------------------------------------------------------------------
       PROFILE SCREEN
@@ -84,7 +91,8 @@ abstract class TextConstant {
   static const telegram = 'Telegram';
   static const message = 'Message';
   static const support = 'Support';
-  // static const lorem = 'or'; // static const lorem = 'or';
+  static const social = 'Social'; 
+  // static const lorem = 'or';
   // static const lorem = 'or'; // static const lorem = 'or';
   // static const lorem = 'or'; // static const lorem = 'or';
   // static const lorem = 'or'; // static const lorem = 'or';
@@ -109,6 +117,8 @@ abstract class TextConstant {
   static const otherInformation = 'Other Information';
   static const addressCareerEtc = 'Address, career, etc';
   static const workExperience = 'Work Experience';
+  static const work = 'Work';
+
   static const socialMediaHandles = 'Social Media Handles';
   static const delete = 'Delete';
   static const helpCenter247 = '24/7 Help Center';

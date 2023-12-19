@@ -40,6 +40,7 @@ class HelpCenterScreen extends StatelessWidget {
                   title: TextConstant.email,
                   subtitle: TextConstant.getYourSolutionsViaEmail,
                   icon: mailIcon,
+                  iconSize: 17,
                 ),
               ],
             ),

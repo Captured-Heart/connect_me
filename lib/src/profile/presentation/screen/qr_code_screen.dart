@@ -68,97 +68,97 @@ class _QrCodeScreenState extends ConsumerState<QrCodeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('QR code screen tests'),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            flex: 5,
-            child: Stack(
-              children: [
-                _buildQrView(context),
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            GradientShortBTN(
-                              iconData: Icons.flip_camera_ios_outlined,
-                              isThinBorder: true,
-                              tooltip: TextConstant.flipCamera,
-                              onTap: () async {
-                                var cameraFront =
-                                    await controller?.getCameraInfo().then((value) => value.name);
-                                log('cameraSide: $cameraFront');
-                                setState(() {
-                                  cameraSide = cameraFront!;
-                                });
-                                if (controller != null) {
-                                  controller?.flipCamera();
-                                }
-                              },
-                            ),
+    final isLoading = ref.watch(qrcodeShareNotifierProvider);
 
-                            //flash button
-                            GradientShortBTN(
-                              iconData: cameraSide.contains('back')
-                                  ? Icons.flashlight_off
-                                  : Icons.flashlight_on_rounded,
-                              isThinBorder: true,
-                              tooltip: TextConstant.flash,
-                              onTap: () async {
-                                var cameraFront =
-                                    await controller?.getCameraInfo().then((value) => value.name);
-                                var flash =
-                                    await controller?.getFlashStatus().then((value) => value);
-
-                                setState(() {
-                                  flashStatus = flash!;
-                                });
-                                if (cameraFront!.contains('back')) {
-                                  controller?.toggleFlash();
-                                } else {
-                                  if (context.mounted) {
-                                    showScaffoldSnackBarMessageNoColor(
-                                      'Flash is used only in rear camera mode',
-                                      context: context,
-                                      isError: true,
-                                    );
+    return FullScreenLoader(
+      isLoading: isLoading.isLoading ?? false,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('QR code screen tests'),
+        ),
+        body: Column(
+          children: [
+            Expanded(
+              flex: 5,
+              child: Stack(
+                children: [
+                  _buildQrView(context),
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              GradientShortBTN(
+                                iconData: Icons.flip_camera_ios_outlined,
+                                isThinBorder: true,
+                                tooltip: TextConstant.flipCamera,
+                                onTap: () async {
+                                  var cameraFront =
+                                      await controller?.getCameraInfo().then((value) => value.name);
+                                  log('cameraSide: $cameraFront');
+                                  setState(() {
+                                    cameraSide = cameraFront!;
+                                  });
+                                  if (controller != null) {
+                                    controller?.flipCamera();
                                   }
-                                }
-                              },
-                            ),
+                                },
+                              ),
 
-                            // //
+                              //flash button
+                              GradientShortBTN(
+                                iconData: cameraSide.contains('back')
+                                    ? Icons.flashlight_off
+                                    : Icons.flashlight_on_rounded,
+                                isThinBorder: true,
+                                tooltip: TextConstant.flash,
+                                onTap: () async {
+                                  var cameraFront =
+                                      await controller?.getCameraInfo().then((value) => value.name);
+                                  var flash =
+                                      await controller?.getFlashStatus().then((value) => value);
 
-                            // GradientShortBTN(
-                            //   isThinBorder: true,
-                            // ),
-                          ].rowInPadding(20))
-                      .padOnly(top: 20),
-                ),
-              ],
+                                  setState(() {
+                                    flashStatus = flash!;
+                                  });
+                                  if (cameraFront!.contains('back')) {
+                                    controller?.toggleFlash();
+                                  } else {
+                                    if (context.mounted) {
+                                      showScaffoldSnackBarMessageNoColor(
+                                        'Flash is used only in rear camera mode',
+                                        context: context,
+                                        isError: true,
+                                      );
+                                    }
+                                  }
+                                },
+                              ),
+
+                              // //
+
+                              // GradientShortBTN(
+                              //   isThinBorder: true,
+                              // ),
+                            ].rowInPadding(20))
+                        .padOnly(top: 20),
+                  ),
+                ],
+              ),
             ),
-          ),
-          Center(
-            child: (result != null)
-                ? Text('Barcode Type: ${(result!.format)}   Data: ${result!.code}')
-                : Text('Focus to scan Qr code'),
-          )
-        ],
+            Center(
+              child: (result != null)
+                  ? Text('Barcode Type: ${(result!.format)}   Data: ${result!.code}')
+                  : Text('Focus to scan Qr code'),
+            )
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildQrView(BuildContext context) {
-    // var scanArea =
-    //     (MediaQuery.of(context).size.width < 400 || MediaQuery.of(context).size.height < 400)
-    //         ? 150.0
-    //         : 300.0;
-
     return QRView(
       key: qrKey,
       cameraFacing: CameraFacing.front,

@@ -51,9 +51,7 @@ class ContactScreen extends ConsumerWidget {
                       // log(contacts.toString());
                       pushAsVoid(
                           context,
-                          ProfileScreen(
-                            implyLeading: true,
-                            isMyProfile: false,
+                          ProfileScreenOthers(
                             uuid: contacts.docId,
                           ));
                     },

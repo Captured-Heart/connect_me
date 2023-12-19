@@ -1,8 +1,8 @@
 import 'package:connect_me/app.dart';
 
 class LandscapeQrCodeWIdget extends StatelessWidget {
-  const LandscapeQrCodeWIdget({super.key, this.authUserModel, s});
-  final AuthUserModel? authUserModel;
+  const LandscapeQrCodeWIdget({super.key, required this.authUserModel, s});
+  final AuthUserModel authUserModel;
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +17,9 @@ class LandscapeQrCodeWIdget extends StatelessWidget {
                 height: 60,
                 width: 60,
               ),
-              const CustomListTileWidget(
-                title: 'CapturedHeart',
-                subtitle: 'aeaefqafqwdwdfdqwfqwffq',
+              CustomListTileWidget(
+                title: authUserModel.username ?? '',
+                subtitle: authUserModel.bio,
                 subtitleTextAlign: TextAlign.start,
                 showAtsign: true,
                 isStaticTheme: true,
@@ -35,7 +35,7 @@ class LandscapeQrCodeWIdget extends StatelessWidget {
             Container(
               margin: const EdgeInsets.only(top: 10, right: 10, left: 5, bottom: 3),
               child: QrImageView(
-                data: 'data.docId!',
+                data: authUserModel.docId ?? '',
 
                 backgroundColor: Colors.black,
                 eyeStyle: const QrEyeStyle(
@@ -58,7 +58,7 @@ class LandscapeQrCodeWIdget extends StatelessWidget {
               ),
             ),
             AutoSizeText(
-              'Scan QR code to connect',
+              TextConstant.scanQrCodeToConnect,
               style: context.textTheme.bodySmall?.copyWith(
                 color: Colors.black,
               ),

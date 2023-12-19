@@ -9,7 +9,7 @@ SliverWoltModalSheetPage additionalInfoModal(BuildContext modalSheetContext, Tex
     topBar: Container(
       color: modalSheetContext.theme.cardColor,
       alignment: Alignment.center,
-      child: Text(TextConstant.education, style: textTheme.titleSmall),
+      child: Text(TextConstant.additionalDetails, style: textTheme.titleSmall),
     ),
     isTopBarLayerAlwaysVisible: true,
     trailingNavBarWidget: IconButton(

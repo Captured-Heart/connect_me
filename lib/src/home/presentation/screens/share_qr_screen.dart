@@ -1,10 +1,11 @@
-import 'dart:developer';
-
 import 'package:connect_me/app.dart';
 
 class ShareQrCodeScreen extends ConsumerStatefulWidget {
-  const ShareQrCodeScreen({super.key});
-
+  const ShareQrCodeScreen({
+    super.key,
+    required this.authUserModel,
+  });
+  final AuthUserModel authUserModel;
   @override
   ConsumerState<ShareQrCodeScreen> createState() => _ShareQrCodeScreenState();
 }
@@ -43,11 +44,12 @@ class _ShareQrCodeScreenState extends ConsumerState<ShareQrCodeScreen> {
             cardisVertNotifier,
           ]),
           builder: (context, _) {
-            log('layout: ${cardisVertNotifier.value}');
             return Stack(
               children: [
                 RepaintBoundary(
                   key: _globalKey,
+
+                  // CONTAINER WITH THE BACKGROUND WALLPAPER
                   child: Container(
                     decoration: BoxDecoration(
                       image: DecorationImage(
@@ -56,6 +58,7 @@ class _ShareQrCodeScreenState extends ConsumerState<ShareQrCodeScreen> {
                       ),
                     ),
                     child: Center(
+                      //QR CODE WIDGET WITH A CARD
                       child: Card(
                         color: Colors.white,
                         child: AnimatedContainer(
@@ -68,12 +71,13 @@ class _ShareQrCodeScreenState extends ConsumerState<ShareQrCodeScreen> {
                               ? context.sizeWidth(0.65)
                               : context.sizeWidth(0.9),
                           child: cardisVertNotifier.value == true
-                              ? const PortraitQrCodeWidget()
-                              : const LandscapeQrCodeWIdget(),
+                              ? PortraitQrCodeWidget(
+                                  authUserModel: widget.authUserModel,
+                                )
+                              : LandscapeQrCodeWIdget(
+                                  authUserModel: widget.authUserModel,
+                                ),
                         ),
-                        // cardisVertNotifier.value == true
-                        //     ? const PortraitQrCodeWidget()
-                        //     : const LandscapeQrCodeWIdget(),
                       ).padOnly(
                         bottom: context.sizeHeight(0.1),
                         left: 10,
@@ -98,12 +102,11 @@ class _ShareQrCodeScreenState extends ConsumerState<ShareQrCodeScreen> {
                       ),
                     ),
                     color: Colors.white,
-                    // width: context.sizeWidth(1),
-                    // decoration: BoxDecoration(color: Colors.white, borderRadius: AppBorderRadius.c12),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
+                        // THE CONTAINER SELECT BACKGROUND WIDGET
                         Expanded(
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -114,7 +117,6 @@ class _ShareQrCodeScreenState extends ConsumerState<ShareQrCodeScreen> {
                                 child: GestureDetector(
                                   onTap: () {
                                     cardIndexNotifier.value = index;
-                                    log(index.toString());
                                   },
                                   child: Container(
                                     margin: AppEdgeInsets.eH4,
@@ -123,9 +125,6 @@ class _ShareQrCodeScreenState extends ConsumerState<ShareQrCodeScreen> {
                                         image: AssetImage('assets/images/qrcode_BG$index.png'),
                                         fit: BoxFit.fill,
                                       ),
-                                      border: cardIndexNotifier.value == index
-                                          ? Border.all(color: context.colorScheme.onBackground)
-                                          : null,
                                       borderRadius: AppBorderRadius.c12,
                                     ),
                                     child: Container(
@@ -136,13 +135,14 @@ class _ShareQrCodeScreenState extends ConsumerState<ShareQrCodeScreen> {
                                           fit: BoxFit.fill,
                                         ),
                                         border: cardIndexNotifier.value == index
-                                            ? Border.all(color: context.colorScheme.onBackground)
+                                            ? Border.all(color: Colors.white)
                                             : null,
                                         borderRadius: AppBorderRadius.c12,
                                       ),
                                       child: const Icon(
                                         qrCodeIcon,
                                         size: 25,
+                                        color: Colors.white,
                                       ),
                                     ),
                                   ),
@@ -160,18 +160,25 @@ class _ShareQrCodeScreenState extends ConsumerState<ShareQrCodeScreen> {
                                 .shareQrToOtherApps(_globalKey);
                           },
                           iconData: shareIcon,
-                          text: 'Share QR Code',
+                          textColor: Colors.white,
+                          text: TextConstant.shareQrCode,
                           color: buttonColor(cardIndexNotifier.value),
                         ).padSymmetric(horizontal: context.sizeWidth(0.08), vertical: 5)
                       ].columnInPadding(10),
                     ),
                   ),
                 ),
+
+                // BACK BUTTON
                 Positioned(
                   top: context.sizeWidth(0.13),
                   left: 10,
-                  child: const BackButton(),
+                  child: const BackButton(
+                    color: Colors.white,
+                  ),
                 ),
+
+                // FLIP THE QR WIDGET TO LANDSCAPE AND PORTRAIT
                 Positioned(
                   top: context.sizeWidth(0.13),
                   right: 10,
@@ -179,15 +186,21 @@ class _ShareQrCodeScreenState extends ConsumerState<ShareQrCodeScreen> {
                     onTap: () {
                       cardisVertNotifier.value = !cardisVertNotifier.value;
                     },
-                    child: Container(
-                      padding: AppEdgeInsets.eA4,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.white,
-                          )),
-                      child: Icon(
-                        cardisVertNotifier.value == false ? Icons.swap_vert : Icons.swap_horiz,
+                    child: Tooltip(
+                      message: cardisVertNotifier.value == true
+                          ? TextConstant.switchToLandscap
+                          : TextConstant.switchToPortrait,
+                      child: Container(
+                        padding: AppEdgeInsets.eA4,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: Colors.white,
+                            )),
+                        child: Icon(
+                          cardisVertNotifier.value == false ? Icons.swap_vert : Icons.swap_horiz,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
