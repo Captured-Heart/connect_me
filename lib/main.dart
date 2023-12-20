@@ -36,7 +36,8 @@ class MainApp extends StatelessWidget {
         darkTheme: themeBuilder(
           defaultTheme: ThemeData.dark(),
         ),
-        home: user.value?.uid != null ? const MainScreen() : const SplashScreen(),
+        home:
+            user.value?.uid != null ? const MainScreen() : const SplashScreen(),
       );
     });
   }

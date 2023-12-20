@@ -62,8 +62,9 @@ class _AppCustomDialogWarningState extends State<AppCustomDialogWarning> {
                     child: Text(
                       widget.dialogModel.errorMessage ?? '',
                       textScaleFactor: 1.1,
-                      textAlign:
-                          widget.dialogModel.hasImage == true ? TextAlign.left : TextAlign.center,
+                      textAlign: widget.dialogModel.hasImage == true
+                          ? TextAlign.left
+                          : TextAlign.center,
                     ),
                   )
                 ].rowInPadding(10),
@@ -74,7 +75,8 @@ class _AppCustomDialogWarningState extends State<AppCustomDialogWarning> {
                 () {
                   pop(context);
                 },
-            style: TextButton.styleFrom(foregroundColor: context.theme.colorScheme.error),
+            style: TextButton.styleFrom(
+                foregroundColor: context.theme.colorScheme.error),
             child: Text(
               widget.dialogModel.negativeActionText ?? TextConstant.cancel,
             ),
@@ -82,8 +84,10 @@ class _AppCustomDialogWarningState extends State<AppCustomDialogWarning> {
           // SizedBox.shrink(),
           TextButton(
             onPressed: widget.dialogModel.onPostiveAction,
-            style: TextButton.styleFrom(foregroundColor: context.theme.colorScheme.onBackground),
-            child: Text(widget.dialogModel.postiveActionText ?? TextConstant.confirm),
+            style: TextButton.styleFrom(
+                foregroundColor: context.theme.colorScheme.onBackground),
+            child: Text(
+                widget.dialogModel.postiveActionText ?? TextConstant.confirm),
           )
         ],
       );
@@ -113,12 +117,16 @@ class _AppCustomDialogWarningState extends State<AppCustomDialogWarning> {
                   () {
                     pop(context);
                   },
-              style: TextButton.styleFrom(foregroundColor: context.theme.colorScheme.error),
-              child: Text(widget.dialogModel.negativeActionText ?? TextConstant.cancel)),
+              style: TextButton.styleFrom(
+                  foregroundColor: context.theme.colorScheme.error),
+              child: Text(widget.dialogModel.negativeActionText ??
+                  TextConstant.cancel)),
           TextButton(
             onPressed: widget.dialogModel.onPostiveAction,
-            style: TextButton.styleFrom(foregroundColor: context.theme.colorScheme.onBackground),
-            child: Text(widget.dialogModel.postiveActionText ?? TextConstant.confirm),
+            style: TextButton.styleFrom(
+                foregroundColor: context.theme.colorScheme.onBackground),
+            child: Text(
+                widget.dialogModel.postiveActionText ?? TextConstant.confirm),
           )
         ],
       );
@@ -159,8 +167,10 @@ class _AppCustomSuccessDialogState extends State<AppCustomSuccessDialog> {
         actions: [
           TextButton(
             onPressed: widget.dialogModel.onPostiveAction,
-            style: TextButton.styleFrom(foregroundColor: context.theme.colorScheme.onBackground),
-            child: Text(widget.dialogModel.postiveActionText ?? TextConstant.confirm),
+            style: TextButton.styleFrom(
+                foregroundColor: context.theme.colorScheme.onBackground),
+            child: Text(
+                widget.dialogModel.postiveActionText ?? TextConstant.confirm),
           )
         ],
       );
@@ -189,8 +199,10 @@ class _AppCustomSuccessDialogState extends State<AppCustomSuccessDialog> {
         actions: [
           TextButton(
             onPressed: widget.dialogModel.onPostiveAction,
-            style: TextButton.styleFrom(foregroundColor: context.theme.colorScheme.onBackground),
-            child: Text(widget.dialogModel.postiveActionText ?? TextConstant.confirm),
+            style: TextButton.styleFrom(
+                foregroundColor: context.theme.colorScheme.onBackground),
+            child: Text(
+                widget.dialogModel.postiveActionText ?? TextConstant.confirm),
           )
         ],
       );

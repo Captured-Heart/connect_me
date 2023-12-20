@@ -1,9 +1,9 @@
 // EDUCATION MODEL
-import 'dart:developer';
 
 import 'package:connect_me/app.dart';
 
-SliverWoltModalSheetPage socialMediaModal(BuildContext modalSheetContext, TextTheme textTheme) {
+SliverWoltModalSheetPage socialMediaModal(
+    BuildContext modalSheetContext, TextTheme textTheme) {
   return WoltModalSheetPage(
     hasSabGradient: true,
     backgroundColor: modalSheetContext.theme.scaffoldBackgroundColor,
@@ -42,31 +42,44 @@ class _SocialMediaBodyState extends State<SocialMediaBody> {
 
   final List<Widget> items = [
     SocialMediaDropdownListItem(
-        icon: SocialDropdownEnum.facebook.icon, title: SocialDropdownEnum.facebook.message),
+        icon: SocialDropdownEnum.facebook.icon,
+        title: SocialDropdownEnum.facebook.message),
     SocialMediaDropdownListItem(
-        icon: SocialDropdownEnum.linkedIn.icon, title: SocialDropdownEnum.linkedIn.message),
+        icon: SocialDropdownEnum.linkedIn.icon,
+        title: SocialDropdownEnum.linkedIn.message),
     SocialMediaDropdownListItem(
-        icon: SocialDropdownEnum.instagram.icon, title: SocialDropdownEnum.instagram.message),
+        icon: SocialDropdownEnum.instagram.icon,
+        title: SocialDropdownEnum.instagram.message),
     SocialMediaDropdownListItem(
-        icon: SocialDropdownEnum.youtube.icon, title: SocialDropdownEnum.youtube.message),
+        icon: SocialDropdownEnum.youtube.icon,
+        title: SocialDropdownEnum.youtube.message),
     SocialMediaDropdownListItem(
-        icon: SocialDropdownEnum.behance.icon, title: SocialDropdownEnum.behance.message),
+        icon: SocialDropdownEnum.behance.icon,
+        title: SocialDropdownEnum.behance.message),
     SocialMediaDropdownListItem(
-        icon: SocialDropdownEnum.twitter.icon, title: SocialDropdownEnum.twitter.message),
+        icon: SocialDropdownEnum.twitter.icon,
+        title: SocialDropdownEnum.twitter.message),
     SocialMediaDropdownListItem(
-        icon: SocialDropdownEnum.tiktok.icon, title: SocialDropdownEnum.tiktok.message),
+        icon: SocialDropdownEnum.tiktok.icon,
+        title: SocialDropdownEnum.tiktok.message),
     SocialMediaDropdownListItem(
-        icon: SocialDropdownEnum.github.icon, title: SocialDropdownEnum.github.message),
+        icon: SocialDropdownEnum.github.icon,
+        title: SocialDropdownEnum.github.message),
     SocialMediaDropdownListItem(
-        icon: SocialDropdownEnum.whatsapp.icon, title: SocialDropdownEnum.whatsapp.message),
+        icon: SocialDropdownEnum.whatsapp.icon,
+        title: SocialDropdownEnum.whatsapp.message),
     SocialMediaDropdownListItem(
-        icon: SocialDropdownEnum.snapchat.icon, title: SocialDropdownEnum.snapchat.message),
+        icon: SocialDropdownEnum.snapchat.icon,
+        title: SocialDropdownEnum.snapchat.message),
     SocialMediaDropdownListItem(
-        icon: SocialDropdownEnum.twitch.icon, title: SocialDropdownEnum.twitch.message),
+        icon: SocialDropdownEnum.twitch.icon,
+        title: SocialDropdownEnum.twitch.message),
     SocialMediaDropdownListItem(
-        icon: SocialDropdownEnum.discord.icon, title: SocialDropdownEnum.discord.message),
+        icon: SocialDropdownEnum.discord.icon,
+        title: SocialDropdownEnum.discord.message),
     SocialMediaDropdownListItem(
-        icon: SocialDropdownEnum.gmail.icon, title: SocialDropdownEnum.gmail.message),
+        icon: SocialDropdownEnum.gmail.icon,
+        title: SocialDropdownEnum.gmail.message),
   ];
 
   @override
@@ -82,34 +95,7 @@ class _SocialMediaBodyState extends State<SocialMediaBody> {
               Expanded(
                   flex: 3,
                   child: SizedBox(
-                    child: CustomDropdown(
-                      items: items,
-                      // ['Whatsapp', 'boy'],
-                      listItemBuilder: (context, item) {
-                        return item;
-                      },
-                      headerBuilder: (context, selectedItem) {
-                        return selectedItem;
-                      },
-                      hintBuilder: (context, hint) {
-                        return AutoSizeText(
-                          'Choose',
-                          style: context.textTheme.bodySmall?.copyWith(
-                            color: context.colorScheme.onBackground.withOpacity(0.6),
-                          ),
-                        );
-                      },
-                      closedBorder: Border.all(
-                        color: context.theme.textTheme.bodyMedium!.color!,
-                        width: 0.3,
-                      ),
-                      expandedBorder: Border.all(
-                        color: context.theme.textTheme.bodyMedium!.color!,
-                        width: 0.3,
-                      ),
-                      closedFillColor: context.theme.scaffoldBackgroundColor,
-                      expandedFillColor: context.theme.scaffoldBackgroundColor,
-                    ),
+                    child: MyCustomDropWidget(items: items),
                     // DropDownWithLabelWidget(),
                   )),
               const SizedBox(
@@ -144,86 +130,6 @@ class _SocialMediaBodyState extends State<SocialMediaBody> {
     );
   }
 }
-
-// class DropDownWithLabelWidget extends StatelessWidget {
-//   DropDownWithLabelWidget({
-//     super.key,
-//     this.label = '',
-//   });
-//   final String label;
-
-//   final List<Widget> items = [
-//     SocialMediaDropdownListItem(
-//         icon: SocialDropdownEnum.facebook.icon, title: SocialDropdownEnum.facebook.message),
-//     SocialMediaDropdownListItem(
-//         icon: SocialDropdownEnum.linkedIn.icon, title: SocialDropdownEnum.linkedIn.message),
-//     SocialMediaDropdownListItem(
-//         icon: SocialDropdownEnum.instagram.icon, title: SocialDropdownEnum.instagram.message),
-//     SocialMediaDropdownListItem(
-//         icon: SocialDropdownEnum.youtube.icon, title: SocialDropdownEnum.youtube.message),
-//     SocialMediaDropdownListItem(
-//         icon: SocialDropdownEnum.behance.icon, title: SocialDropdownEnum.behance.message),
-//     SocialMediaDropdownListItem(
-//         icon: SocialDropdownEnum.twitter.icon, title: SocialDropdownEnum.twitter.message),
-//     SocialMediaDropdownListItem(
-//         icon: SocialDropdownEnum.tiktok.icon, title: SocialDropdownEnum.tiktok.message),
-//     SocialMediaDropdownListItem(
-//         icon: SocialDropdownEnum.github.icon, title: SocialDropdownEnum.github.message),
-//     SocialMediaDropdownListItem(
-//         icon: SocialDropdownEnum.whatsapp.icon, title: SocialDropdownEnum.whatsapp.message),
-//     SocialMediaDropdownListItem(
-//         icon: SocialDropdownEnum.snapchat.icon, title: SocialDropdownEnum.snapchat.message),
-//     SocialMediaDropdownListItem(
-//         icon: SocialDropdownEnum.twitch.icon, title: SocialDropdownEnum.twitch.message),
-//     SocialMediaDropdownListItem(
-//         icon: SocialDropdownEnum.discord.icon, title: SocialDropdownEnum.discord.message),
-//     SocialMediaDropdownListItem(
-//         icon: SocialDropdownEnum.gmail.icon, title: SocialDropdownEnum.gmail.message),
-//   ];
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         label.isEmpty == true
-//             ? const SizedBox.shrink()
-//             : AutoSizeText(
-//                 label,
-//                 maxLines: 1,
-//                 textScaleFactor: 0.9,
-//               ).padOnly(bottom: 7),
-//         CustomDropdown(
-//           items: items,
-//           // ['Whatsapp', 'boy'],
-//           listItemBuilder: (context, item) {
-//             return item;
-//           },
-//           headerBuilder: (context, selectedItem) {
-//             return selectedItem;
-//           },
-//           hintBuilder: (context, hint) {
-//             return AutoSizeText(
-//               'Choose',
-//               style: context.textTheme.bodySmall?.copyWith(
-//                 color: context.colorScheme.onBackground.withOpacity(0.6),
-//               ),
-//             );
-//           },
-//           closedBorder: Border.all(
-//             color: context.theme.textTheme.bodyMedium!.color!,
-//             width: 0.3,
-//           ),
-//           expandedBorder: Border.all(
-//             color: context.theme.textTheme.bodyMedium!.color!,
-//             width: 0.3,
-//           ),
-//           closedFillColor: context.theme.scaffoldBackgroundColor,
-//           expandedFillColor: context.theme.scaffoldBackgroundColor,
-//         ),
-//       ],
-//     );
-//   }
-// }
 
 class SocialMediaDropdownListItem extends StatelessWidget {
   const SocialMediaDropdownListItem({
@@ -270,11 +176,15 @@ enum SocialDropdownEnum {
   final IconData icon;
 }
 
-final TextEditingController linkedInController = TextEditingController(text: 'linkeid');
-final TextEditingController facebookController = TextEditingController(text: 'facebook');
-final TextEditingController instagramController = TextEditingController(text: 'instagram');
+final TextEditingController linkedInController =
+    TextEditingController(text: 'linkeid');
+final TextEditingController facebookController =
+    TextEditingController(text: 'facebook');
+final TextEditingController instagramController =
+    TextEditingController(text: 'instagram');
 final TextEditingController youtubeController = TextEditingController();
-final TextEditingController behanceController = TextEditingController(text: 'behnace');
+final TextEditingController behanceController =
+    TextEditingController(text: 'behnace');
 final TextEditingController twitterController = TextEditingController();
 final TextEditingController tiktokController = TextEditingController();
 final TextEditingController gmailController = TextEditingController();

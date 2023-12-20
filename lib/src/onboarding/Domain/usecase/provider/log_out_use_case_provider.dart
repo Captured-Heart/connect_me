@@ -11,7 +11,8 @@ class LogOutNotifier extends StateNotifier<AuthUseCaseState> {
   }
 }
 
-final logOutNotifierProvider = StateNotifierProvider<LogOutNotifier, AuthUseCaseState>((ref) {
+final logOutNotifierProvider =
+    StateNotifierProvider<LogOutNotifier, AuthUseCaseState>((ref) {
   final authUseCase = ref.read(createUserProvider);
   return LogOutNotifier(authUseCase);
 });

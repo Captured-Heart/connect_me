@@ -1,9 +1,11 @@
 abstract class ImagesConstant {
   static const String appLogo = 'assets/images/aboutMelogo.png';
   static const String appLogoNoBG = 'assets/images/aboutMelogo_noBG.png';
-  static const String lottieForgotPasswordImg = 'assets/images/lottie_forgot_password.json';
+  static const String lottieForgotPasswordImg =
+      'assets/images/lottie_forgot_password.json';
   static const String appLogoBrown = 'assets/images/aboutMeLogo_brown.png'; //
-  static const String noImagePlaceholder = 'assets/images/No-Image-Placeholder.png';
+  static const String noImagePlaceholder =
+      'assets/images/No-Image-Placeholder.png';
   static const String darkBG = 'assets/images/dark_bg.jpeg';
   static const String leafBG = 'assets/images/leaf_bg.jpeg';
   static const String puzzleBG1 = 'assets/images/puzzle_bg1.jpeg';
@@ -15,7 +17,6 @@ abstract class ImagesConstant {
   static const String qrCodeBG0 = 'assets/images/qrcode_BG0.png';
   static const String qrCodeBG1 = 'assets/images/qrcode_BG1.png';
   static const String qrCodeBG2 = 'assets/images/qrcode_BG2.png';
-
 
 //
   static const String noImagePlaceholderHttp =

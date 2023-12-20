@@ -10,9 +10,7 @@ class UsersProfileState {
     this.isLoading = false,
     this.errorMessage,
     this.user,
-    
+
     // this.onNavigate,
   });
-
-  
 }

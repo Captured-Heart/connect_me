@@ -1,4 +1,3 @@
-
 import 'package:connect_me/app.dart';
 
 class DottedLineDividerWidget extends StatelessWidget {

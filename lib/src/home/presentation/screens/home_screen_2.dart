@@ -59,7 +59,8 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> {
                 Flexible(
                   child: Container(
                     margin: AppEdgeInsets.eA12,
-                    padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 1),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 5, horizontal: 1),
                     decoration: BoxDecoration(
                       gradient: whiteGradient(context: context),
                     ),
@@ -67,7 +68,8 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> {
                       data: data.docId!,
                       backgroundColor: context.colorScheme.onSurface,
                       eyeStyle: QrEyeStyle(
-                          color: context.colorScheme.surface, eyeShape: QrEyeShape.square),
+                          color: context.colorScheme.surface,
+                          eyeShape: QrEyeShape.square),
                       dataModuleStyle: QrDataModuleStyle(
                         color: context.colorScheme.surface,
                         dataModuleShape: QrDataModuleShape.circle,
@@ -103,7 +105,8 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> {
                 Container(
                   margin: AppEdgeInsets.eA12,
                   height: context.sizeHeight(0.45),
-                  padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 1),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 5, horizontal: 1),
                   decoration: BoxDecoration(
                     // border: Border.all(color: Colors.white),
                     gradient: whiteGradient(context: context),

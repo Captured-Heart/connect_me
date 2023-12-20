@@ -11,14 +11,19 @@ class FetchProfileRepoImpl implements ProfileRepository {
 
   @override
   Future<AuthUserModel> fetchProfile({required String uuid}) async {
-    var result = _firebaseFirestore.collection(FirebaseCollectionEnums.users.value).doc(uuid);
+    var result = _firebaseFirestore
+        .collection(FirebaseCollectionEnums.users.value)
+        .doc(uuid);
     // inspect(result.get().then((value) => value));
     return result.get().then((value) => AuthUserModel.fromJson(value.data()!));
   }
 
   @override
- Stream<List<AuthUserModel>>  fetchListOfConnects({required List<dynamic> connectsList}) async*{
-    var result = _firebaseFirestore.collection(FirebaseCollectionEnums.users.value).snapshots();
+  Stream<List<AuthUserModel>> fetchListOfConnects(
+      {required List<dynamic> connectsList}) async* {
+    var result = _firebaseFirestore
+        .collection(FirebaseCollectionEnums.users.value)
+        .snapshots();
 
     // var finalList = List.generate(connectsList.length, (index) async {
     //   var data = await result.doc(connectsList[index]).get();

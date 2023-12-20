@@ -1,7 +1,10 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 // EDUCATION MODEL
+import 'package:clipboard/clipboard.dart';
 import 'package:connect_me/app.dart';
 
-SliverWoltModalSheetPage supportModal(BuildContext modalSheetContext, TextTheme textTheme) {
+SliverWoltModalSheetPage supportModal(
+    BuildContext modalSheetContext, TextTheme textTheme) {
   return WoltModalSheetPage(
     hasSabGradient: true,
     backgroundColor: modalSheetContext.theme.scaffoldBackgroundColor,
@@ -26,37 +29,62 @@ SliverWoltModalSheetPage supportModal(BuildContext modalSheetContext, TextTheme 
   );
 }
 
-class SupportModalBody extends StatelessWidget {
+class SupportModalBody extends StatefulWidget {
   const SupportModalBody({
     super.key,
     this.onCountryChanged,
-    this.onCityChanged,
     this.onStateChanged,
+    this.onCityChanged,
   });
   final Function(String)? onCountryChanged;
   final Function(String?)? onStateChanged;
   final Function(String?)? onCityChanged;
 
   @override
+  State<SupportModalBody> createState() => _SupportModalBodyState();
+}
+
+class _SupportModalBodyState extends State<SupportModalBody> {
+  final ValueNotifier<bool> isCopiedNotifier = ValueNotifier<bool>(false);
+  @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        // MoreCustomListTileWidget(title: title)
-        MoreCustomListTileWidget(
-          title: 'BTC',
-          icon: FontAwesome.btc,
-          subtitle: 'ssfvsvfsawvaefgeafgfgre',
-          trailingWidget: GestureDetector(
-            onTap: () {},
-            child: const Icon(copyIcon),
-          ),
-        ),
-        const MoreCustomListTileWidget(
-          title: 'Buy me a Coffee',
-          icon: buymeacoffeeIcon,
-          subtitle: 'https://www.buymeacoffee.com/CapturedHeart',
-        ),
-      ],
-    );
+    return ValueListenableBuilder(
+        valueListenable: isCopiedNotifier,
+        builder: (context, isCopied, _) {
+          return Column(
+            children: [
+              // MoreCustomListTileWidget(title: title)
+              MoreCustomListTileWidget(
+                title: 'BTC (BEP20)',
+                icon: FontAwesome.btc,
+                subtitle: '0x6209******************884ab08acf3',
+                trailingWidget: GestureDetector(
+                  onTap: () {
+                    FlutterClipboard.controlC(
+                            '0x6209fbd9cc9903961a37e3ca6aa9f884ab08acf3')
+                        .then(
+                      (value) => isCopiedNotifier.value = value,
+                    );
+                  },
+                  child: Icon(
+                    isCopied == true ? checkCircleIcon : copyIcon,
+                    color: isCopied == true
+                        ? AppThemeColorDark.successColor
+                        : null,
+                  ),
+                ),
+              ),
+              MoreCustomListTileWidget(
+                title: 'Buy me a Coffee',
+                icon: buymeacoffeeIcon,
+                subtitle: 'https://www.buymeacoffee.com/CapturedHeart',
+                onTap: () {
+                  UrlOptions.launchWeb(
+                      'https://www.buymeacoffee.com/CapturedHeart');
+                },
+              ),
+            ],
+          );
+        });
   }
 }

@@ -53,7 +53,8 @@ class _ShareQrCodeScreenState extends ConsumerState<ShareQrCodeScreen> {
                   child: Container(
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage('assets/images/qrcode_BG${cardIndexNotifier.value}.png'),
+                        image: AssetImage(
+                            'assets/images/qrcode_BG${cardIndexNotifier.value}.png'),
                         fit: BoxFit.fitHeight,
                       ),
                     ),
@@ -122,7 +123,8 @@ class _ShareQrCodeScreenState extends ConsumerState<ShareQrCodeScreen> {
                                     margin: AppEdgeInsets.eH4,
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
-                                        image: AssetImage('assets/images/qrcode_BG$index.png'),
+                                        image: AssetImage(
+                                            'assets/images/qrcode_BG$index.png'),
                                         fit: BoxFit.fill,
                                       ),
                                       borderRadius: AppBorderRadius.c12,
@@ -131,7 +133,8 @@ class _ShareQrCodeScreenState extends ConsumerState<ShareQrCodeScreen> {
                                       margin: AppEdgeInsets.eA4,
                                       decoration: BoxDecoration(
                                         image: DecorationImage(
-                                          image: AssetImage('assets/images/qrcode_BG$index.png'),
+                                          image: AssetImage(
+                                              'assets/images/qrcode_BG$index.png'),
                                           fit: BoxFit.fill,
                                         ),
                                         border: cardIndexNotifier.value == index
@@ -163,7 +166,8 @@ class _ShareQrCodeScreenState extends ConsumerState<ShareQrCodeScreen> {
                           textColor: Colors.white,
                           text: TextConstant.shareQrCode,
                           color: buttonColor(cardIndexNotifier.value),
-                        ).padSymmetric(horizontal: context.sizeWidth(0.08), vertical: 5)
+                        ).padSymmetric(
+                            horizontal: context.sizeWidth(0.08), vertical: 5)
                       ].columnInPadding(10),
                     ),
                   ),
@@ -198,7 +202,9 @@ class _ShareQrCodeScreenState extends ConsumerState<ShareQrCodeScreen> {
                               color: Colors.white,
                             )),
                         child: Icon(
-                          cardisVertNotifier.value == false ? Icons.swap_vert : Icons.swap_horiz,
+                          cardisVertNotifier.value == false
+                              ? Icons.swap_vert
+                              : Icons.swap_horiz,
                           color: Colors.white,
                         ),
                       ),

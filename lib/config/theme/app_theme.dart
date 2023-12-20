@@ -5,7 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'theme.dart';
 
-const Color _kPrimaryLightColor = Color(0xFFE57373); //New: 0xFFE57373  //prev: 0xFF00aff0
+const Color _kPrimaryLightColor =
+    Color(0xFFE57373); //New: 0xFFE57373  //prev: 0xFF00aff0
 const Color _kPrimaryDarkColor = Color(0xffffffff);
 // Color.fromARGB(255, 232, 234, 237); // prev: 0xFF0905f7 //like1: 0xFFE8ECED
 const Color _kBackgroundDarkColor = Color(0xFF000000); //prev: 0xFF070707
@@ -32,12 +33,11 @@ ThemeData themeBuilder({
     seedColor: isDark ? _kPrimaryDarkColor : _kPrimaryLightColor,
     brightness: brightness,
   );
-  final Color scaffoldBackgroundColor = isDark ? _kBackgroundDarkColor : colorScheme.background;
+  final Color scaffoldBackgroundColor =
+      isDark ? _kBackgroundDarkColor : colorScheme.background;
 
-   OutlineInputBorder textFieldBorder = OutlineInputBorder(
-    borderSide: BorderSide.none,
-    borderRadius: BorderRadius.circular(10)
-  );
+  OutlineInputBorder textFieldBorder = OutlineInputBorder(
+      borderSide: BorderSide.none, borderRadius: BorderRadius.circular(10));
   final OutlineInputBorder textFieldErrorBorder = textFieldBorder.copyWith(
     borderSide: BorderSide(color: colorScheme.error),
   );
@@ -78,7 +78,8 @@ ThemeData themeBuilder({
       /// [SUBTITLE] and [BODY TEXT]
       bodyMedium: GoogleFonts.solway(color: colorScheme.onSurface),
       bodySmall: GoogleFonts.solway(color: colorScheme.onSurface),
-      titleSmall: GoogleFonts.solway(color: colorScheme.onSurface, fontWeight: AppFontWeight.w700),
+      titleSmall: GoogleFonts.solway(
+          color: colorScheme.onSurface, fontWeight: AppFontWeight.w700),
 
       titleMedium: AppTextStyle.listTileSubTitle.copyWith(
         color: colorScheme.onSurface,

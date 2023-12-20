@@ -1,5 +1,5 @@
 // PACKAGES USED
-export 'package:flutter/material.dart';
+export 'package:flutter/material.dart' hide DatePickerTheme;
 export 'package:flutter_riverpod/flutter_riverpod.dart';
 export 'package:intl/intl.dart' hide TextDirection;
 export 'package:auto_size_text/auto_size_text.dart';
@@ -25,6 +25,8 @@ export 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 export 'package:animated_custom_dropdown/custom_dropdown.dart';
 export 'package:country_code_picker/country_code_picker.dart';
 export 'package:csc_picker/csc_picker.dart';
+export 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
+
 
 //FIREBASE SERVICES
 export 'package:firebase_auth/firebase_auth.dart';

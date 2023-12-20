@@ -1,5 +1,3 @@
-
-
 class AppException implements Exception {
   const AppException(this.message);
 
@@ -8,7 +6,9 @@ class AppException implements Exception {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is AppException && runtimeType == other.runtimeType && message == other.message;
+      other is AppException &&
+          runtimeType == other.runtimeType &&
+          message == other.message;
 
   @override
   int get hashCode => message.hashCode;

@@ -1,7 +1,8 @@
 import 'package:connect_me/app.dart';
 
 class QrCodeShareNotifier extends StateNotifier<QrCodeShareState> {
-  QrCodeShareNotifier(this.qrCodeRepositoryImpl) : super(QrCodeShareState(isLoading: false));
+  QrCodeShareNotifier(this.qrCodeRepositoryImpl)
+      : super(QrCodeShareState(isLoading: false));
 
   final QrCodeRepositoryImpl qrCodeRepositoryImpl;
 

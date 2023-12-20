@@ -31,7 +31,8 @@ class AuthUseCaseImpl implements AuthUseCase {
   @override
   Future<Either<AppException, User?>> loginWithEmail(
       {required String email, required String password}) async {
-    return await _authRepository.signInWithEmail(email: email, password: password);
+    return await _authRepository.signInWithEmail(
+        email: email, password: password);
   }
 
   @override

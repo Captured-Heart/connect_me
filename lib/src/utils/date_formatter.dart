@@ -27,6 +27,18 @@ String dateFormatted2(DateTime? dateTime) {
   return formatter.format(now ?? DateTime.now());
 }
 
+String dateFormattedToMonth(DateTime? dateTime) {
+  var formatter = DateFormat(DateFormat.MONTH);
+
+  return formatter.format(dateTime ?? DateTime.now());
+}
+
+String dateFormattedToYear(DateTime? dateTime) {
+  var formatter = DateFormat(DateFormat.YEAR);
+
+  return formatter.format(dateTime ?? DateTime.now());
+}
+
 String dateFormatted3(DateTime? dateTime) {
   var now = dateTime;
 
@@ -47,8 +59,7 @@ String dateFormattedWithSlash(DateTime dateTime) {
 String timeFormatted(TimeOfDay time) {
   var now = DateTime.now();
 
-  var formatter =
-      DateTime(now.year, now.month, now.day, time.hour, time.minute);
+  var formatter = DateTime(now.year, now.month, now.day, time.hour, time.minute);
   return DateFormat().add_jm().format(formatter);
 }
 

@@ -20,7 +20,7 @@ class CountryCodeCustomWidget extends StatelessWidget {
         favorite: const ['+234', 'NG'],
         showCountryOnly: true,
         flagWidth: 23,
-        
+
         showOnlyCountryWhenClosed: false,
         dialogBackgroundColor: context.theme.scaffoldBackgroundColor,
         dialogTextStyle: context.textTheme.bodyLarge,

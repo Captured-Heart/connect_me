@@ -1,6 +1,7 @@
 import 'package:connect_me/app.dart';
 
-final textEditingControllerProvider = Provider<TextEditingControllerClass>((ref) {
+final textEditingControllerProvider =
+    Provider<TextEditingControllerClass>((ref) {
   return TextEditingControllerClass();
 });
 
@@ -23,14 +24,17 @@ class TextEditingControllerClass {
 
   TextEditingController fullNameController = TextEditingController();
   TextEditingController phoneNoController = TextEditingController();
-  TextEditingController otpCode = TextEditingController();
-  TextEditingController addressStateController = TextEditingController();
-  TextEditingController addressStreetController = TextEditingController();
-  TextEditingController addressCityController = TextEditingController();
-  TextEditingController apartmentNoController = TextEditingController();
-  TextEditingController addressPostalController = TextEditingController();
-  TextEditingController searchProductController = TextEditingController();
-  TextEditingController searchFruitsController = TextEditingController();
+
+  //WORK EXPERIENCE
+  TextEditingController titleController = TextEditingController();
+  TextEditingController companyNameController = TextEditingController();
+  TextEditingController locationController = TextEditingController();
+
+  // TextEditingController addressCityController = TextEditingController();
+  // TextEditingController apartmentNoController = TextEditingController();
+  // TextEditingController addressPostalController = TextEditingController();
+  // TextEditingController searchProductController = TextEditingController();
+  // TextEditingController searchFruitsController = TextEditingController();
 
   TextEditingController voucherController = TextEditingController();
   TextEditingController instructionsController = TextEditingController();

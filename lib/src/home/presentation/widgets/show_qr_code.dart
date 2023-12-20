@@ -21,7 +21,8 @@ Future<void> showAwesomeQrDilaogs(BuildContext context,
         QrImageView(
           data: 'data is life forget it',
           backgroundColor: context.colorScheme.onSurface,
-          eyeStyle: QrEyeStyle(color: context.colorScheme.surface, eyeShape: QrEyeShape.square),
+          eyeStyle: QrEyeStyle(
+              color: context.colorScheme.surface, eyeShape: QrEyeShape.square),
           dataModuleStyle: QrDataModuleStyle(
             color: context.colorScheme.surface,
             dataModuleShape: QrDataModuleShape.circle,
@@ -74,8 +75,9 @@ class ShareQrCodeTemplate extends StatelessWidget {
               QrImageView(
                 data: 'data is life forget it',
                 backgroundColor: context.colorScheme.onSurface,
-                eyeStyle:
-                    QrEyeStyle(color: context.colorScheme.surface, eyeShape: QrEyeShape.square),
+                eyeStyle: QrEyeStyle(
+                    color: context.colorScheme.surface,
+                    eyeShape: QrEyeShape.square),
                 dataModuleStyle: QrDataModuleStyle(
                   color: context.colorScheme.surface,
                   dataModuleShape: QrDataModuleShape.circle,

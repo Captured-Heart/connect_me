@@ -5,7 +5,9 @@ class SignUpNotifier extends StateNotifier<AuthUseCaseState> {
   final AuthUseCase authUseCase;
 // CREATE ACCOUNT
   Future createAccount(
-      {required String email, required String password, required String username}) async {
+      {required String email,
+      required String password,
+      required String username}) async {
     state = AuthUseCaseState(isLoading: true);
 
     var user = await authUseCase.createAccount(
@@ -19,7 +21,8 @@ class SignUpNotifier extends StateNotifier<AuthUseCaseState> {
   }
 }
 
-final signUpNotifierProvider = StateNotifierProvider<SignUpNotifier, AuthUseCaseState>((ref) {
+final signUpNotifierProvider =
+    StateNotifierProvider<SignUpNotifier, AuthUseCaseState>((ref) {
   final authUseCase = ref.read(createUserProvider);
   return SignUpNotifier(authUseCase);
 });

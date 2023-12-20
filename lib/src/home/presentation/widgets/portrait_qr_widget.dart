@@ -34,7 +34,8 @@ class PortraitQrCodeWidget extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              margin: const EdgeInsets.only(top: 15, right: 10, left: 10, bottom: 3),
+              margin: const EdgeInsets.only(
+                  top: 15, right: 10, left: 10, bottom: 3),
               child: QrImageView(
                 data: authUserModel.docId ?? '',
 
@@ -51,7 +52,8 @@ class PortraitQrCodeWidget extends StatelessWidget {
                 embeddedImage: const AssetImage(
                   'assets/images/aboutMeLogo_brown.png',
                 ),
-                embeddedImageStyle: const QrEmbeddedImageStyle(size: Size(40, 40)),
+                embeddedImageStyle:
+                    const QrEmbeddedImageStyle(size: Size(40, 40)),
                 version: 5,
                 size: context.sizeHeight(0.23),
                 gapless: false,

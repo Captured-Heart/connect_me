@@ -49,12 +49,12 @@ class _QrCodeScreenState extends ConsumerState<QrCodeScreen> {
         controller.stopCamera();
 
         if (context.mounted) {
-          // push(
-          //   context,
-          // ContactScreen(
-          //   message: scanData.code,
-          // ),
-          // );
+          push(
+            context,
+            ProfileScreenOthers(
+              uuid: scanData.code,
+            ),
+          );
         }
 
         // setState(() {
@@ -94,8 +94,9 @@ class _QrCodeScreenState extends ConsumerState<QrCodeScreen> {
                                 isThinBorder: true,
                                 tooltip: TextConstant.flipCamera,
                                 onTap: () async {
-                                  var cameraFront =
-                                      await controller?.getCameraInfo().then((value) => value.name);
+                                  var cameraFront = await controller
+                                      ?.getCameraInfo()
+                                      .then((value) => value.name);
                                   log('cameraSide: $cameraFront');
                                   setState(() {
                                     cameraSide = cameraFront!;
@@ -114,10 +115,12 @@ class _QrCodeScreenState extends ConsumerState<QrCodeScreen> {
                                 isThinBorder: true,
                                 tooltip: TextConstant.flash,
                                 onTap: () async {
-                                  var cameraFront =
-                                      await controller?.getCameraInfo().then((value) => value.name);
-                                  var flash =
-                                      await controller?.getFlashStatus().then((value) => value);
+                                  var cameraFront = await controller
+                                      ?.getCameraInfo()
+                                      .then((value) => value.name);
+                                  var flash = await controller
+                                      ?.getFlashStatus()
+                                      .then((value) => value);
 
                                   setState(() {
                                     flashStatus = flash!;
@@ -149,7 +152,8 @@ class _QrCodeScreenState extends ConsumerState<QrCodeScreen> {
             ),
             Center(
               child: (result != null)
-                  ? Text('Barcode Type: ${(result!.format)}   Data: ${result!.code}')
+                  ? Text(
+                      'Barcode Type: ${(result!.format)}   Data: ${result!.code}')
                   : Text('Focus to scan Qr code'),
             )
           ],
@@ -176,7 +180,8 @@ class _QrCodeScreenState extends ConsumerState<QrCodeScreen> {
   void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
     log('${DateTime.now().toIso8601String()}_onPermissionSet $p');
     if (!p) {
-      showScaffoldSnackBarMessageNoColor('No permission', context: context, isError: true);
+      showScaffoldSnackBarMessageNoColor('No permission',
+          context: context, isError: true);
     }
   }
 }

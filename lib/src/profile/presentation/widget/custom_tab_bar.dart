@@ -9,7 +9,7 @@ class CustomTabBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(bottom: 5, top: 5),
+      padding: const EdgeInsets.only(bottom: 5, top: 5, left: 10),
       decoration: BoxDecoration(
         color: context.colorScheme.surface,
         border: Border(
@@ -31,12 +31,15 @@ class CustomTabBar extends StatelessWidget implements PreferredSizeWidget {
         indicatorSize: TabBarIndicatorSize.label,
 
         indicator: UnderlineTabIndicator(
-          borderSide: BorderSide(color: context.colorScheme.onBackground, width: 2),
+          borderSide:
+              BorderSide(color: context.colorScheme.onBackground, width: 2),
         ),
         splashBorderRadius: BorderRadius.circular(40),
         splashFactory: NoSplash.splashFactory,
         overlayColor: MaterialStateProperty.resolveWith<Color?>(
-          (states) => states.contains(MaterialState.selected) ? null : Colors.transparent,
+          (states) => states.contains(MaterialState.selected)
+              ? null
+              : Colors.transparent,
         ),
         // onTap: (value) {
         //   log(value.toString());

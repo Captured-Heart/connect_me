@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 class AuthTextFieldWidget extends StatelessWidget {
   const AuthTextFieldWidget({
     super.key,
-    required this.controller,
+     this.controller,
     this.focusNode,
     this.inputFormatters,
     this.hintText,
@@ -30,7 +30,7 @@ class AuthTextFieldWidget extends StatelessWidget {
     this.labelMaterial,
     this.maxLines,
   });
-  final TextEditingController controller;
+  final TextEditingController ? controller;
 
   final FocusNode? focusNode;
   final List<TextInputFormatter>? inputFormatters;
@@ -106,10 +106,12 @@ class AuthTextFieldWidget extends StatelessWidget {
             autovalidateMode: AutovalidateMode.onUserInteraction,
             autocorrect: false,
             validator: validator,
-            style: AppTextStyle.bodySmall,
+            style: context.textTheme.bodySmall,
+            //  AppTextStyle.bodySmall,
             inputFormatters:
                 // ignore: prefer_single_quotes
-                inputFormatters ?? [FilteringTextInputFormatter.deny(RegExp(r"\s\b|\b\s"))],
+                inputFormatters ??
+                    [FilteringTextInputFormatter.deny(RegExp(r"\s\b|\b\s"))],
             decoration: InputDecoration(
               hintText: hintText,
               contentPadding: const EdgeInsets.all(12),

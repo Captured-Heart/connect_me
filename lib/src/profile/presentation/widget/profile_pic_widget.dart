@@ -26,7 +26,8 @@ class ProfilePicWidget extends StatelessWidget {
             ? null
             : BoxDecoration(
                 gradient: orangeGradient(isLongBTN: true),
-                borderRadius: height != null ? AppBorderRadius.c16 : AppBorderRadius.c32,
+                borderRadius:
+                    height != null ? AppBorderRadius.c16 : AppBorderRadius.c32,
                 // border: Border.all(color: Colors.red)
               ),
         child: SizedBox(
@@ -38,7 +39,8 @@ class ProfilePicWidget extends StatelessWidget {
             color: isStaticTheme == true ? Colors.white : null,
             margin: EdgeInsets.zero,
             shape: RoundedRectangleBorder(
-                borderRadius: height != null ? AppBorderRadius.c16 : AppBorderRadius.c32),
+                borderRadius:
+                    height != null ? AppBorderRadius.c16 : AppBorderRadius.c32),
             child:
 
                 //TODO: ADD AVATAR TO THE IMG SECTION
@@ -54,11 +56,13 @@ class ProfilePicWidget extends StatelessWidget {
                 //     :
 
                 CircleCacheNetworkImage(
-              imgUrl: authUserModel?.imgUrl ?? ImagesConstant.imgPlaceholderHttp,
+              imgUrl:
+                  authUserModel?.imgUrl ?? ImagesConstant.imgPlaceholderHttp,
               height: 100,
               width: context.sizeWidth(0.2),
               isNotCircle: true,
-              borderRadius: height != null ? AppBorderRadius.c16 : AppBorderRadius.c28,
+              borderRadius:
+                  height != null ? AppBorderRadius.c16 : AppBorderRadius.c28,
             ).padAll(height != null ? 3 : 6),
           ),
         ),

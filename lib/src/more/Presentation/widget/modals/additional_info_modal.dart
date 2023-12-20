@@ -1,7 +1,8 @@
 // EDUCATION MODEL
 import 'package:connect_me/app.dart';
 
-SliverWoltModalSheetPage additionalInfoModal(BuildContext modalSheetContext, TextTheme textTheme) {
+SliverWoltModalSheetPage additionalInfoModal(
+    BuildContext modalSheetContext, TextTheme textTheme) {
   return WoltModalSheetPage(
     hasSabGradient: true,
     backgroundColor: modalSheetContext.theme.scaffoldBackgroundColor,
@@ -69,9 +70,11 @@ class AdditionalInfoModalBody extends StatelessWidget {
             ),
             borderRadius: BorderRadius.circular(10),
           ),
-          selectedItemStyle: context.textTheme.bodyMedium?.copyWith(fontWeight: AppFontWeight.w100),
+          selectedItemStyle: context.textTheme.bodyMedium
+              ?.copyWith(fontWeight: AppFontWeight.w100),
           dropdownHeadingStyle: context.textTheme.bodyLarge,
-          dropdownItemStyle: context.textTheme.bodyMedium?.copyWith(fontWeight: AppFontWeight.w100),
+          dropdownItemStyle: context.textTheme.bodyMedium
+              ?.copyWith(fontWeight: AppFontWeight.w100),
         ),
 
         AuthTextFieldWidget(

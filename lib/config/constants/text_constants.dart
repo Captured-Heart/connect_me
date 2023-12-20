@@ -76,7 +76,6 @@ abstract class TextConstant {
   // static const lorem = 'or';
   // static const lorem = 'or';
 
-
   /*----------------------------------------------------------------------
       PROFILE SCREEN
 -----------------------------------------------------------------------*/
@@ -91,7 +90,7 @@ abstract class TextConstant {
   static const telegram = 'Telegram';
   static const message = 'Message';
   static const support = 'Support';
-  static const social = 'Social'; 
+  static const social = 'Social';
   // static const lorem = 'or';
   // static const lorem = 'or'; // static const lorem = 'or';
   // static const lorem = 'or'; // static const lorem = 'or';
@@ -129,6 +128,27 @@ abstract class TextConstant {
   static const chatWithUsOnWhatsapp = 'Chat with us on whatsapp';
   static const tellUsHowWeCanHelpYouOnX = 'Tell us how we can help you on X';
   static const getYourSolutionsViaEmail = 'Get your solution via emails';
+  static const choose = 'Choose';
+  // static const lorem = 'or';
+
+  /*----------------------------------------------------------------------
+      WORK EXPERIENCE SCREEN
+-----------------------------------------------------------------------*/
+  static const title = 'Title';
+  static const exSoftwareDeveloper = 'Ex: Software developer';
+  static const employmentType = 'Employment type';
+  static const exGoogle = 'Ex: Google';
+  static const companyName = 'Company Name';
+  static const exKadunaNigeria = 'Ex: Kaduna, Nigeria';
+  static const location = 'Location';
+  static const locationType = 'Location type';
+  static const iamCurrentlyInThisRole =   'i am currently working in this role';
+  static const startDate = 'Start date';
+  static const endDate = 'End date';
+  static const month = 'Month';
+  static const year = 'Year';
+  // static const lorem = 'or';
+  // static const lorem = 'or';
   // static const lorem = 'or';
   // static const lorem = 'or';
 }

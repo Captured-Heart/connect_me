@@ -40,6 +40,19 @@ class SignInCardWidget extends ConsumerWidget {
         );
       }
     });
+
+    ref.listen(signInGoogleNotifierProvider, (previous, next) {
+      if (next.user?.uid != null) {
+        pushReplacement(context, const MainScreen());
+      }
+      if (next.errorMessage != null) {
+        showScaffoldSnackBarMessageNoColor(
+          next.errorMessage ?? '',
+          context: context,
+          isError: true,
+        );
+      }
+    });
     return ListenableBuilder(
         listenable: Listenable.merge([
           emailNotifier,
@@ -104,7 +117,9 @@ class SignInCardWidget extends ConsumerWidget {
                     text: TextConstant.signInWithGoogle,
                     onTap: () {
                       // if (Platform.isAndroid) {
-                      ref.read(signInGoogleNotifierProvider.notifier).signinWithGoogle();
+                      ref
+                          .read(signInGoogleNotifierProvider.notifier)
+                          .signinWithGoogle();
                       // } else {}
                     },
                   ),
@@ -113,7 +128,8 @@ class SignInCardWidget extends ConsumerWidget {
                   Row(
                     children: [
                       const Expanded(child: Divider()),
-                      const Text(TextConstant.orContinueWith).padSymmetric(horizontal: 20),
+                      const Text(TextConstant.orContinueWith)
+                          .padSymmetric(horizontal: 20),
                       const Expanded(child: Divider()),
                     ],
                   ),
@@ -166,6 +182,7 @@ class SignInCardWidget extends ConsumerWidget {
                                 focusNode: controller.passwordFocusMode,
                                 controller: controller.passWordController,
                                 obscureText: obscureText,
+                                maxLines: 1,
                                 suffixIcon: IconButton(
                                   onPressed: () {
                                     ref
@@ -212,9 +229,13 @@ class SignInCardWidget extends ConsumerWidget {
                         child: ElevatedButton(
                           onPressed: () {
                             if (isFormValidated() == true) {
-                              ref.read(loginWithEmailNotifierProvider.notifier).loggingUser(
-                                    email: controller.emailController.text.trim(),
-                                    password: controller.passWordController.text.trim(),
+                              ref
+                                  .read(loginWithEmailNotifierProvider.notifier)
+                                  .loggingUser(
+                                    email:
+                                        controller.emailController.text.trim(),
+                                    password: controller.passWordController.text
+                                        .trim(),
                                   );
                             } else {
                               controller.passwordFocusMode.requestFocus();

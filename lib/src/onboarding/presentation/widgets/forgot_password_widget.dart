@@ -40,7 +40,8 @@ class ForgotPasswordCard extends ConsumerWidget {
               children: [
                 CircleAvatar(
                   radius: 60,
-                  backgroundColor: context.colorScheme.primaryContainer.withOpacity(0.7),
+                  backgroundColor:
+                      context.colorScheme.primaryContainer.withOpacity(0.7),
                   child: Lottie.asset(
                     ImagesConstant.lottieForgotPasswordImg,
                     height: context.sizeHeight(0.08),
@@ -88,7 +89,8 @@ class ForgotPasswordCard extends ConsumerWidget {
                 if (forgotPassformKey.currentState!.validate()) {
                   ref
                       .read(resetPasswordNotifierProvider.notifier)
-                      .sendResetPassowrd(email: controller.emailController.text.trim());
+                      .sendResetPassowrd(
+                          email: controller.emailController.text.trim());
                 }
               },
               child: Text(

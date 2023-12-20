@@ -9,7 +9,8 @@ class AboutMeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-        padding: offset! > 300 ? const EdgeInsets.only(top: 170) : EdgeInsets.zero,
+        padding:
+            offset! > 300 ? const EdgeInsets.only(top: 170) : EdgeInsets.zero,
         children: [
           Card(
             elevation: 5,

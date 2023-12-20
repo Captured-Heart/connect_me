@@ -42,7 +42,9 @@ class GradientShortBTN extends StatelessWidget {
                 width: width ?? 50,
                 child: Card(
                   elevation: elevation ?? 5,
-                  margin: isThinBorder == true ? AppEdgeInsets.eA1 : AppEdgeInsets.eA2,
+                  margin: isThinBorder == true
+                      ? AppEdgeInsets.eA1
+                      : AppEdgeInsets.eA2,
                   child: Icon(
                     iconData ?? notificationIcon,
                     size: iconSize ?? 25,

@@ -1,7 +1,8 @@
 // EDUCATION MODEL
 import 'package:connect_me/app.dart';
 
-SliverWoltModalSheetPage educationModal(BuildContext modalSheetContext, TextTheme textTheme) {
+SliverWoltModalSheetPage educationModal(
+    BuildContext modalSheetContext, TextTheme textTheme) {
   return WoltModalSheetPage(
     hasSabGradient: true,
     backgroundColor: modalSheetContext.theme.scaffoldBackgroundColor,

@@ -7,7 +7,8 @@ class ResetPasswordNotifier extends StateNotifier<AuthUseCaseState> {
     state = AuthUseCaseState(isLoading: true);
 
     await authUseCase.resetPassWord(email: email);
-    state = AuthUseCaseState(isLoading: false, user: null, errorMessage: 'reset');
+    state =
+        AuthUseCaseState(isLoading: false, user: null, errorMessage: 'reset');
   }
 }
 

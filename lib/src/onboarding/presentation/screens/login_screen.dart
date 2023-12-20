@@ -3,7 +3,8 @@ import 'dart:ui';
 import 'package:connect_me/app.dart';
 import 'package:flutter/gestures.dart';
 
-final flipCardControllerProvider = Provider.autoDispose<FlipCardController>((ref) {
+final flipCardControllerProvider =
+    Provider.autoDispose<FlipCardController>((ref) {
   return FlipCardController();
 });
 
@@ -20,9 +21,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final controller = ref.watch(flipCardControllerProvider);
-    final isLoading = ref.watch(loginWithEmailNotifierProvider ).isLoading;
+    final isLoading = ref.watch(loginWithEmailNotifierProvider).isLoading;
+    final isLoadingGoogle = ref.watch(signInGoogleNotifierProvider).isLoading;
+
     return FullScreenLoader(
-      isLoading: isLoading,
+      isLoading: (isLoading || isLoadingGoogle),
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         body:
@@ -41,7 +44,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
             SafeArea(
           child: PageView.custom(
-              controller: pageController, 
+              controller: pageController,
               physics: const NeverScrollableScrollPhysics(),
               childrenDelegate: SliverChildListDelegate.fixed(
                 [
@@ -49,7 +52,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     child: ListView(
                       shrinkWrap: true,
                       dragStartBehavior: DragStartBehavior.start,
-                      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+                      keyboardDismissBehavior:
+                          ScrollViewKeyboardDismissBehavior.onDrag,
                       // mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         FlipCard(
@@ -62,8 +66,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             });
                           },
                           fill: Fill.fillBack,
-                          back: SignUpCardWidget(
-                            key: const Key('sign-up_key'),
+                          back: const SignUpCardWidget(
+                            key: Key('sign-up_key'),
                           ).padAll(15),
                           front: SignInCardWidget(
                             key: const Key('sign-in_key'),

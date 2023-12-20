@@ -15,8 +15,9 @@ void showScaffoldSnackBarMessage(
 }) =>
     rootScaffoldMessengerKey.currentState?.showSnackBar(
       SnackBar(
-        backgroundColor:
-            isError ? AppThemeColorDark.textError.withOpacity(0.6) : AppThemeColorDark.successColor,
+        backgroundColor: isError
+            ? AppThemeColorDark.textError.withOpacity(0.6)
+            : AppThemeColorDark.successColor,
         content: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -81,7 +82,8 @@ void showScaffoldSnackBarMessageNoColor(
           minFontSize: 8,
           maxFontSize: 12,
           overflow: TextOverflow.ellipsis,
-          style: context.textTheme.bodyLarge?.copyWith(color: AppThemeColorDark.textDark),
+          style: context.textTheme.bodyLarge
+              ?.copyWith(color: AppThemeColorDark.textDark),
         ),
         duration: Duration(seconds: duration ?? 2),
       ),

@@ -12,7 +12,8 @@ class LoginWithEmailNotifier extends StateNotifier<AuthUseCaseState> {
   }) async {
     state = AuthUseCaseState(isLoading: true);
 
-    var user = await authUseCase.loginWithEmail(email: email, password: password);
+    var user =
+        await authUseCase.loginWithEmail(email: email, password: password);
 
     state = user.fold((failure) {
       return AuthUseCaseState(errorMessage: failure.message, isLoading: false);

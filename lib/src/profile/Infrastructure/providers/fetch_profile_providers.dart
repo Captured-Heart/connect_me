@@ -1,7 +1,7 @@
 import 'package:connect_me/app.dart';
 
-final fetchProfileProvider =
-    FutureProvider.autoDispose.family<AuthUserModel, String>((ref, uuidOthers) async {
+final fetchProfileProvider = FutureProvider.autoDispose
+    .family<AuthUserModel, String>((ref, uuidOthers) async {
   String uuid = ref.watch(authStateChangesProvider).value!.uid;
 //
   final fetchProfileRepoImpl = ref.read(fetchProfileRepoImplProvider);
@@ -10,11 +10,14 @@ final fetchProfileProvider =
   // return await fetchProfileRepoImpl.fetchProfile(uuid: uuid);
 });
 
-final fetchContactsProvider = FutureProvider.autoDispose<List<dynamic>>((ref) async {
+final fetchContactsProvider =
+    FutureProvider.autoDispose<List<dynamic>>((ref) async {
   String uuid = ref.watch(authStateChangesProvider).value!.uid;
 //
   final fetchProfileRepoImpl = ref.read(fetchProfileRepoImplProvider);
-  return await fetchProfileRepoImpl.fetchProfile(uuid: uuid).then((value) => value.connects ?? []);
+  return await fetchProfileRepoImpl
+      .fetchProfile(uuid: uuid)
+      .then((value) => value.connects ?? []);
 });
 
 //

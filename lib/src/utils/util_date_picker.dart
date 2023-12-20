@@ -43,3 +43,23 @@ void datePicker(
     }
   });
 }
+
+Future<DateTime?> showCupertinoDateWidget({
+  required BuildContext context,
+  required dynamic Function(DateTime)? onConfirm,
+}) async {
+  return DatePicker.showDatePicker(
+    context,
+    theme: DatePickerTheme(
+      cancelStyle: context.textTheme.bodyLarge!.copyWith(
+        color: context.colorScheme.error,
+      ),
+      itemStyle: context.textTheme.bodyLarge!,
+      backgroundColor: context.colorScheme.background,
+    ),
+    showTitleActions: true,
+    minTime: DateTime(1, 1, 1960),
+    maxTime: DateTime.now(),
+    onConfirm: onConfirm,
+  );
+}

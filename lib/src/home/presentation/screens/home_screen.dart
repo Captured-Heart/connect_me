@@ -11,7 +11,7 @@ class HomeScreen extends ConsumerWidget {
       body: ListView(
         padding: AppEdgeInsets.eH12,
         controller: scrollController,
-        
+
         // shrinkWrap: true,
         children: [
           SizedBox(

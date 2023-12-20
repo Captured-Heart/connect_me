@@ -11,7 +11,8 @@ class SignInGoogleNotifier extends StateNotifier<AuthUseCaseState> {
     state = AuthUseCaseState(isLoading: false);
 
     state = user.fold(
-      (failure) => AuthUseCaseState(errorMessage: failure.message, isLoading: false),
+      (failure) =>
+          AuthUseCaseState(errorMessage: failure.message, isLoading: false),
       (userDetails) => AuthUseCaseState(user: userDetails, isLoading: false),
     );
   }
