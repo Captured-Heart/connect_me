@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 class AuthTextFieldWidget extends StatelessWidget {
   const AuthTextFieldWidget({
     super.key,
-     this.controller,
+    this.controller,
     this.focusNode,
     this.inputFormatters,
     this.hintText,
@@ -30,7 +30,7 @@ class AuthTextFieldWidget extends StatelessWidget {
     this.labelMaterial,
     this.maxLines,
   });
-  final TextEditingController ? controller;
+  final TextEditingController? controller;
 
   final FocusNode? focusNode;
   final List<TextInputFormatter>? inputFormatters;

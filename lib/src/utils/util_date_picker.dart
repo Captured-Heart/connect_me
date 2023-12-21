@@ -36,9 +36,11 @@ void datePicker(
       }).then((selectedDate) {
     if (selectedDate != null) {
       setState(() {
-        textController.dobController.text = dateFormatted3(selectedDate).toString();
-        ref.read(dateTimeProvider.notifier).update(
-            (state) => DateTime.fromMicrosecondsSinceEpoch(selectedDate.microsecondsSinceEpoch));
+        textController.dobController.text =
+            dateFormatted3(selectedDate).toString();
+        ref.read(dateTimeProvider.notifier).update((state) =>
+            DateTime.fromMicrosecondsSinceEpoch(
+                selectedDate.microsecondsSinceEpoch));
       });
     }
   });

@@ -74,6 +74,7 @@ SliverWoltModalSheetPage accountInformationModal(
         ),
         AuthTextFieldWidget(
           controller: TextEditingController(),
+          inputFormatters: [],
           labelMaterial: 'bio',
           hintText: '''
 Ex: I am an experienced tailor and social worker.

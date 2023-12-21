@@ -30,14 +30,23 @@ class TextEditingControllerClass {
   TextEditingController companyNameController = TextEditingController();
   TextEditingController locationController = TextEditingController();
 
-  // TextEditingController addressCityController = TextEditingController();
-  // TextEditingController apartmentNoController = TextEditingController();
-  // TextEditingController addressPostalController = TextEditingController();
-  // TextEditingController searchProductController = TextEditingController();
-  // TextEditingController searchFruitsController = TextEditingController();
+//EDUCATION EXPERIENCE
+  TextEditingController schoolController = TextEditingController();
+  TextEditingController degreeController = TextEditingController();
+  TextEditingController gradeController = TextEditingController();
+  TextEditingController awardsController = TextEditingController();
+  TextEditingController activitiesController = TextEditingController();
 
-  TextEditingController voucherController = TextEditingController();
-  TextEditingController instructionsController = TextEditingController();
+// ADDITIONAL DETAILS
+  TextEditingController placeOfBirthController = TextEditingController();
+  TextEditingController countryController = TextEditingController();
+  TextEditingController stateController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
+  TextEditingController streetController = TextEditingController();
+  TextEditingController driverLicencesController = TextEditingController();
+  TextEditingController postalCodeController = TextEditingController();
+
+  // TextEditingController instructionsController = TextEditingController();
 
   FocusNode ordersFocusNode = FocusNode();
   FocusNode phoneNoFocusMode = FocusNode();
@@ -60,7 +69,5 @@ class TextEditingControllerClass {
     passWordController.clear();
     emailController.clear();
     usernameController.clear();
-    // phoneNoController.dispose();
-    // otpCode.dispose();
   }
 }
