@@ -4,11 +4,14 @@ import 'package:equatable/equatable.dart';
 class AuthUserModel extends Equatable {
   final String? username;
   final String? email;
+  final String? website;
+
   final String? phone;
   final String? docId;
   final String? imgUrl;
   final String? bio;
-
+  final String? fname;
+  final String? lname;
   final bool? isGoogleSigned;
   final Timestamp? date;
   final List<dynamic>? connects;
@@ -18,6 +21,7 @@ class AuthUserModel extends Equatable {
   const AuthUserModel({
     this.username,
     this.email,
+    this.website,
     this.phone,
     this.docId,
     this.imgUrl,
@@ -27,11 +31,16 @@ class AuthUserModel extends Equatable {
     this.posts,
     this.socials,
     this.bio,
+    this.fname,
+    this.lname,
   });
 
   factory AuthUserModel.fromJson(Map<String, dynamic> json) => AuthUserModel(
         username: json['username'] as String?,
+        fname: json['fname'] as String?,
+        lname: json['lname'] as String?,
         email: json['email'] as String?,
+        website: json['website'] as String?,
         phone: json['phone'] as String?,
         docId: json['docId'] as String?,
         imgUrl: json['imgUrl'] as String?,
@@ -55,11 +64,17 @@ class AuthUserModel extends Equatable {
         'connects': connects,
         'socials': socials,
         'bio': bio,
+        'fname': fname,
+        'lname': lname,
+        'website': website,
       };
 
   AuthUserModel copyWith({
     String? username,
     String? email,
+    String? fname,
+    String? lname,
+    String? website,
     String? phone,
     String? docId,
     String? imgUrl,
@@ -82,6 +97,9 @@ class AuthUserModel extends Equatable {
       posts: posts ?? this.posts,
       socials: socials ?? this.socials,
       bio: bio ?? this.bio,
+      fname: fname ?? this.fname,
+      lname: lname ?? this.lname,
+      website: website ?? this.website,
     );
   }
 
@@ -98,5 +116,8 @@ class AuthUserModel extends Equatable {
         posts,
         socials,
         bio,
+        lname,
+        fname,
+        website,
       ];
 }

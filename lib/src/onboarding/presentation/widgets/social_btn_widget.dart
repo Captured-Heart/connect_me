@@ -56,3 +56,41 @@ class SocialButtons extends StatelessWidget {
     );
   }
 }
+
+class CustomIconButton extends StatelessWidget {
+  const CustomIconButton({
+    super.key,
+    this.color,
+    this.textColor,
+    this.isDense = false,
+    this.elevation,
+    required this.iconData,
+    this.onTap,
+  });
+  final Color? color, textColor;
+  final bool isDense;
+  final double? elevation;
+  final IconData iconData;
+  final VoidCallback? onTap;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Card(
+        color: color,
+        shape: RoundedRectangleBorder(
+          side: BorderSide(
+            color: context.colorScheme.onSurface,
+            width: 0.3,
+          ),
+          borderRadius: BorderRadius.circular(isDense == true ? 10 : 15),
+        ),
+        elevation: elevation ?? 3,
+        child: Icon(
+          iconData,
+          color: textColor ?? context.theme.iconTheme.color,
+        ).padAll(isDense == true ? 5 : 8),
+      ),
+    );
+  }
+}

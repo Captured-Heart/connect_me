@@ -52,69 +52,6 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final pageIndexNotifier = ValueNotifier(0);
-    // SliverWoltModalSheetPage page2(BuildContext modalSheetContext, TextTheme textTheme) {
-    //   return SliverWoltModalSheetPage(
-    //     pageTitle: Padding(
-    //       padding: const EdgeInsets.all(10),
-    //       child: Text(
-    //         'Material Colors',
-    //         style: textTheme.headlineMedium!.copyWith(fontWeight: FontWeight.bold),
-    //       ),
-    //     ),
-    //     // heroImage: const Image(
-    //     //   image: AssetImage(
-    //     //     ImagesConstant.puzzleBG1,
-    //     //   ),
-    //     //   fit: BoxFit.cover,
-    //     // ),
-    //     // leadingNavBarWidget: IconButton(
-    //     //   padding: const EdgeInsets.all(10),
-    //     //   icon: const Icon(Icons.arrow_back_rounded),
-    //     //   onPressed: () {
-    //     //     // pageIndexNotifier.value = pageIndexNotifier.value - 1;
-    //     //   },
-    //     // ),
-    //     trailingNavBarWidget: IconButton(
-    //       padding: const EdgeInsets.all(10),
-    //       icon: const Icon(Icons.close),
-    //       onPressed: () {
-    //         Navigator.of(modalSheetContext).pop();
-    //       },
-    //     ),
-    //     mainContentSlivers: [
-    //       SliverGrid(
-    //         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-    //           crossAxisCount: 2,
-    //           mainAxisSpacing: 10.0,
-    //           crossAxisSpacing: 10.0,
-    //           childAspectRatio: 2.0,
-    //         ),
-    //         delegate: SliverChildBuilderDelegate(
-    //           (_, index) => ColorTile(color: materialColorsInGrid[index]),
-    //           childCount: materialColorsInGrid.length,
-    //         ),
-    //       ),
-    //       SliverList(
-    //         delegate: SliverChildBuilderDelegate(
-    //           (_, index) => ColorTile(color: materialColorsInSliverList[index]),
-    //           childCount: materialColorsInSliverList.length,
-    //         ),
-    //       ),
-    //       ...materialColorsInSpinner.map((e) => Shifter(child: ColorTile(color: e))).toList(),
-    //       SliverPadding(
-    //         padding: const EdgeInsets.all(10),
-    //         sliver: SliverToBoxAdapter(
-    //           child: TextButton(
-    //             onPressed: Navigator.of(modalSheetContext).pop,
-    //             child: const Text('Close'),
-    //           ),
-    //         ),
-    //       ),
-    //     ],
-    //   );
-    // }
-
     return Scaffold(
       body: SafeArea(
         child: ListView(
@@ -135,8 +72,7 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                           context: context,
                           pageListBuilder: (context) {
                             return [
-                              accountInformationModal(
-                                  context, context.textTheme),
+                              accountInformationModal(context, context.textTheme),
                             ];
                           },
                         );
@@ -296,10 +232,8 @@ class Shifter extends SingleChildRenderObjectWidget {
   }
 }
 
-class _SpinnerRenderSliver extends RenderSliver
-    with RenderObjectWithChildMixin<RenderBox> {
-  final LayerHandle<TransformLayer> _transformLayer =
-      LayerHandle<TransformLayer>();
+class _SpinnerRenderSliver extends RenderSliver with RenderObjectWithChildMixin<RenderBox> {
+  final LayerHandle<TransformLayer> _transformLayer = LayerHandle<TransformLayer>();
   Matrix4? _paintTransform;
 
   @override
@@ -353,8 +287,8 @@ class _SpinnerRenderSliver extends RenderSliver
       cacheExtent: cacheExtent,
       maxPaintExtent: childExtent,
       hitTestExtent: paintedChildSize,
-      hasVisualOverflow: childExtent > constraints.remainingPaintExtent ||
-          constraints.scrollOffset > 0.0,
+      hasVisualOverflow:
+          childExtent > constraints.remainingPaintExtent || constraints.scrollOffset > 0.0,
     );
 
     _setChildParentData(child!, constraints, geometry!);
@@ -411,8 +345,7 @@ class _SpinnerRenderSliver extends RenderSliver
       constraints.growthDirection,
     )) {
       case AxisDirection.up:
-        dy = -(geometry.scrollExtent -
-            (geometry.paintExtent + constraints.scrollOffset));
+        dy = -(geometry.scrollExtent - (geometry.paintExtent + constraints.scrollOffset));
         break;
       case AxisDirection.right:
         dx = -constraints.scrollOffset;
@@ -421,8 +354,7 @@ class _SpinnerRenderSliver extends RenderSliver
         dy = -constraints.scrollOffset;
         break;
       case AxisDirection.left:
-        dx = -(geometry.scrollExtent -
-            (geometry.paintExtent + constraints.scrollOffset));
+        dx = -(geometry.scrollExtent - (geometry.paintExtent + constraints.scrollOffset));
         break;
     }
 

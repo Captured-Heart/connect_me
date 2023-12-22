@@ -33,6 +33,8 @@ class AppEdgeInsets {
   static const EdgeInsets eA8 = EdgeInsets.all(8);
   static const EdgeInsets eA12 = EdgeInsets.all(12);
   static const EdgeInsets eA16 = EdgeInsets.all(16);
+  static const EdgeInsets eA18 = EdgeInsets.all(18);
+
   static const EdgeInsets eA20 = EdgeInsets.all(20);
 
   static const EdgeInsets eH4 = EdgeInsets.symmetric(horizontal: 4);

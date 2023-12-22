@@ -12,3 +12,4 @@ export './textfield_widget.dart';
 export './app_custom_dialog.dart';
 export './util_date_picker.dart';
 export './custom_code_widget.dart';
+export './pick_image_method.dart';

@@ -1,4 +1,7 @@
 // THE BOTTOM SHEET FOR ACCOUNT INFORMATION
+
+import 'dart:developer';
+
 import 'package:connect_me/app.dart';
 
 SliverWoltModalSheetPage accountInformationModal(
@@ -20,77 +23,126 @@ SliverWoltModalSheetPage accountInformationModal(
     ).padOnly(right: 10),
 
     // body
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const AddProfilePictureWidget(),
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Expanded(
-              child: AuthTextFieldWidget(
-                controller: TextEditingController(),
-                labelMaterial: 'first name',
-                hintText: 'Ex: Endo',
-              ),
-            ),
-            const SizedBox(
-              width: 15,
-            ),
-            Expanded(
-              child: AuthTextFieldWidget(
-                controller: TextEditingController(),
-                labelMaterial: 'last name',
-                hintText: 'Ex: Trent',
-              ),
-            ),
+    child: const AccountInfoModalBody().padAll(15),
+  );
+}
+
+class AccountInfoModalBody extends StatefulWidget {
+  const AccountInfoModalBody({
+    super.key,
+  });
+
+  @override
+  State<AccountInfoModalBody> createState() => _AccountInfoModalBodyState();
+}
+
+class _AccountInfoModalBodyState extends State<AccountInfoModalBody> {
+  final ValueNotifier<String> imgUrlNotifier = ValueNotifier('');
+  final TextEditingControllerClass controller = TextEditingControllerClass();
+
+  @override
+  Widget build(BuildContext context) {
+    return ListenableBuilder(
+        listenable: Listenable.merge(
+          [
+            imgUrlNotifier,
           ],
         ),
-        AuthTextFieldWidget(
-          controller: TextEditingController(text: 'captured@gmail.com'),
-          labelMaterial: 'email',
-          readOnly: true,
-        ),
+        builder: (context, _) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AddProfilePictureWidget(
+                onTapAddPhoto: () {
+                  pickImageFunction(pickCamera: false).then((value) {
+                    if (value != null) {
+                      imgUrlNotifier.value = value.path;
+                    }
+                  });
+                },
+                onTapCamera: () {
+                  pickImageFunction(pickCamera: true).then((value) {
+                    if (value != null) {
+                      imgUrlNotifier.value = value.path;
+                    }
+                  });
+                },
+                onDeleteImage: () {
+                  imgUrlNotifier.value = '';
+                },
+                imgUrl: imgUrlNotifier.value,
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Expanded(
+                    child: AuthTextFieldWidget(
+                      controller: controller.firstNameController,
+                      labelMaterial: TextConstant.firstName,
+                      hintText: 'Ex: Endo',
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  Expanded(
+                    child: AuthTextFieldWidget(
+                      controller: controller.lastNameController,
+                      labelMaterial: TextConstant.lastName,
+                      hintText: 'Ex: Trent',
+                    ),
+                  ),
+                ],
+              ),
+              AuthTextFieldWidget(
+                controller: TextEditingController(text: 'captured@gmail.com'),
+                labelMaterial: TextConstant.email,
+                readOnly: true,
+              ),
 
-        //USE COUNTRY CODE WIDGET HERE
+              //USE COUNTRY CODE WIDGET HERE
 
-        AuthTextFieldWidget(
-          controller: TextEditingController(),
-          labelMaterial: 'Phone',
-          prefixIcon: CountryCodeCustomWidget(
-            onChanged: (value) {},
-          ),
-          // prefixIcon: Align(
-          //   alignment: Alignment.centerLeft,
-          //     child: Text(
-          //   '+234',
-          //   textAlign: TextAlign.end,
-          // )),
-        ),
-        AuthTextFieldWidget(
-          controller: TextEditingController(),
-          labelMaterial: 'website',
-          hintText: 'https://connectme.com',
-        ),
-        AuthTextFieldWidget(
-          controller: TextEditingController(),
-          inputFormatters: [],
-          labelMaterial: 'bio',
-          hintText: '''
-Ex: I am an experienced tailor and social worker.
-
-NB: This is diplayed in your Qr_Code card and is visible to all''',
-          maxLength: 200,
-          maxLines: 4,
-        ),
-        Align(
-          alignment: Alignment.topRight,
-          child: ElevatedButton(
-            onPressed: () {},
-            child: const Text(TextConstant.save),
-          ),
-        ),
-      ].columnInPadding(15),
-    ).padAll(15),
-  );
+              AuthTextFieldWidget(
+                controller: controller.phoneNoController,
+                labelMaterial: TextConstant.phoneNumber,
+                keyboardType: TextInputType.phone,
+                prefixIcon: CountryCodeCustomWidget(
+                  onChanged: (value) {},
+                ),
+              ),
+              AuthTextFieldWidget(
+                controller: controller.websiteController,
+                labelMaterial: 'website',
+                hintText: 'https://connectme.com',
+              ),
+              AuthTextFieldWidget(
+                controller: controller.bioController,
+                inputFormatters: const [],
+                labelMaterial: TextConstant.bio,
+                hintText: TextConstant.bioHint,
+                maxLength: 70,
+                maxLines: 4,
+              ),
+              Align(
+                alignment: Alignment.topRight,
+                child: ElevatedButton(
+                  onPressed: () {
+                    inspect(
+                      AuthUserModel(
+                        imgUrl: imgUrlNotifier.value,
+                        fname: controller.firstNameController.text,
+                        lname: controller.lastNameController.text,
+                        phone: controller.phoneNoController.text,
+                        website: controller.websiteController.text,
+                        bio: controller.bioController.text,
+                      ).toJson(),
+                    );
+                  },
+                  child: const Text(TextConstant.save),
+                ),
+              ),
+            ].columnInPadding(15),
+          );
+        });
+  }
 }

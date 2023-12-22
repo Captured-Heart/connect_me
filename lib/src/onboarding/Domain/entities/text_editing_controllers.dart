@@ -46,7 +46,8 @@ class TextEditingControllerClass {
   TextEditingController driverLicencesController = TextEditingController();
   TextEditingController postalCodeController = TextEditingController();
 
-  // TextEditingController instructionsController = TextEditingController();
+  TextEditingController websiteController = TextEditingController();
+  TextEditingController bioController = TextEditingController();
 
   FocusNode ordersFocusNode = FocusNode();
   FocusNode phoneNoFocusMode = FocusNode();

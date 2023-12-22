@@ -50,15 +50,18 @@ class MyCustomDropWidgetWithStrings extends StatelessWidget {
     required this.items,
     this.hintText,
     this.onChanged,
+    this.validator,
   });
 
   final List<String> items;
   final String? hintText;
+  final String? Function(String?)? validator;
   final dynamic Function(String)? onChanged;
   @override
   Widget build(BuildContext context) {
     return CustomDropdown(
       items: items,
+      validator: validator,
       listItemBuilder: (context, item) {
         return AutoSizeText(
           item,

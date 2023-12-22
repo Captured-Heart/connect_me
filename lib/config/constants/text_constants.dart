@@ -83,6 +83,7 @@ abstract class TextConstant {
   static const followers = 'Followers';
   static const following = 'Following';
   static const about = 'About';
+  static const bio = 'Bio';
   static const myConnect = 'My Connect';
   static const email = 'Email';
   static const twitter = 'Twitter';
@@ -91,7 +92,10 @@ abstract class TextConstant {
   static const message = 'Message';
   static const support = 'Support';
   static const social = 'Social';
-  // static const lorem = 'or';
+  static const bioHint = '''
+Ex: I am an experienced tailor and social worker.
+
+NB: This is diplayed in your Qr_Code card and is visible to all''';
   // static const lorem = 'or'; // static const lorem = 'or';
   // static const lorem = 'or'; // static const lorem = 'or';
   // static const lorem = 'or'; // static const lorem = 'or';

@@ -29,6 +29,7 @@ dependencies:
   google_fonts: ^6.1.0
   google_sign_in: ^6.1.6
   icons_plus: ^4.0.0
+  image_picker: ^1.0.5
   intl: ^0.18.1
   lottie: ^2.6.0
   qr_code_scanner: ^1.0.1

@@ -28,6 +28,7 @@ class AuthTextFieldWidget extends StatelessWidget {
     this.textInputAction,
     this.validator,
     this.labelMaterial,
+    this.contentPadding,
     this.maxLines,
   });
   final TextEditingController? controller;
@@ -52,6 +53,7 @@ class AuthTextFieldWidget extends StatelessWidget {
 
   final String? label;
   final String? labelMaterial;
+  final EdgeInsets? contentPadding;
 
   final bool? noBorders;
   final TextInputAction? textInputAction;
@@ -91,6 +93,7 @@ class AuthTextFieldWidget extends StatelessWidget {
                 ).padOnly(bottom: 7),
           TextFormField(
             onTap: onTap,
+
             initialValue: initialValue,
             controller: controller,
             focusNode: focusNode,
@@ -110,11 +113,10 @@ class AuthTextFieldWidget extends StatelessWidget {
             //  AppTextStyle.bodySmall,
             inputFormatters:
                 // ignore: prefer_single_quotes
-                inputFormatters ??
-                    [FilteringTextInputFormatter.deny(RegExp(r"\s\b|\b\s"))],
+                inputFormatters ?? [FilteringTextInputFormatter.deny(RegExp(r"\s\b|\b\s"))],
             decoration: InputDecoration(
               hintText: hintText,
-              contentPadding: const EdgeInsets.all(12),
+              contentPadding: contentPadding ?? const EdgeInsets.all(12),
               hintStyle: context.textTheme.bodySmall?.copyWith(
                 fontWeight: AppFontWeight.w100,
                 color: context.colorScheme.onSurface.withOpacity(0.5),

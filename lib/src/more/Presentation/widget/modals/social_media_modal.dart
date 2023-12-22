@@ -1,9 +1,10 @@
 // EDUCATION MODEL
 
+import 'dart:developer';
+
 import 'package:connect_me/app.dart';
 
-SliverWoltModalSheetPage socialMediaModal(
-    BuildContext modalSheetContext, TextTheme textTheme) {
+SliverWoltModalSheetPage socialMediaModal(BuildContext modalSheetContext, TextTheme textTheme) {
   return WoltModalSheetPage(
     hasSabGradient: true,
     backgroundColor: modalSheetContext.theme.scaffoldBackgroundColor,
@@ -26,6 +27,7 @@ SliverWoltModalSheetPage socialMediaModal(
 }
 
 //
+
 class SocialMediaBody extends StatefulWidget {
   const SocialMediaBody({
     super.key,
@@ -36,110 +38,132 @@ class SocialMediaBody extends StatefulWidget {
 }
 
 class _SocialMediaBodyState extends State<SocialMediaBody> {
-  final List<TextEditingController> textEditingControllerList = [
-    TextEditingController(),
-  ];
+  final List<SocialClass> textEditingControllerList = [SocialClass(title: '', link: '')];
+  final GlobalKey<FormState> socialKey = GlobalKey<FormState>();
 
-  final List<Widget> items = [
-    SocialMediaDropdownListItem(
-        icon: SocialDropdownEnum.facebook.icon,
-        title: SocialDropdownEnum.facebook.message),
-    SocialMediaDropdownListItem(
-        icon: SocialDropdownEnum.linkedIn.icon,
-        title: SocialDropdownEnum.linkedIn.message),
-    SocialMediaDropdownListItem(
-        icon: SocialDropdownEnum.instagram.icon,
-        title: SocialDropdownEnum.instagram.message),
-    SocialMediaDropdownListItem(
-        icon: SocialDropdownEnum.youtube.icon,
-        title: SocialDropdownEnum.youtube.message),
-    SocialMediaDropdownListItem(
-        icon: SocialDropdownEnum.behance.icon,
-        title: SocialDropdownEnum.behance.message),
-    SocialMediaDropdownListItem(
-        icon: SocialDropdownEnum.twitter.icon,
-        title: SocialDropdownEnum.twitter.message),
-    SocialMediaDropdownListItem(
-        icon: SocialDropdownEnum.tiktok.icon,
-        title: SocialDropdownEnum.tiktok.message),
-    SocialMediaDropdownListItem(
-        icon: SocialDropdownEnum.github.icon,
-        title: SocialDropdownEnum.github.message),
-    SocialMediaDropdownListItem(
-        icon: SocialDropdownEnum.whatsapp.icon,
-        title: SocialDropdownEnum.whatsapp.message),
-    SocialMediaDropdownListItem(
-        icon: SocialDropdownEnum.snapchat.icon,
-        title: SocialDropdownEnum.snapchat.message),
-    SocialMediaDropdownListItem(
-        icon: SocialDropdownEnum.twitch.icon,
-        title: SocialDropdownEnum.twitch.message),
-    SocialMediaDropdownListItem(
-        icon: SocialDropdownEnum.discord.icon,
-        title: SocialDropdownEnum.discord.message),
-    SocialMediaDropdownListItem(
-        icon: SocialDropdownEnum.gmail.icon,
-        title: SocialDropdownEnum.gmail.message),
+  final List<String> items = [
+    SocialDropdownEnum.facebook.message,
+    SocialDropdownEnum.linkedIn.message,
+    SocialDropdownEnum.instagram.message,
+    SocialDropdownEnum.youtube.message,
+    SocialDropdownEnum.behance.message,
+    SocialDropdownEnum.twitter.message,
+    SocialDropdownEnum.tiktok.message,
+    SocialDropdownEnum.github.message,
+    SocialDropdownEnum.whatsapp.message,
+    SocialDropdownEnum.snapchat.message,
+    SocialDropdownEnum.twitch.message,
+    SocialDropdownEnum.discord.message,
+    SocialDropdownEnum.gmail.message,
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        //start date
-        for (var controller in textEditingControllerList)
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Expanded(
-                  flex: 3,
-                  child: SizedBox(
-                    child: MyCustomDropWidget(items: items),
-                    // DropDownWithLabelWidget(),
-                  )),
-              const SizedBox(
-                width: 15,
-              ),
-              Expanded(
-                flex: 5,
-                child: AuthTextFieldWidget(
-                  controller: controller,
-                  hintText: 'Link',
+    return Form(
+      key: socialKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          //start date
+          for (var controller in textEditingControllerList)
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Expanded(
+                    flex: 3,
+                    child: SizedBox(
+                      child: MyCustomDropWidgetWithStrings(
+                        items: items,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return '*';
+                          } else {
+                            return null;
+                          }
+                        },
+                        onChanged: (title) {
+                          controller.title = title;
+                          items.remove(title);
+                        },
+                      ),
+                      // DropDownWithLabelWidget(),
+                    )),
+                const SizedBox(
+                  width: 15,
                 ),
-              ),
-            ],
+                Expanded(
+                  flex: 5,
+                  child: AuthTextFieldWidget(
+                    contentPadding: AppEdgeInsets.eA18,
+                    controller: TextEditingController(text: controller.link),
+                    onChanged: (link) {
+                      controller.link = link;
+                    },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return '*';
+                      } else {
+                        return null;
+                      }
+                    },
+                    hintText: 'Link',
+                  ),
+                ),
+              ],
+            ),
+          TextButton.icon(
+            onPressed: () {
+              textEditingControllerList.add(
+                SocialClass(title: '', link: ''),
+              );
+
+              setState(() {});
+            },
+            icon: const Icon(addIcon),
+            label: const Text('Add new'),
           ),
-        TextButton.icon(
-          onPressed: () {
-            textEditingControllerList.add(TextEditingController());
-            setState(() {});
-          },
-          icon: Icon(addIcon),
-          label: Text('Add new'),
-        ),
-// SAVE BUTTON
-        Align(
-          alignment: Alignment.topRight,
-          child: ElevatedButton(
-            onPressed: () {},
-            child: const Text(TextConstant.save),
+          // SAVE BUTTON
+          Align(
+            alignment: Alignment.topRight,
+            child: ElevatedButton(
+              onPressed: () {
+                Map<String, String> result = {};
+                for (var value in textEditingControllerList) {
+                  result[value.title] = value.link;
+                }
+                if (socialKey.currentState!.validate()) {
+                  inspect(result);
+                }
+              },
+              child: const Text(TextConstant.save),
+            ),
           ),
-        ),
-      ].columnInPadding(15),
+        ].columnInPadding(15),
+      ),
     );
   }
 }
 
+class SocialClass {
+  String title;
+  String link;
+
+  SocialClass({
+    required this.title,
+    required this.link,
+  });
+}
+
+// ignore: must_be_immutable
 class SocialMediaDropdownListItem extends StatelessWidget {
-  const SocialMediaDropdownListItem({
+  SocialMediaDropdownListItem({
     super.key,
     required this.icon,
     required this.title,
   });
 
-  final String title;
-  final IconData icon;
+  String title;
+  IconData icon;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -176,15 +200,11 @@ enum SocialDropdownEnum {
   final IconData icon;
 }
 
-final TextEditingController linkedInController =
-    TextEditingController(text: 'linkeid');
-final TextEditingController facebookController =
-    TextEditingController(text: 'facebook');
-final TextEditingController instagramController =
-    TextEditingController(text: 'instagram');
+final TextEditingController linkedInController = TextEditingController(text: 'linkeid');
+final TextEditingController facebookController = TextEditingController(text: 'facebook');
+final TextEditingController instagramController = TextEditingController(text: 'instagram');
 final TextEditingController youtubeController = TextEditingController();
-final TextEditingController behanceController =
-    TextEditingController(text: 'behnace');
+final TextEditingController behanceController = TextEditingController(text: 'behnace');
 final TextEditingController twitterController = TextEditingController();
 final TextEditingController tiktokController = TextEditingController();
 final TextEditingController gmailController = TextEditingController();
