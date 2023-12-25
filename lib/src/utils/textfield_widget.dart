@@ -113,7 +113,8 @@ class AuthTextFieldWidget extends StatelessWidget {
             //  AppTextStyle.bodySmall,
             inputFormatters:
                 // ignore: prefer_single_quotes
-                inputFormatters ?? [FilteringTextInputFormatter.deny(RegExp(r"\s\b|\b\s"))],
+                inputFormatters ??
+                    [FilteringTextInputFormatter.deny(RegExp(r"\s\b|\b\s"))],
             decoration: InputDecoration(
               hintText: hintText,
               contentPadding: contentPadding ?? const EdgeInsets.all(12),

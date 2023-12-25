@@ -1,5 +1,6 @@
 enum FirebaseCollectionEnums {
   users('Users'),
+  appData('appData'),
   accountInfo('Account info');
 
   const FirebaseCollectionEnums(this.value);

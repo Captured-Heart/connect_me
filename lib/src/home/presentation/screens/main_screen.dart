@@ -12,6 +12,8 @@ class MainScreen extends ConsumerWidget {
       case 0:
         return const HomeScreen2();
       case 1:
+        return const ProfileScreen();
+      case 2:
         return MoreScreen();
 
       default:
@@ -39,11 +41,11 @@ class MainScreen extends ConsumerWidget {
             label: TextConstant.home,
             tooltip: TextConstant.home,
           ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(connectIcon),
-          //   label: TextConstant.profile,
-          //   tooltip: TextConstant.profile,
-          // ),
+          BottomNavigationBarItem(
+            icon: Icon(FontAwesome.user),
+            label: TextConstant.profile,
+            tooltip: TextConstant.profile,
+          ),
           BottomNavigationBarItem(
             icon: Icon(moreIcon),
             label: TextConstant.more,

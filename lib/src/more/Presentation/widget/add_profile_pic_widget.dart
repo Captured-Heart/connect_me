@@ -118,7 +118,8 @@ class DottedBorderPainter extends CustomPainter {
     // Draw horizontal dashed line at the bottom
     for (int i = 0; i < dotsInWidth; i++) {
       final double xPos = i * (dashWidth + dashSpace);
-      canvas.drawLine(Offset(xPos, size.height), Offset(xPos + dashWidth, size.height), paint);
+      canvas.drawLine(Offset(xPos, size.height),
+          Offset(xPos + dashWidth, size.height), paint);
     }
 
     // Draw vertical dashed line at the left
@@ -130,7 +131,8 @@ class DottedBorderPainter extends CustomPainter {
     // Draw vertical dashed line at the right
     for (int i = 0; i < dotsInHeight; i++) {
       final double yPos = i * (dashWidth + dashSpace);
-      canvas.drawLine(Offset(size.width, yPos), Offset(size.width, yPos + dashWidth), paint);
+      canvas.drawLine(Offset(size.width, yPos),
+          Offset(size.width, yPos + dashWidth), paint);
     }
   }
 

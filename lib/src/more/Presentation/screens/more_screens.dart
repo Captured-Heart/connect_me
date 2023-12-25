@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:connect_me/app.dart';
 import 'package:flutter/rendering.dart';
 
@@ -37,7 +39,7 @@ List<Color> get allMaterialColors {
 }
 
 class MoreScreen extends ConsumerStatefulWidget {
-  MoreScreen({super.key});
+  const MoreScreen({super.key});
 
   @override
   ConsumerState<MoreScreen> createState() => _MoreScreenState();
@@ -52,6 +54,8 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final appdata = ref.watch(fetchAppDataProvider);
+    inspect(appdata.valueOrNull);
     return Scaffold(
       body: SafeArea(
         child: ListView(
@@ -60,6 +64,7 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
               // MY ACCOUNT
               const Text(TextConstant.yourAccount),
               Card(
+                elevation: 2,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -86,6 +91,7 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
 
 // ADDITIONAL DETAILS
               Card(
+                elevation: 2,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -159,6 +165,7 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
               // SETTINGS
               const Text('Settings'),
               Card(
+                elevation: 2,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -175,7 +182,12 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                       icon: helpCenterIcon,
                       title: 'Help Center / Feedbacks',
                       onTap: () {
-                        pushAsVoid(context, const HelpCenterScreen());
+                        pushAsVoid(
+                          context,
+                          HelpCenterScreen(
+                            appDataModel: appdata.valueOrNull,
+                          ),
+                        );
                       },
                     ),
 

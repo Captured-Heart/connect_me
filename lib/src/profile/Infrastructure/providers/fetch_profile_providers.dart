@@ -10,6 +10,15 @@ final fetchProfileProvider = FutureProvider.autoDispose
   // return await fetchProfileRepoImpl.fetchProfile(uuid: uuid);
 });
 
+final fetchWorkProvider =
+    FutureProvider.autoDispose<MapDynamicString>((ref) async {
+  String uuid = ref.watch(authStateChangesProvider).value!.uid;
+//
+  final fetchProfileRepoImpl = ref.read(fetchProfileRepoImplProvider);
+  return await fetchProfileRepoImpl.fetchWork(uuid: uuid);
+  // return await fetchProfileRepoImpl.fetchProfile(uuid: uuid);
+});
+
 final fetchContactsProvider =
     FutureProvider.autoDispose<List<dynamic>>((ref) async {
   String uuid = ref.watch(authStateChangesProvider).value!.uid;

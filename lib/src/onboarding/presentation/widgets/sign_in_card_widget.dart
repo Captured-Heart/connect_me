@@ -41,6 +41,7 @@ class SignInCardWidget extends ConsumerWidget {
       }
     });
 
+// SIGN IN GOOGLE
     ref.listen(signInGoogleNotifierProvider, (previous, next) {
       if (next.user?.uid != null) {
         pushReplacement(context, const MainScreen());

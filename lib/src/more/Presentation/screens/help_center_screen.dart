@@ -1,8 +1,13 @@
+import 'dart:developer';
+
 import 'package:connect_me/app.dart';
 
 class HelpCenterScreen extends StatelessWidget {
-  const HelpCenterScreen({super.key});
-
+  const HelpCenterScreen({
+    super.key,
+    required this.appDataModel,
+  });
+  final AppDataModel? appDataModel;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,29 +27,70 @@ class HelpCenterScreen extends StatelessWidget {
             subtitleMaxLines: 2,
             subtitleTextAlign: TextAlign.center,
           ),
-          const Card(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                MoreCustomListTileWidget(
-                  title: '${TextConstant.whatsapp} - ${TextConstant.contactUs}',
-                  subtitle: TextConstant.chatWithUsOnWhatsapp,
-                  icon: whatsappIcon,
-                ),
-                MoreCustomListTileWidget(
-                  title: '${TextConstant.twitter}(X)',
-                  subtitle: TextConstant.tellUsHowWeCanHelpYouOnX,
-                  icon: twitterIcon,
-                ),
-                MoreCustomListTileWidget(
-                  title: TextConstant.email,
-                  subtitle: TextConstant.getYourSolutionsViaEmail,
-                  icon: mailIcon,
-                  iconSize: 17,
-                ),
-              ],
-            ),
-          ).padSymmetric(horizontal: 15)
+          Consumer(builder: (context, ref, _) {
+            return Card(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  MoreCustomListTileWidget(
+                    title: '${TextConstant.whatsapp} - ${TextConstant.contactUs}',
+                    subtitle: TextConstant.chatWithUsOnWhatsapp,
+                    icon: whatsappIcon,
+                    onTap: () {
+                      ref
+                          .read(helpCenterImplProvider)
+                          .contactWhatsapp(appDataModel?.whatsappSupport ?? '')
+                          .onError((error, stackTrace) {
+                        showScaffoldSnackBarMessageNoColor(
+                          TextConstant.currentlyAvailable,
+                          context: context,
+                          isError: true,
+                          appearsBottom: false,
+                        );
+                      });
+                    },
+                  ),
+                  MoreCustomListTileWidget(
+                    title: '${TextConstant.twitter}(X)',
+                    subtitle: TextConstant.tellUsHowWeCanHelpYouOnX,
+                    icon: twitterIcon,
+                    onTap: () {
+                      ref
+                          .read(helpCenterImplProvider)
+                          .contactTwitter(appDataModel?.twitterSupport ?? '')
+                          .onError((error, stackTrace) {
+                        showScaffoldSnackBarMessageNoColor(
+                          TextConstant.currentlyAvailable,
+                          context: context,
+                          isError: true,
+                          appearsBottom: false,
+                        );
+                      });
+                    },
+                  ),
+                  MoreCustomListTileWidget(
+                    title: TextConstant.email,
+                    subtitle: TextConstant.getYourSolutionsViaEmail,
+                    icon: mailIcon,
+                    iconSize: 17,
+                    onTap: () {
+                      ref
+                          .read(helpCenterImplProvider)
+                          .contactEmail(appDataModel?.emailSupport ?? '')
+                          .onError((error, stackTrace) {
+                        showScaffoldSnackBarMessageNoColor(
+                          TextConstant.currentlyAvailable,
+                          context: context,
+                          isError: true,
+                          appearsBottom: false,
+                        );
+                      });
+                    },
+                  ),
+                ],
+              ),
+            ).padSymmetric(horizontal: 15);
+          })
         ].columnInPadding(20),
       ),
     );

@@ -6,7 +6,8 @@ import 'package:connect_me/app.dart';
 import 'package:uuid/data.dart';
 import 'package:uuid/uuid.dart';
 
-SliverWoltModalSheetPage additionalInfoModal(BuildContext modalSheetContext, TextTheme textTheme) {
+SliverWoltModalSheetPage additionalInfoModal(
+    BuildContext modalSheetContext, TextTheme textTheme) {
   return WoltModalSheetPage(
     hasSabGradient: true,
     backgroundColor: modalSheetContext.theme.scaffoldBackgroundColor,
@@ -40,14 +41,16 @@ class AdditionalInfoModalBody extends StatefulWidget {
   final Function(String?)? onCityChanged;
 
   @override
-  State<AdditionalInfoModalBody> createState() => _AdditionalInfoModalBodyState();
+  State<AdditionalInfoModalBody> createState() =>
+      _AdditionalInfoModalBodyState();
 }
 
 class _AdditionalInfoModalBodyState extends State<AdditionalInfoModalBody> {
   final TextEditingControllerClass controller = TextEditingControllerClass();
   final ValueNotifier<TextEditingController> dobNotifier =
       ValueNotifier<TextEditingController>(TextEditingController());
-  final ValueNotifier<DateTime> dobDateTimeNotifier = ValueNotifier<DateTime>(DateTime.now());
+  final ValueNotifier<DateTime> dobDateTimeNotifier =
+      ValueNotifier<DateTime>(DateTime.now());
   final ValueNotifier<String> countryNotifier = ValueNotifier<String>('');
   final ValueNotifier<String> stateNotifier = ValueNotifier<String>('');
   final ValueNotifier<String> cityNotifier = ValueNotifier<String>('');
@@ -119,11 +122,11 @@ class _AdditionalInfoModalBodyState extends State<AdditionalInfoModalBody> {
                   ),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                selectedItemStyle:
-                    context.textTheme.bodyMedium?.copyWith(fontWeight: AppFontWeight.w100),
+                selectedItemStyle: context.textTheme.bodyMedium
+                    ?.copyWith(fontWeight: AppFontWeight.w100),
                 dropdownHeadingStyle: context.textTheme.bodyLarge,
-                dropdownItemStyle:
-                    context.textTheme.bodyMedium?.copyWith(fontWeight: AppFontWeight.w100),
+                dropdownItemStyle: context.textTheme.bodyMedium
+                    ?.copyWith(fontWeight: AppFontWeight.w100),
               ),
 
 // ! STREET
@@ -174,7 +177,8 @@ class _AdditionalInfoModalBodyState extends State<AdditionalInfoModalBody> {
                         state: stateNotifier.value,
                         city: cityNotifier.value,
                         street: controller.streetController.text,
-                        driverLicenseNo: controller.driverLicencesController.text,
+                        driverLicenseNo:
+                            controller.driverLicencesController.text,
                         postalCode: controller.postalCodeController.text,
                         docId: docId,
                       ).toJson(),

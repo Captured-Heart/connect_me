@@ -1,7 +1,5 @@
 // import 'dart:developer';
 
-import 'dart:developer';
-
 import 'package:connect_me/app.dart';
 
 class FetchProfileRepoImpl implements ProfileRepository {
@@ -25,13 +23,6 @@ class FetchProfileRepoImpl implements ProfileRepository {
         .collection(FirebaseCollectionEnums.users.value)
         .snapshots();
 
-    // var finalList = List.generate(connectsList.length, (index) async {
-    //   var data = await result.doc(connectsList[index]).get();
-
-    //   // log('the data: ${AuthUserModel.fromJson(data.data()!)}');
-    //   return AuthUserModel.fromJson(data.data()!);
-    // });
-
     var finalList = result.map((event) => event.docs).map(
           (event) => List.generate(
             connectsList.length,
@@ -42,5 +33,14 @@ class FetchProfileRepoImpl implements ProfileRepository {
         );
 
     yield* finalList;
+  }
+
+  @override
+  Future<MapDynamicString> fetchWork({required String uuid}) {
+    var result = _firebaseFirestore
+        .collection(FirebaseCollectionEnums.users.value)
+        .doc(uuid);
+    // inspect(result.get().then((value) => value));
+    return result.get().then((value) => value.get('socials'));
   }
 }

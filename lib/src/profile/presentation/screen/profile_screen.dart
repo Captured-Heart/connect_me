@@ -88,7 +88,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                             Tab(
                               icon: Icon(workExperienceIcon),
                               iconMargin: EdgeInsets.zero,
-                              text: TextConstant.workExperience,
+                              text: TextConstant.work,
                             ),
                           ],
                         ),

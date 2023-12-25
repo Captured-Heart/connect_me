@@ -4,7 +4,8 @@ import 'dart:developer';
 
 import 'package:connect_me/app.dart';
 
-SliverWoltModalSheetPage socialMediaModal(BuildContext modalSheetContext, TextTheme textTheme) {
+SliverWoltModalSheetPage socialMediaModal(
+    BuildContext modalSheetContext, TextTheme textTheme) {
   return WoltModalSheetPage(
     hasSabGradient: true,
     backgroundColor: modalSheetContext.theme.scaffoldBackgroundColor,
@@ -38,7 +39,9 @@ class SocialMediaBody extends StatefulWidget {
 }
 
 class _SocialMediaBodyState extends State<SocialMediaBody> {
-  final List<SocialClass> textEditingControllerList = [SocialClass(title: '', link: '')];
+  final List<SocialClass> textEditingControllerList = [
+    SocialClass(title: '', link: '')
+  ];
   final GlobalKey<FormState> socialKey = GlobalKey<FormState>();
 
   final List<String> items = [
@@ -154,32 +157,6 @@ class SocialClass {
   });
 }
 
-// ignore: must_be_immutable
-class SocialMediaDropdownListItem extends StatelessWidget {
-  SocialMediaDropdownListItem({
-    super.key,
-    required this.icon,
-    required this.title,
-  });
-
-  String title;
-  IconData icon;
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Icon(icon),
-        Expanded(
-            child: AutoSizeText(
-          title,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-        ))
-      ].rowInPadding(5),
-    );
-  }
-}
-
 enum SocialDropdownEnum {
   facebook('Facebook', IonIcons.logo_facebook),
   linkedIn('LinkedIn', IonIcons.logo_linkedin),
@@ -200,51 +177,4 @@ enum SocialDropdownEnum {
   final IconData icon;
 }
 
-final TextEditingController linkedInController = TextEditingController(text: 'linkeid');
-final TextEditingController facebookController = TextEditingController(text: 'facebook');
-final TextEditingController instagramController = TextEditingController(text: 'instagram');
-final TextEditingController youtubeController = TextEditingController();
-final TextEditingController behanceController = TextEditingController(text: 'behnace');
-final TextEditingController twitterController = TextEditingController();
-final TextEditingController tiktokController = TextEditingController();
-final TextEditingController gmailController = TextEditingController();
-final TextEditingController whatsappController = TextEditingController();
-final TextEditingController snapchatController = TextEditingController();
-final TextEditingController discordController = TextEditingController();
-final TextEditingController twitchController = TextEditingController();
-final TextEditingController githubController = TextEditingController();
-
-extension GetTextEditingControllerExtension on SocialDropdownEnum {
-  TextEditingController get textEditingController {
-    switch (this) {
-      case SocialDropdownEnum.linkedIn:
-        return linkedInController;
-      case SocialDropdownEnum.facebook:
-        return facebookController;
-      case SocialDropdownEnum.instagram:
-        return instagramController;
-      case SocialDropdownEnum.youtube:
-        return youtubeController;
-      case SocialDropdownEnum.behance:
-        return behanceController;
-      case SocialDropdownEnum.twitter:
-        return twitterController;
-      case SocialDropdownEnum.tiktok:
-        return tiktokController;
-      case SocialDropdownEnum.gmail:
-        return gmailController;
-      case SocialDropdownEnum.whatsapp:
-        return whatsappController;
-      case SocialDropdownEnum.snapchat:
-        return snapchatController;
-      case SocialDropdownEnum.discord:
-        return discordController;
-      case SocialDropdownEnum.twitch:
-        return twitchController;
-      case SocialDropdownEnum.github:
-        return githubController;
-      default:
-        return TextEditingController();
-    }
-  }
-}
+//

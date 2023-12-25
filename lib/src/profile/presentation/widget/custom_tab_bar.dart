@@ -18,7 +18,7 @@ class CustomTabBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       child: TabBar(
-        isScrollable: true,
+        isScrollable: false,
         indicatorColor: Colors.transparent,
         padding: AppEdgeInsets.eA1,
         labelStyle: context.textTheme.bodyLarge?.copyWith(

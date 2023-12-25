@@ -13,7 +13,7 @@ class AboutMeWidget extends StatelessWidget {
             offset! > 300 ? const EdgeInsets.only(top: 170) : EdgeInsets.zero,
         children: [
           Card(
-            elevation: 5,
+            elevation: 3,
             child: Column(
               // physics: NeverScrollableScrollPhysics(),
               children: [

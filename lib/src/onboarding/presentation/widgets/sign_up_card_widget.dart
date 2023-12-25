@@ -42,6 +42,18 @@ class _SignUpCardWidgetState extends ConsumerState<SignUpCardWidget> {
         );
       }
     });
+    ref.listen(signInGoogleNotifierProvider, (previous, next) {
+      if (next.user?.uid != null) {
+        pushReplacement(context, const MainScreen());
+      }
+      if (next.errorMessage != null) {
+        showScaffoldSnackBarMessageNoColor(
+          next.errorMessage ?? '',
+          context: context,
+          isError: true,
+        );
+      }
+    });
 
     return ListenableBuilder(
         listenable: Listenable.merge(
@@ -238,7 +250,20 @@ class _SignUpCardWidgetState extends ConsumerState<SignUpCardWidget> {
                               ),
                             ),
                           ],
-                        )
+                        ),
+                        Text(TextConstant.or.toTitleCase()),
+                        //sign in with google btn
+                        SocialButtons(
+                          iconData: googleIcon,
+                          text: TextConstant.signUpWithGoogle,
+                          onTap: () {
+                            // if (Platform.isAndroid) {
+                            ref
+                                .read(signInGoogleNotifierProvider.notifier)
+                                .signinWithGoogle();
+                            // } else {}
+                          },
+                        ),
                       ],
                     ).padAll(15)),
               ),

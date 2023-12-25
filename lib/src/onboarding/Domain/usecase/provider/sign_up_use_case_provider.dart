@@ -15,7 +15,7 @@ class SignUpNotifier extends StateNotifier<AuthUseCaseState> {
       password: password,
       username: username,
     );
-   
+
     state = user.fold((failure) {
       return AuthUseCaseState(errorMessage: failure.message, isLoading: false);
     }, (userDetails) => AuthUseCaseState(user: userDetails, isLoading: false));
