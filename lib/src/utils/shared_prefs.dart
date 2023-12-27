@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:connect_me/app.dart';
 
 class SharedPreferencesHelper {

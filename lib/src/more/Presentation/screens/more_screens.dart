@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:connect_me/app.dart';
 import 'package:flutter/rendering.dart';
 
@@ -55,7 +53,9 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
   @override
   Widget build(BuildContext context) {
     final appdata = ref.watch(fetchAppDataProvider);
-    inspect(appdata.valueOrNull);
+    final authUserData = ref.watch(fetchProfileProvider('')).valueOrNull;
+    // inspect(authUserData);
+
     return Scaffold(
       body: SafeArea(
         child: ListView(
@@ -77,7 +77,7 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                           context: context,
                           pageListBuilder: (context) {
                             return [
-                              accountInformationModal(context, context.textTheme),
+                              accountInformationModal(context, context.textTheme, authUserData),
                             ];
                           },
                         );
@@ -104,7 +104,7 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                           context: context,
                           pageListBuilder: (context) {
                             return [
-                              additionalInfoModal(context, context.textTheme),
+                              additionalInfoModal(context, authUserData),
                             ];
                           },
                         );
@@ -169,7 +169,7 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    MoreCustomListTileWidget(
+                    const MoreCustomListTileWidget(
                       icon: privacyIcon,
                       title: 'Account Privacy',
                     ),

@@ -4,9 +4,11 @@ class CountryCodeCustomWidget extends StatelessWidget {
   const CountryCodeCustomWidget({
     super.key,
     required this.onChanged,
+    required this.initialPrefix,
   });
 
   final Function(CountryCode) onChanged;
+  final String initialPrefix;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -16,7 +18,7 @@ class CountryCodeCustomWidget extends StatelessWidget {
         // barrierColor: Colors.white,
         padding: EdgeInsets.zero,
         onChanged: onChanged,
-        initialSelection: 'NG',
+        initialSelection: initialPrefix,
         favorite: const ['+234', 'NG'],
         showCountryOnly: true,
         flagWidth: 23,

@@ -1,5 +1,4 @@
 import 'package:connect_me/app.dart';
-import 'package:connect_me/src/profile/Domain/entities/entities.dart';
 
 class FetchAppDataImpl extends FetchAppDataRepository {
   final FirebaseFirestore _firebaseFirestore;

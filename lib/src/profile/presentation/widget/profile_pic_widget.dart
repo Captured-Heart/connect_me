@@ -34,37 +34,40 @@ class ProfilePicWidget extends StatelessWidget {
           height: height ?? 90,
           width: width ?? 90,
           // width: double.minPositive,
-          child: Card(
-            elevation: 5,
-            color: isStaticTheme == true ? Colors.white : null,
-            margin: EdgeInsets.zero,
-            shape: RoundedRectangleBorder(
-                borderRadius:
-                    height != null ? AppBorderRadius.c16 : AppBorderRadius.c32),
-            child:
+          child: authUserModel?.imgUrl == null ||
+                  authUserModel?.imgUrl?.isEmpty == true
+              ? Card(
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: AppBorderRadius.c32),
+                  child: Text(
+                    //TODO: ADD AVATAR TO THE IMG SECTION
 
-                //TODO: ADD AVATAR TO THE IMG SECTION
-
-                //  authUserModel?.imgUrl == null
-                //     ? Card(
-                //         shape: const RoundedRectangleBorder(borderRadius: AppBorderRadius.c32),
-                //         child: Text(
-                //           authUserModel?.username?.substring(0, 1).toString() ?? '?',
-                //           // style: AppTextStyle.bodyLarge.copyWith(color: Colors.black),
-                //         ),
-                //       )
-                //     :
-
-                CircleCacheNetworkImage(
-              imgUrl:
-                  authUserModel?.imgUrl ?? ImagesConstant.imgPlaceholderHttp,
-              height: 100,
-              width: context.sizeWidth(0.2),
-              isNotCircle: true,
-              borderRadius:
-                  height != null ? AppBorderRadius.c16 : AppBorderRadius.c28,
-            ).padAll(height != null ? 3 : 6),
-          ),
+                    authUserModel?.username?.isNotEmpty == true
+                        ? authUserModel?.username?.substring(0, 1).toString() ??
+                            '?'
+                        : '',
+                    // style: AppTextStyle.bodyLarge.copyWith(color: Colors.black),
+                  ),
+                )
+              : Card(
+                  elevation: 5,
+                  color: isStaticTheme == true ? Colors.white : null,
+                  margin: EdgeInsets.zero,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: height != null
+                        ? AppBorderRadius.c16
+                        : AppBorderRadius.c32,
+                  ),
+                  child: CircleCacheNetworkImage(
+                    imgUrl: authUserModel?.imgUrl ?? '',
+                    height: 100,
+                    width: context.sizeWidth(0.2),
+                    isNotCircle: true,
+                    borderRadius: height != null
+                        ? AppBorderRadius.c16
+                        : AppBorderRadius.c28,
+                  ).padAll(height != null ? 3 : 6),
+                ),
         ),
       ),
     );

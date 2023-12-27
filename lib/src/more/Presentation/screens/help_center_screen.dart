@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:connect_me/app.dart';
 
 class HelpCenterScreen extends StatelessWidget {
@@ -33,7 +31,8 @@ class HelpCenterScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   MoreCustomListTileWidget(
-                    title: '${TextConstant.whatsapp} - ${TextConstant.contactUs}',
+                    title:
+                        '${TextConstant.whatsapp} - ${TextConstant.contactUs}',
                     subtitle: TextConstant.chatWithUsOnWhatsapp,
                     icon: whatsappIcon,
                     onTap: () {

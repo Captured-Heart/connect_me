@@ -195,7 +195,7 @@ class _AppCustomSuccessDialogState extends State<AppCustomSuccessDialog> {
         // contentPadding: const EdgeInsets.only(top: 5),
         actionsAlignment: MainAxisAlignment.spaceAround,
         // contentTextStyle: context.theme.textTheme.bodyMedium,
-        actionsPadding: EdgeInsets.only(bottom: 5),
+        actionsPadding: const EdgeInsets.only(bottom: 5),
         actions: [
           TextButton(
             onPressed: widget.dialogModel.onPostiveAction,

@@ -14,10 +14,10 @@ class MainScreen extends ConsumerWidget {
       case 1:
         return const ProfileScreen();
       case 2:
-        return MoreScreen();
+        return const MoreScreen();
 
       default:
-        return HomeScreen();
+        return const HomeScreen2();
     }
   }
 

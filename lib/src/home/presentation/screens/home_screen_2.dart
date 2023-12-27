@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:connect_me/app.dart';
 
 class HomeScreen2 extends ConsumerStatefulWidget {
@@ -13,8 +11,8 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> {
   @override
   Widget build(BuildContext context) {
     final AsyncValue<AuthUserModel> users = ref.watch(fetchProfileProvider(''));
-    final work = ref.watch(fetchWorkProvider);
-    log(work.valueOrNull.toString());
+    // final work = ref.watch(fetchWorkProvider);
+    // log(work.valueOrNull.toString());
     return Scaffold(
         appBar: HomeScreenAppBar(
           hideTitle: true,
@@ -93,14 +91,14 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> {
                 //     loading: () => CircularProgressIndicator.adaptive()),
                 Flexible(
                   child: Container(
-                    margin: AppEdgeInsets.eA12,
+                    margin: AppEdgeInsets.eA20,
                     padding:
                         const EdgeInsets.symmetric(vertical: 5, horizontal: 1),
                     decoration: BoxDecoration(
                       gradient: whiteGradient(context: context),
                     ),
                     child: QrImageView(
-                      data: data.docId!,
+                      data: data.docId ?? 'null',
                       backgroundColor: context.colorScheme.onSurface,
                       eyeStyle: QrEyeStyle(
                           color: context.colorScheme.surface,

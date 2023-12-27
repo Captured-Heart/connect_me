@@ -50,10 +50,11 @@ class ContactScreen extends ConsumerWidget {
                     onTap: () async {
                       // log(contacts.toString());
                       pushAsVoid(
-                          context,
-                          ProfileScreenOthers(
-                            uuid: contacts.docId,
-                          ));
+                        context,
+                        ProfileScreenOthers(
+                          uuid: contacts.docId,
+                        ),
+                      );
                     },
                     child: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -76,9 +77,9 @@ class ContactScreen extends ConsumerWidget {
             );
           },
           error: (error, _) {
-            return Text('data');
+            return const Text('data');
           },
-          loading: () => CircularProgressIndicator.adaptive(),
+          loading: () => const CircularProgressIndicator.adaptive(),
         )
 
         // Wrap(

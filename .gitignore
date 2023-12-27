@@ -48,3 +48,5 @@ app.*.map.json
 models.jsonc
 /android/app/google-services.json
 /ios/firebase_app_id_file.json
+.fvm
+.fvm/flutter_sdk

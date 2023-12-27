@@ -1,13 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 // EDUCATION MODEL
-import 'dart:developer';
 
 import 'package:connect_me/app.dart';
-import 'package:uuid/data.dart';
 import 'package:uuid/uuid.dart';
 
 SliverWoltModalSheetPage additionalInfoModal(
-    BuildContext modalSheetContext, TextTheme textTheme) {
+  BuildContext modalSheetContext,
+  AuthUserModel? authUserModel,
+) {
   return WoltModalSheetPage(
     hasSabGradient: true,
     backgroundColor: modalSheetContext.theme.scaffoldBackgroundColor,
@@ -15,7 +15,7 @@ SliverWoltModalSheetPage additionalInfoModal(
     topBar: Container(
       color: modalSheetContext.theme.cardColor,
       alignment: Alignment.center,
-      child: Text(TextConstant.additionalDetails, style: textTheme.titleSmall),
+      child: Text(TextConstant.additionalDetails, style: modalSheetContext.textTheme.titleSmall),
     ),
     isTopBarLayerAlwaysVisible: true,
     trailingNavBarWidget: IconButton(
@@ -25,38 +25,57 @@ SliverWoltModalSheetPage additionalInfoModal(
     ).padOnly(right: 10),
 
     // body
-    child: const AdditionalInfoModalBody().padAll(15),
+    child: AdditionalInfoModalBody(
+      authUserModel: authUserModel!,
+    ).padAll(15),
   );
 }
 
-class AdditionalInfoModalBody extends StatefulWidget {
+class AdditionalInfoModalBody extends ConsumerStatefulWidget {
   const AdditionalInfoModalBody({
     super.key,
     this.onCountryChanged,
     this.onCityChanged,
     this.onStateChanged,
+    required this.authUserModel,
   });
   final Function(String)? onCountryChanged;
   final Function(String?)? onStateChanged;
   final Function(String?)? onCityChanged;
+  final AuthUserModel authUserModel;
 
   @override
-  State<AdditionalInfoModalBody> createState() =>
-      _AdditionalInfoModalBodyState();
+  ConsumerState<AdditionalInfoModalBody> createState() => _AdditionalInfoModalBodyState();
 }
 
-class _AdditionalInfoModalBodyState extends State<AdditionalInfoModalBody> {
-  final TextEditingControllerClass controller = TextEditingControllerClass();
-  final ValueNotifier<TextEditingController> dobNotifier =
-      ValueNotifier<TextEditingController>(TextEditingController());
-  final ValueNotifier<DateTime> dobDateTimeNotifier =
-      ValueNotifier<DateTime>(DateTime.now());
-  final ValueNotifier<String> countryNotifier = ValueNotifier<String>('');
-  final ValueNotifier<String> stateNotifier = ValueNotifier<String>('');
-  final ValueNotifier<String> cityNotifier = ValueNotifier<String>('');
+class _AdditionalInfoModalBodyState extends ConsumerState<AdditionalInfoModalBody> {
+  // final TextEditingControllerClass controller = TextEditingControllerClass();
 
   @override
   Widget build(BuildContext context) {
+    inspect(widget.authUserModel);
+    final ValueNotifier<TextEditingController> dobNotifier = ValueNotifier<TextEditingController>(
+        TextEditingController(
+            text: dateFormatted2(widget.authUserModel.date?.toDate() ?? DateTime.now())));
+    final ValueNotifier<DateTime> dobDateTimeNotifier =
+        ValueNotifier<DateTime>(widget.authUserModel.date?.toDate() ?? DateTime.now());
+    final ValueNotifier<String?> countryNotifier =
+        ValueNotifier<String?>(widget.authUserModel.additionalDetails?.country);
+    final ValueNotifier<String?> stateNotifier =
+        ValueNotifier<String?>(widget.authUserModel.additionalDetails?.state);
+    final ValueNotifier<String?> cityNotifier =
+        ValueNotifier<String?>(widget.authUserModel.additionalDetails?.city);
+    final ValueNotifier<String> placeOfBirthNotifier =
+        ValueNotifier<String>(widget.authUserModel.additionalDetails?.placeOfBirth ?? '');
+    final ValueNotifier<String> driverLicenseNoNotifier =
+        ValueNotifier<String>(widget.authUserModel.additionalDetails?.driverLicenseNo ?? '');
+    final ValueNotifier<String> postalCodeNotifier =
+        ValueNotifier<String>(widget.authUserModel.additionalDetails?.postalCode ?? '');
+    final ValueNotifier<String> streetNotifier =
+        ValueNotifier<String>(widget.authUserModel.additionalDetails?.street ?? '');
+
+    final infoState = ref.watch(addAdditionalDetailsProvider);
+
     return ListenableBuilder(
         listenable: Listenable.merge(
           [
@@ -65,6 +84,10 @@ class _AdditionalInfoModalBodyState extends State<AdditionalInfoModalBody> {
             countryNotifier,
             stateNotifier,
             cityNotifier,
+            placeOfBirthNotifier,
+            driverLicenseNoNotifier,
+            postalCodeNotifier,
+            streetNotifier,
           ],
         ),
         builder: (context, _) {
@@ -79,6 +102,7 @@ class _AdditionalInfoModalBodyState extends State<AdditionalInfoModalBody> {
                 onTap: () {
                   showCupertinoDateWidget(
                     context: context,
+                    currentTime: widget.authUserModel.date?.toDate(),
                     onConfirm: (date) {
                       dobNotifier.value.text = dateFormatted2(date);
                       dobDateTimeNotifier.value = date;
@@ -89,10 +113,13 @@ class _AdditionalInfoModalBodyState extends State<AdditionalInfoModalBody> {
 
               //! PLACE OF BIRTH
               AuthTextFieldWidget(
-                controller: controller.placeOfBirthController,
                 inputFormatters: const [],
                 labelMaterial: TextConstant.placeOfBirth,
+                initialValue: placeOfBirthNotifier.value,
                 hintText: 'Ex: Kanuri General Hospital, Kaduna',
+                onChanged: (value) {
+                  placeOfBirthNotifier.value = value;
+                },
               ),
 
 //! COUNTRY, STATE, CITY TEXTFIELD
@@ -106,6 +133,9 @@ class _AdditionalInfoModalBodyState extends State<AdditionalInfoModalBody> {
                 onCityChanged: (city) {
                   cityNotifier.value = city ?? '';
                 },
+                currentCountry: countryNotifier.value,
+                currentState: stateNotifier.value,
+                currentCity: cityNotifier.value,
                 disabledDropdownDecoration: BoxDecoration(
                   color: context.theme.scaffoldBackgroundColor,
                   border: Border.all(
@@ -122,19 +152,22 @@ class _AdditionalInfoModalBodyState extends State<AdditionalInfoModalBody> {
                   ),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                selectedItemStyle: context.textTheme.bodyMedium
-                    ?.copyWith(fontWeight: AppFontWeight.w100),
+                selectedItemStyle:
+                    context.textTheme.bodyMedium?.copyWith(fontWeight: AppFontWeight.w100),
                 dropdownHeadingStyle: context.textTheme.bodyLarge,
-                dropdownItemStyle: context.textTheme.bodyMedium
-                    ?.copyWith(fontWeight: AppFontWeight.w100),
+                dropdownItemStyle:
+                    context.textTheme.bodyMedium?.copyWith(fontWeight: AppFontWeight.w100),
               ),
 
 // ! STREET
               AuthTextFieldWidget(
-                controller: controller.streetController,
                 inputFormatters: const [],
+                initialValue: streetNotifier.value,
                 labelMaterial: TextConstant.street,
                 hintText: 'Ex: No 23b Olusegun Mugabe street',
+                onChanged: (value) {
+                  streetNotifier.value = value;
+                },
               ),
 
               // ! driver licenses
@@ -143,9 +176,12 @@ class _AdditionalInfoModalBodyState extends State<AdditionalInfoModalBody> {
                 children: [
                   Expanded(
                     child: AuthTextFieldWidget(
-                      controller: controller.driverLicencesController,
+                      initialValue: driverLicenseNoNotifier.value,
                       inputFormatters: const [],
                       labelMaterial: TextConstant.driverLicenseNo,
+                      onChanged: (value) {
+                        driverLicenseNoNotifier.value = value;
+                      },
                     ),
                   ),
                   const SizedBox(
@@ -153,38 +189,70 @@ class _AdditionalInfoModalBodyState extends State<AdditionalInfoModalBody> {
                   ),
                   Expanded(
                     child: AuthTextFieldWidget(
-                      controller: controller.postalCodeController,
+                      initialValue: postalCodeNotifier.value,
                       inputFormatters: const [],
                       labelMaterial: TextConstant.postalCode,
                       hintText: 'Ex: 350003',
+                      onChanged: (value) {
+                        postalCodeNotifier.value = value;
+                      },
                     ),
                   ),
                 ],
               ),
+              infoState.value == null || infoState.hasError
+                  ? const SizedBox.shrink()
+                  : Text(
+                      infoState.hasError
+                          ? infoState.error.toString()
+                          : infoState.valueOrNull.toString(),
+                      style: AppTextStyle.bodyMedium.copyWith(
+                          color: infoState.hasError ? Colors.red : AppThemeColorDark.successColor),
+                    ),
 
 //! save button
               Align(
                 alignment: Alignment.topRight,
                 child: ElevatedButton(
                   onPressed: () {
-                    var docId = const Uuid().v4();
+                    // var docId = const Uuid().v4();
 
-                    inspect(
-                      AdditionalDetailsModel(
-                        dateOfBirth: dobDateTimeNotifier.value,
-                        placeOfBirth: controller.placeOfBirthController.text,
-                        country: countryNotifier.value,
-                        state: stateNotifier.value,
-                        city: cityNotifier.value,
-                        street: controller.streetController.text,
-                        driverLicenseNo:
-                            controller.driverLicencesController.text,
-                        postalCode: controller.postalCodeController.text,
-                        docId: docId,
-                      ).toJson(),
+                    MapDynamicString map = CreateFormMap.createDataMap(
+                      controllersText: [
+                        dateFormatted2(dobDateTimeNotifier.value),
+                        placeOfBirthNotifier.value,
+                        countryNotifier.value ?? '',
+                        stateNotifier.value ?? '',
+                        cityNotifier.value ?? '',
+                        streetNotifier.value,
+                        driverLicenseNoNotifier.value,
+                        postalCodeNotifier.value,
+                      ],
+                      customKeys: [
+                        FirebaseDocsFieldEnums.dateOfBirth.name,
+                        FirebaseDocsFieldEnums.placeOfBirth.name,
+                        FirebaseDocsFieldEnums.country.name,
+                        FirebaseDocsFieldEnums.state.name,
+                        FirebaseDocsFieldEnums.city.name,
+                        FirebaseDocsFieldEnums.street.name,
+                        FirebaseDocsFieldEnums.driverLicenseNo.name,
+                        FirebaseDocsFieldEnums.postalCode.name,
+                      ],
                     );
+
+                    inspect(map);
+
+                    ref.read(addAdditionalDetailsProvider.notifier).addAdditionalDetails(map: map);
                   },
-                  child: const Text(TextConstant.save),
+                  child: infoState.isLoading == true
+                      ? SizedBox(
+                          height: 20,
+                          width: 30,
+                          child: CircularProgressIndicator(
+                            backgroundColor: context.colorScheme.surface,
+                          ),
+                        )
+                      : const Text(TextConstant.save),
                 ),
               ),
             ].columnInPadding(15),

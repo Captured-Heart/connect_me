@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 // import 'package:qr_code_scanner/qr_code_scanner.dart' as scan;
 
@@ -29,10 +28,12 @@ class _QrCodeScreenState extends ConsumerState<QrCodeScreen> {
   @override
   void reassemble() {
     super.reassemble();
+
     if (Platform.isAndroid) {
       controller!.pauseCamera();
+    } else if (Platform.isIOS) {
+      controller!.resumeCamera();
     }
-    controller!.resumeCamera();
   }
 
   @override
@@ -41,25 +42,24 @@ class _QrCodeScreenState extends ConsumerState<QrCodeScreen> {
     super.dispose();
   }
 
-  void _onQRViewCreated(QRViewController controller) {
-    this.controller = controller;
+  String scanResult = '';
+  void _onQRViewCreated(QRViewController controller2) {
+    controller = controller2;
 
-    controller.scannedDataStream.listen(
+    controller2.scannedDataStream.listen(
       (scanData) {
-        controller.stopCamera();
+        log('scanned data: ${scanData.code}');
+        controller2.pauseCamera();
 
         if (context.mounted) {
-          push(
+          pushAsVoid(
             context,
             ProfileScreenOthers(
               uuid: scanData.code,
+              scanController: controller2,
             ),
           );
         }
-
-        // setState(() {
-        //   result = scanData;
-        // });
       },
       cancelOnError: true,
       onDone: () {},
@@ -154,7 +154,7 @@ class _QrCodeScreenState extends ConsumerState<QrCodeScreen> {
               child: (result != null)
                   ? Text(
                       'Barcode Type: ${(result!.format)}   Data: ${result!.code}')
-                  : Text('Focus to scan Qr code'),
+                  : const Text('Focus to scan Qr code'),
             )
           ],
         ),
@@ -165,7 +165,7 @@ class _QrCodeScreenState extends ConsumerState<QrCodeScreen> {
   Widget _buildQrView(BuildContext context) {
     return QRView(
       key: qrKey,
-      cameraFacing: CameraFacing.front,
+      cameraFacing: CameraFacing.back,
       onQRViewCreated: _onQRViewCreated,
       overlay: QrScannerOverlayShape(
           borderColor: Colors.red,

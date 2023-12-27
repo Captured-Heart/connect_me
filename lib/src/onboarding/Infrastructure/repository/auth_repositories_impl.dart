@@ -1,7 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'dart:developer';
-
 import 'package:connect_me/app.dart';
 import 'package:flutter/services.dart';
 

@@ -2,7 +2,7 @@ import 'package:connect_me/app.dart';
 import 'package:equatable/equatable.dart';
 
 class AdditionalDetailsModel extends Equatable {
-  final DateTime? dateOfBirth;
+  final String? dateOfBirth;
   final String? placeOfBirth;
   final String? country;
   final String? state;
@@ -28,7 +28,7 @@ class AdditionalDetailsModel extends Equatable {
 
   factory AdditionalDetailsModel.fromJson(Map<String, dynamic> json) {
     return AdditionalDetailsModel(
-      dateOfBirth: json['dateOfBirth'] as DateTime?,
+      dateOfBirth: json['dateOfBirth'] as String?,
       placeOfBirth: json['placeOfBirth'] as String?,
       country: json['country'] as String?,
       state: json['state'] as String?,
@@ -55,7 +55,7 @@ class AdditionalDetailsModel extends Equatable {
       };
 
   AdditionalDetailsModel copyWith({
-    DateTime? dateOfBirth,
+    String? dateOfBirth,
     String? placeOfBirth,
     String? country,
     String? state,

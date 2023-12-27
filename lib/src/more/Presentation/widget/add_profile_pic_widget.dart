@@ -9,10 +9,31 @@ class AddProfilePictureWidget extends StatelessWidget {
     this.imgUrl,
     this.onTapCamera,
     this.onDeleteImage,
+    this.isFromFirebase = false,
   });
 
   final VoidCallback? onTapAddPhoto, onTapCamera, onDeleteImage;
   final String? imgUrl;
+  final bool isFromFirebase;
+
+  Widget imageChildWidet() {
+    return imgUrl?.isNotEmpty == true
+        ? ClipRRect(
+            borderRadius: AppBorderRadius.c12,
+            child: Image.file(
+              File(imgUrl!),
+              fit: BoxFit.fill,
+            ),
+          )
+        : CustomPaint(
+            painter: DottedBorderPainter(),
+            child: const Icon(
+              accountCircleIcon,
+              size: 30,
+            ),
+          );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -29,21 +50,7 @@ class AddProfilePictureWidget extends StatelessWidget {
           ),
           height: 80,
           width: 100,
-          child: imgUrl?.isNotEmpty == true
-              ? ClipRRect(
-                  borderRadius: AppBorderRadius.c12,
-                  child: Image.file(
-                    File(imgUrl!),
-                    fit: BoxFit.fill,
-                  ),
-                )
-              : CustomPaint(
-                  painter: DottedBorderPainter(),
-                  child: const Icon(
-                    accountCircleIcon,
-                    size: 30,
-                  ),
-                ),
+          child: imageChildWidet(),
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,

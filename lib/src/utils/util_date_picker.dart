@@ -46,10 +46,10 @@ void datePicker(
   });
 }
 
-Future<DateTime?> showCupertinoDateWidget({
-  required BuildContext context,
-  required dynamic Function(DateTime)? onConfirm,
-}) async {
+Future<DateTime?> showCupertinoDateWidget(
+    {required BuildContext context,
+    required dynamic Function(DateTime)? onConfirm,
+    DateTime? currentTime}) async {
   return DatePicker.showDatePicker(
     context,
     theme: DatePickerTheme(
@@ -60,8 +60,9 @@ Future<DateTime?> showCupertinoDateWidget({
       backgroundColor: context.colorScheme.background,
     ),
     showTitleActions: true,
-    minTime: DateTime(1, 1, 1960),
+    minTime: DateTime(1960, 1, 20),
     maxTime: DateTime.now(),
+    currentTime: currentTime ?? DateTime.now(),
     onConfirm: onConfirm,
   );
 }

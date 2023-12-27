@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:connect_me/app.dart';
 import 'package:flutter/rendering.dart';
 import 'dart:ui' as ui;

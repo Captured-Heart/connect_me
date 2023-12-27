@@ -1,11 +1,9 @@
 import 'package:connect_me/app.dart';
 
 class ProfileScreenOthers extends ConsumerStatefulWidget {
-  const ProfileScreenOthers({
-    super.key,
-    this.uuid,
-  });
+  const ProfileScreenOthers({super.key, this.uuid, this.scanController});
   final String? uuid;
+  final QRViewController? scanController;
   @override
   ConsumerState<ProfileScreenOthers> createState() =>
       _ProfileScreenOthersState();
@@ -26,6 +24,9 @@ class _ProfileScreenOthersState extends ConsumerState<ProfileScreenOthers> {
 
   @override
   void dispose() {
+    if (widget.scanController != null) {
+      widget.scanController!.resumeCamera();
+    }
     _scrollController.removeListener(() {});
     super.dispose();
   }

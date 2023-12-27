@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:connect_me/app.dart';
 import 'package:flutter/gestures.dart';
 

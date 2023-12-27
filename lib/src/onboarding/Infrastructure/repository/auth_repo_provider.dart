@@ -1,10 +1,15 @@
 import 'package:connect_me/app.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 final firebaseProvider = Provider<FirebaseAuth>((ref) {
   return FirebaseAuth.instance;
 });
 final cloudFirestoreProvider = Provider<FirebaseFirestore>((ref) {
   return FirebaseFirestore.instance;
+});
+
+final firebaseStorageProvider = Provider<FirebaseStorage>((ref) {
+  return FirebaseStorage.instance;
 });
 final googleSignInProvider = Provider<GoogleSignIn>((ref) {
   return GoogleSignIn();

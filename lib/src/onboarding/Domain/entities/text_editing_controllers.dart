@@ -6,6 +6,15 @@ final textEditingControllerProvider =
 });
 
 class TextEditingControllerClass {
+  final String? fnameText, lnameText, phoneText, webText, bioText;
+  TextEditingControllerClass({
+    this.fnameText,
+    this.lnameText,
+    this.phoneText,
+    this.webText,
+    this.bioText,
+  });
+
   final GlobalKey<FormState> signUpformKey = GlobalKey<FormState>();
   final GlobalKey<FormState> forgotPassformKey = GlobalKey<FormState>();
   final GlobalKey<FormState> signInformKey = GlobalKey<FormState>();

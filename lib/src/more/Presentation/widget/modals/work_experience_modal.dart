@@ -1,5 +1,4 @@
 // EDUCATION MODEL
-import 'dart:developer';
 
 import 'package:connect_me/app.dart';
 
@@ -103,7 +102,7 @@ class _WorkExperienceBodyState extends State<WorkExperienceBody> {
                 controller: controller.titleController,
                 hintText: TextConstant.exSoftwareDeveloper,
                 label: '${TextConstant.title}*',
-                inputFormatters: [],
+                inputFormatters: const [],
               ),
 
               //! employment name
@@ -129,7 +128,7 @@ class _WorkExperienceBodyState extends State<WorkExperienceBody> {
                 controller: controller.companyNameController,
                 hintText: TextConstant.exGoogle,
                 label: TextConstant.companyName,
-                inputFormatters: [],
+                inputFormatters: const [],
               ),
 
               //! location
@@ -137,7 +136,7 @@ class _WorkExperienceBodyState extends State<WorkExperienceBody> {
                 controller: controller.locationController,
                 hintText: TextConstant.exKadunaNigeria,
                 label: TextConstant.location,
-                inputFormatters: [],
+                inputFormatters: const [],
               ),
 
               Column(

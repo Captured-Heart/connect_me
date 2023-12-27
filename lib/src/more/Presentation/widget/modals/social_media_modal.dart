@@ -1,7 +1,5 @@
 // EDUCATION MODEL
 
-import 'dart:developer';
-
 import 'package:connect_me/app.dart';
 
 SliverWoltModalSheetPage socialMediaModal(

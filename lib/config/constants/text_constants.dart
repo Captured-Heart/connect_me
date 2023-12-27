@@ -96,7 +96,8 @@ abstract class TextConstant {
 Ex: I am an experienced tailor and social worker.
 
 NB: This is diplayed in your Qr_Code card and is visible to all''';
-  static const currentlyAvailable = 'Currently unavailable'; // static const lorem = 'or';
+  static const currentlyAvailable = 'Currently unavailable';
+  static const successful = 'Successful';
   // static const lorem = 'or'; // static const lorem = 'or';
   // static const lorem = 'or'; // static const lorem = 'or';
   // static const lorem = 'or'; // static const lorem = 'or';
