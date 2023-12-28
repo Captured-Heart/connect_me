@@ -1,14 +1,27 @@
 import 'package:connect_me/app.dart';
 
 class WorkExperienceImpl implements WorkExperienceRepository {
-  // final FirebaseFirestore _firebaseFirestore;
+  final FirebaseFirestore _firebaseFirestore;
+
+  WorkExperienceImpl(this._firebaseFirestore);
 
   @override
-  Future<Either<AppException, void>> addWorkExperience() async {
-    // try {
-    //   // _firebaseFirestore.collection(FirebaseCollectionEnums.users.value);
-    // } on AppException catch (e) {}
-    throw UnimplementedError();
+  Future<Either<AppException, void>> addWorkExperience({
+    required String uuid,
+    required String docId,
+    required MapDynamicString map,
+  }) async {
+    try {
+      var addWorkDetails = _firebaseFirestore
+          .collection(FirebaseCollectionEnums.users.value)
+          .doc(uuid)
+          .collection(FirebaseCollectionEnums.workExperience.value)
+          .doc(docId);
+
+      return Right(addWorkDetails.set(map, SetOptions(merge: true)));
+    } catch (e) {
+      return Left(AppException(e.toString()));
+    }
   }
 
   @override
@@ -21,3 +34,9 @@ class WorkExperienceImpl implements WorkExperienceRepository {
     throw UnimplementedError();
   }
 }
+
+
+final workExperienceImplProvider = Provider<WorkExperienceImpl>((ref) {
+  final cloudFirestore = ref.read(cloudFirestoreProvider);
+  return WorkExperienceImpl(cloudFirestore);
+});

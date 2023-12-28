@@ -3,6 +3,9 @@ enum FirebaseCollectionEnums {
   appData('appData'),
   accountInfo('account_information'),
   additionalDetails('additional_details'),
+  education('education'),
+  workExperience('work_experience'),
+
   connects('connects');
 
   const FirebaseCollectionEnums(this.value);
@@ -39,6 +42,8 @@ enum FirebaseDocsFieldEnums {
   postalCode,
   createdAt,
   additionalDetails,
+  educationInfo,
+  workExperience,
   school,
   degree,
   startDate,
@@ -50,4 +55,22 @@ enum FirebaseDocsFieldEnums {
   grade,
   award,
   activities,
+  socialMediaHandles,
+  employmentType,
+  companyName,
+  location,
+  locationType,
+  facebook,
+  linkedIn,
+  instagram,
+  youtube,
+  behance,
+  twitter,
+  tiktok,
+  github,
+  whatsapp,
+  snapchat,
+  twitch,
+  discord,
+  gmail,
 }

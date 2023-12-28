@@ -10,8 +10,8 @@ class HomeScreenAppBar extends ConsumerWidget implements PreferredSizeWidget {
   final AuthUserModel? authUserModel;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final connectsList = ref.watch(
-        fetchProfileProvider('').select((value) => value.value?.connects));
+    final connectsList =
+        ref.watch(fetchProfileProvider('').select((value) => value.value?.connects));
     return AppBar(
       elevation: 0,
       backgroundColor: context.theme.scaffoldBackgroundColor,
@@ -29,8 +29,10 @@ class HomeScreenAppBar extends ConsumerWidget implements PreferredSizeWidget {
             );
           } else {
             showScaffoldSnackBarMessageNoColor(
-                AuthErrors.networkFailure.errorMessage,
-                context: context);
+              AuthErrors.networkFailure.errorMessage,
+              context: context,
+              isError: true,
+            );
           }
         },
         child: Chip(
@@ -80,8 +82,7 @@ class HomeScreenAppBar extends ConsumerWidget implements PreferredSizeWidget {
             }
           },
           child: Chip(
-            backgroundColor:
-                context.colorScheme.inversePrimary.withOpacity(0.4),
+            backgroundColor: context.colorScheme.inversePrimary.withOpacity(0.4),
             label: const Icon(shareIcon),
             shape: const CircleBorder(),
             side: BorderSide(width: 0.5, color: context.colorScheme.onSurface),
@@ -97,8 +98,7 @@ class HomeScreenAppBar extends ConsumerWidget implements PreferredSizeWidget {
             );
           },
           child: Chip(
-            backgroundColor:
-                context.colorScheme.inversePrimary.withOpacity(0.4),
+            backgroundColor: context.colorScheme.inversePrimary.withOpacity(0.4),
             label: const Icon(cameraIcon),
             shape: const CircleBorder(),
             side: BorderSide(width: 0.5, color: context.colorScheme.onSurface),

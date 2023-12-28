@@ -25,16 +25,16 @@ SliverWoltModalSheetPage workExperienceModal(BuildContext modalSheetContext, Tex
   );
 }
 
-class WorkExperienceBody extends StatefulWidget {
+class WorkExperienceBody extends ConsumerStatefulWidget {
   const WorkExperienceBody({
     super.key,
   });
 
   @override
-  State<WorkExperienceBody> createState() => _WorkExperienceBodyState();
+  ConsumerState<WorkExperienceBody> createState() => _WorkExperienceBodyState();
 }
 
-class _WorkExperienceBodyState extends State<WorkExperienceBody> {
+class _WorkExperienceBodyState extends ConsumerState<WorkExperienceBody> {
   final List<String> employmentType = [
     'Full-time',
     'Part-time',
@@ -51,35 +51,28 @@ class _WorkExperienceBodyState extends State<WorkExperienceBody> {
     'Hybrid',
     'Remote',
   ];
-  final ValueNotifier<bool> isCurrentlyWorkingNotifier = ValueNotifier(true);
-  final ValueNotifier<String> employmentTypeNotifier = ValueNotifier('');
-  final ValueNotifier<String> locationTypeNotifier = ValueNotifier('');
 
-  final ValueNotifier<TextEditingController> monthNotifier =
-      ValueNotifier<TextEditingController>(TextEditingController());
-  final ValueNotifier<TextEditingController> yearNotifier =
-      ValueNotifier<TextEditingController>(TextEditingController());
-  final ValueNotifier<TextEditingController> endMonthNotifier =
-      ValueNotifier<TextEditingController>(TextEditingController());
-  final ValueNotifier<TextEditingController> endYearNotifier =
-      ValueNotifier<TextEditingController>(TextEditingController());
-
-  final TextEditingControllerClass controller = TextEditingControllerClass();
-
-  @override
-  void dispose() {
-    isCurrentlyWorkingNotifier.dispose();
-    employmentTypeNotifier.dispose();
-    locationTypeNotifier.dispose();
-    monthNotifier.dispose();
-    yearNotifier.dispose();
-    endMonthNotifier.dispose();
-    endYearNotifier.dispose();
-    super.dispose();
-  }
+  // final TextEditingControllerClass controller = TextEditingControllerClass();
 
   @override
   Widget build(BuildContext context) {
+    final ValueNotifier<bool> isCurrentlyWorkingNotifier = ValueNotifier(true);
+    final ValueNotifier<String> employmentTypeNotifier = ValueNotifier('');
+    final ValueNotifier<String> locationTypeNotifier = ValueNotifier('');
+    final ValueNotifier<String> titleNotifier = ValueNotifier('');
+    final ValueNotifier<String> companyNameNotifier = ValueNotifier('');
+    final ValueNotifier<String> locationNotifier = ValueNotifier('');
+
+    final ValueNotifier<TextEditingController> monthNotifier =
+        ValueNotifier<TextEditingController>(TextEditingController());
+    final ValueNotifier<TextEditingController> yearNotifier =
+        ValueNotifier<TextEditingController>(TextEditingController());
+    final ValueNotifier<TextEditingController> endMonthNotifier =
+        ValueNotifier<TextEditingController>(TextEditingController());
+    final ValueNotifier<TextEditingController> endYearNotifier =
+        ValueNotifier<TextEditingController>(TextEditingController());
+    final infoState = ref.watch(addWorkExperienceProvider);
+
     return ListenableBuilder(
         listenable: Listenable.merge(
           [
@@ -90,6 +83,9 @@ class _WorkExperienceBodyState extends State<WorkExperienceBody> {
             endYearNotifier,
             employmentTypeNotifier,
             locationTypeNotifier,
+            titleNotifier,
+            companyNameNotifier,
+            locationNotifier,
           ],
         ),
         builder: (context, _) {
@@ -98,10 +94,14 @@ class _WorkExperienceBodyState extends State<WorkExperienceBody> {
             children: [
               //! title
               AuthTextFieldWidget(
-                controller: controller.titleController,
+                // controller: controller.titleController,
+                initialValue: titleNotifier.value,
                 hintText: TextConstant.exSoftwareDeveloper,
                 label: '${TextConstant.title}*',
                 inputFormatters: const [],
+                onChanged: (value) {
+                  titleNotifier.value = value;
+                },
               ),
 
               //! employment name
@@ -124,18 +124,26 @@ class _WorkExperienceBodyState extends State<WorkExperienceBody> {
 
               //! company name
               AuthTextFieldWidget(
-                controller: controller.companyNameController,
+                // controller: controller.companyNameController,
+                initialValue: companyNameNotifier.value,
                 hintText: TextConstant.exGoogle,
                 label: TextConstant.companyName,
                 inputFormatters: const [],
+                onChanged: (value) {
+                  companyNameNotifier.value = value;
+                },
               ),
 
               //! location
               AuthTextFieldWidget(
-                controller: controller.locationController,
+                // controller: controller.locationController,
+                initialValue: locationNotifier.value,
                 hintText: TextConstant.exKadunaNigeria,
                 label: TextConstant.location,
                 inputFormatters: const [],
+                onChanged: (value) {
+                  locationNotifier.value = value;
+                },
               ),
 
               Column(
@@ -276,30 +284,77 @@ class _WorkExperienceBodyState extends State<WorkExperienceBody> {
                             ),
                           ],
                         ),
-                      ].columnInPadding(7)),
+                      ].columnInPadding(7),
+                    ),
+
 // SAVE BUTTON
-              Align(
-                alignment: Alignment.topRight,
-                child: ElevatedButton(
-                  onPressed: () {
-                    inspect(
-                      WorkExperienceModel(
-                        title: controller.titleController.text,
-                        employmentType: employmentTypeNotifier.value,
-                        companyName: controller.companyNameController.text,
-                        location: controller.locationController.text,
-                        locationType: locationTypeNotifier.value,
-                        startDate: StartDateModel(
-                            month: monthNotifier.value.text, year: yearNotifier.value.text),
-                        endDate: EndDateModel(
-                            endMonth: endMonthNotifier.value.text,
-                            endYear: endYearNotifier.value.text),
-                        formTitle: TextConstant.workExperience,
-                      ).toJson(),
-                    );
-                  },
-                  child: const Text(TextConstant.save),
-                ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // to check the progress
+                  infoState.value == null || infoState.hasError
+                      ? const SizedBox.shrink()
+                      : Text(
+                          infoState.hasError
+                              ? infoState.error.toString()
+                              : infoState.valueOrNull.toString(),
+                          style: AppTextStyle.bodyMedium.copyWith(
+                              color:
+                                  infoState.hasError ? Colors.red : AppThemeColorDark.successColor),
+                        ),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        var docId = const Uuid().v4();
+
+                        MapDynamicString map = CreateFormMap.createDataMap(
+                          controllersText: [
+                            titleNotifier.value,
+                            employmentTypeNotifier.value,
+                            companyNameNotifier.value,
+                            locationNotifier.value,
+                            locationTypeNotifier.value,
+                            monthNotifier.value.text,
+                            yearNotifier.value.text,
+                            endMonthNotifier.value.text,
+                            endYearNotifier.value.text,
+                            docId,
+                            DateTime.now().toIso8601String(),
+                          ],
+                          customKeys: // initiate my custom keys
+                              [
+                            FirebaseDocsFieldEnums.title.name,
+                            FirebaseDocsFieldEnums.employmentType.name,
+                            FirebaseDocsFieldEnums.companyName.name,
+                            FirebaseDocsFieldEnums.location.name,
+                            FirebaseDocsFieldEnums.locationType.name,
+                            FirebaseDocsFieldEnums.month.name,
+                            FirebaseDocsFieldEnums.year.name,
+                            FirebaseDocsFieldEnums.endMonth.name,
+                            FirebaseDocsFieldEnums.endYear.name,
+                            FirebaseDocsFieldEnums.docId.name,
+                            FirebaseDocsFieldEnums.createdAt.name,
+                          ],
+                        );
+
+                        ref
+                            .read(addWorkExperienceProvider.notifier)
+                            .addWorkExperienceMethod(map: map, docId: docId)
+                            .whenComplete(() => ref.invalidate(fetchProfileProvider('')));
+                      },
+                      child: infoState.isLoading == true
+                          ? SizedBox(
+                              height: 20,
+                              width: 30,
+                              child: CircularProgressIndicator(
+                                backgroundColor: context.colorScheme.surface,
+                              ),
+                            )
+                          : const Text(TextConstant.save),
+                    ),
+                  ),
+                ],
               ),
             ].columnInPadding(15),
           );

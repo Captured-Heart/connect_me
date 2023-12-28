@@ -36,22 +36,6 @@ class EducationModalBody extends ConsumerStatefulWidget {
 class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
   final TextEditingControllerClass controller = TextEditingControllerClass();
   // final ValueNotifier<TextEditingController> monthNotifier =
-  //     ValueNotifier<TextEditingController>(TextEditingController());
-  // final ValueNotifier<TextEditingController> yearNotifier =
-  //     ValueNotifier<TextEditingController>(TextEditingController());
-  // final ValueNotifier<TextEditingController> endMonthNotifier =
-  //     ValueNotifier<TextEditingController>(TextEditingController());
-  // final ValueNotifier<TextEditingController> endYearNotifier =
-  //     ValueNotifier<TextEditingController>(TextEditingController());
-
-  // @override
-  // void dispose() {
-  //   monthNotifier.dispose();
-  //   yearNotifier.dispose();
-  //   endMonthNotifier.dispose();
-  //   endYearNotifier.dispose();
-  //   super.dispose();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -68,10 +52,7 @@ class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
     final ValueNotifier<String> activitiesNotifier = ValueNotifier<String>('');
     final ValueNotifier<String> gradeNotifier = ValueNotifier<String>('');
     final ValueNotifier<String> awardNotifier = ValueNotifier<String>('');
-    // final ValueNotifier<String> monthNotifier = ValueNotifier<String>('');
-    // final ValueNotifier<String> yearNotifier = ValueNotifier<String>('');
-    // final ValueNotifier<String> endMonthNotifier = ValueNotifier<String>('');
-    // final ValueNotifier<String> endYearNotifier = ValueNotifier<String>('');
+    final infoState = ref.watch(addEducationInfoProvider);
 
     return ListenableBuilder(
         listenable: Listenable.merge(
@@ -95,8 +76,8 @@ class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
                 AuthTextFieldWidget(
                   initialValue: schoolNotifier.value,
                   inputFormatters: const [],
-                  hintText: 'Ex: Univeristy of Nigeria',
-                  label: 'School*',
+                  hintText: TextConstant.schoolHint,
+                  label: '${TextConstant.school}*',
                   onChanged: (value) {
                     schoolNotifier.value = value;
                   },
@@ -104,8 +85,8 @@ class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
                 AuthTextFieldWidget(
                   initialValue: degreeNotifier.value,
                   inputFormatters: const [],
-                  hintText: 'Ex: Bachelor\'s, Phil of Doctor',
-                  label: 'Degree*',
+                  hintText: TextConstant.degreeHint,
+                  label: '${TextConstant.degree}*',
                   onChanged: (value) {
                     degreeNotifier.value = value;
                   },
@@ -166,7 +147,7 @@ class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
 
                 //! end date
                 const AutoSizeText(
-                  '${TextConstant.endDate} (or Expected)',
+                  '${TextConstant.endDate} (${TextConstant.or} ${TextConstant.expected})',
                   maxLines: 1,
                   textScaleFactor: 0.9,
                 ),
@@ -223,18 +204,18 @@ class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
                     gradeNotifier.value = value;
                   },
                   inputFormatters: const [],
-                  label: 'Grade',
-                  hintText: 'Ex: First Class Honours',
+                  label: TextConstant.grade,
+                  hintText: TextConstant.gradeHint,
                   initialValue: gradeNotifier.value,
                 ),
 
                 //! awards/honour
                 AuthTextFieldWidget(
-                  label: 'Award/Honours',
+                  label: TextConstant.awardAndHonours,
                   initialValue: awardNotifier.value,
                   inputFormatters: const [],
                   maxLines: 3,
-                  hintText: 'Ex: Distinction in Anatomy 2nd MBBS',
+                  hintText: TextConstant.awardHint,
                   onChanged: (value) {
                     awardNotifier.value = value;
                   },
@@ -244,20 +225,31 @@ class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
                 AuthTextFieldWidget(
                   // controller: controller.activitiesController,
                   initialValue: activitiesNotifier.value,
-                  label: 'Activities/Organizations',
+                  label: TextConstant.activitiesAndOrg,
                   inputFormatters: const [],
                   maxLines: 3,
-                  hintText: 'Ex: Football(sports), Religious socieites etc',
+                  hintText: TextConstant.activitiesHint,
                   onChanged: (value) {
                     activitiesNotifier.value = value;
                   },
                 ),
-
+                infoState.value == null || infoState.hasError
+                    ? const SizedBox.shrink()
+                    : Text(
+                        infoState.hasError
+                            ? infoState.error.toString()
+                            : infoState.valueOrNull.toString(),
+                        style: AppTextStyle.bodyMedium.copyWith(
+                            color:
+                                infoState.hasError ? Colors.red : AppThemeColorDark.successColor),
+                      ),
                 // ! Save btn
                 Align(
                   alignment: Alignment.topRight,
                   child: ElevatedButton(
                     onPressed: () {
+                      var docId = const Uuid().v4();
+
                       MapDynamicString map = CreateFormMap.createDataMap(
                         controllersText: [
                           schoolNotifier.value,
@@ -269,6 +261,8 @@ class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
                           gradeNotifier.value,
                           awardNotifier.value,
                           activitiesNotifier.value,
+                          docId,
+                          DateTime.now().toIso8601String(),
                         ],
                         customKeys: // initiate my custom keys
                             [
@@ -281,12 +275,28 @@ class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
                           FirebaseDocsFieldEnums.grade.name,
                           FirebaseDocsFieldEnums.award.name,
                           FirebaseDocsFieldEnums.activities.name,
+                          FirebaseDocsFieldEnums.docId.name,
+                          FirebaseDocsFieldEnums.createdAt.name,
                         ],
                       );
 
                       inspect(map);
+                      ref
+                          .read(addEducationInfoProvider.notifier)
+                          .addEducationInfoMethod(map: map, docId: docId)
+                          .whenComplete(
+                            () => ref.invalidate(fetchProfileProvider('')),
+                          );
                     },
-                    child: const Text(TextConstant.save),
+                    child: infoState.isLoading == true
+                        ? SizedBox(
+                            height: 20,
+                            width: 30,
+                            child: CircularProgressIndicator(
+                              backgroundColor: context.colorScheme.surface,
+                            ),
+                          )
+                        : const Text(TextConstant.save),
                   ),
                 ),
               ].columnInPadding(15),

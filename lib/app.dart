@@ -27,6 +27,7 @@ export 'package:country_code_picker/country_code_picker.dart';
 export 'package:csc_picker/csc_picker.dart';
 export 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 export 'dart:developer' hide Flow;
+export 'package:uuid/uuid.dart';
 
 //FIREBASE SERVICES
 export 'package:firebase_auth/firebase_auth.dart';

@@ -167,4 +167,27 @@ NB: This is diplayed in your Qr_Code card and is visible to all''';
   // static const lorem = 'or';
   // static const lorem = 'or';
   // static const lorem = 'or';
+
+  /*----------------------------------------------------------------------
+      EDUCATION SCREEN
+-----------------------------------------------------------------------*/
+  static const school = 'School';
+  static const degree = 'Degree';
+  static const lorem = 'or';
+  static const expected = 'expected';
+  // static const lorem = 'or'; 
+  static const grade = 'Grade';
+  static const gradeHint = 'Ex: First Class Honours';
+  static const awardAndHonours = 'Award/Honours';
+  static const awardHint = 'Ex: Distinction in Anatomy 2nd MBBS';
+  static const activitiesAndOrg = 'Activities/Organizations'; 
+  static const activitiesHint = 'Ex: Football(sports), Religious socieites etc';
+  static const schoolHint = 'Ex: Univeristy of Nigeria';
+  static const degreeHint = 'Ex: Bachelor\'s, Phil of Doctor';
+  // static const lorem = 'or';
+  // static const lorem = 'or'; // static const lorem = 'or';
+  // static const lorem = 'or';
+  // static const lorem = 'or';
+  // static const lorem = 'or';
+  // static const lorem = 'or';
 }
