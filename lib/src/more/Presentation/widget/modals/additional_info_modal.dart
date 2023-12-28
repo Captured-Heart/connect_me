@@ -53,7 +53,17 @@ class _AdditionalInfoModalBodyState extends ConsumerState<AdditionalInfoModalBod
 
   @override
   Widget build(BuildContext context) {
-    inspect(widget.authUserModel);
+//     ref.listen(addAdditionalDetailsProvider, (previous, next) {
+//       if (next == null) {
+//         ref.refresh(addAdditionalDetailsProvider);
+//       }
+//       log('''
+// this is the previous: ${previous?.value}
+
+// this is the next: ${next.valueOrNull}
+// ''');
+//     });
+    // inspect(widget.authUserModel);
     final ValueNotifier<TextEditingController> dobNotifier = ValueNotifier<TextEditingController>(
         TextEditingController(
             text: dateFormatted2(widget.authUserModel.date?.toDate() ?? DateTime.now())));
@@ -212,7 +222,7 @@ class _AdditionalInfoModalBodyState extends ConsumerState<AdditionalInfoModalBod
 
 //! save button
               Align(
-                alignment: Alignment.topRight,
+                alignment: Alignment.bottomRight,
                 child: ElevatedButton(
                   onPressed: () {
                     // var docId = const Uuid().v4();
@@ -242,7 +252,13 @@ class _AdditionalInfoModalBodyState extends ConsumerState<AdditionalInfoModalBod
 
                     inspect(map);
 
-                    ref.read(addAdditionalDetailsProvider.notifier).addAdditionalDetails(map: map);
+                    ref
+                        .read(addAdditionalDetailsProvider.notifier)
+                        .addAdditionalDetails(map: map)
+                        .whenComplete(
+                          () => ref.invalidate(fetchProfileProvider('')),
+                        );
+                    // ref.invalidate(addAccountInfoProvider);
                   },
                   child: infoState.isLoading == true
                       ? SizedBox(

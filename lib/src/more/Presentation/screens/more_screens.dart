@@ -87,9 +87,10 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                 ),
               ),
               // DottedLineDividerWidget(),
+
+//! ADDITIONAL DETAILS
               const Text(TextConstant.otherInformation),
 
-// ADDITIONAL DETAILS
               Card(
                 elevation: 2,
                 child: Column(
@@ -162,7 +163,127 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
               ),
               // DottedLineDividerWidget(),
 
-              // SETTINGS
+// ! FEEDBACKS
+              const Text(TextConstant.helpCenter247),
+              Card(
+                elevation: 2,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    MoreCustomListTileWidget(
+                      icon: twitterIcon,
+                      title: '${TextConstant.twitter} (X)',
+                      subtitle: TextConstant.tellUsHowWeCanHelpYouOnX,
+                      onTap: () {
+                        ref
+                            .read(helpCenterImplProvider)
+                            .contactTwitter(appdata.valueOrNull?.twitterSupport ?? '')
+                            .onError((error, stackTrace) {
+                          showScaffoldSnackBarMessageNoColor(
+                            TextConstant.currentlyUnavailable,
+                            context: context,
+                            isError: true,
+                            appearsBottom: false,
+                          );
+                        });
+                      },
+                    ),
+
+                    MoreCustomListTileWidget(
+                      icon: whatsappIcon,
+                      title: TextConstant.whatsapp,
+                      subtitle: TextConstant.chatWithUsOnWhatsapp,
+                      onTap: () {
+                        ref
+                            .read(helpCenterImplProvider)
+                            .contactWhatsapp(appdata.valueOrNull?.whatsappSupport ?? '')
+                            .onError((error, stackTrace) {
+                          showScaffoldSnackBarMessageNoColor(
+                            TextConstant.currentlyUnavailable,
+                            context: context,
+                            isError: true,
+                            appearsBottom: false,
+                          );
+                        });
+                      },
+                    ),
+
+                    //
+
+                    MoreCustomListTileWidget(
+                      icon: mailIcon,
+                      title: TextConstant.email,
+                      subtitle: TextConstant.getYourSolutionsViaEmail,
+                      onTap: () {
+                        ref
+                            .read(helpCenterImplProvider)
+                            .contactEmail(appdata.valueOrNull?.emailSupport ?? '')
+                            .onError((error, stackTrace) {
+                          showScaffoldSnackBarMessageNoColor(
+                            TextConstant.currentlyUnavailable,
+                            context: context,
+                            isError: true,
+                            appearsBottom: false,
+                          );
+                        });
+                      },
+                    ),
+                  ],
+                ).padOnly(bottom: 7, top: 4),
+              ),
+
+              //! CONTACT DEVELOPER
+              const Text(TextConstant.contactDev),
+              Card(
+                elevation: 2,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    //? CONTACT DEV EMAIL
+                    MoreCustomListTileWidget(
+                      icon: mailIcon,
+                      title: TextConstant.emailToDeveloper,
+                      subtitle: TextConstant.sendMailToDev,
+                      onTap: () {
+                        ref
+                            .read(helpCenterImplProvider)
+                            .contactEmail(appdata.valueOrNull?.devEmail ?? '')
+                            .onError((error, stackTrace) {
+                          showScaffoldSnackBarMessageNoColor(
+                            TextConstant.currentlyUnavailable,
+                            context: context,
+                            isError: true,
+                            appearsBottom: false,
+                          );
+                        });
+                      },
+                    ),
+
+                    //? CONTACT DEV TWITTER
+                    MoreCustomListTileWidget(
+                      icon: twitterIcon,
+                      title: TextConstant.developerOnTwitter,
+                      subtitle: TextConstant.capturedHeart,
+                      onTap: () {
+                        ref
+                            .read(helpCenterImplProvider)
+                            .contactDevTwitter(appdata.valueOrNull?.devTwitter ?? '')
+                            .onError((error, stackTrace) {
+                          showScaffoldSnackBarMessageNoColor(
+                            TextConstant.currentlyUnavailable,
+                            context: context,
+                            isError: true,
+                            appearsBottom: false,
+                          );
+                        });
+                      },
+                    ),
+                  ],
+                ).padOnly(bottom: 7, top: 4),
+              ),
+              //
+
+              //! SETTINGS
               const Text('Settings'),
               Card(
                 elevation: 2,
@@ -173,26 +294,7 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                       icon: privacyIcon,
                       title: 'Account Privacy',
                     ),
-                    // MoreCustomListTileWidget(
-                    //   icon: feedbackSpeakerIcon,
-                    //   title: 'Feedbacks',
-                    //   iconSize: 26,
-                    // ),
-                    MoreCustomListTileWidget(
-                      icon: helpCenterIcon,
-                      title: 'Help Center / Feedbacks',
-                      onTap: () {
-                        pushAsVoid(
-                          context,
-                          HelpCenterScreen(
-                            appDataModel: appdata.valueOrNull,
-                          ),
-                        );
-                      },
-                    ),
-
                     //
-
                     MoreCustomListTileWidget(
                       icon: supportMoneyIcon,
                       title: TextConstant.support,
@@ -201,7 +303,10 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                           context: context,
                           pageListBuilder: (context) {
                             return [
-                              supportModal(context, context.textTheme),
+                              supportModal(
+                                modalSheetContext: context,
+                                appDataModel: appdata.valueOrNull,
+                              ),
                             ];
                           },
                         );

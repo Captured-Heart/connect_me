@@ -3,8 +3,7 @@
 import 'package:connect_me/app.dart';
 
 //0113343316
-SliverWoltModalSheetPage workExperienceModal(
-    BuildContext modalSheetContext, TextTheme textTheme) {
+SliverWoltModalSheetPage workExperienceModal(BuildContext modalSheetContext, TextTheme textTheme) {
   return WoltModalSheetPage(
     hasSabGradient: true,
     backgroundColor: modalSheetContext.theme.scaffoldBackgroundColor,
@@ -196,10 +195,8 @@ class _WorkExperienceBodyState extends State<WorkExperienceBody> {
                             showCupertinoDateWidget(
                               context: context,
                               onConfirm: (date) {
-                                monthNotifier.value.text =
-                                    dateFormattedToMonth(date);
-                                yearNotifier.value.text =
-                                    dateFormattedToYear(date);
+                                monthNotifier.value.text = dateFormattedToMonth(date);
+                                yearNotifier.value.text = dateFormattedToYear(date);
                               },
                             );
                           },
@@ -216,10 +213,8 @@ class _WorkExperienceBodyState extends State<WorkExperienceBody> {
                             showCupertinoDateWidget(
                               context: context,
                               onConfirm: (date) {
-                                monthNotifier.value.text =
-                                    dateFormattedToMonth(date);
-                                yearNotifier.value.text =
-                                    dateFormattedToYear(date);
+                                monthNotifier.value.text = dateFormattedToMonth(date);
+                                yearNotifier.value.text = dateFormattedToYear(date);
                               },
                             );
                           },
@@ -253,10 +248,8 @@ class _WorkExperienceBodyState extends State<WorkExperienceBody> {
                                   showCupertinoDateWidget(
                                     context: context,
                                     onConfirm: (date) {
-                                      endMonthNotifier.value.text =
-                                          dateFormattedToMonth(date);
-                                      endYearNotifier.value.text =
-                                          dateFormattedToYear(date);
+                                      endMonthNotifier.value.text = dateFormattedToMonth(date);
+                                      endYearNotifier.value.text = dateFormattedToYear(date);
                                     },
                                   );
                                 },
@@ -274,10 +267,8 @@ class _WorkExperienceBodyState extends State<WorkExperienceBody> {
                                   showCupertinoDateWidget(
                                     context: context,
                                     onConfirm: (date) {
-                                      endMonthNotifier.value.text =
-                                          dateFormattedToMonth(date);
-                                      endYearNotifier.value.text =
-                                          dateFormattedToYear(date);
+                                      endMonthNotifier.value.text = dateFormattedToMonth(date);
+                                      endYearNotifier.value.text = dateFormattedToYear(date);
                                     },
                                   );
                                 },
@@ -299,11 +290,10 @@ class _WorkExperienceBodyState extends State<WorkExperienceBody> {
                         location: controller.locationController.text,
                         locationType: locationTypeNotifier.value,
                         startDate: StartDateModel(
-                            month: monthNotifier.value.text,
-                            year: yearNotifier.value.text),
+                            month: monthNotifier.value.text, year: yearNotifier.value.text),
                         endDate: EndDateModel(
-                            month: endMonthNotifier.value.text,
-                            year: endYearNotifier.value.text),
+                            endMonth: endMonthNotifier.value.text,
+                            endYear: endYearNotifier.value.text),
                         formTitle: TextConstant.workExperience,
                       ).toJson(),
                     );

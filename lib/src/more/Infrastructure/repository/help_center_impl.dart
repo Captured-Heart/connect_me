@@ -27,6 +27,24 @@ class HelpCenterImpl extends HelpCenterRepository {
       throw AppException(e.toString());
     }
   }
+
+  @override
+  Future<void> contactDevEmail(String email) async {
+    try {
+      return await UrlOptions.sendEmail(email);
+    } catch (e) {
+      throw AppException(e.toString());
+    }
+  }
+
+  @override
+  Future<void> contactDevTwitter(String twitterUrl) async {
+    try {
+      return await UrlOptions.launchWeb(twitterUrl, launchModeEXT: true);
+    } catch (e) {
+      throw AppException(e.toString());
+    }
+  }
 }
 
 final helpCenterImplProvider = Provider<HelpCenterImpl>((ref) {

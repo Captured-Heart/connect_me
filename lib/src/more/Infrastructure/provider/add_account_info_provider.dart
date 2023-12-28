@@ -8,7 +8,8 @@ class AddAccountInfoNotifier extends StateNotifier<AsyncValue> {
 
   final AccountInfoImpl accountInfoImpl;
   final String uuid;
-  Future addAccountInfo({required MapDynamicString map, required String imgUrl}) async {
+  Future addAccountInfo(
+      {required MapDynamicString map, required String imgUrl}) async {
     state = const AsyncValue.loading();
     var addInfo = await accountInfoImpl.addAccountInfo(
       uuid: uuid,
@@ -33,7 +34,8 @@ class AddAccountInfoNotifier extends StateNotifier<AsyncValue> {
 }
 
 final addAccountInfoProvider =
-    StateNotifierProvider.autoDispose<AddAccountInfoNotifier, AsyncValue>((ref) {
+    StateNotifierProvider.autoDispose<AddAccountInfoNotifier, AsyncValue>(
+        (ref) {
   final accountInfoImpl = ref.read(accountInfoImplProvider);
   final uuid = ref.read(currentUUIDProvider);
 

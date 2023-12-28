@@ -10,8 +10,9 @@ class AdditionalDetailsImpl extends AdditionalDetailsRepository {
     required MapDynamicString map,
   }) async {
     try {
-      var addAdditionalDetails =
-          cloudFirestore.collection(FirebaseCollectionEnums.users.value).doc(uuid);
+      var addAdditionalDetails = cloudFirestore
+          .collection(FirebaseCollectionEnums.users.value)
+          .doc(uuid);
       return Right(addAdditionalDetails.set(map, SetOptions(merge: true)));
     } catch (e) {
       return Left(AppException(e.toString()));

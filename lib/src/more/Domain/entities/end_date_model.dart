@@ -1,31 +1,31 @@
 import 'package:equatable/equatable.dart';
 
 class EndDateModel extends Equatable {
-  final String? month;
-  final String? year;
+  final String? endMonth;
+  final String? endYear;
 
-  const EndDateModel({this.month, this.year});
+  const EndDateModel({this.endMonth, this.endYear});
 
   factory EndDateModel.fromJson(Map<String, dynamic> json) => EndDateModel(
-        month: json['month'] as String?,
-        year: json['year'] as String?,
+        endMonth: json['endMonth'] as String?,
+        endYear: json['endYear'] as String?,
       );
 
   Map<String, dynamic> toJson() => {
-        'month': month,
-        'year': year,
+        'endMonth': endMonth,
+        'endYear': endYear,
       };
 
   EndDateModel copyWith({
-    String? month,
-    String? year,
+    String? endMonth,
+    String? endYear,
   }) {
     return EndDateModel(
-      month: month ?? this.month,
-      year: year ?? this.year,
+      endMonth: endMonth ?? this.endMonth,
+      endYear: endYear ?? this.endYear,
     );
   }
 
   @override
-  List<Object?> get props => [month, year];
+  List<Object?> get props => [endMonth, endYear];
 }

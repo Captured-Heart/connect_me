@@ -96,10 +96,12 @@ abstract class TextConstant {
 Ex: I am an experienced tailor and social worker.
 
 NB: This is diplayed in your Qr_Code card and is visible to all''';
-  static const currentlyAvailable = 'Currently unavailable';
+  static const currentlyUnavailable = 'Currently unavailable';
   static const successful = 'Successful';
-  // static const lorem = 'or'; // static const lorem = 'or';
-  // static const lorem = 'or'; // static const lorem = 'or';
+  static const developerOnTwitter = 'Developer on Twitter (X)';
+  static const emailToDeveloper = 'Developer on Email';
+  static const capturedHeart = '_Captured_Heart';
+  //// static const lorem = 'or';
   // static const lorem = 'or'; // static const lorem = 'or';
   // static const lorem = 'or'; // static const lorem = 'or';
   // static const lorem = 'or'; // static const lorem = 'or';
@@ -129,11 +131,14 @@ NB: This is diplayed in your Qr_Code card and is visible to all''';
   static const tellUsHowWeCanHelpYou = 'Tell us how we can help you';
   static const superHumansWithABody =
       'Super humans with a body are standing by for service and support';
+  static const contactDev = 'Contact Developer';
   static const contactUs = 'Contact us';
+  static const feedbacks = 'Feedbacks';
   static const chatWithUsOnWhatsapp = 'Chat with us on whatsapp';
   static const tellUsHowWeCanHelpYouOnX = 'Tell us how we can help you on X';
   static const getYourSolutionsViaEmail = 'Get your solution via emails';
   static const choose = 'Choose';
+  static const sendMailToDev = 'Send a mail to the developer';
   // static const lorem = 'or';
 
   /*----------------------------------------------------------------------

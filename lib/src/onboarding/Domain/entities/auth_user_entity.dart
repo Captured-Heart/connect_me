@@ -80,7 +80,9 @@ class AuthUserModel extends Equatable {
         // street: json['street'] as String?,
         // driverLicenseNo: json['driverLicenseNo'] as String?,
         // postalCode: json['postalCode'] as String?,
-        additionalDetails: json['additionalDetails'] != null ? AdditionalDetailsModel.fromJson(json['additionalDetails']) : null,
+        additionalDetails: json['additionalDetails'] != null
+            ? AdditionalDetailsModel.fromJson(json['additionalDetails'])
+            : null,
       );
 
   Map<String, dynamic> toJson() => {

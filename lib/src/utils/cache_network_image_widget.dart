@@ -74,42 +74,44 @@ class CircleCacheNetworkImage extends StatelessWidget {
   final BorderRadiusGeometry? borderRadius;
   @override
   Widget build(BuildContext context) {
-    return CachedNetworkImage(
-      key: UniqueKey(),
-      imageUrl: imgUrl ?? ImagesConstant.noImagePlaceholderHttp,
-      // height: height,
-      // width: width,
-      // fit: BoxFit.fill,
-      imageBuilder: (context, imageProvider) {
-        return Container(
-          height: height,
-          width: width,
-          clipBehavior: Clip.antiAlias,
-          decoration: BoxDecoration(
-            shape: isNotCircle == true ? BoxShape.rectangle : BoxShape.circle,
-            borderRadius: borderRadius,
-            image: DecorationImage(
-              image: CachedNetworkImageProvider(
-                  imgUrl ?? ImagesConstant.noImagePlaceholderHttp,
-                  scale: 0.8),
-              fit: BoxFit.fill,
+    return ClipRRect(
+      borderRadius: AppBorderRadius.c12,
+      child: CachedNetworkImage(
+        key: UniqueKey(),
+        imageUrl: imgUrl ?? ImagesConstant.noImagePlaceholderHttp,
+        // height: height,
+        // width: width,
+        // fit: BoxFit.fill,
+        imageBuilder: (context, imageProvider) {
+          return Container(
+            height: height,
+            width: width,
+            clipBehavior: Clip.antiAlias,
+            decoration: BoxDecoration(
+              shape: isNotCircle == true ? BoxShape.rectangle : BoxShape.circle,
+              borderRadius: borderRadius,
+              image: DecorationImage(
+                image: CachedNetworkImageProvider(imgUrl ?? ImagesConstant.noImagePlaceholderHttp,
+                    scale: 0.8),
+                fit: BoxFit.fill,
+              ),
             ),
-          ),
-        );
-      },
-      errorWidget: (context, url, error) {
-        return Container(
-          width: width,
-          height: height,
-          decoration: const BoxDecoration(
-            shape: BoxShape.rectangle,
-            image: DecorationImage(
-              image: AssetImage(ImagesConstant.noImagePlaceholder),
-              fit: BoxFit.fill,
+          );
+        },
+        errorWidget: (context, url, error) {
+          return Container(
+            width: width,
+            height: height,
+            decoration: const BoxDecoration(
+              shape: BoxShape.rectangle,
+              image: DecorationImage(
+                image: AssetImage(ImagesConstant.noImagePlaceholder),
+                fit: BoxFit.fill,
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

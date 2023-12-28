@@ -3,8 +3,10 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:connect_me/app.dart';
 
-SliverWoltModalSheetPage supportModal(
-    BuildContext modalSheetContext, TextTheme textTheme) {
+SliverWoltModalSheetPage supportModal({
+  required BuildContext modalSheetContext,
+  required AppDataModel? appDataModel,
+}) {
   return WoltModalSheetPage(
     hasSabGradient: true,
     backgroundColor: modalSheetContext.theme.scaffoldBackgroundColor,
@@ -25,7 +27,9 @@ SliverWoltModalSheetPage supportModal(
     ).padOnly(right: 10),
 
     // body
-    child: const SupportModalBody().padAll(15),
+    child: SupportModalBody(
+      appDataModel: appDataModel,
+    ).padAll(15),
   );
 }
 
@@ -35,10 +39,12 @@ class SupportModalBody extends StatefulWidget {
     this.onCountryChanged,
     this.onStateChanged,
     this.onCityChanged,
+    this.appDataModel,
   });
   final Function(String)? onCountryChanged;
   final Function(String?)? onStateChanged;
   final Function(String?)? onCityChanged;
+  final AppDataModel? appDataModel;
 
   @override
   State<SupportModalBody> createState() => _SupportModalBodyState();
@@ -57,30 +63,38 @@ class _SupportModalBodyState extends State<SupportModalBody> {
               MoreCustomListTileWidget(
                 title: 'BTC (BEP20)',
                 icon: FontAwesome.btc,
-                subtitle: '0x6209******************884ab08acf3',
+                subtitle: widget.appDataModel?.btcAddress
+                    ?.replaceRange(6, 25, '****************')
+                    .replaceRange(29, 33, '****'),
+                onTap: () {
+                  FlutterClipboard.controlC(
+                    widget.appDataModel?.btcAddress ?? TextConstant.currentlyUnavailable,
+                  ).then(
+                    (value) => isCopiedNotifier.value = value,
+                  );
+                },
                 trailingWidget: GestureDetector(
                   onTap: () {
                     FlutterClipboard.controlC(
-                            '0x6209fbd9cc9903961a37e3ca6aa9f884ab08acf3')
-                        .then(
+                      widget.appDataModel?.btcAddress ?? TextConstant.currentlyUnavailable,
+                    ).then(
                       (value) => isCopiedNotifier.value = value,
                     );
                   },
                   child: Icon(
                     isCopied == true ? checkCircleIcon : copyIcon,
-                    color: isCopied == true
-                        ? AppThemeColorDark.successColor
-                        : null,
+                    color: isCopied == true ? AppThemeColorDark.successColor : null,
                   ),
                 ),
               ),
               MoreCustomListTileWidget(
                 title: 'Buy me a Coffee',
                 icon: buymeacoffeeIcon,
-                subtitle: 'https://www.buymeacoffee.com/CapturedHeart',
+                subtitle: widget.appDataModel?.buyMeCoffee,
                 onTap: () {
                   UrlOptions.launchWeb(
-                      'https://www.buymeacoffee.com/CapturedHeart');
+                    widget.appDataModel?.buyMeCoffee ?? TextConstant.currentlyUnavailable,
+                  );
                 },
               ),
             ],
