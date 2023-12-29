@@ -15,7 +15,8 @@ class EducationRepositoryImpl extends EducationRepository {
       var addEducationDetails = cloudFirestore
           .collection(FirebaseCollectionEnums.users.value)
           .doc(uuid)
-          .collection(FirebaseCollectionEnums.education.value).doc(docId);
+          .collection(FirebaseCollectionEnums.education.value)
+          .doc(docId);
       // .add(map);
 
       return Right(addEducationDetails.set(map, SetOptions(merge: true)));

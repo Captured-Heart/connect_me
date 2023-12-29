@@ -2,8 +2,7 @@
 
 import 'package:connect_me/app.dart';
 
-SliverWoltModalSheetPage socialMediaModal(
-    BuildContext modalSheetContext, TextTheme textTheme) {
+SliverWoltModalSheetPage socialMediaModal(BuildContext modalSheetContext, TextTheme textTheme) {
   return WoltModalSheetPage(
     hasSabGradient: true,
     backgroundColor: modalSheetContext.theme.scaffoldBackgroundColor,
@@ -27,19 +26,17 @@ SliverWoltModalSheetPage socialMediaModal(
 
 //
 
-class SocialMediaBody extends StatefulWidget {
+class SocialMediaBody extends ConsumerStatefulWidget {
   const SocialMediaBody({
     super.key,
   });
 
   @override
-  State<SocialMediaBody> createState() => _SocialMediaBodyState();
+  ConsumerState<SocialMediaBody> createState() => _SocialMediaBodyState();
 }
 
-class _SocialMediaBodyState extends State<SocialMediaBody> {
-  final List<SocialClass> textEditingControllerList = [
-    SocialClass(title: '', link: '')
-  ];
+class _SocialMediaBodyState extends ConsumerState<SocialMediaBody> {
+  final List<SocialClass> textEditingControllerList = [SocialClass(title: '', link: '')];
   final GlobalKey<FormState> socialKey = GlobalKey<FormState>();
 
   final List<String> items = [
@@ -60,6 +57,8 @@ class _SocialMediaBodyState extends State<SocialMediaBody> {
 
   @override
   Widget build(BuildContext context) {
+    final infoState = ref.watch(addSocialMediaProvider);
+
     return Form(
       key: socialKey,
       child: Column(
@@ -77,7 +76,7 @@ class _SocialMediaBodyState extends State<SocialMediaBody> {
                         items: items,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return '*';
+                            return TextConstant.required;
                           } else {
                             return null;
                           }
@@ -102,7 +101,7 @@ class _SocialMediaBodyState extends State<SocialMediaBody> {
                     },
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return '*';
+                        return TextConstant.required;
                       } else {
                         return null;
                       }
@@ -121,7 +120,7 @@ class _SocialMediaBodyState extends State<SocialMediaBody> {
               setState(() {});
             },
             icon: const Icon(addIcon),
-            label: const Text('Add new'),
+            label: const Text(TextConstant.addNew),
           ),
           // SAVE BUTTON
           Align(
@@ -134,11 +133,32 @@ class _SocialMediaBodyState extends State<SocialMediaBody> {
                 }
                 if (socialKey.currentState!.validate()) {
                   inspect(result);
+                  ref
+                      .read(addSocialMediaProvider.notifier)
+                      .addSocialMediaMethod(map: result)
+                      .whenComplete(() => ref.invalidate(fetchProfileProvider('')));
                 }
               },
-              child: const Text(TextConstant.save),
+              child: infoState.isLoading == true
+                  ? SizedBox(
+                      height: 20,
+                      width: 30,
+                      child: CircularProgressIndicator(
+                        backgroundColor: context.colorScheme.surface,
+                      ),
+                    )
+                  : const Text(TextConstant.save),
             ),
           ),
+          infoState.value == null || infoState.hasError
+              ? const SizedBox.shrink()
+              : Text(
+                  infoState.hasError
+                      ? infoState.error.toString()
+                      : infoState.valueOrNull.toString(),
+                  style: AppTextStyle.bodyMedium.copyWith(
+                      color: infoState.hasError ? Colors.red : AppThemeColorDark.successColor),
+                ),
         ].columnInPadding(15),
       ),
     );

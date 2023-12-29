@@ -90,6 +90,12 @@ class MyCustomDropWidgetWithStrings extends StatelessWidget {
         color: context.theme.textTheme.bodyMedium!.color!,
         width: 0.3,
       ),
+      closedErrorBorder: Border.all(
+        color: context.colorScheme.error,
+        width: 0.3,
+      ),
+      closedErrorBorderRadius: AppBorderRadius.c10,
+      closedBorderRadius: AppBorderRadius.c12,
       onChanged: onChanged,
       closedFillColor: context.theme.scaffoldBackgroundColor,
       expandedFillColor: context.theme.scaffoldBackgroundColor,
@@ -103,6 +109,7 @@ class MyCustomDropWidgetWithStrings extends StatelessWidget {
         color: context.colorScheme.onBackground,
         size: 20,
       ),
+      errorStyle: AppTextStyle.errorTextstyle,
     );
   }
 }

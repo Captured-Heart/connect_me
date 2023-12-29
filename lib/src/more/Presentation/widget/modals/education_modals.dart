@@ -1,7 +1,8 @@
 // EDUCATION MODEL
 import 'package:connect_me/app.dart';
 
-SliverWoltModalSheetPage educationModal(BuildContext modalSheetContext, TextTheme textTheme) {
+SliverWoltModalSheetPage educationModal(
+    BuildContext modalSheetContext, TextTheme textTheme) {
   return WoltModalSheetPage(
     hasSabGradient: true,
     backgroundColor: modalSheetContext.theme.scaffoldBackgroundColor,
@@ -34,8 +35,7 @@ class EducationModalBody extends ConsumerStatefulWidget {
 }
 
 class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
-  final TextEditingControllerClass controller = TextEditingControllerClass();
-  // final ValueNotifier<TextEditingController> monthNotifier =
+  final GlobalKey<FormState> educationFormKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +70,7 @@ class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
         ),
         builder: (context, _) {
           return Form(
+            key: educationFormKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -81,6 +82,13 @@ class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
                   onChanged: (value) {
                     schoolNotifier.value = value;
                   },
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return TextConstant.required;
+                    } else {
+                      return null;
+                    }
+                  },
                 ),
                 AuthTextFieldWidget(
                   initialValue: degreeNotifier.value,
@@ -89,6 +97,13 @@ class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
                   label: '${TextConstant.degree}*',
                   onChanged: (value) {
                     degreeNotifier.value = value;
+                  },
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return TextConstant.required;
+                    } else {
+                      return null;
+                    }
                   },
                 ),
 
@@ -113,8 +128,10 @@ class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
                           showCupertinoDateWidget(
                             context: context,
                             onConfirm: (date) {
-                              monthNotifier.value.text = dateFormattedToMonth(date);
-                              yearNotifier.value.text = dateFormattedToYear(date);
+                              monthNotifier.value.text =
+                                  dateFormattedToMonth(date);
+                              yearNotifier.value.text =
+                                  dateFormattedToYear(date);
                             },
                           );
                         },
@@ -135,8 +152,10 @@ class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
                           showCupertinoDateWidget(
                             context: context,
                             onConfirm: (date) {
-                              monthNotifier.value.text = dateFormattedToMonth(date);
-                              yearNotifier.value.text = dateFormattedToYear(date);
+                              monthNotifier.value.text =
+                                  dateFormattedToMonth(date);
+                              yearNotifier.value.text =
+                                  dateFormattedToYear(date);
                             },
                           );
                         },
@@ -166,8 +185,10 @@ class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
                           showCupertinoDateWidget(
                             context: context,
                             onConfirm: (date) {
-                              endMonthNotifier.value.text = dateFormattedToMonth(date);
-                              endYearNotifier.value.text = dateFormattedToYear(date);
+                              endMonthNotifier.value.text =
+                                  dateFormattedToMonth(date);
+                              endYearNotifier.value.text =
+                                  dateFormattedToYear(date);
                             },
                           );
                         },
@@ -188,8 +209,10 @@ class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
                           showCupertinoDateWidget(
                             context: context,
                             onConfirm: (date) {
-                              endMonthNotifier.value.text = dateFormattedToMonth(date);
-                              endYearNotifier.value.text = dateFormattedToYear(date);
+                              endMonthNotifier.value.text =
+                                  dateFormattedToMonth(date);
+                              endYearNotifier.value.text =
+                                  dateFormattedToYear(date);
                             },
                           );
                         },
@@ -240,8 +263,9 @@ class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
                             ? infoState.error.toString()
                             : infoState.valueOrNull.toString(),
                         style: AppTextStyle.bodyMedium.copyWith(
-                            color:
-                                infoState.hasError ? Colors.red : AppThemeColorDark.successColor),
+                            color: infoState.hasError
+                                ? Colors.red
+                                : AppThemeColorDark.successColor),
                       ),
                 // ! Save btn
                 Align(
@@ -281,12 +305,14 @@ class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
                       );
 
                       inspect(map);
-                      ref
-                          .read(addEducationInfoProvider.notifier)
-                          .addEducationInfoMethod(map: map, docId: docId)
-                          .whenComplete(
-                            () => ref.invalidate(fetchProfileProvider('')),
-                          );
+                      if (educationFormKey.currentState!.validate()) {
+                        ref
+                            .read(addEducationInfoProvider.notifier)
+                            .addEducationInfoMethod(map: map, docId: docId)
+                            .whenComplete(
+                              () => ref.invalidate(fetchProfileProvider('')),
+                            );
+                      }
                     },
                     child: infoState.isLoading == true
                         ? SizedBox(

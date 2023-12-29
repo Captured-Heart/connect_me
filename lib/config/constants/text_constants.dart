@@ -49,7 +49,8 @@ abstract class TextConstant {
   static const confirm = 'Confirm';
   static const cancel = 'Cancel';
   static const ok = 'Ok';
-  // static const lorem = 'or'; // static const lorem = 'or';
+  static const required = '*required';
+  // static const lorem = 'or';
   // static const lorem = 'or';
   // static const lorem = 'or';
   /*----------------------------------------------------------------------
@@ -64,6 +65,8 @@ abstract class TextConstant {
   static const more = 'More';
 
   static const displayMyQrCode = 'Display My QrCode';
+  static const viewQrCode = 'View QrCode';
+
   static const scanQr = 'Scan QrCode';
   static const shareProfile = 'Share Profile';
   static const flipCamera = 'Switch camera';
@@ -162,7 +165,7 @@ NB: This is diplayed in your Qr_Code card and is visible to all''';
   static const street = 'Street';
   static const driverLicenseNo = 'Driver Licenses no';
   static const postalCode = 'Postal Code';
-  // static const lorem = 'or';
+  static const addNew = 'Add new';
   // static const lorem = 'or';
   // static const lorem = 'or';
   // static const lorem = 'or';
@@ -173,14 +176,14 @@ NB: This is diplayed in your Qr_Code card and is visible to all''';
 -----------------------------------------------------------------------*/
   static const school = 'School';
   static const degree = 'Degree';
-  static const lorem = 'or';
+  // static const lorem = 'or';
   static const expected = 'expected';
-  // static const lorem = 'or'; 
+  // static const lorem = 'or';
   static const grade = 'Grade';
   static const gradeHint = 'Ex: First Class Honours';
   static const awardAndHonours = 'Award/Honours';
   static const awardHint = 'Ex: Distinction in Anatomy 2nd MBBS';
-  static const activitiesAndOrg = 'Activities/Organizations'; 
+  static const activitiesAndOrg = 'Activities/Organizations';
   static const activitiesHint = 'Ex: Football(sports), Religious socieites etc';
   static const schoolHint = 'Ex: Univeristy of Nigeria';
   static const degreeHint = 'Ex: Bachelor\'s, Phil of Doctor';

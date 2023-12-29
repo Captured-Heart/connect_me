@@ -253,16 +253,23 @@ class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
                       ],
                     );
                     // );
-                    ref
-                        .read(addAccountInfoProvider.notifier)
-                        .addAccountInfo(
-                          map: map,
-                          imgUrl: imgUrlFirebaseNotifier.value,
-                        )
-                        .whenComplete(() {
-                      ref.invalidate(fetchProfileProvider(''));
-                    });
-                    ref.invalidate(fetchProfileProvider(''));
+
+                    if (imgUrlFirebaseNotifier.value.isNotEmpty) {
+                      ref
+                          .read(addAccountInfoProvider.notifier)
+                          .addAccountInfo(
+                            map: map,
+                            imgUrl: imgUrlFirebaseNotifier.value,
+                          )
+                          .whenComplete(() {
+                        ref.invalidate(fetchProfileProvider(''));
+                      });
+                    } else {
+                      showScaffoldSnackBarMessage(
+                        TextConstant.profilePhotoRequired,
+                        isError: true,
+                      );
+                    }
                   },
                   child: infoState.isLoading == true
                       ? SizedBox(

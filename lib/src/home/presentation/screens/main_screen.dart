@@ -6,11 +6,13 @@ final bottomNavBarIndexProvider = StateProvider<int>((ref) {
 });
 
 class MainScreen extends ConsumerWidget {
-  const MainScreen({super.key});
+  const MainScreen({
+    super.key,
+  });
   Widget bodyWidget({required int currentIndex}) {
     switch (currentIndex) {
       case 0:
-        return const HomeScreen2();
+        return const NewProfileScreen();
       case 1:
         return const ProfileScreen();
       case 2:

@@ -4,6 +4,4 @@ abstract class HelpCenterRepository {
   Future<void> contactEmail(String email);
   Future<void> contactDevEmail(String email);
   Future<void> contactDevTwitter(String twitterUrl);
-
-
 }

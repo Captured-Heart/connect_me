@@ -35,7 +35,6 @@ class WorkExperienceImpl implements WorkExperienceRepository {
   }
 }
 
-
 final workExperienceImplProvider = Provider<WorkExperienceImpl>((ref) {
   final cloudFirestore = ref.read(cloudFirestoreProvider);
   return WorkExperienceImpl(cloudFirestore);

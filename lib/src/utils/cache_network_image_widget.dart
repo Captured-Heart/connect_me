@@ -98,6 +98,13 @@ class CircleCacheNetworkImage extends StatelessWidget {
             ),
           );
         },
+        progressIndicatorBuilder: (context, url, progress) {
+          return Center(
+            child: CircularProgressIndicator(
+              value: progress.progress,
+            ),
+          );
+        },
         errorWidget: (context, url, error) {
           return Container(
             width: width,

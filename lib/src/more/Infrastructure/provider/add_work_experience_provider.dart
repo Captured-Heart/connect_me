@@ -39,7 +39,8 @@ class AddWorkExperienceNotifier extends StateNotifier<AsyncValue> {
 }
 
 final addWorkExperienceProvider =
-    StateNotifierProvider.autoDispose<AddWorkExperienceNotifier, AsyncValue>((ref) {
+    StateNotifierProvider.autoDispose<AddWorkExperienceNotifier, AsyncValue>(
+        (ref) {
   final workExperienceImpl = ref.read(workExperienceImplProvider);
   final uuid = ref.read(currentUUIDProvider);
 

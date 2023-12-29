@@ -30,7 +30,8 @@ class AddAdditionalDetailsNotifier extends StateNotifier<AsyncValue> {
 }
 
 final addAdditionalDetailsProvider =
-    StateNotifierProvider.autoDispose<AddAdditionalDetailsNotifier, AsyncValue>((ref) {
+    StateNotifierProvider.autoDispose<AddAdditionalDetailsNotifier, AsyncValue>(
+        (ref) {
   final additionalImpl = ref.read(additionalImplProvider);
   final uuid = ref.read(currentUUIDProvider);
 

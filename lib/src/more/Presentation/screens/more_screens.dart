@@ -77,7 +77,8 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                           context: context,
                           pageListBuilder: (context) {
                             return [
-                              accountInformationModal(context, context.textTheme, authUserData),
+                              accountInformationModal(
+                                  context, context.textTheme, authUserData),
                             ];
                           },
                         );
@@ -177,7 +178,8 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                       onTap: () {
                         ref
                             .read(helpCenterImplProvider)
-                            .contactTwitter(appdata.valueOrNull?.twitterSupport ?? '')
+                            .contactTwitter(
+                                appdata.valueOrNull?.twitterSupport ?? '')
                             .onError((error, stackTrace) {
                           showScaffoldSnackBarMessageNoColor(
                             TextConstant.currentlyUnavailable,
@@ -196,7 +198,8 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                       onTap: () {
                         ref
                             .read(helpCenterImplProvider)
-                            .contactWhatsapp(appdata.valueOrNull?.whatsappSupport ?? '')
+                            .contactWhatsapp(
+                                appdata.valueOrNull?.whatsappSupport ?? '')
                             .onError((error, stackTrace) {
                           showScaffoldSnackBarMessageNoColor(
                             TextConstant.currentlyUnavailable,
@@ -217,7 +220,8 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                       onTap: () {
                         ref
                             .read(helpCenterImplProvider)
-                            .contactEmail(appdata.valueOrNull?.emailSupport ?? '')
+                            .contactEmail(
+                                appdata.valueOrNull?.emailSupport ?? '')
                             .onError((error, stackTrace) {
                           showScaffoldSnackBarMessageNoColor(
                             TextConstant.currentlyUnavailable,
@@ -267,7 +271,8 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                       onTap: () {
                         ref
                             .read(helpCenterImplProvider)
-                            .contactDevTwitter(appdata.valueOrNull?.devTwitter ?? '')
+                            .contactDevTwitter(
+                                appdata.valueOrNull?.devTwitter ?? '')
                             .onError((error, stackTrace) {
                           showScaffoldSnackBarMessageNoColor(
                             TextConstant.currentlyUnavailable,
@@ -349,8 +354,10 @@ class Shifter extends SingleChildRenderObjectWidget {
   }
 }
 
-class _SpinnerRenderSliver extends RenderSliver with RenderObjectWithChildMixin<RenderBox> {
-  final LayerHandle<TransformLayer> _transformLayer = LayerHandle<TransformLayer>();
+class _SpinnerRenderSliver extends RenderSliver
+    with RenderObjectWithChildMixin<RenderBox> {
+  final LayerHandle<TransformLayer> _transformLayer =
+      LayerHandle<TransformLayer>();
   Matrix4? _paintTransform;
 
   @override
@@ -404,8 +411,8 @@ class _SpinnerRenderSliver extends RenderSliver with RenderObjectWithChildMixin<
       cacheExtent: cacheExtent,
       maxPaintExtent: childExtent,
       hitTestExtent: paintedChildSize,
-      hasVisualOverflow:
-          childExtent > constraints.remainingPaintExtent || constraints.scrollOffset > 0.0,
+      hasVisualOverflow: childExtent > constraints.remainingPaintExtent ||
+          constraints.scrollOffset > 0.0,
     );
 
     _setChildParentData(child!, constraints, geometry!);
@@ -462,7 +469,8 @@ class _SpinnerRenderSliver extends RenderSliver with RenderObjectWithChildMixin<
       constraints.growthDirection,
     )) {
       case AxisDirection.up:
-        dy = -(geometry.scrollExtent - (geometry.paintExtent + constraints.scrollOffset));
+        dy = -(geometry.scrollExtent -
+            (geometry.paintExtent + constraints.scrollOffset));
         break;
       case AxisDirection.right:
         dx = -constraints.scrollOffset;
@@ -471,7 +479,8 @@ class _SpinnerRenderSliver extends RenderSliver with RenderObjectWithChildMixin<
         dy = -constraints.scrollOffset;
         break;
       case AxisDirection.left:
-        dx = -(geometry.scrollExtent - (geometry.paintExtent + constraints.scrollOffset));
+        dx = -(geometry.scrollExtent -
+            (geometry.paintExtent + constraints.scrollOffset));
         break;
     }
 

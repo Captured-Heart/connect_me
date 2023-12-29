@@ -64,7 +64,8 @@ class AuthTextFieldWidget extends StatelessWidget {
   //         borderRadius: BorderRadius.circular(8),
   //         borderSide: BorderSide(width: 0.3, color: context.theme.textTheme.bodyMedium!.color!),
   //       );
-  InputBorder borderDesign(BuildContext context, {bool isFocused = false}) {
+  InputBorder borderDesign(BuildContext context,
+      {bool isFocused = false, bool isError = false}) {
     if (noBorders == true) {
       return InputBorder.none;
     } else {
@@ -72,7 +73,9 @@ class AuthTextFieldWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         borderSide: BorderSide(
           width: isFocused == true ? 0.7 : 0.1,
-          color: context.theme.textTheme.bodyMedium!.color!,
+          color: isError == true
+              ? context.colorScheme.error
+              : context.theme.textTheme.bodyMedium!.color!,
         ),
       );
     }
@@ -148,7 +151,7 @@ class AuthTextFieldWidget extends StatelessWidget {
               border: borderDesign(context),
               focusedBorder: borderDesign(context, isFocused: true),
               enabledBorder: borderDesign(context),
-              errorBorder: borderDesign(context),
+              errorBorder: borderDesign(context, isError: true),
               errorMaxLines: 1,
             ),
           ),

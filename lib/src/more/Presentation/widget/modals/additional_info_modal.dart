@@ -2,7 +2,6 @@
 // EDUCATION MODEL
 
 import 'package:connect_me/app.dart';
-import 'package:uuid/uuid.dart';
 
 SliverWoltModalSheetPage additionalInfoModal(
   BuildContext modalSheetContext,
@@ -15,7 +14,8 @@ SliverWoltModalSheetPage additionalInfoModal(
     topBar: Container(
       color: modalSheetContext.theme.cardColor,
       alignment: Alignment.center,
-      child: Text(TextConstant.additionalDetails, style: modalSheetContext.textTheme.titleSmall),
+      child: Text(TextConstant.additionalDetails,
+          style: modalSheetContext.textTheme.titleSmall),
     ),
     isTopBarLayerAlwaysVisible: true,
     trailingNavBarWidget: IconButton(
@@ -45,10 +45,12 @@ class AdditionalInfoModalBody extends ConsumerStatefulWidget {
   final AuthUserModel authUserModel;
 
   @override
-  ConsumerState<AdditionalInfoModalBody> createState() => _AdditionalInfoModalBodyState();
+  ConsumerState<AdditionalInfoModalBody> createState() =>
+      _AdditionalInfoModalBodyState();
 }
 
-class _AdditionalInfoModalBodyState extends ConsumerState<AdditionalInfoModalBody> {
+class _AdditionalInfoModalBodyState
+    extends ConsumerState<AdditionalInfoModalBody> {
   // final TextEditingControllerClass controller = TextEditingControllerClass();
 
   @override
@@ -64,25 +66,26 @@ class _AdditionalInfoModalBodyState extends ConsumerState<AdditionalInfoModalBod
 // ''');
 //     });
     // inspect(widget.authUserModel);
-    final ValueNotifier<TextEditingController> dobNotifier = ValueNotifier<TextEditingController>(
-        TextEditingController(
-            text: dateFormatted2(widget.authUserModel.date?.toDate() ?? DateTime.now())));
-    final ValueNotifier<DateTime> dobDateTimeNotifier =
-        ValueNotifier<DateTime>(widget.authUserModel.date?.toDate() ?? DateTime.now());
+    final ValueNotifier<TextEditingController> dobNotifier =
+        ValueNotifier<TextEditingController>(TextEditingController(
+            text: dateFormatted2(
+                widget.authUserModel.date?.toDate() ?? DateTime.now())));
+    final ValueNotifier<DateTime> dobDateTimeNotifier = ValueNotifier<DateTime>(
+        widget.authUserModel.date?.toDate() ?? DateTime.now());
     final ValueNotifier<String?> countryNotifier =
         ValueNotifier<String?>(widget.authUserModel.additionalDetails?.country);
     final ValueNotifier<String?> stateNotifier =
         ValueNotifier<String?>(widget.authUserModel.additionalDetails?.state);
     final ValueNotifier<String?> cityNotifier =
         ValueNotifier<String?>(widget.authUserModel.additionalDetails?.city);
-    final ValueNotifier<String> placeOfBirthNotifier =
-        ValueNotifier<String>(widget.authUserModel.additionalDetails?.placeOfBirth ?? '');
-    final ValueNotifier<String> driverLicenseNoNotifier =
-        ValueNotifier<String>(widget.authUserModel.additionalDetails?.driverLicenseNo ?? '');
-    final ValueNotifier<String> postalCodeNotifier =
-        ValueNotifier<String>(widget.authUserModel.additionalDetails?.postalCode ?? '');
-    final ValueNotifier<String> streetNotifier =
-        ValueNotifier<String>(widget.authUserModel.additionalDetails?.street ?? '');
+    final ValueNotifier<String> placeOfBirthNotifier = ValueNotifier<String>(
+        widget.authUserModel.additionalDetails?.placeOfBirth ?? '');
+    final ValueNotifier<String> driverLicenseNoNotifier = ValueNotifier<String>(
+        widget.authUserModel.additionalDetails?.driverLicenseNo ?? '');
+    final ValueNotifier<String> postalCodeNotifier = ValueNotifier<String>(
+        widget.authUserModel.additionalDetails?.postalCode ?? '');
+    final ValueNotifier<String> streetNotifier = ValueNotifier<String>(
+        widget.authUserModel.additionalDetails?.street ?? '');
 
     final infoState = ref.watch(addAdditionalDetailsProvider);
 
@@ -162,11 +165,11 @@ class _AdditionalInfoModalBodyState extends ConsumerState<AdditionalInfoModalBod
                   ),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                selectedItemStyle:
-                    context.textTheme.bodyMedium?.copyWith(fontWeight: AppFontWeight.w100),
+                selectedItemStyle: context.textTheme.bodyMedium
+                    ?.copyWith(fontWeight: AppFontWeight.w100),
                 dropdownHeadingStyle: context.textTheme.bodyLarge,
-                dropdownItemStyle:
-                    context.textTheme.bodyMedium?.copyWith(fontWeight: AppFontWeight.w100),
+                dropdownItemStyle: context.textTheme.bodyMedium
+                    ?.copyWith(fontWeight: AppFontWeight.w100),
               ),
 
 // ! STREET
@@ -217,7 +220,9 @@ class _AdditionalInfoModalBodyState extends ConsumerState<AdditionalInfoModalBod
                           ? infoState.error.toString()
                           : infoState.valueOrNull.toString(),
                       style: AppTextStyle.bodyMedium.copyWith(
-                          color: infoState.hasError ? Colors.red : AppThemeColorDark.successColor),
+                          color: infoState.hasError
+                              ? Colors.red
+                              : AppThemeColorDark.successColor),
                     ),
 
 //! save button
