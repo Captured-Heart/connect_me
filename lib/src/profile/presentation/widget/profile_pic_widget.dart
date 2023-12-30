@@ -25,7 +25,7 @@ class ProfilePicWidget extends StatelessWidget {
         decoration: withoutBorder == true
             ? null
             : BoxDecoration(
-                gradient: orangeGradient(isLongBTN: true),
+                gradient: orangeGradient(isLongBTN: true,context: context),
                 borderRadius:
                     height != null ? AppBorderRadius.c16 : AppBorderRadius.c32,
                 // border: Border.all(color: Colors.red)

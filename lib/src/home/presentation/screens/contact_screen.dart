@@ -9,7 +9,7 @@ class ContactScreen extends ConsumerWidget {
   final List<dynamic> connectsList;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final contacts = ref.watch(fetchListProfileProvider(connectsList));
+    final contacts = ref.watch(fetchContactsProvider);
 
     return Scaffold(
         appBar: AppBar(

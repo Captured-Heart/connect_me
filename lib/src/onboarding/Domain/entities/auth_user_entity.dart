@@ -21,6 +21,7 @@ class AuthUserModel extends Equatable {
   final List<dynamic>? posts;
   final Map<String, dynamic>? socials;
   final AdditionalDetailsModel? additionalDetails;
+  final String? connectTo;
 
   // final String? placeOfBirth;
   // final String? country;
@@ -46,7 +47,7 @@ class AuthUserModel extends Equatable {
     this.fname,
     this.lname,
     this.phonePrefix,
-
+    this.connectTo,
     // this.placeOfBirth,
     // this.country,
     // this.state,
@@ -73,6 +74,8 @@ class AuthUserModel extends Equatable {
         connects: json['connects'] as List<dynamic>?,
         posts: json['posts'] as List<dynamic>?,
         socials: json['socials'] as Map<String, dynamic>?,
+        connectTo: json['connectTo'] as String?,
+
         // placeOfBirth: json['placeOfBirth'] as String?,
         // country: json['country'] as String?,
         // state: json['state'] as String?,
@@ -101,6 +104,7 @@ class AuthUserModel extends Equatable {
         'lname': lname,
         'website': website,
         'phonePrefix': phonePrefix,
+        'connectTo': connectTo,
         // 'placeOfBirth': placeOfBirth,
         // 'country': country,
         // 'state': state,
@@ -135,31 +139,35 @@ class AuthUserModel extends Equatable {
     // String? driverLicenseNo,
     // String? postalCode,
     AdditionalDetailsModel? additionalDetails,
+    String? connectTo,
   }) {
     return AuthUserModel(
-        username: username ?? this.username,
-        email: email ?? this.email,
-        phone: phone ?? this.phone,
-        docId: docId ?? this.docId,
-        imgUrl: imgUrl ?? this.imgUrl,
-        isGoogleSigned: isGoogleSigned ?? this.isGoogleSigned,
-        date: date ?? this.date,
-        connects: connects ?? this.connects,
-        posts: posts ?? this.posts,
-        socials: socials ?? this.socials,
-        bio: bio ?? this.bio,
-        fname: fname ?? this.fname,
-        lname: lname ?? this.lname,
-        website: website ?? this.website,
-        phonePrefix: phonePrefix ?? this.phonePrefix,
-        // placeOfBirth: placeOfBirth ?? this.placeOfBirth,
-        // country: country ?? this.country,
-        // state: state ?? this.state,
-        // city: city ?? this.city,
-        // street: street ?? this.street,
-        // driverLicenseNo: driverLicenseNo ?? this.driverLicenseNo,
-        // postalCode: postalCode ?? this.postalCode,
-        additionalDetails: additionalDetails ?? this.additionalDetails);
+      username: username ?? this.username,
+      email: email ?? this.email,
+      phone: phone ?? this.phone,
+      docId: docId ?? this.docId,
+      imgUrl: imgUrl ?? this.imgUrl,
+      isGoogleSigned: isGoogleSigned ?? this.isGoogleSigned,
+      date: date ?? this.date,
+      connects: connects ?? this.connects,
+      posts: posts ?? this.posts,
+      socials: socials ?? this.socials,
+      bio: bio ?? this.bio,
+      fname: fname ?? this.fname,
+      lname: lname ?? this.lname,
+      website: website ?? this.website,
+      phonePrefix: phonePrefix ?? this.phonePrefix,
+      // placeOfBirth: placeOfBirth ?? this.placeOfBirth,
+      // country: country ?? this.country,
+      // state: state ?? this.state,
+      // city: city ?? this.city,
+      // street: street ?? this.street,
+      // driverLicenseNo: driverLicenseNo ?? this.driverLicenseNo,
+      // postalCode: postalCode ?? this.postalCode,
+      additionalDetails: additionalDetails ?? this.additionalDetails,
+
+      connectTo: connectTo ?? this.connectTo,
+    );
   }
 
   @override
@@ -186,6 +194,7 @@ class AuthUserModel extends Equatable {
         // street,
         // driverLicenseNo,
         // postalCode,
-        additionalDetails
+        additionalDetails,
+        connectTo,
       ];
 }

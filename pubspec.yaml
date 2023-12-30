@@ -18,6 +18,7 @@ dependencies:
   csc_picker: ^0.2.7
   dartz: ^0.10.1
   equatable: ^2.0.5
+  expandable: ^5.0.1
   faker: ^2.1.0
   firebase_auth: ^4.15.0
   firebase_core: ^2.24.0

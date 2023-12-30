@@ -73,4 +73,6 @@ enum FirebaseDocsFieldEnums {
   twitch,
   discord,
   gmail,
+  connectTo,
+  userId,
 }

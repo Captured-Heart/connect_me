@@ -11,7 +11,7 @@ class GradientLongBTN extends StatelessWidget {
     return Container(
       width: width,
       decoration: BoxDecoration(
-        gradient: orangeGradient(),
+        gradient: orangeGradient(context: context),
         borderRadius: AppBorderRadius.c12,
       ),
       child: ElevatedButton(

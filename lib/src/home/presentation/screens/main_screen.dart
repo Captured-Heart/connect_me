@@ -12,7 +12,7 @@ class MainScreen extends ConsumerWidget {
   Widget bodyWidget({required int currentIndex}) {
     switch (currentIndex) {
       case 0:
-        return const NewProfileScreen();
+        return const HomeScreen2();
       case 1:
         return const ProfileScreen();
       case 2:
