@@ -8,7 +8,7 @@ final fetchContactsProvider = FutureProvider.autoDispose<List<AuthUserModel>>((r
   final fetchProfileRepoImpl = ref.read(fetchProfileRepoImplProvider);
 
 // list of the uuid strings
-  var uuidList = await fetchProfileRepoImpl.fetchListOfConnects(uuid: uuid);
+  var uuidList = await fetchProfileRepoImpl.fetchListOfConnectsUuid(uuid: uuid);
 
   return fetchProfileRepoImpl.fetchContactsProfile(uuid: uuidList);
 });

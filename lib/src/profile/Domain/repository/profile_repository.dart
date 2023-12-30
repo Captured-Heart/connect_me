@@ -4,8 +4,8 @@ abstract class ProfileRepository {
   Future<AuthUserModel> fetchProfile({required String uuid});
   Future<List<AuthUserModel>> fetchContactsProfile({required List<String> uuid});
 
-  Future<MapDynamicString> fetchWork({required String uuid});
-  Future<List<String?>> fetchListOfConnects({
+  Future<List<WorkExperienceModel>> fetchWorkList({required String uuid});
+  Future<List<String?>> fetchListOfConnectsUuid({
     required String uuid,
   });
   Future<List<EducationModel>> fetchEducationList({required String uuid});

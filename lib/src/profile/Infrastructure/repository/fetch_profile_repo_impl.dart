@@ -15,38 +15,9 @@ class FetchProfileRepoImpl implements ProfileRepository {
     return result.get().then((value) => AuthUserModel.fromJson(value.data()!));
   }
 
-  // Stream<List<AuthUserModel>> fetchListOfConnects({required List<dynamic> connectsList}) async* {
-  //   var result = _firebaseFirestore.collection(FirebaseCollectionEnums.users.value).snapshots();
-
-  //   var finalList = result.map((event) => event.docs).map(
-  //         (event) => List.generate(
-  //           connectsList.length,
-  //           (index) => AuthUserModel.fromJson(
-  //             event[index].data(),
-  //           ),
-  //         ),
-  //       );
-
-  //   yield* finalList;
-  // }
-
-// //  ! FETCH LIST OF CONNECTS
-//   @override
-//   Stream<List<String?>> fetchListOfConnects({required String uuid}) async* {
-//     var result = _firebaseFirestore
-//         .collection(FirebaseCollectionEnums.connects.value)
-//         .where(FirebaseDocsFieldEnums.userId.name, isEqualTo: uuid)
-//         .snapshots();
-
-//     var finalList = result
-//         .map((event) => event.docs)
-//         .map((event) => event.map((e) => AuthUserModel.fromJson(e.data())).toList())
-//         .map((event) => event.map((e) => e.connectTo).toList());
-
-//     yield* finalList;
-//   }
+//! fetch list of connects uuid
   @override
-  Future<List<String?>> fetchListOfConnects({required String uuid}) async {
+  Future<List<String?>> fetchListOfConnectsUuid({required String uuid}) async {
     var result = await _firebaseFirestore
         .collection(FirebaseCollectionEnums.connects.value)
         .where(FirebaseDocsFieldEnums.userId.name, isEqualTo: uuid)
@@ -55,8 +26,10 @@ class FetchProfileRepoImpl implements ProfileRepository {
     return result.docs.map((e) => AuthUserModel.fromJson(e.data()).connectTo).toList();
   }
 
+
+//! fetch work is just for debugging
   @override
-  Future<MapDynamicString> fetchWork({required String uuid}) {
+  Future<List<WorkExperienceModel>> fetchWorkList({required String uuid}) {
     var result = _firebaseFirestore.collection(FirebaseCollectionEnums.users.value).doc(uuid);
     // inspect(result.get().then((value) => value));
     return result.get().then((value) => value.get('socials'));

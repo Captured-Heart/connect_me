@@ -60,7 +60,7 @@ class CustomListTileWidget extends StatelessWidget {
             color: isStaticTheme == true ? Colors.black : null,
           ),
           textScaleFactor: 0.95,
-        ),
+        ).padOnly(bottom: 2),
         subtitle == null
             ? const SizedBox.shrink()
             : AutoSizeText(
