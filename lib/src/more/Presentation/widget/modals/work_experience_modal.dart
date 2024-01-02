@@ -3,8 +3,7 @@
 import 'package:connect_me/app.dart';
 
 //0113343316
-SliverWoltModalSheetPage workExperienceModal(
-    BuildContext modalSheetContext, TextTheme textTheme) {
+SliverWoltModalSheetPage workExperienceModal(BuildContext modalSheetContext, TextTheme textTheme) {
   return WoltModalSheetPage(
     hasSabGradient: true,
     backgroundColor: modalSheetContext.theme.scaffoldBackgroundColor,
@@ -215,10 +214,8 @@ class _WorkExperienceBodyState extends ConsumerState<WorkExperienceBody> {
                               showCupertinoDateWidget(
                                 context: context,
                                 onConfirm: (date) {
-                                  monthNotifier.value.text =
-                                      dateFormattedToMonth(date);
-                                  yearNotifier.value.text =
-                                      dateFormattedToYear(date);
+                                  monthNotifier.value.text = dateFormattedToMonth(date);
+                                  yearNotifier.value.text = dateFormattedToYear(date);
                                 },
                               );
                             },
@@ -235,10 +232,8 @@ class _WorkExperienceBodyState extends ConsumerState<WorkExperienceBody> {
                               showCupertinoDateWidget(
                                 context: context,
                                 onConfirm: (date) {
-                                  monthNotifier.value.text =
-                                      dateFormattedToMonth(date);
-                                  yearNotifier.value.text =
-                                      dateFormattedToYear(date);
+                                  monthNotifier.value.text = dateFormattedToMonth(date);
+                                  yearNotifier.value.text = dateFormattedToYear(date);
                                 },
                               );
                             },
@@ -272,10 +267,8 @@ class _WorkExperienceBodyState extends ConsumerState<WorkExperienceBody> {
                                     showCupertinoDateWidget(
                                       context: context,
                                       onConfirm: (date) {
-                                        endMonthNotifier.value.text =
-                                            dateFormattedToMonth(date);
-                                        endYearNotifier.value.text =
-                                            dateFormattedToYear(date);
+                                        endMonthNotifier.value.text = dateFormattedToMonth(date);
+                                        endYearNotifier.value.text = dateFormattedToYear(date);
                                       },
                                     );
                                   },
@@ -293,10 +286,8 @@ class _WorkExperienceBodyState extends ConsumerState<WorkExperienceBody> {
                                     showCupertinoDateWidget(
                                       context: context,
                                       onConfirm: (date) {
-                                        endMonthNotifier.value.text =
-                                            dateFormattedToMonth(date);
-                                        endYearNotifier.value.text =
-                                            dateFormattedToYear(date);
+                                        endMonthNotifier.value.text = dateFormattedToMonth(date);
+                                        endYearNotifier.value.text = dateFormattedToYear(date);
                                       },
                                     );
                                   },
@@ -362,8 +353,7 @@ class _WorkExperienceBodyState extends ConsumerState<WorkExperienceBody> {
                             ref
                                 .read(addWorkExperienceProvider.notifier)
                                 .addWorkExperienceMethod(map: map, docId: docId)
-                                .whenComplete(() =>
-                                    ref.invalidate(fetchProfileProvider('')));
+                                .whenComplete(() => ref.invalidate(fetchProfileProvider));
                           }
                         },
                         child: infoState.isLoading == true

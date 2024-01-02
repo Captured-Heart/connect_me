@@ -50,6 +50,7 @@ ThemeData themeBuilder({
     textStyle: buttonTextStyle,
     padding: EdgeInsets.zero,
     visualDensity: VisualDensity.compact,
+    foregroundColor: AppThemeColorDark.textButton,
   );
 
   final ButtonStyle elevatedButtonStyle = ElevatedButton.styleFrom(

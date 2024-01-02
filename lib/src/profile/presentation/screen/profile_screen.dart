@@ -40,7 +40,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         pushReplacement(context, const LoginScreen());
       }
     });
-    final users = ref.watch(fetchProfileProvider(widget.uuid ?? ''));
+    final users = ref.watch(fetchProfileProvider).valueOrNull;
     // inspect(users);
     return Scaffold(
       body: SafeArea(
@@ -51,7 +51,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 headerSliverBuilder: (context, innerBoxIsScrolled) {
                   return [
                     SliverAppBar(
-                      expandedHeight: context.sizeHeight(0.24),
+                      expandedHeight: context.sizeHeight(0.3),
                       collapsedHeight: kToolbarHeight,
                       automaticallyImplyLeading: offset < 140.0 ? true : false,
                       forceMaterialTransparency: true,
@@ -132,8 +132,7 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => _tabBar.preferredSize.height * 1.5;
 
   @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     return _tabBar;
   }
 

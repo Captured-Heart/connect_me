@@ -6,6 +6,9 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: true,
+      ),
       // APPBAR
       // appBar:  HomeScreenAppBar(authUserModel: ,),
       body: ListView(

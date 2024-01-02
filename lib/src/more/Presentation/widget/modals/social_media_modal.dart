@@ -136,7 +136,7 @@ class _SocialMediaBodyState extends ConsumerState<SocialMediaBody> {
                   ref
                       .read(addSocialMediaProvider.notifier)
                       .addSocialMediaMethod(map: result)
-                      .whenComplete(() => ref.invalidate(fetchProfileProvider('')));
+                      .whenComplete(() => ref.invalidate(fetchProfileProvider));
                 }
               },
               child: infoState.isLoading == true
@@ -195,4 +195,40 @@ enum SocialDropdownEnum {
   final IconData icon;
 }
 
-//
+IconData socialIconsSwitch(SocialDropdownEnum? socialDropdownEnum) {
+  // SocialDropdownEnum socialDropdownEnum = SocialDropdownEnum.behance;
+  switch (socialDropdownEnum) {
+    case SocialDropdownEnum.facebook:
+      return SocialDropdownEnum.facebook.icon;
+    case SocialDropdownEnum.linkedIn:
+      return SocialDropdownEnum.linkedIn.icon;
+    case SocialDropdownEnum.instagram:
+      return SocialDropdownEnum.instagram.icon;
+    case SocialDropdownEnum.youtube:
+      return SocialDropdownEnum.youtube.icon;
+    case SocialDropdownEnum.behance:
+      return SocialDropdownEnum.behance.icon;
+    case SocialDropdownEnum.twitter:
+      return SocialDropdownEnum.twitter.icon;
+    case SocialDropdownEnum.tiktok:
+      return SocialDropdownEnum.tiktok.icon;
+    case SocialDropdownEnum.github:
+      return SocialDropdownEnum.github.icon;
+    case SocialDropdownEnum.whatsapp:
+      return SocialDropdownEnum.whatsapp.icon;
+    case SocialDropdownEnum.snapchat:
+      return SocialDropdownEnum.snapchat.icon;
+    case SocialDropdownEnum.twitch:
+      return SocialDropdownEnum.twitch.icon;
+    case SocialDropdownEnum.discord:
+      return SocialDropdownEnum.discord.icon;
+    case SocialDropdownEnum.gmail:
+      return SocialDropdownEnum.gmail.icon;
+
+    default:
+      return SocialDropdownEnum.behance.icon;
+  }
+}
+
+
+// //

@@ -10,8 +10,7 @@ class HomeScreenAppBar extends ConsumerWidget implements PreferredSizeWidget {
   final AuthUserModel? authUserModel;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final connectsList = ref.watch(
-        fetchProfileProvider('').select((value) => value.value?.connects));
+    final contacts = ref.watch(fetchContactsProvider);
     return AppBar(
       elevation: 0,
       backgroundColor: context.theme.scaffoldBackgroundColor,
@@ -20,11 +19,11 @@ class HomeScreenAppBar extends ConsumerWidget implements PreferredSizeWidget {
       leadingWidth: 80,
       leading: GestureDetector(
         onTap: () {
-          if (connectsList != null) {
+          if (contacts.value != null) {
             pushAsVoid(
               context,
               ContactScreen(
-                connectsList: connectsList,
+                contacts: contacts,
               ),
             );
           } else {
@@ -65,7 +64,8 @@ class HomeScreenAppBar extends ConsumerWidget implements PreferredSizeWidget {
             ),
       actions: [
         //share screen
-        GestureDetector(
+
+        CircleChipButton(
           onTap: () {
             if (authUserModel != null) {
               pushAsVoid(
@@ -81,30 +81,17 @@ class HomeScreenAppBar extends ConsumerWidget implements PreferredSizeWidget {
               );
             }
           },
-          child: Chip(
-            backgroundColor:
-                context.colorScheme.inversePrimary.withOpacity(0.4),
-            label: const Icon(shareIcon),
-            shape: const CircleBorder(),
-            side: BorderSide(width: 0.5, color: context.colorScheme.onSurface),
-          ),
+          iconData: shareIcon,
         ),
-
         //camera
-        GestureDetector(
+        CircleChipButton(
           onTap: () {
             pushAsVoid(
               context,
               const QrCodeScreen(),
             );
           },
-          child: Chip(
-            backgroundColor:
-                context.colorScheme.inversePrimary.withOpacity(0.4),
-            label: const Icon(cameraIcon),
-            shape: const CircleBorder(),
-            side: BorderSide(width: 0.5, color: context.colorScheme.onSurface),
-          ),
+          iconData: cameraIcon,
         ),
       ],
     );
@@ -112,4 +99,28 @@ class HomeScreenAppBar extends ConsumerWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight * 1.2);
+}
+
+class CircleChipButton extends StatelessWidget {
+  const CircleChipButton({
+    super.key,
+    this.onTap,
+    required this.iconData,
+  });
+
+  final VoidCallback? onTap;
+  final IconData iconData;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Chip(
+        backgroundColor: context.colorScheme.inversePrimary.withOpacity(0.4),
+        visualDensity: VisualDensity.compact,
+        label: Icon(iconData),
+        shape: const CircleBorder(),
+        side: BorderSide(width: 0.5, color: context.colorScheme.onSurface),
+      ),
+    );
+  }
 }

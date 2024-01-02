@@ -261,7 +261,7 @@ class _AdditionalInfoModalBodyState
                         .read(addAdditionalDetailsProvider.notifier)
                         .addAdditionalDetails(map: map)
                         .whenComplete(
-                          () => ref.invalidate(fetchProfileProvider('')),
+                          () => ref.invalidate(fetchProfileProvider),
                         );
                     // ref.invalidate(addAccountInfoProvider);
                   },

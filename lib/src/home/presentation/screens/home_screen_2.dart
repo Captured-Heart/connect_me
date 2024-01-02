@@ -10,7 +10,7 @@ class HomeScreen2 extends ConsumerStatefulWidget {
 class _HomeScreen2State extends ConsumerState<HomeScreen2> {
   @override
   Widget build(BuildContext context) {
-    final AsyncValue<AuthUserModel> users = ref.watch(fetchProfileProvider(''));
+    final AsyncValue<AuthUserModel> users = ref.watch(fetchProfileProvider);
     // final work = ref.watch(fetchWorkProvider);
     // log(work.valueOrNull.toString());
     return Scaffold(
@@ -30,18 +30,15 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> {
                   children: [
                     ProfilePicWidget(
                       authUserModel: data,
-                      onTap: () {
-                        pushAsVoid(
-                          context,
-                          const ProfileScreen(),
-                        );
-                      },
+                      onTap: () {},
                     ),
                     CustomListTileWidget(
                       title: data.username ?? '',
-                      showAtsign: true,
+                      // showAtsign: true,
+                      subtitleMaxLines: 4,
                       subtitle: data.bio,
-                    ),
+                      isSubtitleUrl: data.website,
+                    ).padSymmetric(horizontal: 30)
                     // data.bio?.isNotEmpty == true
                     //     ? ListTile(
                     //         title: const Text('Bio'),
@@ -55,45 +52,10 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> {
                     //     : const SizedBox.shrink()
                   ].columnInPadding(10),
                 ),
-                // work.when(
-                //     data: (data) {
-                //       return Wrap(
-                //         children: List.generate(data.length, (index) {
-                //           log(index.toString());
-                //           var workd = data.keys.map((e) => e).toList();
-                //           var works = data.values.map((e) => e.toString()).toList().where((element) => element.contains('true') == true).toList();
-                //           // log(data.keys.map((e) => e).toList().toString());
-                //           String title = '';
-                //           String values = '';
-
-                //           // workd.keys.forEach((element) {
-                //           //   title = element;
-                //           // });
-                //           // workd.values.forEach((element) {
-                //           //   values = element;
-                //           // });
-                //           // works.values.forEach((element) {
-                //           //   values = element;
-                //           // });
-                //           return ListTile(
-                //             title: Text(workd[index]),
-                //             subtitle: Text(
-                //               works[0],
-                //             ),
-                //           );
-                //           // return const SizedBox.shrink();
-                //         }),
-                //       );
-                //     },
-                //     error: (error, _) {
-                //       return Text(error.toString());
-                //     },
-                //     loading: () => CircularProgressIndicator.adaptive()),
                 Flexible(
                   child: Container(
                     margin: AppEdgeInsets.eA20,
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 5, horizontal: 1),
+                    padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 1),
                     decoration: BoxDecoration(
                       gradient: whiteGradient(context: context),
                     ),
@@ -101,8 +63,7 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> {
                       data: data.docId ?? 'null',
                       backgroundColor: context.colorScheme.onSurface,
                       eyeStyle: QrEyeStyle(
-                          color: context.colorScheme.surface,
-                          eyeShape: QrEyeShape.square),
+                          color: context.colorScheme.surface, eyeShape: QrEyeShape.square),
                       dataModuleStyle: QrDataModuleStyle(
                         color: context.colorScheme.surface,
                         dataModuleShape: QrDataModuleShape.circle,
@@ -138,8 +99,7 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> {
                 Container(
                   margin: AppEdgeInsets.eA12,
                   height: context.sizeHeight(0.45),
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 5, horizontal: 1),
+                  padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 1),
                   decoration: BoxDecoration(
                     // border: Border.all(color: Colors.white),
                     gradient: whiteGradient(context: context),

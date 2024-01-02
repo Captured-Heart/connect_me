@@ -53,7 +53,7 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
   @override
   Widget build(BuildContext context) {
     final appdata = ref.watch(fetchAppDataProvider);
-    final authUserData = ref.watch(fetchProfileProvider('')).valueOrNull;
+    final authUserData = ref.watch(fetchProfileProvider).valueOrNull;
     // inspect(authUserData);
 
     return Scaffold(

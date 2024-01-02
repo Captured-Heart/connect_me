@@ -9,8 +9,7 @@ class AboutMeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-        padding:
-            offset! > 300 ? const EdgeInsets.only(top: 170) : EdgeInsets.zero,
+        padding: offset! > 300 ? const EdgeInsets.only(top: 170) : EdgeInsets.zero,
         children: [
           Card(
             elevation: 3,
@@ -24,7 +23,7 @@ class AboutMeWidget extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          pushAsVoid(context, const QrCodeScreen());
+                          pushAsVoid(context, HomeScreen());
                         },
                         child: const GradientShortBTN(
                           iconData: mailIcon,
@@ -32,10 +31,13 @@ class AboutMeWidget extends StatelessWidget {
                           tooltip: TextConstant.email,
                         ),
                       ),
-                      const GradientShortBTN(
+                      GradientShortBTN(
                         iconData: twitterIcon,
                         iconSize: 28,
                         tooltip: TextConstant.twitter,
+                        onTap: () {
+                          pushAsVoid(context, const ProfileScreen1());
+                        },
                       ),
                       const GradientShortBTN(
                         iconData: whatsappIcon,

@@ -3,13 +3,13 @@ import 'package:connect_me/app.dart';
 class ContactScreen extends ConsumerWidget {
   const ContactScreen({
     super.key,
-    required this.connectsList,
+    required this.contacts,
   });
 
-  final List<dynamic> connectsList;
+  final AsyncValue<List<AuthUserModel>> contacts;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final contacts = ref.watch(fetchContactsProvider);
+    // final contacts = ref.watch(fetchContactsProvider);
 
     return Scaffold(
         appBar: AppBar(
@@ -49,10 +49,12 @@ class ContactScreen extends ConsumerWidget {
                   return GestureDetector(
                     onTap: () async {
                       // log(contacts.toString());
+                      inspect(contacts);
                       pushAsVoid(
                         context,
                         ProfileScreenOthers(
-                          uuid: contacts.docId,
+                          users: contacts,
+                          uuid: '',
                         ),
                       );
                     },

@@ -5,7 +5,7 @@ class NewProfileScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final users = ref.watch(fetchProfileProvider('')).valueOrNull;
+    final users = ref.watch(fetchProfileProvider).valueOrNull;
 
     return DefaultTabController(
       length: 3,

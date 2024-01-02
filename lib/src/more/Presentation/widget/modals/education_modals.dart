@@ -310,7 +310,7 @@ class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
                             .read(addEducationInfoProvider.notifier)
                             .addEducationInfoMethod(map: map, docId: docId)
                             .whenComplete(
-                              () => ref.invalidate(fetchProfileProvider('')),
+                              () => ref.invalidate(fetchProfileProvider),
                             );
                       }
                     },

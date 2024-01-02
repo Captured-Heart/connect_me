@@ -27,7 +27,9 @@
             "type": "dart",
             "request": "launch",
             "program": "lib/main.dart",
-            "deviceId": "4D5E0151-F38C-4599-BDE8-859CDA24FB63"
+            "deviceId": 
+            // "4D5E0151-F38C-4599-BDE8-859CDA24FB63" 
+            "04F779EC-DE4D-4E80-A242-419FEB72EDB0",
 
         },
         {

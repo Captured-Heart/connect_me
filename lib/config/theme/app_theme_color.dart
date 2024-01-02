@@ -9,7 +9,7 @@ class AppThemeColorDark {
   static const Color textFieldBorder = Color(0xFFFFFFFF);
   static const Color indicatorInactiveColor = Color(0xFFE5EAE7);
   static const Color indicatorActiveColor = Color(0xFF9E9FB2);
-  static const Color textButton = Color(0xFF1753C9);
+  static const Color textButton = Color.fromARGB(255, 142, 171, 229);
 
 //background
   static const Color scaffoldBackgroundColor = Color(0xFF181617);

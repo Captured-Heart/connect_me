@@ -13,9 +13,9 @@ class PortraitQrCodeWidget extends StatelessWidget {
       padding: EdgeInsets.zero,
       // mainAxisSize: MainAxisSize.min,
       children: [
-        const Center(
+         Center(
           child: ProfilePicWidget(
-            // authUserModel: data,
+            authUserModel: authUserModel,
             isStaticTheme: true,
             height: 60,
             width: 60,

@@ -1,12 +1,12 @@
 import 'package:connect_me/app.dart';
 
 class ProfileScreenOthers extends ConsumerStatefulWidget {
-  const ProfileScreenOthers({super.key, this.uuid, this.scanController});
-  final String? uuid;
+  const ProfileScreenOthers({super.key, this.users, this.scanController, this.uuid});
+  final AuthUserModel? users;
   final QRViewController? scanController;
+  final String? uuid;
   @override
-  ConsumerState<ProfileScreenOthers> createState() =>
-      _ProfileScreenOthersState();
+  ConsumerState<ProfileScreenOthers> createState() => _ProfileScreenOthersState();
 }
 
 class _ProfileScreenOthersState extends ConsumerState<ProfileScreenOthers> {
@@ -41,7 +41,7 @@ class _ProfileScreenOthersState extends ConsumerState<ProfileScreenOthers> {
         pushReplacement(context, const LoginScreen());
       }
     });
-    final users = ref.watch(fetchProfileProvider(widget.uuid ?? ''));
+    final users = ref.watch(fetchOthersProfileProvider(widget.uuid)).valueOrNull;
     // inspect(users);
 
     // inspect(users);
@@ -64,7 +64,9 @@ class _ProfileScreenOthersState extends ConsumerState<ProfileScreenOthers> {
                     // stretch: true,
                     flexibleSpace: FlexibleSpaceBar(
                       background: ProfileHeaderWidget(
-                        users: users,
+                        users: 
+                        
+                        widget.uuid?.isEmpty == true ? widget.users! : users,
                       ).padSymmetric(horizontal: 20),
                       collapseMode: CollapseMode.parallax,
                     ),
@@ -113,8 +115,7 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => _tabBar.preferredSize.height * 1.5;
 
   @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     return _tabBar;
   }
 

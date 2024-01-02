@@ -10,6 +10,7 @@ class SocialButtons extends StatelessWidget {
     this.isDense = false,
     this.color,
     this.textColor,
+    this.noBorder = false,
   });
 
   final IconData iconData;
@@ -18,6 +19,7 @@ class SocialButtons extends StatelessWidget {
   final double? elevation;
   final bool isDense;
   final Color? color, textColor;
+  final bool noBorder;
 
   @override
   Widget build(BuildContext context) {
@@ -25,13 +27,15 @@ class SocialButtons extends StatelessWidget {
       onTap: onTap,
       child: Card(
         color: color,
-        shape: RoundedRectangleBorder(
-          side: BorderSide(
-            color: context.colorScheme.onSurface,
-            width: 0.3,
-          ),
-          borderRadius: BorderRadius.circular(isDense == true ? 10 : 15),
-        ),
+        shape: noBorder == true
+            ? null
+            : RoundedRectangleBorder(
+                side: BorderSide(
+                  color: context.colorScheme.onSurface,
+                  width: 0.3,
+                ),
+                borderRadius: BorderRadius.circular(isDense == true ? 10 : 15),
+              ),
         elevation: elevation ?? 3,
         child: Row(
           mainAxisSize: MainAxisSize.min,

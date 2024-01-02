@@ -53,7 +53,7 @@ class AccountInfoModalBody extends ConsumerStatefulWidget {
 class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
   @override
   void initState() {
-    final authUserModel = ref.read(fetchProfileProvider('')).valueOrNull;
+    final authUserModel = ref.read(fetchProfileProvider).valueOrNull;
 
     // I AM DOWNLOADING THE USER PREVIOUS IMAGE AND PASS AS FILE IMAGE
     if (authUserModel?.imgUrl?.isNotEmpty == true) {
@@ -262,7 +262,7 @@ class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
                             imgUrl: imgUrlFirebaseNotifier.value,
                           )
                           .whenComplete(() {
-                        ref.invalidate(fetchProfileProvider(''));
+                        ref.invalidate(fetchProfileProvider);
                       });
                     } else {
                       showScaffoldSnackBarMessage(

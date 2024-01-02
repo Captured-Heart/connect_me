@@ -19,7 +19,7 @@ class AuthUserModel extends Equatable {
   final Timestamp? date;
   final List<dynamic>? connects;
   final List<dynamic>? posts;
-  final Map<String, dynamic>? socials;
+  final Map<String, dynamic>? socialMediaHandles;
   final AdditionalDetailsModel? additionalDetails;
   final String? connectTo;
 
@@ -42,7 +42,7 @@ class AuthUserModel extends Equatable {
     this.date,
     this.connects,
     this.posts,
-    this.socials,
+    this.socialMediaHandles,
     this.bio,
     this.fname,
     this.lname,
@@ -73,7 +73,7 @@ class AuthUserModel extends Equatable {
         date: json['date'] as Timestamp?,
         connects: json['connects'] as List<dynamic>?,
         posts: json['posts'] as List<dynamic>?,
-        socials: json['socials'] as Map<String, dynamic>?,
+        socialMediaHandles: json['socialMediaHandles'] as Map<String, dynamic>?,
         connectTo: json['connectTo'] as String?,
 
         // placeOfBirth: json['placeOfBirth'] as String?,
@@ -98,7 +98,7 @@ class AuthUserModel extends Equatable {
         'date': Timestamp.now(),
         'posts': posts,
         'connects': connects,
-        'socials': socials,
+        'socialMediaHandles': socialMediaHandles,
         'bio': bio,
         'fname': fname,
         'lname': lname,
@@ -130,7 +130,7 @@ class AuthUserModel extends Equatable {
     Timestamp? date,
     List<dynamic>? posts,
     List<dynamic>? connects,
-    Map<String, dynamic>? socials,
+    Map<String, dynamic>? socialMediaHandles,
     // String? placeOfBirth,
     // String? country,
     // String? state,
@@ -151,7 +151,7 @@ class AuthUserModel extends Equatable {
       date: date ?? this.date,
       connects: connects ?? this.connects,
       posts: posts ?? this.posts,
-      socials: socials ?? this.socials,
+      socialMediaHandles: socialMediaHandles ?? this.socialMediaHandles,
       bio: bio ?? this.bio,
       fname: fname ?? this.fname,
       lname: lname ?? this.lname,
@@ -181,7 +181,7 @@ class AuthUserModel extends Equatable {
         date,
         connects,
         posts,
-        socials,
+        socialMediaHandles,
         bio,
         lname,
         fname,

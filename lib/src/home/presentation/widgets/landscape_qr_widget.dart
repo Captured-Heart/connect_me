@@ -12,10 +12,11 @@ class LandscapeQrCodeWIdget extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const ProfilePicWidget(
+              ProfilePicWidget(
                 isStaticTheme: true,
                 height: 60,
                 width: 60,
+                authUserModel: authUserModel,
               ),
               CustomListTileWidget(
                 title: authUserModel.username ?? '',
@@ -33,8 +34,7 @@ class LandscapeQrCodeWIdget extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              margin:
-                  const EdgeInsets.only(top: 10, right: 10, left: 5, bottom: 3),
+              margin: const EdgeInsets.only(top: 10, right: 10, left: 5, bottom: 3),
               child: QrImageView(
                 data: authUserModel.docId ?? '',
 
@@ -51,8 +51,7 @@ class LandscapeQrCodeWIdget extends StatelessWidget {
                 embeddedImage: const AssetImage(
                   'assets/images/aboutMeLogo_brown.png',
                 ),
-                embeddedImageStyle:
-                    const QrEmbeddedImageStyle(size: Size(40, 40)),
+                embeddedImageStyle: const QrEmbeddedImageStyle(size: Size(40, 40)),
                 version: 5,
                 size: context.sizeHeight(0.23),
                 gapless: false,
