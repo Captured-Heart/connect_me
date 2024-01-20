@@ -41,7 +41,7 @@ class CustomListTileWidget extends StatelessWidget {
             // TextButton(onPressed: () {}, child: Text(subtitle ?? ''))
             : AutoSizeText(
                 showAtsign == true ? '@$subtitle' : '$subtitle',
-                maxLines: subtitleMaxLines ?? 1,
+                maxLines: subtitleMaxLines,
                 overflow: TextOverflow.ellipsis,
                 textAlign: subtitleTextAlign ?? TextAlign.center,
                 textScaleFactor: 0.95,

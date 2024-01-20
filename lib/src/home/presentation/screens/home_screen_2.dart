@@ -38,7 +38,8 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> {
                       subtitleMaxLines: 4,
                       subtitle: data.bio,
                       isSubtitleUrl: data.website,
-                    ).padSymmetric(horizontal: 30)
+                    ).padSymmetric(horizontal: 30),
+
                     // data.bio?.isNotEmpty == true
                     //     ? ListTile(
                     //         title: const Text('Bio'),
@@ -57,8 +58,7 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> {
                     margin: AppEdgeInsets.eA20,
                     padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 1),
                     decoration: BoxDecoration(
-                      gradient: whiteGradient(context: context),
-                    ),
+                        border: Border.all(color: context.colorScheme.onBackground, width: 5)),
                     child: QrImageView(
                       data: data.docId ?? 'null',
                       backgroundColor: context.colorScheme.onSurface,
@@ -69,7 +69,7 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> {
                         dataModuleShape: QrDataModuleShape.circle,
                       ),
                       version: 5,
-                      // size: context.sizeHeight(0.4),
+                      size: context.sizeHeight(0.3),
                       gapless: false,
                       // padding: const EdgeInsets.all(12),
                     ).padSymmetric(horizontal: 5).padOnly(bottom: 0),
@@ -88,24 +88,29 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> {
 
           // SHIMMER LOADER
           loading: () => ShimmerWidget(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                const ProfilePicWidget(),
-                const CustomListTileWidget(
-                  title: 'Username',
-                  showAtsign: true,
-                ),
-                Container(
-                  margin: AppEdgeInsets.eA12,
-                  height: context.sizeHeight(0.45),
-                  padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 1),
-                  decoration: BoxDecoration(
-                    // border: Border.all(color: Colors.white),
-                    gradient: whiteGradient(context: context),
+            child: Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  const ProfilePicWidget(),
+                  const CustomListTileWidget(
+                    title: 'Username',
+                    showAtsign: true,
+                    subtitle: 'Mobile/Product designer',
                   ),
-                ).padOnly(top: 15)
-              ],
+                  Container(
+                    margin: AppEdgeInsets.eA12,
+                    height: context.sizeHeight(0.3),
+                    width: context.sizeWidth(0.7),
+                    padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 1),
+                    decoration: BoxDecoration(
+                      // border: Border.all(color: Colors.white),
+                      gradient: whiteGradient(context: context),
+                    ),
+                  ).padOnly(top: 15)
+                ],
+              ),
             ),
           ),
         ));

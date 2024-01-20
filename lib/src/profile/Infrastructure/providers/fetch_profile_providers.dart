@@ -1,7 +1,7 @@
 import 'package:connect_me/app.dart';
 
 // !fetch profile
-final fetchProfileProvider = FutureProvider.autoDispose<AuthUserModel>((ref) async {
+final fetchProfileProvider = FutureProvider<AuthUserModel>((ref) async {
   String uuid = ref.watch(authStateChangesProvider).value!.uid;
 //
   final fetchProfileRepoImpl = ref.read(fetchProfileRepoImplProvider);
@@ -13,7 +13,8 @@ final fetchOthersProfileProvider =
   String uuid = ref.watch(authStateChangesProvider).value!.uid;
 //
   final fetchProfileRepoImpl = ref.read(fetchProfileRepoImplProvider);
-  return await fetchProfileRepoImpl.fetchProfile(uuid: otherUuid?.isEmpty == false || otherUuid  == null ? otherUuid! : uuid);
+  return await fetchProfileRepoImpl.fetchProfile(
+      uuid: otherUuid?.isEmpty == false || otherUuid == null ? otherUuid! : uuid);
 });
 
 //! fetch work experience

@@ -162,10 +162,8 @@ extension MediaQuerySizeExtension on BuildContext {
 extension StringExtension on String {
   String toCapitalized() =>
       length > 0 ? '${this[0].toUpperCase()}${substring(1).toLowerCase()}' : '';
-  String toTitleCase() => replaceAll(RegExp(' +'), ' ')
-      .split(' ')
-      .map((str) => str.toCapitalized())
-      .join(' ');
+  String toTitleCase() =>
+      replaceAll(RegExp(' +'), ' ').split(' ').map((str) => str.toCapitalized()).join(' ');
 
   String toCommaPrices() {
     final formatter = NumberFormat("###,###.#", "en_US");
@@ -241,12 +239,12 @@ LinearGradient whiteGradient({
       context.colorScheme.surfaceTint,
       context.colorScheme.onSurface,
       context.colorScheme.surface,
+      context.colorScheme.surfaceTint,
     ],
     begin: begin ?? Alignment.topLeft,
     end: end ?? Alignment.bottomRight,
   );
 }
-
 
 LinearGradient orangeGradient({
   List<Color>? colors,
@@ -260,6 +258,7 @@ LinearGradient orangeGradient({
       context.colorScheme.surfaceTint,
       context.colorScheme.onPrimary,
       context.colorScheme.primary,
+      context.colorScheme.surfaceTint,
     ],
     begin: begin ?? Alignment.topLeft,
     end: end ?? Alignment.bottomRight,

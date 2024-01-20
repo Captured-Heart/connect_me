@@ -1,9 +1,36 @@
 import 'package:connect_me/app.dart';
 import 'package:connect_me/src/more/Presentation/screens/more_screens.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 final bottomNavBarIndexProvider = StateProvider<int>((ref) {
   return 0;
 });
+
+enum NavBarItems {
+  home(
+    TextConstant.home,
+    IconConstants.homeIconSVGunselected,
+  ),
+  connect(
+    TextConstant.connect,
+    IconConstants.connectIconSVGunselected,
+  ),
+  profile(
+    TextConstant.profile,
+    IconConstants.profileIconSVGunselected,
+  ),
+  more(
+    TextConstant.more,
+    IconConstants.moreIconSVGunselected,
+  );
+
+  const NavBarItems(
+    this.label,
+    this.icon,
+  );
+  final String label;
+  final String icon;
+}
 
 class MainScreen extends ConsumerWidget {
   const MainScreen({
@@ -14,8 +41,10 @@ class MainScreen extends ConsumerWidget {
       case 0:
         return const HomeScreen2();
       case 1:
-        return const ProfileScreen();
+        return const ContactScreen();
       case 2:
+        return const ProfileScreen1();
+      case 3:
         return const MoreScreen();
 
       default:
@@ -28,33 +57,28 @@ class MainScreen extends ConsumerWidget {
     final currentIndex = ref.watch(bottomNavBarIndexProvider);
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-        // backgroundColor: context.colorScheme.secondaryContainer,
-        // selectedItemColor: context.colorScheme.onSecondaryContainer,
-        // unselectedItemColor: context.colorScheme.onSecondaryContainer.withOpacity(0.6),
-        // elevation: 10,
-
-        currentIndex: currentIndex,
-        onTap: (value) {
-          ref.read(bottomNavBarIndexProvider.notifier).update((state) => value);
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(homeIcon),
-            label: TextConstant.home,
-            tooltip: TextConstant.home,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(FontAwesome.user),
-            label: TextConstant.profile,
-            tooltip: TextConstant.profile,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(moreIcon),
-            label: TextConstant.more,
-            tooltip: TextConstant.more,
-          ),
-        ],
-      ),
+          type: BottomNavigationBarType.fixed,
+          currentIndex: currentIndex,
+          onTap: (value) {
+            ref.read(bottomNavBarIndexProvider.notifier).update((state) => value);
+          },
+          items: List.generate(
+            4,
+            (index) {
+              return BottomNavigationBarItem(
+                icon: SvgPicture.asset(
+                  NavBarItems.values[index].icon,
+                  fit: BoxFit.fill,
+                  height: 30,
+                  color: index == currentIndex
+                      ? context.colorScheme.primary
+                      : context.colorScheme.outline,
+                ),
+                label: NavBarItems.values[index].label,
+                tooltip: NavBarItems.values[index].label,
+              );
+            },
+          )),
       body: bodyWidget(currentIndex: currentIndex),
     );
   }

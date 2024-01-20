@@ -10,24 +10,11 @@ class ProfileScreenOthers extends ConsumerStatefulWidget {
 }
 
 class _ProfileScreenOthersState extends ConsumerState<ProfileScreenOthers> {
-  final ScrollController _scrollController = ScrollController();
-
-  @override
-  void initState() {
-    _scrollController.addListener(() {
-      offset = _scrollController.offset;
-      setState(() {});
-    });
-
-    super.initState();
-  }
-
   @override
   void dispose() {
     if (widget.scanController != null) {
       widget.scanController!.resumeCamera();
     }
-    _scrollController.removeListener(() {});
     super.dispose();
   }
 
@@ -42,85 +29,84 @@ class _ProfileScreenOthersState extends ConsumerState<ProfileScreenOthers> {
       }
     });
     final users = ref.watch(fetchOthersProfileProvider(widget.uuid)).valueOrNull;
-    // inspect(users);
 
-    // inspect(users);
+    var addInfo = users?.additionalDetails;
     return Scaffold(
-      body: SafeArea(
-        child: DefaultTabController(
-            length: 2,
-            child: NestedScrollView(
-              controller: _scrollController,
-              headerSliverBuilder: (context, innerBoxIsScrolled) {
-                return [
-                  SliverAppBar(
-                    expandedHeight: context.sizeHeight(0.31),
-                    collapsedHeight: kToolbarHeight,
-                    automaticallyImplyLeading: true,
-                    forceMaterialTransparency: true,
-                    floating: true,
-                    pinned: true,
-                    // snap: true,
-                    // stretch: true,
-                    flexibleSpace: FlexibleSpaceBar(
-                      background: ProfileHeaderWidget(
-                        users: 
-                        
-                        widget.uuid?.isEmpty == true ? widget.users! : users,
-                      ).padSymmetric(horizontal: 20),
-                      collapseMode: CollapseMode.parallax,
-                    ),
-                  ),
-                  SliverPersistentHeader(
-                    delegate: _SliverAppBarDelegate(const CustomTabBar(
-                      tabs: [
-                        Tab(
-                          text: TextConstant.posts,
-                        ),
-                        Tab(
-                          text: TextConstant.about,
-                        ),
-                      ],
-                    )),
-                    pinned: offset > 238 ? true : false,
-                    floating: true,
-                  ),
-                ];
-              },
-              body: TabBarView(
-                children: [
-                  AboutMeWidget(
-                    offset: offset,
-                  ).padSymmetric(horizontal: 15),
-                  AboutMeWidget(
-                    offset: offset,
-                  ).padSymmetric(horizontal: 15)
-                ],
-              ),
-            )),
+      appBar: AppBar(
+        backgroundColor: context.theme.scaffoldBackgroundColor,
+        actions: [
+          GradientShortBTN(
+            iconData: logOutIcon,
+            tooltip: TextConstant.logOut,
+            iconSize: 18,
+            width: 35,
+            height: 35,
+            onTap: () {
+              warningDialogs(
+                context: context,
+                dialogModel: DialogModel(
+                  title: 'Are you sure you want to log out?',
+                  content: null,
+                  onPostiveAction: () {
+                    ref.read(logOutNotifierProvider.notifier).signOutUsers();
+                  },
+                ),
+              );
+            },
+          ).padSymmetric(horizontal: 20)
+        ],
       ),
+
+      //! body
+      body: users == null
+          ? const Center(
+              child: CircularProgressIndicator.adaptive(),
+            )
+          : ListView(
+              shrinkWrap: true,
+              padding: AppEdgeInsets.eV12,
+              children: [
+                //! profile header
+                ProfileHeaderWidget(
+                  users: widget.uuid?.isEmpty == true ? widget.users! : users,
+                ),
+
+//! bio details
+                (users.bio?.isEmpty == true || users.bio == null) &&
+                        (users.email?.isEmpty == true || users.email == null) &&
+                        (users.phone?.isEmpty == true || users.phone == null)
+                    ? const SizedBox.shrink()
+                    : BioDetailsWidget(users: users),
+
+                (users.additionalDetails == null)
+                    ? const SizedBox.shrink()
+                    :
+                    // ! additional details card
+                    AdditionalDetailsCardWidget(addInfo: addInfo),
+              ],
+            ).padSymmetric(horizontal: 20),
     );
   }
 }
 
-class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
-  final PreferredSizeWidget _tabBar;
+// class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
+//   final PreferredSizeWidget _tabBar;
 
-  _SliverAppBarDelegate(this._tabBar);
+//   _SliverAppBarDelegate(this._tabBar);
 
-  @override
-  double get minExtent => _tabBar.preferredSize.height * 1.5;
+//   @override
+//   double get minExtent => _tabBar.preferredSize.height * 1.5;
 
-  @override
-  double get maxExtent => _tabBar.preferredSize.height * 1.5;
+//   @override
+//   double get maxExtent => _tabBar.preferredSize.height * 1.5;
 
-  @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return _tabBar;
-  }
+//   @override
+//   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+//     return _tabBar;
+//   }
 
-  @override
-  bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
-    return false;
-  }
-}
+//   @override
+//   bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
+//     return false;
+//   }
+// }

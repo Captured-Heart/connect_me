@@ -5,3 +5,7 @@ export './gradient_short_btn.dart';
 export './custom_tab_bar.dart';
 export './about_me_widget.dart';
 export './profile_header_widget.dart';
+export './icon_text_widget.dart';
+export './additional_info_list_tile.dart';
+export './bio_details_card_widget.dart';
+export './additional_details_card_widget.dart';

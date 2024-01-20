@@ -136,7 +136,9 @@ class _SocialMediaBodyState extends ConsumerState<SocialMediaBody> {
                   ref
                       .read(addSocialMediaProvider.notifier)
                       .addSocialMediaMethod(map: result)
-                      .whenComplete(() => ref.invalidate(fetchProfileProvider));
+                      .whenComplete(
+                        () => ref.invalidate(fetchProfileProvider),
+                      );
                 }
               },
               child: infoState.isLoading == true

@@ -9,7 +9,7 @@ class PortraitQrCodeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      shrinkWrap: false,
+      shrinkWrap: true,
       padding: EdgeInsets.zero,
       // mainAxisSize: MainAxisSize.min,
       children: [

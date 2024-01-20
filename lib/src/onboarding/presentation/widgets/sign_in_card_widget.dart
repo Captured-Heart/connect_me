@@ -30,7 +30,7 @@ class SignInCardWidget extends ConsumerWidget {
     ref.listen(loginWithEmailNotifierProvider, (previous, next) {
       if (next.user?.uid != null) {
         controller.disposeControllers();
-        pushReplacement(context, const MainScreen());
+        pushReplacement(context,  MainScreen());
       }
       if (next.errorMessage != null) {
         showScaffoldSnackBarMessageNoColor(
@@ -44,7 +44,7 @@ class SignInCardWidget extends ConsumerWidget {
 // SIGN IN GOOGLE
     ref.listen(signInGoogleNotifierProvider, (previous, next) {
       if (next.user?.uid != null) {
-        pushReplacement(context, const MainScreen());
+        pushReplacement(context,  MainScreen());
       }
       if (next.errorMessage != null) {
         showScaffoldSnackBarMessageNoColor(

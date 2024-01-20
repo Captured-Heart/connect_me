@@ -38,7 +38,7 @@ class SharedPreferencesHelper {
 
   static bool getBoolPref(String key) {
     final getBoolPref = prefs?.getBool(key) ?? false;
-    log({'getBoolKey': key, 'getBoolValue': getBoolPref}.toString());
+    debugPrint({'getBoolKey': key, 'getBoolValue': getBoolPref}.toString());
 
     return getBoolPref;
   }

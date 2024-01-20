@@ -136,6 +136,7 @@ NB: This is diplayed in your Qr_Code card and is visible to all''';
       'Super humans with a body are standing by for service and support';
   static const contactDev = 'Contact Developer';
   static const contactUs = 'Contact us';
+  static const contact = 'Contact';
   static const feedbacks = 'Feedbacks';
   static const chatWithUsOnWhatsapp = 'Chat with us on whatsapp';
   static const tellUsHowWeCanHelpYouOnX = 'Tell us how we can help you on X';

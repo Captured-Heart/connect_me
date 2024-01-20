@@ -10,7 +10,7 @@ void main() async {
   final container = ProviderContainer(
     observers: <ProviderObserver>[AppProviderObserver()],
   );
-
+  SharedPreferencesHelper.initSharedPref();
 // firebase
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -50,7 +50,7 @@ class _MainAppState extends State<MainApp> {
     super.initState();
   }
 
-  void initiateQuickActions() async{
+  void initiateQuickActions() async {
     QuickActions quickActions = const QuickActions();
 
     quickActions.initialize((type) {
@@ -59,11 +59,9 @@ class _MainAppState extends State<MainApp> {
       if (type == 'action_one') {
         push(context, const ProfileScreen());
         push(context, const ProfileScreen());
-
       } else if (type == 'action_two') {
         push(context, const QrCodeScreen());
         push(context, const QrCodeScreen());
-
       }
       setState(() {
         shortcut = type;
@@ -103,7 +101,7 @@ class _MainAppState extends State<MainApp> {
         darkTheme: themeBuilder(
           defaultTheme: ThemeData.dark(),
         ),
-        home: user.value?.uid != null ? const MainScreen() : const SplashScreen(),
+        home: user.value?.uid != null ? MainScreen() : const SplashScreen(),
       );
     });
   }
