@@ -9,10 +9,10 @@ class WorkExperienceModel extends Equatable {
   final String? location;
   final String? locationType;
   final String? docId;
-  final String? userId;
+  // final String? userId;
   final StartDateModel? startDate;
   final EndDateModel? endDate;
-  final Timestamp? createdAt;
+  final String? createdAt;
   final String? formTitle;
 
   const WorkExperienceModel({
@@ -22,7 +22,7 @@ class WorkExperienceModel extends Equatable {
     this.location,
     this.locationType,
     this.docId,
-    this.userId,
+    // this.userId,
     this.startDate,
     this.endDate,
     this.createdAt,
@@ -37,10 +37,10 @@ class WorkExperienceModel extends Equatable {
       location: json['location'] as String?,
       locationType: json['locationType'] as String?,
       docId: json['docId'] as String?,
-      userId: json['userId'] as String?,
-      startDate: json['startDate'] as StartDateModel?,
-      endDate: json['endDate'] as EndDateModel?,
-      createdAt: json['createdAt'] as Timestamp?,
+      // userId: json['userId'] as String?,
+      startDate: json['startDate'] != null ? StartDateModel.fromJson(json['startDate']) : null,
+      endDate: json['endDate'] != null ? EndDateModel.fromJson(json['endDate']) : null,
+      createdAt: json['createdAt'] as String?,
       formTitle: json['formTitle'] as String?,
     );
   }
@@ -52,7 +52,7 @@ class WorkExperienceModel extends Equatable {
         'location': location,
         'locationType': locationType,
         'docId': docId,
-        'userId': userId,
+        // 'userId': userId,
         'startDate': startDate,
         'endDate': endDate,
         'createdAt': Timestamp.now(),
@@ -66,10 +66,10 @@ class WorkExperienceModel extends Equatable {
     String? location,
     String? locationType,
     String? docId,
-    String? userId,
+    // String? userId,
     StartDateModel? startDate,
     EndDateModel? endDate,
-    Timestamp? createdAt,
+    String? createdAt,
     String? formTitle,
   }) {
     return WorkExperienceModel(
@@ -79,7 +79,7 @@ class WorkExperienceModel extends Equatable {
       location: location ?? this.location,
       locationType: locationType ?? this.locationType,
       docId: docId ?? this.docId,
-      userId: userId ?? this.userId,
+      // userId: userId ?? this.userId,
       startDate: startDate ?? this.startDate,
       endDate: endDate ?? this.endDate,
       createdAt: createdAt ?? this.createdAt,
@@ -96,7 +96,7 @@ class WorkExperienceModel extends Equatable {
       location,
       locationType,
       docId,
-      userId,
+      // userId,
       startDate,
       endDate,
       createdAt,
@@ -104,3 +104,26 @@ class WorkExperienceModel extends Equatable {
     ];
   }
 }
+
+// class WorkExperienceModelType extends Equatable {
+//   final WorkExperienceModel? workExperience;
+
+//   const WorkExperienceModelType({
+//     this.workExperience,
+//   });
+
+//   factory WorkExperienceModelType.fromJson(Map<String, dynamic> json) {
+//     return WorkExperienceModelType(
+//       workExperience: json['workExperience'],
+//     );
+//   }
+
+//   Map<String, dynamic> toJson() => {
+//         'workExperience': workExperience,
+//       };
+
+//   @override
+//   List<Object?> get props {
+//     return [workExperience];
+//   }
+// }

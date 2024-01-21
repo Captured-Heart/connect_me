@@ -176,53 +176,9 @@ extension StringExtension on String {
   }
 }
 
-// extension LinearGradientExtension on Widget {
-//   Widget withLinearGradient({
-//     List<Color>? colors,
-//     Alignment? begin,
-//     Alignment? end,
-//     bool? isLongBTN = true,
-//   }) {
-//     return Container(
-//       decoration: BoxDecoration(
-//         gradient: orangeGradient(colors: colors, begin: begin, end: end, context: context),
-//       ),
-
-//       // orangeGradient(colors : colors, begin: begin, end: end),
-//       child: this,
-//     );
-//   }
-// }
-
-// LinearGradient orangeGradient({
-//   List<Color>? colors,
-//   Alignment? begin,
-//   Alignment? end,
-//   bool? isLongBTN,
-// }) {
-//   return LinearGradient(
-//     colors: isLongBTN == false
-//         ? [
-//             Colors.red.shade400,
-//             Colors.orange.shade300,
-//             Colors.orange.shade300,
-//             Colors.red.shade300,
-//             Colors.red.shade300,
-//           ]
-//         : colors ??
-//             [
-//               Colors.red.shade300,
-//               Colors.red.shade400,
-//               Colors.redAccent,
-
-//               // Colors.red.shade300,
-//               // Colors.orange.shade800,
-//               // Colors.red.shade400,
-//             ],
-//     begin: begin ?? Alignment.bottomLeft,
-//     end: end ?? Alignment.topRight,
-//   );
-// }
+extension HardCodeString on String {
+  String get hardCodedString => this;
+}
 
 LinearGradient whiteGradient({
   List<Color>? colors,

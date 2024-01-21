@@ -57,12 +57,43 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
     // inspect(authUserData);
 
     return Scaffold(
+      // appBar: AppBar(),
       body: SafeArea(
         child: ListView(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
             children: [
               // MY ACCOUNT
-              const Text(TextConstant.yourAccount),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  const Expanded(
+                    child: Text(TextConstant.yourAccount),
+                  ),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: GradientShortBTN(
+                      iconData: logOutIcon,
+                      tooltip: TextConstant.logOut,
+                      iconSize: 18,
+                      width: 35,
+                      height: 35,
+                      onTap: () {
+                        warningDialogs(
+                          context: context,
+                          dialogModel: DialogModel(
+                            title: 'Are you sure you want to log out?'.hardCodedString,
+                            content: null,
+                            onPostiveAction: () {
+                              ref.read(logOutNotifierProvider.notifier).signOutUsers();
+                            },
+                          ),
+                        );
+                      },
+                    ).padSymmetric(horizontal: 20),
+                  ),
+                ],
+              ),
               Card(
                 elevation: 2,
                 child: Column(
@@ -77,8 +108,7 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                           context: context,
                           pageListBuilder: (context) {
                             return [
-                              accountInformationModal(
-                                  context, context.textTheme, authUserData),
+                              accountInformationModal(context, context.textTheme, authUserData),
                             ];
                           },
                         );
@@ -178,8 +208,7 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                       onTap: () {
                         ref
                             .read(helpCenterImplProvider)
-                            .contactTwitter(
-                                appdata.valueOrNull?.twitterSupport ?? '')
+                            .contactTwitter(appdata.valueOrNull?.twitterSupport ?? '')
                             .onError((error, stackTrace) {
                           showScaffoldSnackBarMessageNoColor(
                             TextConstant.currentlyUnavailable,
@@ -198,8 +227,7 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                       onTap: () {
                         ref
                             .read(helpCenterImplProvider)
-                            .contactWhatsapp(
-                                appdata.valueOrNull?.whatsappSupport ?? '')
+                            .contactWhatsapp(appdata.valueOrNull?.whatsappSupport ?? '')
                             .onError((error, stackTrace) {
                           showScaffoldSnackBarMessageNoColor(
                             TextConstant.currentlyUnavailable,
@@ -220,8 +248,7 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                       onTap: () {
                         ref
                             .read(helpCenterImplProvider)
-                            .contactEmail(
-                                appdata.valueOrNull?.emailSupport ?? '')
+                            .contactEmail(appdata.valueOrNull?.emailSupport ?? '')
                             .onError((error, stackTrace) {
                           showScaffoldSnackBarMessageNoColor(
                             TextConstant.currentlyUnavailable,
@@ -271,8 +298,7 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                       onTap: () {
                         ref
                             .read(helpCenterImplProvider)
-                            .contactDevTwitter(
-                                appdata.valueOrNull?.devTwitter ?? '')
+                            .contactDevTwitter(appdata.valueOrNull?.devTwitter ?? '')
                             .onError((error, stackTrace) {
                           showScaffoldSnackBarMessageNoColor(
                             TextConstant.currentlyUnavailable,
@@ -318,8 +344,8 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                       },
                     ),
                     MoreCustomListTileWidget(
-                      icon: EvaIcons.link,
-                      title: 'Licenses',
+                      icon: licensesIcon,
+                      title: 'Licenses'.hardCodedString,
                       onTap: () {
                         showLicensePage(
                           context: context,
@@ -333,6 +359,28 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                     ),
                   ],
                 ).padOnly(bottom: 7, top: 4),
+              ),
+
+              const Text(TextConstant.logOut),
+              Card(
+                elevation: 2,
+                child: MoreCustomListTileWidget(
+                  icon: logOutIcon,
+                  title: TextConstant.logOut,
+                  color: context.colorScheme.error,
+                  onTap: () {
+                    warningDialogs(
+                      context: context,
+                      dialogModel: DialogModel(
+                        title: 'Are you sure you want to log out?'.hardCodedString,
+                        content: null,
+                        onPostiveAction: () {
+                          ref.read(logOutNotifierProvider.notifier).signOutUsers();
+                        },
+                      ),
+                    );
+                  },
+                ),
               ),
               // DottedLineDividerWidget(),
             ].columnInPadding(10)),
@@ -354,10 +402,8 @@ class Shifter extends SingleChildRenderObjectWidget {
   }
 }
 
-class _SpinnerRenderSliver extends RenderSliver
-    with RenderObjectWithChildMixin<RenderBox> {
-  final LayerHandle<TransformLayer> _transformLayer =
-      LayerHandle<TransformLayer>();
+class _SpinnerRenderSliver extends RenderSliver with RenderObjectWithChildMixin<RenderBox> {
+  final LayerHandle<TransformLayer> _transformLayer = LayerHandle<TransformLayer>();
   Matrix4? _paintTransform;
 
   @override
@@ -411,8 +457,8 @@ class _SpinnerRenderSliver extends RenderSliver
       cacheExtent: cacheExtent,
       maxPaintExtent: childExtent,
       hitTestExtent: paintedChildSize,
-      hasVisualOverflow: childExtent > constraints.remainingPaintExtent ||
-          constraints.scrollOffset > 0.0,
+      hasVisualOverflow:
+          childExtent > constraints.remainingPaintExtent || constraints.scrollOffset > 0.0,
     );
 
     _setChildParentData(child!, constraints, geometry!);
@@ -469,8 +515,7 @@ class _SpinnerRenderSliver extends RenderSliver
       constraints.growthDirection,
     )) {
       case AxisDirection.up:
-        dy = -(geometry.scrollExtent -
-            (geometry.paintExtent + constraints.scrollOffset));
+        dy = -(geometry.scrollExtent - (geometry.paintExtent + constraints.scrollOffset));
         break;
       case AxisDirection.right:
         dx = -constraints.scrollOffset;
@@ -479,8 +524,7 @@ class _SpinnerRenderSliver extends RenderSliver
         dy = -constraints.scrollOffset;
         break;
       case AxisDirection.left:
-        dx = -(geometry.scrollExtent -
-            (geometry.paintExtent + constraints.scrollOffset));
+        dx = -(geometry.scrollExtent - (geometry.paintExtent + constraints.scrollOffset));
         break;
     }
 

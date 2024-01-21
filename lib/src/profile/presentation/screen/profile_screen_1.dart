@@ -15,6 +15,8 @@ class ProfileScreen1 extends ConsumerWidget {
             .firstWhere((elemen) => elemen.message == element.key)
             .message))
         .toList();
+    final workExperience = ref.watch(fetchWorkListProvider('')).valueOrNull;
+    final educationExperience = ref.watch(fetchEducationListProvider('')).valueOrNull;
 
     return Scaffold(
       body: Stack(
@@ -122,7 +124,11 @@ class ProfileScreen1 extends ConsumerWidget {
                         BioDetailsWidget(users: profile.valueOrNull),
 
                         //! additional details
-                        AdditionalDetailsCardWidget(addInfo: addInfo)
+                        AdditionalDetailsCardWidget(addInfo: addInfo),
+                        WorkDetailsCardWidget(workExperienceModel: workExperience),
+                        educationExperience == null || educationExperience.isEmpty
+                            ? const SizedBox.shrink()
+                            : EdiucationDetailsCardWidget(educationModel: educationExperience),
                       ],
                     );
                   },

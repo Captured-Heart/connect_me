@@ -26,13 +26,24 @@ class FetchProfileRepoImpl implements ProfileRepository {
     return result.docs.map((e) => AuthUserModel.fromJson(e.data()).connectTo).toList();
   }
 
-
 //! fetch work is just for debugging
   @override
-  Future<List<WorkExperienceModel>> fetchWorkList({required String uuid}) {
-    var result = _firebaseFirestore.collection(FirebaseCollectionEnums.users.value).doc(uuid);
+  Future<List<WorkExperienceModel>> fetchWorkList({
+    required String uuid,
+  }) async {
+    var result = _firebaseFirestore
+        .collection(FirebaseCollectionEnums.users.value)
+        .doc(uuid)
+        .collection(FirebaseCollectionEnums.workExperience.value)
+        .get();
     // inspect(result.get().then((value) => value));
-    return result.get().then((value) => value.get('socials'));
+
+    return result.then((value) {
+      return value.docs.map((e) {
+        return WorkExperienceModel.fromJson(e.data());
+      }).toList();
+    });
+    // docs.map((e) => WorkExperienceModel.fromJson(e.data())).toList();
   }
 
   //! FETCH EDUCATION LIST

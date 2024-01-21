@@ -9,3 +9,4 @@ export './icon_text_widget.dart';
 export './additional_info_list_tile.dart';
 export './bio_details_card_widget.dart';
 export './additional_details_card_widget.dart';
+export './work_details_card_widget.dart';

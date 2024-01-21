@@ -20,9 +20,6 @@ class ProfileHeaderWidget extends StatelessWidget {
             .message))
         .toList();
 
-    // log('''social icon: ${socialIcons}
-
-    //     social icon map: ${socialIconMap}''');
     return Column(
       children: [
         Center(

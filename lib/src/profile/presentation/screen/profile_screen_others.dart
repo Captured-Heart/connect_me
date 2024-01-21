@@ -29,32 +29,16 @@ class _ProfileScreenOthersState extends ConsumerState<ProfileScreenOthers> {
       }
     });
     final users = ref.watch(fetchOthersProfileProvider(widget.uuid)).valueOrNull;
+    final workExperience = ref.watch(fetchWorkListProvider(widget.uuid)).valueOrNull;
+    final educationExperience = ref.watch(fetchEducationListProvider(widget.uuid)).valueOrNull;
+
+    // inspect(workExperience);
 
     var addInfo = users?.additionalDetails;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: context.theme.scaffoldBackgroundColor,
-        actions: [
-          GradientShortBTN(
-            iconData: logOutIcon,
-            tooltip: TextConstant.logOut,
-            iconSize: 18,
-            width: 35,
-            height: 35,
-            onTap: () {
-              warningDialogs(
-                context: context,
-                dialogModel: DialogModel(
-                  title: 'Are you sure you want to log out?',
-                  content: null,
-                  onPostiveAction: () {
-                    ref.read(logOutNotifierProvider.notifier).signOutUsers();
-                  },
-                ),
-              );
-            },
-          ).padSymmetric(horizontal: 20)
-        ],
+        toolbarHeight: kToolbarHeight * 0.8,
       ),
 
       //! body
@@ -83,6 +67,15 @@ class _ProfileScreenOthersState extends ConsumerState<ProfileScreenOthers> {
                     :
                     // ! additional details card
                     AdditionalDetailsCardWidget(addInfo: addInfo),
+
+            workExperience == null || workExperience.isEmpty
+                    ? const SizedBox.shrink()
+                    :
+                WorkDetailsCardWidget(workExperienceModel: workExperience),
+
+                educationExperience == null || educationExperience.isEmpty
+                    ? const SizedBox.shrink()
+                    : EdiucationDetailsCardWidget(educationModel: educationExperience),
               ],
             ).padSymmetric(horizontal: 20),
     );

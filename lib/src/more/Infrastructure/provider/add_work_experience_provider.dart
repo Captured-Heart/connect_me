@@ -18,7 +18,8 @@ class AddWorkExperienceNotifier extends StateNotifier<AsyncValue> {
     //
     var addInfo = await workExperienceImpl.addWorkExperience(
       uuid: uuid,
-      map: {FirebaseDocsFieldEnums.workExperience.name: map},
+      map: map,
+      // {FirebaseDocsFieldEnums.workExperience.name: map},
       docId: docId,
     );
 
@@ -39,8 +40,7 @@ class AddWorkExperienceNotifier extends StateNotifier<AsyncValue> {
 }
 
 final addWorkExperienceProvider =
-    StateNotifierProvider.autoDispose<AddWorkExperienceNotifier, AsyncValue>(
-        (ref) {
+    StateNotifierProvider.autoDispose<AddWorkExperienceNotifier, AsyncValue>((ref) {
   final workExperienceImpl = ref.read(workExperienceImplProvider);
   final uuid = ref.read(currentUUIDProvider);
 

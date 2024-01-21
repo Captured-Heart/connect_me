@@ -18,7 +18,8 @@ class AddEducationInfoNotifier extends StateNotifier<AsyncValue> {
     //
     var addInfo = await educationRepositoryImpl.addEducationInfo(
       uuid: uuid,
-      map: {FirebaseDocsFieldEnums.educationInfo.name: map},
+      map: map,
+      // {FirebaseDocsFieldEnums.educationInfo.name: map},
       docId: docId,
     );
 
@@ -39,8 +40,7 @@ class AddEducationInfoNotifier extends StateNotifier<AsyncValue> {
 }
 
 final addEducationInfoProvider =
-    StateNotifierProvider.autoDispose<AddEducationInfoNotifier, AsyncValue>(
-        (ref) {
+    StateNotifierProvider.autoDispose<AddEducationInfoNotifier, AsyncValue>((ref) {
   final educationImpl = ref.read(educationImplProvider);
   final uuid = ref.read(currentUUIDProvider);
 

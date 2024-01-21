@@ -78,6 +78,15 @@ class _ContactScreenState extends ConsumerState<ContactScreen> with SingleTicker
                       itemBuilder: (context, index) {
                         return ContactListTile(
                           contacts: data[index],
+                          onTap: () {
+                            pushAsVoid(
+                              context,
+                              ProfileScreenOthers(
+                                users: data[index],
+                                uuid: data[index].docId,
+                              ),
+                            );
+                          },
                           onCall: () {
                             if (data[index].phone?.isNotEmpty == true) {
                               UrlOptions.makePhoneCall(
@@ -123,7 +132,7 @@ class _ContactScreenState extends ConsumerState<ContactScreen> with SingleTicker
                           return GestureDetector(
                             onTap: () async {
                               // log(contacts.toString());
-                              inspect(contacts);
+                              // inspect(contacts);
                               pushAsVoid(
                                 context,
                                 ProfileScreenOthers(

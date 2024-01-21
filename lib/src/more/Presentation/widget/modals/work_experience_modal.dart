@@ -55,26 +55,32 @@ class _WorkExperienceBodyState extends ConsumerState<WorkExperienceBody> {
   ];
 
   // final TextEditingControllerClass controller = TextEditingControllerClass();
+  final ValueNotifier<bool> isCurrentlyWorkingNotifier = ValueNotifier(true);
+  final ValueNotifier<String> employmentTypeNotifier = ValueNotifier('');
+  final ValueNotifier<String> locationTypeNotifier = ValueNotifier('');
+  final ValueNotifier<String> titleNotifier = ValueNotifier('');
+  final ValueNotifier<String> companyNameNotifier = ValueNotifier('');
+  final ValueNotifier<String> locationNotifier = ValueNotifier('');
+  final ValueNotifier<TextEditingController> monthNotifier =
+      ValueNotifier<TextEditingController>(TextEditingController());
+  final ValueNotifier<TextEditingController> yearNotifier =
+      ValueNotifier<TextEditingController>(TextEditingController());
+  final ValueNotifier<TextEditingController> endMonthNotifier =
+      ValueNotifier<TextEditingController>(TextEditingController());
+  final ValueNotifier<TextEditingController> endYearNotifier =
+      ValueNotifier<TextEditingController>(TextEditingController());
 
   @override
   Widget build(BuildContext context) {
-    final ValueNotifier<bool> isCurrentlyWorkingNotifier = ValueNotifier(true);
-    final ValueNotifier<String> employmentTypeNotifier = ValueNotifier('');
-    final ValueNotifier<String> locationTypeNotifier = ValueNotifier('');
-    final ValueNotifier<String> titleNotifier = ValueNotifier('');
-    final ValueNotifier<String> companyNameNotifier = ValueNotifier('');
-    final ValueNotifier<String> locationNotifier = ValueNotifier('');
-
-    final ValueNotifier<TextEditingController> monthNotifier =
-        ValueNotifier<TextEditingController>(TextEditingController());
-    final ValueNotifier<TextEditingController> yearNotifier =
-        ValueNotifier<TextEditingController>(TextEditingController());
-    final ValueNotifier<TextEditingController> endMonthNotifier =
-        ValueNotifier<TextEditingController>(TextEditingController());
-    final ValueNotifier<TextEditingController> endYearNotifier =
-        ValueNotifier<TextEditingController>(TextEditingController());
     final infoState = ref.watch(addWorkExperienceProvider);
-
+    ref.listen(addWorkExperienceProvider, (previous, next) {
+      if (next.asData?.hasValue == true && !next.hasError) {
+        showScaffoldSnackBarMessage(
+          'Successful'.hardCodedString,
+          duration: 5,
+        );
+      }
+    });
     return ListenableBuilder(
         listenable: Listenable.merge(
           [
@@ -319,6 +325,14 @@ class _WorkExperienceBodyState extends ConsumerState<WorkExperienceBody> {
                       child: ElevatedButton(
                         onPressed: () {
                           var docId = const Uuid().v4();
+                          Map<String, dynamic> startdate = {
+                            FirebaseDocsFieldEnums.month.name: monthNotifier.value.text,
+                            FirebaseDocsFieldEnums.year.name: yearNotifier.value.text,
+                          };
+                          Map<String, dynamic> endDate = {
+                            FirebaseDocsFieldEnums.endMonth.name: endMonthNotifier.value.text,
+                            FirebaseDocsFieldEnums.endYear.name: endYearNotifier.value.text,
+                          };
 
                           MapDynamicString map = CreateFormMap.createDataMap(
                             controllersText: [
@@ -327,10 +341,12 @@ class _WorkExperienceBodyState extends ConsumerState<WorkExperienceBody> {
                               companyNameNotifier.value,
                               locationNotifier.value,
                               locationTypeNotifier.value,
-                              monthNotifier.value.text,
-                              yearNotifier.value.text,
-                              endMonthNotifier.value.text,
-                              endYearNotifier.value.text,
+                              // monthNotifier.value.text,
+                              // yearNotifier.value.text,
+                              startdate,
+                              endDate,
+                              // endMonthNotifier.value.text,
+                              // endYearNotifier.value.text,
                               docId,
                               DateTime.now().toIso8601String(),
                             ],
@@ -341,10 +357,10 @@ class _WorkExperienceBodyState extends ConsumerState<WorkExperienceBody> {
                               FirebaseDocsFieldEnums.companyName.name,
                               FirebaseDocsFieldEnums.location.name,
                               FirebaseDocsFieldEnums.locationType.name,
-                              FirebaseDocsFieldEnums.month.name,
-                              FirebaseDocsFieldEnums.year.name,
-                              FirebaseDocsFieldEnums.endMonth.name,
-                              FirebaseDocsFieldEnums.endYear.name,
+                              FirebaseDocsFieldEnums.startDate.name,
+                              // FirebaseDocsFieldEnums.year.name,
+                              FirebaseDocsFieldEnums.endDate.name,
+                              // FirebaseDocsFieldEnums.endYear.name,
                               FirebaseDocsFieldEnums.docId.name,
                               FirebaseDocsFieldEnums.createdAt.name,
                             ],
@@ -353,7 +369,10 @@ class _WorkExperienceBodyState extends ConsumerState<WorkExperienceBody> {
                             ref
                                 .read(addWorkExperienceProvider.notifier)
                                 .addWorkExperienceMethod(map: map, docId: docId)
-                                .whenComplete(() => ref.invalidate(fetchProfileProvider));
+                                .whenComplete(() {
+                              ref.invalidate(fetchProfileProvider);
+                              pop(context);
+                            });
                           }
                         },
                         child: infoState.isLoading == true
