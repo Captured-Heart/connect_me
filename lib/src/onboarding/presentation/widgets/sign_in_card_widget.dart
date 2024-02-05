@@ -30,7 +30,7 @@ class SignInCardWidget extends ConsumerWidget {
     ref.listen(loginWithEmailNotifierProvider, (previous, next) {
       if (next.user?.uid != null) {
         controller.disposeControllers();
-        pushReplacement(context,  MainScreen());
+        pushReplacement(context, MainScreen());
       }
       if (next.errorMessage != null) {
         showScaffoldSnackBarMessageNoColor(
@@ -44,7 +44,7 @@ class SignInCardWidget extends ConsumerWidget {
 // SIGN IN GOOGLE
     ref.listen(signInGoogleNotifierProvider, (previous, next) {
       if (next.user?.uid != null) {
-        pushReplacement(context,  MainScreen());
+        pushReplacement(context, MainScreen());
       }
       if (next.errorMessage != null) {
         showScaffoldSnackBarMessageNoColor(
@@ -118,9 +118,8 @@ class SignInCardWidget extends ConsumerWidget {
                     text: TextConstant.signInWithGoogle,
                     onTap: () {
                       // if (Platform.isAndroid) {
-                      ref
-                          .read(signInGoogleNotifierProvider.notifier)
-                          .signinWithGoogle();
+
+                      ref.read(signInGoogleNotifierProvider.notifier).signinWithGoogle();
                       // } else {}
                     },
                   ),
@@ -129,8 +128,7 @@ class SignInCardWidget extends ConsumerWidget {
                   Row(
                     children: [
                       const Expanded(child: Divider()),
-                      const Text(TextConstant.orContinueWith)
-                          .padSymmetric(horizontal: 20),
+                      const Text(TextConstant.orContinueWith).padSymmetric(horizontal: 20),
                       const Expanded(child: Divider()),
                     ],
                   ),
@@ -230,13 +228,9 @@ class SignInCardWidget extends ConsumerWidget {
                         child: ElevatedButton(
                           onPressed: () {
                             if (isFormValidated() == true) {
-                              ref
-                                  .read(loginWithEmailNotifierProvider.notifier)
-                                  .loggingUser(
-                                    email:
-                                        controller.emailController.text.trim(),
-                                    password: controller.passWordController.text
-                                        .trim(),
+                              ref.read(loginWithEmailNotifierProvider.notifier).loggingUser(
+                                    email: controller.emailController.text.trim(),
+                                    password: controller.passWordController.text.trim(),
                                   );
                             } else {
                               controller.passwordFocusMode.requestFocus();
