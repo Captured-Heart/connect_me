@@ -11,9 +11,16 @@ class FetchProfileRepoImpl implements ProfileRepository {
 //!  FETCH PROFILE
   @override
   Future<AuthUserModel> fetchProfile({required String uuid}) async {
-    var result = _firebaseFirestore.collection(FirebaseCollectionEnums.users.value).doc(uuid);
+    try {
+      if (uuid.isEmpty) {
+        throw TextConstant.noUserFound;
+      }
+      var result = _firebaseFirestore.collection(FirebaseCollectionEnums.users.value).doc(uuid);
 
-    return result.get().then((value) => AuthUserModel.fromJson(value.data()!));
+      return result.get().then((value) => AuthUserModel.fromJson(value.data()!));
+    } catch (e) {
+      throw e.toString();
+    }
   }
 
 //! fetch list of connects uuid
@@ -63,13 +70,136 @@ class FetchProfileRepoImpl implements ProfileRepository {
   // ! fetch the list of contacts profile
   @override
   Future<List<AuthUserModel>> fetchContactsProfile({required List<String?> uuid}) async {
-    var result = await _firebaseFirestore
-        .collection(FirebaseCollectionEnums.users.value)
-        .where(
-          FirebaseDocsFieldEnums.docId.name,
-          whereIn: uuid,
-        )
-        .get();
-    return result.docs.map((e) => AuthUserModel.fromJson(e.data())).toList();
+    try {
+      if (uuid.isEmpty) {
+        throw TextConstant.noRecordFound;
+      }
+      var result = await _firebaseFirestore
+          .collection(FirebaseCollectionEnums.users.value)
+          .where(
+            FirebaseDocsFieldEnums.docId.name,
+            whereIn: uuid,
+          )
+          .get();
+      return result.docs.map((e) => AuthUserModel.fromJson(e.data())).toList();
+    } catch (e) {
+      throw e.toString();
+    }
   }
 }
+
+
+
+// // import 'dart:developer';
+
+// import 'package:connect_me/app.dart';
+
+// class FetchProfileRepoImpl implements ProfileRepository {
+//   final FirebaseFirestore _firebaseFirestore;
+
+//   FetchProfileRepoImpl(this._firebaseFirestore);
+
+// //!  FETCH PROFILE
+//   @override
+//   Future<Either<AppException, AuthUserModel>> fetchProfile({required String uuid}) async {
+//     try {
+//       if (uuid.isEmpty) {
+//         return const Left(AppException(TextConstant.noUserFound));
+//       } else {
+//         var result = _firebaseFirestore.collection(FirebaseCollectionEnums.users.value).doc(uuid);
+
+//         return Right(await result.get().then((value) => AuthUserModel.fromJson(value.data()!)));
+//       }
+//     } catch (e) {
+//       return Left(AppException(e.toString()));
+//     }
+//   }
+
+// //! fetch list of connects uuid
+//   @override
+//   Future<Either<AppException, List<String?>>> fetchListOfConnectsUuid(
+//       {required String uuid}) async {
+//     try {
+//       if (uuid.isEmpty) {
+//         return const Left(AppException(TextConstant.noUserFound));
+//       } else {
+//         var result = await _firebaseFirestore
+//             .collection(FirebaseCollectionEnums.connects.value)
+//             .where(FirebaseDocsFieldEnums.userId.name, isEqualTo: uuid)
+//             .get();
+
+//         return Right(result.docs.map((e) => AuthUserModel.fromJson(e.data()).connectTo).toList());
+//       }
+//     } catch (e) {
+//       return Left(AppException(e.toString()));
+//     }
+//   }
+
+// //! fetch work is just for debugging
+//   @override
+//   Future<Either<AppException, List<WorkExperienceModel>>> fetchWorkList({
+//     required String uuid,
+//   }) async {
+//     try {
+//       if (uuid.isEmpty) {
+//         return const Left(AppException(TextConstant.noRecordFound));
+//       } else {
+//         var result = _firebaseFirestore
+//             .collection(FirebaseCollectionEnums.users.value)
+//             .doc(uuid)
+//             .collection(FirebaseCollectionEnums.workExperience.value)
+//             .get();
+//         // inspect(result.get().then((value) => value));
+
+//         return Right(await result.then(
+//             (value) => value.docs.map((e) => WorkExperienceModel.fromJson(e.data())).toList()));
+//       }
+//     } catch (e) {
+//       return Left(AppException(e.toString()));
+//     }
+//   }
+
+//   //! FETCH EDUCATION LIST
+//   @override
+//   Future<Either<AppException, List<EducationModel>>> fetchEducationList(
+//       {required String uuid}) async {
+//     try {
+//       if (uuid.isEmpty) {
+//         return const Left(AppException(TextConstant.noRecordFound));
+//       } else {
+//         var result = _firebaseFirestore
+//             .collection(FirebaseCollectionEnums.users.value)
+//             .doc(uuid)
+//             .collection(FirebaseCollectionEnums.education.value);
+
+//         return Right(await result
+//             .get()
+//             .then((value) => value.docs.map((e) => EducationModel.fromJson(e.data())).toList()));
+//       }
+//     } catch (e) {
+//       return Left(AppException(e.toString()));
+//     }
+//   }
+
+//   // ! fetch the list of contacts profile
+//   @override
+//   Future<Either<AppException, List<AuthUserModel>>> fetchContactsProfile(
+//       {required List<String?> uuid}) async {
+//     try {
+//       if (uuid.isEmpty) {
+//         return const Left(AppException(TextConstant.noContactsFound));
+//       } else {
+//         var result = await _firebaseFirestore
+//             .collection(FirebaseCollectionEnums.users.value)
+//             .where(
+//               FirebaseDocsFieldEnums.docId.name,
+//               whereIn: uuid,
+//             )
+//             .get();
+//         return Right(result.docs.map((e) => AuthUserModel.fromJson(e.data())).toList());
+//       }
+//     } catch (e) {
+//       return Left(AppException(e.toString()));
+//     }
+//   }
+// }
