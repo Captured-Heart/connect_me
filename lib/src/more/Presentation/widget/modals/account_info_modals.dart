@@ -46,8 +46,7 @@ class AccountInfoModalBody extends ConsumerStatefulWidget {
   final AuthUserModel? authUserModel;
 
   @override
-  ConsumerState<AccountInfoModalBody> createState() =>
-      _AccountInfoModalBodyState();
+  ConsumerState<AccountInfoModalBody> createState() => _AccountInfoModalBodyState();
 }
 
 class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
@@ -57,8 +56,7 @@ class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
 
     // I AM DOWNLOADING THE USER PREVIOUS IMAGE AND PASS AS FILE IMAGE
     if (authUserModel?.imgUrl?.isNotEmpty == true) {
-      downloadAndSaveImage(
-              authUserModel?.imgUrl ?? ImagesConstant.noImagePlaceholderHttp)
+      downloadAndSaveImage(authUserModel?.imgUrl ?? ImagesConstant.noImagePlaceholderHttp)
           .then((value) => imgUrlFirebaseNotifier.value = value);
     }
     super.initState();
@@ -76,8 +74,7 @@ class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
     return file.path;
   }
 
-  final ValueNotifier<String> imgUrlFirebaseNotifier =
-      ValueNotifier<String>('');
+  final ValueNotifier<String> imgUrlFirebaseNotifier = ValueNotifier<String>('');
   @override
   Widget build(BuildContext context) {
     final infoState = ref.watch(addAccountInfoProvider);
@@ -110,178 +107,182 @@ class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
           ],
         ),
         builder: (context, _) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AddProfilePictureWidget(
-                onTapAddPhoto: () {
-                  pickImageFunction(pickCamera: false).then((value) {
-                    if (value != null) {
-                      imgUrlFirebaseNotifier.value = value.path;
-                    }
-                  });
-                },
-                onTapCamera: () {
-                  pickImageFunction(pickCamera: true).then((value) {
-                    if (value != null) {
-                      imgUrlFirebaseNotifier.value = value.path;
-                    }
-                  });
-                },
-                onDeleteImage: () {
-                  imgUrlFirebaseNotifier.value = '';
-                },
-                isFromFirebase: imgUrlFirebaseNotifier.value.isNotEmpty,
-                imgUrl: imgUrlFirebaseNotifier.value,
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Expanded(
-                    child: AuthTextFieldWidget(
-                      // controller: controller.firstNameController,
-                      labelMaterial: TextConstant.firstName,
-                      hintText: 'Ex: Endo',
-                      initialValue: fnameNotifier.value,
-                      onChanged: (value) {
-                        fnameNotifier.value = value;
-                      },
+          return Form(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // widget.authUserModel?.imgUrl?.isNotEmpty == true && imgUrlFirebaseNotifier.value.isEmpty
+                //     ? const CircularProgressIndicator()
+                //     :
+                     AddProfilePictureWidget(
+                        onTapAddPhoto: () {
+                          pickImageFunction(pickCamera: false).then((value) {
+                            if (value != null) {
+                              imgUrlFirebaseNotifier.value = value.path;
+                            }
+                          });
+                        },
+                        onTapCamera: () {
+                          pickImageFunction(pickCamera: true).then((value) {
+                            if (value != null) {
+                              imgUrlFirebaseNotifier.value = value.path;
+                            }
+                          });
+                        },
+                        onDeleteImage: () {
+                          imgUrlFirebaseNotifier.value = '';
+                        },
+                        isFromFirebase: imgUrlFirebaseNotifier.value.isNotEmpty,
+                        imgUrl: imgUrlFirebaseNotifier.value,
+                        imageIsLoading:  widget.authUserModel?.imgUrl?.isNotEmpty == true && imgUrlFirebaseNotifier.value.isEmpty,
+                      ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Expanded(
+                      child: AuthTextFieldWidget(
+                        // controller: controller.firstNameController,
+                        labelMaterial: TextConstant.firstName,
+                        hintText: 'Ex: Endo',
+                        initialValue: fnameNotifier.value,
+                        onChanged: (value) {
+                          fnameNotifier.value = value;
+                        },
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  Expanded(
-                    child: AuthTextFieldWidget(
-                      // controller: controller.lastNameController,
-                      labelMaterial: TextConstant.lastName,
-                      hintText: 'Ex: Trent',
-                      initialValue: lnameNotifier.value,
-                      onChanged: (value) {
-                        lnameNotifier.value = value;
-                      },
+                    const SizedBox(
+                      width: 15,
                     ),
+                    Expanded(
+                      child: AuthTextFieldWidget(
+                        // controller: controller.lastNameController,
+                        labelMaterial: TextConstant.lastName,
+                        hintText: 'Ex: Trent',
+                        initialValue: lnameNotifier.value,
+                        onChanged: (value) {
+                          lnameNotifier.value = value;
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                AuthTextFieldWidget(
+                  controller: TextEditingController(text: widget.authUserModel?.email ?? ''),
+                  labelMaterial: TextConstant.email,
+                  readOnly: true,
+                ),
+
+                //USE COUNTRY CODE WIDGET HERE
+
+                AuthTextFieldWidget(
+                  // controller: controller.phoneNoController,
+                  labelMaterial: TextConstant.phoneNumber,
+                  keyboardType: TextInputType.phone,
+                  prefixIcon: CountryCodeCustomWidget(
+                    onChanged: (value) {
+                      phonePrefixNotifier.value = value.dialCode!;
+                    },
+                    initialPrefix: phonePrefixNotifier.value,
                   ),
-                ],
-              ),
-              AuthTextFieldWidget(
-                controller: TextEditingController(
-                    text: widget.authUserModel?.email ?? ''),
-                labelMaterial: TextConstant.email,
-                readOnly: true,
-              ),
-
-              //USE COUNTRY CODE WIDGET HERE
-
-              AuthTextFieldWidget(
-                // controller: controller.phoneNoController,
-                labelMaterial: TextConstant.phoneNumber,
-                keyboardType: TextInputType.phone,
-                prefixIcon: CountryCodeCustomWidget(
+                  initialValue: phoneNotifier.value,
                   onChanged: (value) {
-                    phonePrefixNotifier.value = value.dialCode!;
+                    phoneNotifier.value = value;
+                    log(phoneNotifier.value);
                   },
-                  initialPrefix: phonePrefixNotifier.value,
                 ),
-                initialValue: phoneNotifier.value,
-                onChanged: (value) {
-                  phoneNotifier.value = value;
-                  log(phoneNotifier.value);
-                },
-              ),
-              AuthTextFieldWidget(
-                // controller: controller.websiteController,
-                labelMaterial: 'website',
-                hintText: 'https://connectme.com',
-                initialValue: webNotifier.value,
-                onChanged: (value) {
-                  webNotifier.value = value;
-                },
-              ),
-              AuthTextFieldWidget(
-                // controller: controller.bioController,
-                inputFormatters: const [],
-                labelMaterial: TextConstant.bio,
-                hintText: TextConstant.bioHint,
-                maxLength: 70,
-                maxLines: 4,
-                initialValue: bioNotifier.value,
-                onChanged: (value) {
-                  bioNotifier.value = value;
-                },
-              ),
+                AuthTextFieldWidget(
+                  // controller: controller.websiteController,
+                  labelMaterial: 'website',
+                  hintText: 'https://connectme.com',
+                  initialValue: webNotifier.value,
+                  onChanged: (value) {
+                    webNotifier.value = value;
+                  },
+                ),
+                AuthTextFieldWidget(
+                  // controller: controller.bioController,
+                  inputFormatters: const [],
+                  labelMaterial: TextConstant.bio,
+                  hintText: TextConstant.bioHint,
+                  maxLength: 150,
+                  maxLines: 4,
+                  initialValue: bioNotifier.value,
+                  onChanged: (value) {
+                    bioNotifier.value = value;
+                  },
+                ),
 
-              infoState.value == null || infoState.hasError
-                  ? const SizedBox.shrink()
-                  : Text(
-                      infoState.hasError
-                          ? infoState.error.toString()
-                          : infoState.valueOrNull.toString(),
-                      style: AppTextStyle.bodyMedium.copyWith(
-                          color: infoState.hasError
-                              ? Colors.red
-                              : AppThemeColorDark.successColor),
-                    ),
+                infoState.value == null || infoState.hasError
+                    ? const SizedBox.shrink()
+                    : Text(
+                        infoState.hasError
+                            ? infoState.error.toString()
+                            : infoState.valueOrNull.toString(),
+                        style: AppTextStyle.bodyMedium.copyWith(
+                            color:
+                                infoState.hasError ? Colors.red : AppThemeColorDark.successColor),
+                      ),
 
-              Align(
-                alignment: Alignment.topRight,
-                child: ElevatedButton(
-                  onPressed: () {
-                    // inspect(
-                    MapDynamicString map = CreateFormMap.createDataMap(
-                      controllersText: [
-                        // controller.firstNameController.text,
-                        // controller.lastNameController.text,
-                        // controller.phoneNoController.text,
-                        // controller.websiteController.text,
-                        // controller.bioController.text,
-                        fnameNotifier.value,
-                        lnameNotifier.value,
-                        phonePrefixNotifier.value,
-                        phoneNotifier.value,
-                        webNotifier.value,
-                        bioNotifier.value,
-                      ],
-                      customKeys: // initiate my custom keys
-                          [
-                        FirebaseDocsFieldEnums.fname.name,
-                        FirebaseDocsFieldEnums.lname.name,
-                        FirebaseDocsFieldEnums.phonePrefix.name,
-                        FirebaseDocsFieldEnums.phone.name,
-                        FirebaseDocsFieldEnums.website.name,
-                        FirebaseDocsFieldEnums.bio.name,
-                      ],
-                    );
-                    // );
-
-                    if (imgUrlFirebaseNotifier.value.isNotEmpty) {
-                      ref
-                          .read(addAccountInfoProvider.notifier)
-                          .addAccountInfo(
-                            map: map,
-                            imgUrl: imgUrlFirebaseNotifier.value,
-                          )
-                          .whenComplete(() {
-                        ref.invalidate(fetchProfileProvider);
-                      });
-                    } else {
-                      showScaffoldSnackBarMessage(
-                        TextConstant.profilePhotoRequired,
-                        isError: true,
+                Align(
+                  alignment: Alignment.topRight,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // inspect(
+                      MapDynamicString map = CreateFormMap.createDataMap(
+                        controllersText: [
+                          // controller.firstNameController.text,
+                          // controller.lastNameController.text,
+                          // controller.phoneNoController.text,
+                          // controller.websiteController.text,
+                          // controller.bioController.text,
+                          fnameNotifier.value,
+                          lnameNotifier.value,
+                          phonePrefixNotifier.value,
+                          phoneNotifier.value,
+                          webNotifier.value,
+                          bioNotifier.value,
+                        ],
+                        customKeys: // initiate my custom keys
+                            [
+                          FirebaseDocsFieldEnums.fname.name,
+                          FirebaseDocsFieldEnums.lname.name,
+                          FirebaseDocsFieldEnums.phonePrefix.name,
+                          FirebaseDocsFieldEnums.phone.name,
+                          FirebaseDocsFieldEnums.website.name,
+                          FirebaseDocsFieldEnums.bio.name,
+                        ],
                       );
-                    }
-                  },
-                  child: infoState.isLoading == true
-                      ? SizedBox(
-                          height: 20,
-                          width: 30,
-                          child: CircularProgressIndicator(
-                            backgroundColor: context.colorScheme.surface,
-                          ))
-                      : const Text(TextConstant.save),
+                      // );
+
+                      if (imgUrlFirebaseNotifier.value.isNotEmpty) {
+                        ref
+                            .read(addAccountInfoProvider.notifier)
+                            .addAccountInfo(
+                              map: map,
+                              imgUrl: imgUrlFirebaseNotifier.value,
+                            )
+                            .whenComplete(() {
+                          ref.invalidate(fetchProfileProvider);
+                        });
+                      } else {
+                        showScaffoldSnackBarMessage(
+                          TextConstant.profilePhotoRequired,
+                          isError: true,
+                        );
+                      }
+                    },
+                    child: infoState.isLoading == true
+                        ? SizedBox(
+                            height: 20,
+                            width: 30,
+                            child: CircularProgressIndicator(
+                              backgroundColor: context.colorScheme.surface,
+                            ))
+                        : const Text(TextConstant.save),
+                  ),
                 ),
-              ),
-            ].columnInPadding(15),
+              ].columnInPadding(15),
+            ),
           );
         });
   }

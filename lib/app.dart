@@ -28,6 +28,8 @@ export 'package:csc_picker/csc_picker.dart';
 export 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 export 'dart:developer' hide Flow;
 export 'package:uuid/uuid.dart';
+export 'package:firebase_analytics/firebase_analytics.dart';
+export 'package:firebase_core/firebase_core.dart';
 
 //FIREBASE SERVICES
 export 'package:firebase_auth/firebase_auth.dart';
@@ -42,3 +44,4 @@ export './src/home/home.dart';
 export './src/profile/profile.dart';
 export './src/onboarding/onboarding.dart';
 export './src/more/more.dart';
+export 'package:connect_me/firebase_options.dart';

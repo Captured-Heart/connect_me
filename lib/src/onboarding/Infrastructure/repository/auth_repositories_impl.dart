@@ -46,15 +46,12 @@ class AuthRepositoryImpl implements AuthRepository {
           case 'wrong-password':
             return Left(AppException(AuthErrors.wrongPassword.errorMessage));
           case 'network-request-failed':
-            return Left(
-                AppException(AuthErrors.networkRequestFailed.errorMessage));
+            return Left(AppException(AuthErrors.networkRequestFailed.errorMessage));
           case 'requires-recent-login':
-            return Left(
-                AppException(AuthErrors.requiresRecentLogin.errorMessage));
+            return Left(AppException(AuthErrors.requiresRecentLogin.errorMessage));
           //
           case 'INVALID_LOGIN_CREDENTIALS':
-            return Left(
-                AppException(AuthErrors.invalidLoginCredentials.errorMessage));
+            return Left(AppException(AuthErrors.invalidLoginCredentials.errorMessage));
           default:
             return Left(AppException(AuthErrors.networkFailure.errorMessage));
         }
@@ -75,9 +72,10 @@ class AuthRepositoryImpl implements AuthRepository {
     } else {
       // try {
       try {
-        UserCredential user = await _firebaseAuth
-            .createUserWithEmailAndPassword(email: email, password: password);
+        UserCredential user =
+            await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
         // await user.user!.sendEmailVerification();
+
         if (user.user?.uid != null) {
           await _firebaseFirestore
               .collection(FirebaseCollectionEnums.users.value)
@@ -88,6 +86,7 @@ class AuthRepositoryImpl implements AuthRepository {
                   docId: user.user?.uid,
                   username: username,
                   isGoogleSigned: false,
+                  completedSignUp: false,
                 ).toJson(),
               )
               .onError(
@@ -112,8 +111,7 @@ class AuthRepositoryImpl implements AuthRepository {
     var isConnected = await status;
 
     if (!isConnected) {
-      showScaffoldSnackBarMessage(AuthErrors.networkFailure.errorMessage,
-          isError: true);
+      showScaffoldSnackBarMessage(AuthErrors.networkFailure.errorMessage, isError: true);
     } else {
       try {
         await _googleSignIn.signOut();
@@ -129,8 +127,7 @@ class AuthRepositoryImpl implements AuthRepository {
   Future resetPassWord({required String email}) async {
     var isConnected = await status;
     if (!isConnected) {
-      showScaffoldSnackBarMessage(AuthErrors.networkFailure.errorMessage,
-          isError: true);
+      showScaffoldSnackBarMessage(AuthErrors.networkFailure.errorMessage, isError: true);
     } else {
       try {
         _firebaseAuth.sendPasswordResetEmail(email: email);
@@ -154,17 +151,17 @@ class AuthRepositoryImpl implements AuthRepository {
 
         inspect(currentUser);
         if (currentUser != null) {
-          final GoogleSignInAuthentication auth =
-              await currentUser.authentication;
+          final GoogleSignInAuthentication auth = await currentUser.authentication;
 
           final OAuthCredential credential = GoogleAuthProvider.credential(
             accessToken: auth.accessToken,
             idToken: auth.idToken,
           );
+
+          // credential.signInMethod;
           inspect(currentUser);
 
-          final UserCredential response =
-              await _firebaseAuth.signInWithCredential(credential);
+          final UserCredential response = await _firebaseAuth.signInWithCredential(credential);
 
           //TODO: CHECK IF THE USER HAS ALREADY BEEN SAVED TO DB
           await _firebaseFirestore

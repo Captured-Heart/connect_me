@@ -25,12 +25,14 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    ProfilePicWidget(
-                      authUserModel: data,
-                      onTap: () {},
+                    Center(
+                      child: ProfilePicWidget(
+                        authUserModel: data,
+                        onTap: () {},
+                      ),
                     ),
                     CustomListTileWidget(
                       title: data.username ?? '',

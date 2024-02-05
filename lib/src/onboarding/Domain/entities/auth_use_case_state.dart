@@ -1,5 +1,6 @@
 import 'package:connect_me/app.dart';
 
+// @visibleForTesting
 class AuthUseCaseState {
   final bool isLoading;
   final String? errorMessage;

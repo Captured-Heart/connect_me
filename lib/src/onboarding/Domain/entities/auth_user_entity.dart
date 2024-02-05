@@ -22,6 +22,7 @@ class AuthUserModel extends Equatable {
   final Map<String, dynamic>? socialMediaHandles;
   final AdditionalDetailsModel? additionalDetails;
   final String? connectTo;
+  final bool? completedSignUp;
 
   // final String? placeOfBirth;
   // final String? country;
@@ -31,32 +32,32 @@ class AuthUserModel extends Equatable {
   // final String? driverLicenseNo;
   // final String? postalCode;
 
-  const AuthUserModel({
-    this.username,
-    this.email,
-    this.website,
-    this.phone,
-    this.docId,
-    this.imgUrl,
-    this.isGoogleSigned,
-    this.date,
-    this.connects,
-    this.posts,
-    this.socialMediaHandles,
-    this.bio,
-    this.fname,
-    this.lname,
-    this.phonePrefix,
-    this.connectTo,
-    // this.placeOfBirth,
-    // this.country,
-    // this.state,
-    // this.city,
-    // this.street,
-    // this.driverLicenseNo,
-    // this.postalCode,
-    this.additionalDetails,
-  });
+  const AuthUserModel(
+      {this.username,
+      this.email,
+      this.website,
+      this.phone,
+      this.docId,
+      this.imgUrl,
+      this.isGoogleSigned,
+      this.date,
+      this.connects,
+      this.posts,
+      this.socialMediaHandles,
+      this.bio,
+      this.fname,
+      this.lname,
+      this.phonePrefix,
+      this.connectTo,
+      // this.placeOfBirth,
+      // this.country,
+      // this.state,
+      // this.city,
+      // this.street,
+      // this.driverLicenseNo,
+      // this.postalCode,
+      this.additionalDetails,
+      this.completedSignUp});
 
   factory AuthUserModel.fromJson(Map<String, dynamic> json) => AuthUserModel(
         username: json['username'] as String?,
@@ -86,6 +87,7 @@ class AuthUserModel extends Equatable {
         additionalDetails: json['additionalDetails'] != null
             ? AdditionalDetailsModel.fromJson(json['additionalDetails'])
             : null,
+        completedSignUp: json['completedSignUp'] as bool?,
       );
 
   Map<String, dynamic> toJson() => {
@@ -113,6 +115,7 @@ class AuthUserModel extends Equatable {
         // 'driverLicenseNo': driverLicenseNo,
         // 'postalCode': postalCode,
         'additionalDetails': additionalDetails,
+        'completedSignUp': completedSignUp,
       };
 
   AuthUserModel copyWith({
@@ -140,6 +143,7 @@ class AuthUserModel extends Equatable {
     // String? postalCode,
     AdditionalDetailsModel? additionalDetails,
     String? connectTo,
+    bool? completedSignUp,
   }) {
     return AuthUserModel(
       username: username ?? this.username,
@@ -167,6 +171,7 @@ class AuthUserModel extends Equatable {
       additionalDetails: additionalDetails ?? this.additionalDetails,
 
       connectTo: connectTo ?? this.connectTo,
+      completedSignUp: completedSignUp ?? this.completedSignUp,
     );
   }
 
@@ -196,5 +201,6 @@ class AuthUserModel extends Equatable {
         // postalCode,
         additionalDetails,
         connectTo,
+        completedSignUp,
       ];
 }

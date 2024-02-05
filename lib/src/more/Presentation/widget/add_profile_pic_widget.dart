@@ -10,13 +10,14 @@ class AddProfilePictureWidget extends StatelessWidget {
     this.onTapCamera,
     this.onDeleteImage,
     this.isFromFirebase = false,
+    this.imageIsLoading = false,
   });
 
   final VoidCallback? onTapAddPhoto, onTapCamera, onDeleteImage;
   final String? imgUrl;
-  final bool isFromFirebase;
+  final bool isFromFirebase, imageIsLoading;
 
-  Widget imageChildWidet() {
+  Widget imageChildWidet(BuildContext context) {
     return imgUrl?.isNotEmpty == true
         ? ClipRRect(
             borderRadius: AppBorderRadius.c12,
@@ -26,11 +27,13 @@ class AddProfilePictureWidget extends StatelessWidget {
             ),
           )
         : CustomPaint(
-            painter: DottedBorderPainter(),
-            child: const Icon(
-              accountCircleIcon,
-              size: 30,
-            ),
+            painter: DottedBorderPainter(context),
+            child: imageIsLoading == true
+                ? const Center(child: CircularProgressIndicator())
+                : const Icon(
+                    accountCircleIcon,
+                    size: 30,
+                  ),
           );
   }
 
@@ -50,7 +53,7 @@ class AddProfilePictureWidget extends StatelessWidget {
           ),
           height: 80,
           width: 100,
-          child: imageChildWidet(),
+          child: imageChildWidet(context),
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,10 +104,14 @@ class AddProfilePictureWidget extends StatelessWidget {
 }
 
 class DottedBorderPainter extends CustomPainter {
+  final BuildContext context;
+
+  DottedBorderPainter(this.context);
   @override
   void paint(Canvas canvas, Size size) {
     final Paint paint = Paint()
-      ..color = Colors.black
+      ..color = context.colorScheme.onSurface
+      //  Colors.black
       ..strokeWidth = 1.0
       ..style = PaintingStyle.stroke;
 
@@ -125,8 +132,7 @@ class DottedBorderPainter extends CustomPainter {
     // Draw horizontal dashed line at the bottom
     for (int i = 0; i < dotsInWidth; i++) {
       final double xPos = i * (dashWidth + dashSpace);
-      canvas.drawLine(Offset(xPos, size.height),
-          Offset(xPos + dashWidth, size.height), paint);
+      canvas.drawLine(Offset(xPos, size.height), Offset(xPos + dashWidth, size.height), paint);
     }
 
     // Draw vertical dashed line at the left
@@ -138,13 +144,12 @@ class DottedBorderPainter extends CustomPainter {
     // Draw vertical dashed line at the right
     for (int i = 0; i < dotsInHeight; i++) {
       final double yPos = i * (dashWidth + dashSpace);
-      canvas.drawLine(Offset(size.width, yPos),
-          Offset(size.width, yPos + dashWidth), paint);
+      canvas.drawLine(Offset(size.width, yPos), Offset(size.width, yPos + dashWidth), paint);
     }
   }
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
-    return false;
+    return true;
   }
 }

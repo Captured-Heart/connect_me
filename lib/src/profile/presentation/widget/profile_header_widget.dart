@@ -37,32 +37,34 @@ class ProfileHeaderWidget extends StatelessWidget {
                 subtitle: users?.bio,
                 isSubtitleUrl: users?.website,
               ).padSymmetric(horizontal: 10),
-              SizedBox(
-                height: 60,
-                // width: context.sizeWidth(1),
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  padding: const EdgeInsets.only(top: 4),
-                  itemCount: socialIcons?.length,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    var icons = socialIconsSwitch(socialIcons?[index]);
-                    var link = socialIconMap?[index].value;
+              socialIcons == null
+                  ? const SizedBox.shrink()
+                  : SizedBox(
+                      height: 60,
+                      // width: context.sizeWidth(1),
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        padding: const EdgeInsets.only(top: 4),
+                        itemCount: socialIcons.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          var icons = socialIconsSwitch(socialIcons[index]);
+                          var link = socialIconMap?[index].value;
 
-                    return CircleChipButton(
-                      iconData: icons,
-                      onTap: () {
-                        log('the link clicked is $link');
-                        UrlOptions.launchWeb(link).onError(
-                          (error, stackTrace) {
-                            showScaffoldSnackBarMessage(error.toString(), isError: true);
-                          },
-                        );
-                      },
-                    );
-                  },
-                ),
-              ),
+                          return CircleChipButton(
+                            iconData: icons,
+                            onTap: () {
+                              log('the link clicked is $link');
+                              UrlOptions.launchWeb(link).onError(
+                                (error, stackTrace) {
+                                  showScaffoldSnackBarMessage(error.toString(), isError: true);
+                                },
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    ),
             ].columnInPadding(5),
           ),
         ),

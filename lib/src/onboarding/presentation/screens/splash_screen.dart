@@ -1,25 +1,40 @@
 import 'package:connect_me/app.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({
     super.key,
   });
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends ConsumerState<SplashScreen> {
   @override
   void initState() {
-    navigateToNexToScreen().then((_) {
-      pushReplacement(context, const LoginScreen());
-    });
+    // navigateToNexToScreen().then((_) {
+    //   ref.read(authStateChangesProvider).value?.uid != null
+    //       ? pushReplacement(context, const MainScreen())
+    //       : pushReplacement(context, const LoginScreen());
+    // });
     super.initState();
   }
 
   Future<void> navigateToNexToScreen() async {
+    // user.value?.uid != null ? const MainScreen() : const SplashScreen(),
+
     return await Future.delayed(const Duration(milliseconds: 2000));
+  }
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    navigateToNexToScreen().then((_) {
+      ref.read(authStateChangesProvider).value?.uid != null
+          ? pushReplacement(context, const MainScreen())
+          : pushReplacement(context, const LoginScreen());
+    });
+    super.didChangeDependencies();
   }
 
   @override

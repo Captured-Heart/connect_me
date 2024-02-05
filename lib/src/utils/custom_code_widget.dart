@@ -12,22 +12,22 @@ class CountryCodeCustomWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 120,
+      width: 100,
       child: CountryCodePicker(
         backgroundColor: context.theme.scaffoldBackgroundColor,
         // barrierColor: Colors.white,
-        padding: EdgeInsets.zero,
+        padding: const EdgeInsets.only(left: 3),
         onChanged: onChanged,
         initialSelection: initialPrefix,
         favorite: const ['+234', 'NG'],
         showCountryOnly: true,
-        flagWidth: 23,
+        flagWidth: 19,
 
         showOnlyCountryWhenClosed: false,
         dialogBackgroundColor: context.theme.scaffoldBackgroundColor,
         dialogTextStyle: context.textTheme.bodyLarge,
         // boxDecoration: BoxDecoration(border: Border.all(color: Colors.red)),
-        textStyle: context.textTheme.bodyLarge,
+        textStyle: context.textTheme.bodyMedium,
         alignLeft: true,
         flagDecoration: BoxDecoration(
           borderRadius: BorderRadius.circular(0),

@@ -124,8 +124,14 @@ class ProfileScreen1 extends ConsumerWidget {
                         BioDetailsWidget(users: profile.valueOrNull),
 
                         //! additional details
-                        AdditionalDetailsCardWidget(addInfo: addInfo),
-                        WorkDetailsCardWidget(workExperienceModel: workExperience),
+
+                        addInfo == null
+                            ? const SizedBox.shrink()
+                            : AdditionalDetailsCardWidget(addInfo: addInfo),
+
+                        workExperience == null
+                            ? const SizedBox.shrink()
+                            : WorkDetailsCardWidget(workExperienceModel: workExperience),
                         educationExperience == null || educationExperience.isEmpty
                             ? const SizedBox.shrink()
                             : EdiucationDetailsCardWidget(educationModel: educationExperience),

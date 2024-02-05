@@ -12,11 +12,14 @@ class WorkDetailsCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const Divider(),
-        const AutoSizeText(
-          TextConstant.workExperience,
-          maxLines: 1,
+        const Center(
+          child: AutoSizeText(
+            TextConstant.workExperience,
+            maxLines: 1,
+          ),
         ),
         const Divider(),
         // ...List.generate(
@@ -73,21 +76,24 @@ class WorkDetailsCardWidget extends StatelessWidget {
         //   },
         // ),
         SizedBox(
-          height: 200,
+          height: 180,
           // width: 5,
           child: ListView.builder(
               itemCount: workExperienceModel?.length,
               shrinkWrap: true,
+              physics:
+                  workExperienceModel!.length < 2 ? const NeverScrollableScrollPhysics() : null,
               // physics: const NeverScrollableScrollPhysics(),
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 var workExperience = workExperienceModel?[index];
                 return SizedBox(
-                  width: context.sizeWidth(0.75),
+                  width: context.sizeWidth(workExperienceModel!.length < 2 ? 0.9 : 0.75),
                   child: Card(
                     elevation: 3,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Column(
@@ -106,7 +112,7 @@ class WorkDetailsCardWidget extends StatelessWidget {
                               keys: TextConstant.location.toTitleCase(),
                               values: workExperience?.location ?? '',
                             ),
-                          ].columnInPadding(3),
+                          ].columnInPadding(5),
                         ).padOnly(top: 1),
 
                         //! additional details  [DOB, PLACE, POSTAL CODE]
@@ -129,7 +135,7 @@ class WorkDetailsCardWidget extends StatelessWidget {
                                 keys: TextConstant.driverLicenseNo,
                                 values: workExperience?.location ?? '',
                               ),
-                            ].columnInPadding(3)),
+                            ].columnInPadding(5)),
                       ],
                     ).padAll(12),
                   ).padOnly(right: 5),
@@ -153,11 +159,14 @@ class EdiucationDetailsCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const Divider(),
-        const AutoSizeText(
-          TextConstant.education,
-          maxLines: 1,
+        const Center(
+          child: AutoSizeText(
+            TextConstant.education,
+            maxLines: 1,
+          ),
         ),
         const Divider(),
         // ...List.generate(
@@ -214,7 +223,7 @@ class EdiucationDetailsCardWidget extends StatelessWidget {
         //   },
         // ),
         SizedBox(
-          height: 200,
+          height: 180,
           // width: 5,
           child: ListView.builder(
               itemCount: educationModel?.length,

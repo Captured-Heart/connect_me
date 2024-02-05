@@ -15,6 +15,8 @@ class AppThemeColorDark {
   static const Color scaffoldBackgroundColor = Color(0xFF181617);
   static const Color primaryColor = Color(0xff02367E);
   static const Color successColor = Color(0xff2DBE5B);
+  static const Color warningColor = Color.fromARGB(255, 211, 240, 68);
+
 }
 
 class AppThemeColorLight {

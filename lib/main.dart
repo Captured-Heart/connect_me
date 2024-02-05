@@ -1,12 +1,13 @@
 import 'dart:io';
 
 import 'package:connect_me/app.dart';
-import 'package:connect_me/firebase_options.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
+
 import 'package:quick_actions/quick_actions.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   final container = ProviderContainer(
     observers: <ProviderObserver>[AppProviderObserver()],
   );
@@ -15,6 +16,11 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  if (kDebugMode) {
+    log('built in debug');
+    FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(true);
+  }
 
   runApp(
     UncontrolledProviderScope(
@@ -90,6 +96,7 @@ class _MainAppState extends State<MainApp> {
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, _) {
       final user = ref.watch(authStateChangesProvider);
+      final analytics = ref.watch(analyticsProvider);
       return MaterialApp(
         restorationScopeId: 'connectMe',
         onGenerateTitle: (context) => TextConstant.appTitle,
@@ -101,7 +108,13 @@ class _MainAppState extends State<MainApp> {
         darkTheme: themeBuilder(
           defaultTheme: ThemeData.dark(),
         ),
-        home: user.value?.uid != null ? MainScreen() : const SplashScreen(),
+        navigatorObservers: [
+          FirebaseAnalyticsObserver(analytics: analytics),
+        ],
+        home:
+            // AccountInformationSignUpScreen()
+            // const SplashScreen()
+            user.value?.uid != null ? const MainScreen() : const SplashScreen(),
       );
     });
   }

@@ -2,6 +2,7 @@
 
 import 'package:connect_me/app.dart';
 
+//TODO: ADD EITHER TO THE FUNCTIONS HERE, TO SEPERATE ERROR CONDITONS
 class FetchProfileRepoImpl implements ProfileRepository {
   final FirebaseFirestore _firebaseFirestore;
 

@@ -1,8 +1,7 @@
 import 'package:connect_me/app.dart';
 import 'package:flutter/gestures.dart';
 
-final flipCardControllerProvider =
-    Provider.autoDispose<FlipCardController>((ref) {
+final flipCardControllerProvider = Provider.autoDispose<FlipCardController>((ref) {
   return FlipCardController();
 });
 
@@ -31,7 +30,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             // Container(
             //   decoration: const BoxDecoration(
             //     image: DecorationImage(
-            //       image: AssetImage(ImagesConstant.waterBG2),
+            //       image: AssetImage(ImagesConstant.puzzleBG3),
             //       fit: BoxFit.fitHeight,
             //       colorFilter: ColorFilter.mode(Colors.black12, BlendMode.darken),
             //     ),
@@ -50,8 +49,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     child: ListView(
                       shrinkWrap: true,
                       dragStartBehavior: DragStartBehavior.start,
-                      keyboardDismissBehavior:
-                          ScrollViewKeyboardDismissBehavior.onDrag,
+                      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
                       // mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         FlipCard(
@@ -125,6 +123,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           //   ),
         ),
       ),
+      //   ),
+      // ),
     );
   }
 }

@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 // to set it to false, debug prints will not show in release builds.
 // The handy part is that if it gets in the way in debugging, it is an easy
 // toggle to turn it off here for just this feature. You can leave it true
-// below to see this features logs in debug mode.
+// below to see this features logs in debug mod.e
 const bool _debug = !kReleaseMode && true;
 
 /// AppProviderObserver represents a provider observer for changes in any

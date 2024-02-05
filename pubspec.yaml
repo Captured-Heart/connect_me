@@ -20,6 +20,7 @@ dependencies:
   equatable: ^2.0.5
   expandable: ^5.0.1
   faker: ^2.1.0
+  firebase_analytics: ^10.7.4
   firebase_auth: ^4.15.0
   firebase_core: ^2.24.0
   firebase_storage: ^11.5.6
@@ -53,6 +54,7 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
+  mocktail: ^1.0.3
 
 flutter:
   uses-material-design: true

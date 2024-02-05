@@ -75,4 +75,5 @@ enum FirebaseDocsFieldEnums {
   gmail,
   connectTo,
   userId,
+  completedSignUp,
 }

@@ -49,8 +49,10 @@ const IconData feedbackSpeakerIcon = Icons.campaign_outlined;
 const IconData supportMoneyIcon = Icons.payments_outlined;
 const IconData buymeacoffeeIcon = BoxIcons.bx_coffee_togo;
 const IconData imageIcon = EvaIcons.image_outline;
+const IconData addImageIcon = Icons.add_photo_alternate_outlined;
+
 const IconData licensesIcon = EvaIcons.link;
-// const IconData addIcon = Icons.add;
+const IconData warningIcon = Icons.warning_rounded;
 // const IconData addIcon = Icons.add;
 // const IconData addIcon = Icons.add;
 // const IconData addIcon = Icons.add;

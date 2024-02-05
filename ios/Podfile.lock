@@ -647,6 +647,8 @@ PODS:
     - nanopb (< 2.30910.0, >= 2.30908.0)
   - Firebase (10.18.0):
     - Firebase/Core (= 10.18.0)
+  - Firebase/Analytics (10.18.0):
+    - Firebase/Core
   - Firebase/Auth (10.18.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 10.18.0)
@@ -661,6 +663,10 @@ PODS:
   - Firebase/Storage (10.18.0):
     - Firebase/CoreOnly
     - FirebaseStorage (~> 10.18.0)
+  - firebase_analytics (10.8.0):
+    - Firebase/Analytics (= 10.18.0)
+    - firebase_core
+    - Flutter
   - firebase_auth (4.15.2):
     - Firebase/Auth (= 10.18.0)
     - firebase_core
@@ -888,6 +894,7 @@ PODS:
 DEPENDENCIES:
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
   - Firebase
+  - firebase_analytics (from `.symlinks/plugins/firebase_analytics/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_storage (from `.symlinks/plugins/firebase_storage/ios`)
@@ -938,6 +945,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   cloud_firestore:
     :path: ".symlinks/plugins/cloud_firestore/ios"
+  firebase_analytics:
+    :path: ".symlinks/plugins/firebase_analytics/ios"
   firebase_auth:
     :path: ".symlinks/plugins/firebase_auth/ios"
   firebase_core:
@@ -973,6 +982,7 @@ SPEC CHECKSUMS:
   BoringSSL-GRPC: 3175b25143e648463a56daeaaa499c6cb86dad33
   cloud_firestore: d2707a9ead952efd2a89e82347e46dc4b9c32e8d
   Firebase: 414ad272f8d02dfbf12662a9d43f4bba9bec2a06
+  firebase_analytics: b3d6dd14c61549a29abb10e9843446a4d8bb53eb
   firebase_auth: 0099901926d85bda1688f6e451755b413c16154d
   firebase_core: 0af4a2b24f62071f9bf283691c0ee41556dcb3f5
   firebase_storage: 62de29ba51989dbf16f6a127a181d7dfd2b71d01

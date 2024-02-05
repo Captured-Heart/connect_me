@@ -29,7 +29,7 @@ class _SignUpCardWidgetState extends ConsumerState<SignUpCardWidget> {
     ref.listen(signUpNotifierProvider, (previous, next) {
       if (next.user?.uid != null) {
         controller.disposeControllers();
-        pushReplacement(context, MainScreen());
+        pushReplacement(context, const SignUpMainScreen());
       }
 
       if (next.errorMessage != null) {
@@ -42,7 +42,7 @@ class _SignUpCardWidgetState extends ConsumerState<SignUpCardWidget> {
     });
     ref.listen(signInGoogleNotifierProvider, (previous, next) {
       if (next.user?.uid != null) {
-        pushReplacement(context, MainScreen());
+        pushReplacement(context, const SignUpMainScreen());
       }
       if (next.errorMessage != null) {
         showScaffoldSnackBarMessageNoColor(

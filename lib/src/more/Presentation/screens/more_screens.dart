@@ -54,7 +54,22 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
   Widget build(BuildContext context) {
     final appdata = ref.watch(fetchAppDataProvider);
     final authUserData = ref.watch(fetchProfileProvider).valueOrNull;
+    final educationList = ref.watch(fetchEducationListProvider('')).valueOrNull;
+    final workExpList = ref.watch(fetchWorkListProvider('')).valueOrNull;
+
     // inspect(authUserData);
+
+    ref.listen(logOutNotifierProvider, (previous, next) {
+      if (next.user?.uid == null) {
+        Future.delayed(const Duration(milliseconds: 400), () {
+          ref.read(bottomNavBarIndexProvider.notifier).update((state) => 0);
+          pushReplacement(
+            context,
+            const LoginScreen(),
+          );
+        });
+      }
+    });
 
     return Scaffold(
       // appBar: AppBar(),
@@ -131,6 +146,12 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                       icon: additionalDetailsIcon,
                       title: TextConstant.additionalDetails,
                       subtitle: TextConstant.addressCareerEtc,
+                      trailingWidget: authUserData?.additionalDetails == null
+                          ? Icon(
+                              warningIcon,
+                              color: context.colorScheme.tertiary,
+                            )
+                          : null,
                       onTap: () {
                         WoltModalSheet.show(
                           context: context,
@@ -147,7 +168,15 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                     MoreCustomListTileWidget(
                       icon: educationCapIcon,
                       title: TextConstant.education,
+                      trailingWidget: educationList == null || educationList.isEmpty
+                          ? Icon(
+                              warningIcon,
+                              color: context.colorScheme.tertiary,
+                            )
+                          : null,
                       onTap: () {
+                        //TODO: LOAD ALL THE EDUCATION LIST BEFORE YOU SHOW THE TEXTFIELD FOR EDITING THEM
+
                         WoltModalSheet.show(
                           context: context,
                           pageListBuilder: (context) {
@@ -163,7 +192,14 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                     MoreCustomListTileWidget(
                       icon: workExperienceIcon,
                       title: TextConstant.workExperience,
+                      trailingWidget: workExpList == null || workExpList.isEmpty
+                          ? Icon(
+                              warningIcon,
+                              color: context.colorScheme.tertiary,
+                            )
+                          : null,
                       onTap: () {
+                        //TODO: LOAD ALL THE EXPERIENCES BEFORE YOU SHOW THE TEXTFIELD FOR EDITING THEM
                         WoltModalSheet.show(
                           context: context,
                           pageListBuilder: (context) {
@@ -178,7 +214,14 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                     MoreCustomListTileWidget(
                       icon: socialMediaIcon,
                       title: TextConstant.socialMediaHandles,
+                      trailingWidget: authUserData?.socialMediaHandles == null
+                          ? Icon(
+                              warningIcon,
+                              color: context.colorScheme.tertiary,
+                            )
+                          : null,
                       onTap: () {
+                        // TODO: LOAD SOCIAL MEDIA TO DELETE, OR EDIT DETAILS
                         WoltModalSheet.show(
                           context: context,
                           pageListBuilder: (context) {
