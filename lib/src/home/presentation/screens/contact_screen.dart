@@ -29,7 +29,9 @@ class _ContactScreenState extends ConsumerState<ContactScreen> with SingleTicker
   @override
   Widget build(BuildContext context) {
     final contacts = ref.watch(fetchContactsProvider);
-
+    // if (contacts.hasError || contacts.error != null) {
+    //   showScaffoldSnackBarMessage(contacts.error.toString(), isError: true);
+    // }
     return ValueListenableBuilder(
       valueListenable: gridLayout,
       builder: (context, value, child) {
@@ -162,7 +164,7 @@ class _ContactScreenState extends ConsumerState<ContactScreen> with SingleTicker
                     );
             },
             error: (error, _) {
-              return const Text('data');
+              return const Center(child: Text(TextConstant.noUserFound));
             },
             loading: () => const Center(
               child: CircularProgressIndicator.adaptive(),
