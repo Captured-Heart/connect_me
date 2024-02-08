@@ -116,12 +116,20 @@ class CustomTabBar3 extends StatelessWidget implements PreferredSizeWidget {
   const CustomTabBar3({
     super.key,
     required this.tabs,
+    this.onTap,
+    this.tabController,
   });
   final List<Widget> tabs;
+  final Function(int)? onTap;
+  final TabController? tabController;
   @override
   Widget build(BuildContext context) {
     return TabBar(
       isScrollable: false,
+      onTap: onTap,
+      enableFeedback: true,
+      
+      controller: tabController,
       labelStyle: context.textTheme.labelLarge?.copyWith(
         fontWeight: AppFontWeight.w500,
         fontSize: 15,
