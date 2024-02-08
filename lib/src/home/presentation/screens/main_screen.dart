@@ -6,6 +6,10 @@ final bottomNavBarIndexProvider = StateProvider<int>((ref) {
   return 0;
 });
 
+final hideBottomNavBarProvider = StateProvider<bool>((ref) {
+  return false;
+});
+
 enum NavBarItems {
   home(
     TextConstant.home,
@@ -55,30 +59,35 @@ class MainScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentIndex = ref.watch(bottomNavBarIndexProvider);
+    final hideNavBar = ref.watch(hideBottomNavBarProvider);
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          currentIndex: currentIndex,
-          onTap: (value) {
-            ref.read(bottomNavBarIndexProvider.notifier).update((state) => value);
-          },
-          items: List.generate(
-            4,
-            (index) {
-              return BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  NavBarItems.values[index].icon,
-                  fit: BoxFit.fill,
-                  height: 30,
-                  color: index == currentIndex
-                      ? context.colorScheme.primary
-                      : context.colorScheme.outline,
-                ),
-                label: NavBarItems.values[index].label,
-                tooltip: NavBarItems.values[index].label,
-              );
-            },
-          )),
+      bottomNavigationBar: hideNavBar == true
+          ? const SizedBox.shrink()
+          : FadeInUp(
+            child: BottomNavigationBar(
+                type: BottomNavigationBarType.fixed,
+                currentIndex: currentIndex,
+                onTap: (value) {
+                  ref.read(bottomNavBarIndexProvider.notifier).update((state) => value);
+                },
+                items: List.generate(
+                  4,
+                  (index) {
+                    return BottomNavigationBarItem(
+                      icon: SvgPicture.asset(
+                        NavBarItems.values[index].icon,
+                        fit: BoxFit.fill,
+                        height: 30,
+                        color: index == currentIndex
+                            ? context.colorScheme.primary
+                            : context.colorScheme.outline,
+                      ),
+                      label: NavBarItems.values[index].label,
+                      tooltip: NavBarItems.values[index].label,
+                    );
+                  },
+                )),
+          ),
       body: bodyWidget(currentIndex: currentIndex),
     );
   }
