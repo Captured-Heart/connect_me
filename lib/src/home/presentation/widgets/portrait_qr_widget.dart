@@ -98,7 +98,7 @@ class CustomQrCodeImageWidget extends StatelessWidget {
         embeddedImageStyle: const QrEmbeddedImageStyle(size: Size(40, 40)),
         version: 5,
         size: context.sizeHeight(isDense == true ? 0.2 : 0.3),
-        gapless: false,
+        gapless: !isDense,
         // padding: const EdgeInsets.all(12),
       ),
     );
