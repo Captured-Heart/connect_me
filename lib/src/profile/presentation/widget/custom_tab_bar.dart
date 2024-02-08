@@ -111,3 +111,51 @@ class CustomTabBar2 extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size.fromHeight(30);
 }
+
+class CustomTabBar3 extends StatelessWidget implements PreferredSizeWidget {
+  const CustomTabBar3({
+    super.key,
+    required this.tabs,
+  });
+  final List<Widget> tabs;
+  @override
+  Widget build(BuildContext context) {
+    return TabBar(
+      isScrollable: false,
+      labelStyle: context.textTheme.labelLarge?.copyWith(
+        fontWeight: AppFontWeight.w500,
+        fontSize: 15,
+        color: context.colorScheme.onSurface,
+      ),
+      labelPadding: AppEdgeInsets.eA12,
+      unselectedLabelStyle: context.textTheme.labelLarge?.copyWith(
+        color: context.colorScheme.onSurface.withOpacity(0.3),
+      ),
+
+      // labelColor: context.colorScheme.onBackground,
+      // dividerColor: Colors.transparent,
+      // indicatorWeight: 2,
+      // automaticIndicatorColorAdjustment: true,
+      indicatorSize: TabBarIndicatorSize.tab,
+      // indicator: BoxDecoration(
+      //   color: context.colorScheme.primaryContainer,
+      //   // borderRadius: AppBorderRadius.c12
+      // ),
+
+      // UnderlineTabIndicator(
+      //   borderSide:
+      //       BorderSide(color: context.colorScheme.onBackground, width: 2),
+      // ),
+      splashBorderRadius: BorderRadius.circular(40),
+      splashFactory: NoSplash.splashFactory,
+      overlayColor: MaterialStateProperty.resolveWith<Color?>(
+        (states) => states.contains(MaterialState.selected) ? null : Colors.transparent,
+      ),
+
+      tabs: tabs,
+    );
+  }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(30);
+}

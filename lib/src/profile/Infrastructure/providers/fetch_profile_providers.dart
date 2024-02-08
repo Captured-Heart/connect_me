@@ -1,7 +1,7 @@
 import 'package:connect_me/app.dart';
 
 // !fetch profile
-final fetchProfileProvider = FutureProvider<AuthUserModel>((ref) async {
+final fetchProfileProvider = FutureProvider.autoDispose<AuthUserModel>((ref) async {
   String? uuid = ref.read(authStateChangesProvider).value?.uid;
 //
   final fetchProfileRepoImpl = ref.read(fetchProfileRepoImplProvider);

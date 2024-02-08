@@ -108,6 +108,7 @@ class ProfileScreen1 extends ConsumerWidget {
 
                                 return CircleChipButton(
                                   iconData: icons,
+                                  tooltip: socialIcons?[index].message ?? '',
                                   onTap: () {
                                     log('the link clicked is $link');
                                     UrlOptions.launchWeb(link).onError((error, stackTrace) {

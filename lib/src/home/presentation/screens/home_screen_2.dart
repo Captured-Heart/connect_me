@@ -10,20 +10,41 @@ class HomeScreen2 extends ConsumerStatefulWidget {
 class _HomeScreen2State extends ConsumerState<HomeScreen2> {
   @override
   Widget build(BuildContext context) {
-    final AsyncValue<AuthUserModel> users = ref.watch(fetchProfileProvider);
+    final AsyncValue<AuthUserModel> users = ref.watch(fetchProfileProvider.select((_) => _));
     // final work = ref.watch(fetchWorkProvider);
     // log(work.valueOrNull.toString());
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        // appBar: HomeScreenAppBar(
-        //   hideTitle: true,
-        //   authUserModel: users.valueOrNull,
-        // ),
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: context.theme.scaffoldBackgroundColor,
+          actions: [
+            CircleChipButton(
+              tooltip: 'Share QR code',
+              onTap: () {
+                if (users.valueOrNull != null) {
+                  pushAsVoid(
+                    context,
+                    ShareQrCodeScreen(
+                      authUserModel: users.valueOrNull,
+                    ),
+                  );
+                } else {
+                  showScaffoldSnackBarMessageNoColor(
+                    AuthErrors.networkFailure.errorMessage,
+                    context: context,
+                  );
+                }
+              },
+              iconData: shareIcon,
+            ),
+          ].rowInPadding(10),
+        ),
         body: SafeArea(
           child: Column(
             children: [
-              const CustomTabBar2(
+              const CustomTabBar3(
                 tabs: [
                   Text(TextConstant.home),
                   Text(TextConstant.scanQr),
@@ -48,6 +69,8 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> {
                                     onTap: () {},
                                   ),
                                 ),
+
+                                //bio
                                 CustomListTileWidget(
                                   title: '${data.fname} ${data.lname}',
                                   // showAtsign: true,
@@ -55,44 +78,38 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> {
                                   subtitle: data.bio,
                                   isSubtitleUrl: data.website,
                                 ).padSymmetric(horizontal: 30),
-
-                                // data.bio?.isNotEmpty == true
-                                //     ? ListTile(
-                                //         title: const Text('Bio'),
-                                //         contentPadding: AppEdgeInsets.eH20,
-                                //         subtitle: AutoSizeText(
-                                //           data.bio ?? '',
-                                //           maxLines: 3,
-                                //           textAlign: TextAlign.start,
-                                //         ),
-                                //       )
-                                //     : const SizedBox.shrink()
                               ].columnInPadding(10),
-                            ),
+                            ).padOnly(top: 10),
                             Flexible(
-                              child: Container(
-                                margin: AppEdgeInsets.eA20,
-                                padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 1),
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: context.colorScheme.onBackground, width: 5)),
-                                child: QrImageView(
-                                  data: data.docId ?? 'null',
-                                  backgroundColor: context.colorScheme.onSurface,
-                                  eyeStyle: QrEyeStyle(
-                                      color: context.colorScheme.surface,
-                                      eyeShape: QrEyeShape.square),
-                                  dataModuleStyle: QrDataModuleStyle(
-                                    color: context.colorScheme.surface,
-                                    dataModuleShape: QrDataModuleShape.circle,
-                                  ),
-                                  version: 5,
-                                  size: context.sizeHeight(0.3),
-                                  gapless: false,
-                                  // padding: const EdgeInsets.all(12),
-                                ).padSymmetric(horizontal: 5).padOnly(bottom: 0),
-                              ),
-                            ),
+                                child: CustomQrCodeImageWidget(
+                              authUserModel: data,
+                              isStaticTheme: false,
+                              isDense: false,
+                            )
+
+                                // Container(
+                                //   margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                //   padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 1),
+                                //   decoration: BoxDecoration(
+                                //       border: Border.all(
+                                //           color: context.colorScheme.onBackground, width: 5)),
+                                //   child: QrImageView(
+                                //     data: data.docId ?? 'null',
+                                //     backgroundColor: context.colorScheme.onSurface,
+                                //     eyeStyle: QrEyeStyle(
+                                //         color: context.colorScheme.surface,
+                                //         eyeShape: QrEyeShape.square),
+                                //     dataModuleStyle: QrDataModuleStyle(
+                                //       color: context.colorScheme.surface,
+                                //       dataModuleShape: QrDataModuleShape.circle,
+                                //     ),
+                                //     version: 5,
+                                //     size: context.sizeHeight(0.3),
+                                //     gapless: false,
+                                //     // padding: const EdgeInsets.all(12),
+                                //   ).padSymmetric(horizontal: 5).padOnly(bottom: 0),
+                                // ),
+                                ),
                           ],
                         );
                       },
@@ -132,7 +149,8 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> {
                         ),
                       ),
                     ),
-                    QrCodeScreen()
+                    // QrCodeScreen()
+                    QrCodeScanScree(),
                   ],
                 ),
               ),

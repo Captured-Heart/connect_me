@@ -53,6 +53,7 @@ class ProfileHeaderWidget extends StatelessWidget {
 
                           return CircleChipButton(
                             iconData: icons,
+                            tooltip: socialIcons[index]?.message ?? '',
                             onTap: () {
                               log('the link clicked is $link');
                               UrlOptions.launchWeb(link).onError(

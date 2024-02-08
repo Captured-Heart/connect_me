@@ -66,6 +66,7 @@ class HomeScreenAppBar extends ConsumerWidget implements PreferredSizeWidget {
         //share screen
 
         CircleChipButton(
+          tooltip: 'Share QR code'.hardCodedString,
           onTap: () {
             if (authUserModel != null) {
               pushAsVoid(
@@ -85,6 +86,7 @@ class HomeScreenAppBar extends ConsumerWidget implements PreferredSizeWidget {
         ),
         //camera
         CircleChipButton(
+          tooltip: 'Scan QR Code'.hardCodedString,
           onTap: () {
             pushAsVoid(
               context,
@@ -106,24 +108,31 @@ class CircleChipButton extends StatelessWidget {
     super.key,
     this.onTap,
     required this.iconData,
+    required this.tooltip,
   });
 
   final VoidCallback? onTap;
   final IconData iconData;
+  final String tooltip;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Chip(
-        backgroundColor: context.colorScheme.inversePrimary.withOpacity(0.4),
-        visualDensity: VisualDensity.compact,
-        label: Icon(
-          iconData,
-          size: 25,
+      child: Tooltip(
+        message: tooltip,
+        child: Chip(
+          backgroundColor: context.colorScheme.inversePrimary.withOpacity(0.4),
+          visualDensity: VisualDensity.compact,
+
+          label: Icon(
+            iconData,
+            semanticLabel: tooltip,
+            size: 22,
+          ),
+          // labelPadding: AppEdgeInsets.eA2,
+          shape: const CircleBorder(),
+          side: BorderSide(width: 0.5, color: context.colorScheme.onSurface),
         ),
-        // labelPadding: AppEdgeInsets.eA2,
-        shape: const CircleBorder(),
-        side: BorderSide(width: 0.5, color: context.colorScheme.onSurface),
       ),
     );
   }

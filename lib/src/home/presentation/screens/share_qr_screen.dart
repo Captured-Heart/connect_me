@@ -5,7 +5,7 @@ class ShareQrCodeScreen extends ConsumerStatefulWidget {
     super.key,
     required this.authUserModel,
   });
-  final AuthUserModel authUserModel;
+  final AuthUserModel ? authUserModel;
   @override
   ConsumerState<ShareQrCodeScreen> createState() => _ShareQrCodeScreenState();
 }
@@ -73,7 +73,7 @@ class _ShareQrCodeScreenState extends ConsumerState<ShareQrCodeScreen> {
                               : context.sizeWidth(0.9),
                           child: cardisVertNotifier.value == true
                               ? PortraitQrCodeWidget(
-                                  authUserModel: widget.authUserModel,
+                                  authUserModel: widget.authUserModel ,
                                 )
                               : LandscapeQrCodeWIdget(
                                   authUserModel: widget.authUserModel,

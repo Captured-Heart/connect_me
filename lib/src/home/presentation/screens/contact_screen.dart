@@ -114,6 +114,7 @@ class _ContactScreenState extends ConsumerState<ContactScreen> with SingleTicker
                                     ),
                                     child: PortraitQrCodeWidget(
                                       authUserModel: data[index],
+                                      isStaticTheme: false,
                                     ),
                                   ),
                                 );
@@ -220,10 +221,12 @@ class ContactListTile extends StatelessWidget {
             CircleChipButton(
               iconData: Icons.call,
               onTap: onCall,
+              tooltip: 'Call'.hardCodedString,
             ),
             CircleChipButton(
               iconData: Icons.qr_code_2,
               onTap: onViewQR,
+              tooltip: 'View QR code',
             ),
           ],
         ),

@@ -164,11 +164,12 @@ class _QrCodeScreenState extends ConsumerState<QrCodeScreen> {
       cameraFacing: CameraFacing.back,
       onQRViewCreated: _onQRViewCreated,
       overlay: QrScannerOverlayShape(
-          borderColor: Colors.red,
-          borderRadius: 10,
-          borderLength: 30,
-          borderWidth: 10,
-          cutOutSize: context.sizeHeight(0.4)),
+        borderColor: Colors.red,
+        borderRadius: 10,
+        borderLength: 30,
+        borderWidth: 10,
+        cutOutSize: context.sizeHeight(0.4),
+      ),
       onPermissionSet: (ctrl, p) => _onPermissionSet(context, ctrl, p),
     );
   }

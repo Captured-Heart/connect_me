@@ -57,23 +57,35 @@ class CustomListTileWidget extends StatelessWidget {
                   subtitle != null ? UrlOptions.launchWeb(isSubtitleUrl!) : null;
                 },
                 child: Container(
-                  padding: const EdgeInsets.only(bottom: 2, top: 4),
-                  decoration: const BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(
+                  margin: const EdgeInsets.only(top: 5),
+                  padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
+                  decoration: BoxDecoration(
+                    borderRadius: AppBorderRadius.c12,
+                    border: Border.all(
+                      //   bottom: BorderSide(
                       color: AppThemeColorDark.textButton,
-                    )),
-                  ),
-                  child: AutoSizeText(
-                    '$isSubtitleUrl',
-                    maxLines: subtitleMaxLines ?? 1,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: subtitleTextAlign ?? TextAlign.center,
-                    textScaleFactor: 0.95,
-                    style: context.textTheme.bodySmall?.copyWith(
-                      color: AppThemeColorDark.textButton,
-                      // decoration: TextDecoration.underline,
                     ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      AutoSizeText(
+                        '$isSubtitleUrl',
+                        maxLines: subtitleMaxLines ?? 1,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: subtitleTextAlign ?? TextAlign.center,
+                        textScaleFactor: 0.95,
+                        style: context.textTheme.bodySmall?.copyWith(
+                          color: AppThemeColorDark.textButton,
+                          // decoration: TextDecoration.underline,
+                        ),
+                      ),
+                      const Icon(
+                        Icons.arrow_outward,
+                        color: AppThemeColorDark.textButton,
+                        size: 14,
+                      ).padOnly(left: 3),
+                    ],
                   ),
                 ),
               )

@@ -2,7 +2,7 @@ import 'package:connect_me/app.dart';
 
 class LandscapeQrCodeWIdget extends StatelessWidget {
   const LandscapeQrCodeWIdget({super.key, required this.authUserModel, s});
-  final AuthUserModel authUserModel;
+  final AuthUserModel? authUserModel;
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +19,8 @@ class LandscapeQrCodeWIdget extends StatelessWidget {
                 authUserModel: authUserModel,
               ),
               CustomListTileWidget(
-                title: authUserModel.username ?? '',
-                subtitle: authUserModel.bio,
+                title: authUserModel?.username ?? '',
+                subtitle: authUserModel?.bio,
                 subtitleTextAlign: TextAlign.start,
                 showAtsign: true,
                 isStaticTheme: true,
@@ -33,30 +33,10 @@ class LandscapeQrCodeWIdget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
-              margin: const EdgeInsets.only(top: 10, right: 10, left: 5, bottom: 3),
-              child: QrImageView(
-                data: authUserModel.docId ?? '',
-
-                backgroundColor: Colors.black,
-                eyeStyle: const QrEyeStyle(
-                  color: Colors.white,
-                  eyeShape: QrEyeShape.square,
-                ),
-                dataModuleStyle: const QrDataModuleStyle(
-                  // color: context.colorScheme.surface,
-                  color: Colors.white,
-                  dataModuleShape: QrDataModuleShape.circle,
-                ),
-                embeddedImage: const AssetImage(
-                  'assets/images/aboutMeLogo_brown.png',
-                ),
-                embeddedImageStyle: const QrEmbeddedImageStyle(size: Size(40, 40)),
-                version: 5,
-                size: context.sizeHeight(0.23),
-                gapless: false,
-                // padding: const EdgeInsets.all(12),
-              ),
+            CustomQrCodeImageWidget(
+              authUserModel: authUserModel,
+              isStaticTheme: true,
+              isDense: true,
             ),
             AutoSizeText(
               TextConstant.scanQrCodeToConnect,
