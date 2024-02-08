@@ -1,9 +1,8 @@
 import 'package:connect_me/app.dart';
 
 class ProfileScreenOthers extends ConsumerStatefulWidget {
-  const ProfileScreenOthers({super.key, this.users, this.scanController, this.uuid});
+  const ProfileScreenOthers({super.key, this.users, this.uuid});
   final AuthUserModel? users;
-  final QRViewController? scanController;
   final String? uuid;
   @override
   ConsumerState<ProfileScreenOthers> createState() => _ProfileScreenOthersState();
@@ -11,14 +10,7 @@ class ProfileScreenOthers extends ConsumerStatefulWidget {
 
 class _ProfileScreenOthersState extends ConsumerState<ProfileScreenOthers> {
   @override
-  void dispose() {
-    if (widget.scanController != null) {
-      widget.scanController!.resumeCamera();
-    }
-    super.dispose();
-  }
-
-  double offset = 0.0;
+  // double offset = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -68,10 +60,9 @@ class _ProfileScreenOthersState extends ConsumerState<ProfileScreenOthers> {
                     // ! additional details card
                     AdditionalDetailsCardWidget(addInfo: addInfo),
 
-            workExperience == null || workExperience.isEmpty
+                workExperience == null || workExperience.isEmpty
                     ? const SizedBox.shrink()
-                    :
-                WorkDetailsCardWidget(workExperienceModel: workExperience),
+                    : WorkDetailsCardWidget(workExperienceModel: workExperience),
 
                 educationExperience == null || educationExperience.isEmpty
                     ? const SizedBox.shrink()

@@ -74,7 +74,7 @@ class AboutMeWidget extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          pushAsVoid(context, const QrCodeScreen());
+                          pushAsVoid(context, const QrCodeScanScreen());
                         },
                         child: const GradientShortBTN(
                           iconData: mailIcon,

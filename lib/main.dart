@@ -60,14 +60,16 @@ class _MainAppState extends State<MainApp> {
     QuickActions quickActions = const QuickActions();
 
     quickActions.initialize((type) {
+
+      // TODO: INITIALIZE THE HOME ACTION WIDGET TO NAVIGATE TO SCREEN
       log('type is: $type');
 
       if (type == 'action_one') {
         push(context, const ProfileScreen());
         push(context, const ProfileScreen());
       } else if (type == 'action_two') {
-        push(context, const QrCodeScreen());
-        push(context, const QrCodeScreen());
+        // push(context, const QrCodeScreen());
+        // push(context, const QrCodeScreen());
       }
       setState(() {
         shortcut = type;
@@ -83,7 +85,7 @@ class _MainAppState extends State<MainApp> {
         if (shortcut == 'action_one') {
           pushAsVoid(context, const HomeScreen2());
         } else if (shortcut == 'action_two') {
-          pushAsVoid(context, const QrCodeScreen());
+          // pushAsVoid(context, const QrCodeScreen());
         }
         // if (shortcut == 'no actions') {
         //   shortcut = 'actions ready';

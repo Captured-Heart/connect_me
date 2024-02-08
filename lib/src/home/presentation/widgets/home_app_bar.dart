@@ -90,7 +90,7 @@ class HomeScreenAppBar extends ConsumerWidget implements PreferredSizeWidget {
           onTap: () {
             pushAsVoid(
               context,
-              const QrCodeScreen(),
+              const QrCodeScanScreen(),
             );
           },
           iconData: cameraIcon,
