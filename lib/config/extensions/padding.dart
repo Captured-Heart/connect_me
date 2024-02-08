@@ -157,6 +157,10 @@ extension MediaQuerySizeExtension on BuildContext {
   double sizeHeight(double h) {
     return MediaQuery.sizeOf(this).height * h;
   }
+
+  Offset center(Offset f) {
+    return MediaQuery.sizeOf(this).center(f);
+  }
 }
 
 extension StringExtension on String {
