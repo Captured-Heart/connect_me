@@ -56,7 +56,7 @@ class ProfileHeaderWidget extends StatelessWidget {
                             tooltip: socialIcons[index]?.message ?? '',
                             onTap: () {
                               log('the link clicked is $link');
-                              UrlOptions.launchWeb(link).onError(
+                              UrlOptions.launchWeb(link, launchModeEXT: true).onError(
                                 (error, stackTrace) {
                                   showScaffoldSnackBarMessage(error.toString(), isError: true);
                                 },

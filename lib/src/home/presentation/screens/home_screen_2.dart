@@ -158,7 +158,7 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> with SingleTickerProv
                             // ),
                           ),
                         ],
-                      );
+                      ).padOnly(top: 10);
                     },
                     error: (error, _) {
                       return Center(

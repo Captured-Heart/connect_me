@@ -54,7 +54,7 @@ class CustomListTileWidget extends StatelessWidget {
         isSubtitleUrl != null || isSubtitleUrl?.isNotEmpty == true
             ? GestureDetector(
                 onTap: () {
-                  subtitle != null ? UrlOptions.launchWeb(isSubtitleUrl!) : null;
+                  subtitle != null ? UrlOptions.launchWeb(isSubtitleUrl!, launchModeEXT: true) : null;
                 },
                 child: Container(
                   margin: const EdgeInsets.only(top: 5),

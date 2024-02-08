@@ -111,7 +111,7 @@ class ProfileScreen1 extends ConsumerWidget {
                                   tooltip: socialIcons?[index].message ?? '',
                                   onTap: () {
                                     log('the link clicked is $link');
-                                    UrlOptions.launchWeb(link).onError((error, stackTrace) {
+                                    UrlOptions.launchWeb(link, launchModeEXT: true).onError((error, stackTrace) {
                                       showScaffoldSnackBarMessage(error.toString(), isError: true);
                                     });
                                   },
