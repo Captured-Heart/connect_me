@@ -7,81 +7,127 @@ class HomeScreen2 extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _HomeScreen2State();
 }
 
-class _HomeScreen2State extends ConsumerState<HomeScreen2> {
+class _HomeScreen2State extends ConsumerState<HomeScreen2> with SingleTickerProviderStateMixin {
+  late TabController tabController;
+
+  int _activeTabIndex = 0;
+  void _setActiveTabIndex() {
+    setState(() {
+      _activeTabIndex = tabController.index;
+    });
+  }
+
+  void _hideNavBar() {
+    if (_activeTabIndex == 1) {
+      ref.read(hideBottomNavBarProvider.notifier).update((state) => true);
+    } else {
+      ref.invalidate(hideBottomNavBarProvider);
+    }
+    // setState(() {});
+  }
+
+  @override
+  void initState() {
+    tabController = TabController(length: 2, vsync: this);
+    tabController.addListener(() {
+      _setActiveTabIndex();
+      _hideNavBar();
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    tabController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    // if (_activeTabIndex == 1) {
+    //   ref.read(hideBottomNavBarProvider.notifier).update((state) => true);
+    // } else {
+    //   ref.invalidate(hideBottomNavBarProvider);
+    // }
     final AsyncValue<AuthUserModel> users = ref.watch(fetchProfileProvider.select((_) => _));
     // final work = ref.watch(fetchWorkProvider);
-    // log(work.valueOrNull.toString());
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: context.theme.scaffoldBackgroundColor,
-          actions: [
-            CircleChipButton(
-              tooltip: 'Share QR code',
-              onTap: () {
-                if (users.valueOrNull != null) {
-                  pushAsVoid(
-                    context,
-                    ShareQrCodeScreen(
-                      authUserModel: users.valueOrNull,
-                    ),
-                  );
-                } else {
-                  showScaffoldSnackBarMessageNoColor(
-                    AuthErrors.networkFailure.errorMessage,
-                    context: context,
-                  );
-                }
-              },
-              iconData: shareIcon,
+    log(_activeTabIndex.toString());
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: context.theme.scaffoldBackgroundColor,
+        actions: [
+          CircleChipButton(
+            tooltip: 'Share QR code',
+            onTap: () {
+              if (users.valueOrNull != null) {
+                pushAsVoid(
+                  context,
+                  ShareQrCodeScreen(
+                    authUserModel: users.valueOrNull,
+                  ),
+                );
+              } else {
+                showScaffoldSnackBarMessageNoColor(
+                  AuthErrors.networkFailure.errorMessage,
+                  context: context,
+                );
+              }
+            },
+            iconData: shareIcon,
+          ),
+        ].rowInPadding(10),
+      ),
+      body: SafeArea(
+        child: Column(
+          children: [
+            CustomTabBar3(
+              tabController: tabController,
+              // onTap: (p0) {
+              //   if (p0 == 1) {
+              //     ref.read(hideBottomNavBarProvider.notifier).update((state) => true);
+              //   } else {
+              //     ref.invalidate(hideBottomNavBarProvider);
+              //   }
+              // },
+              tabs: const [
+                Text(TextConstant.home),
+                Text(TextConstant.scanQr),
+              ],
             ),
-          ].rowInPadding(10),
-        ),
-        body: SafeArea(
-          child: Column(
-            children: [
-              const CustomTabBar3(
-                tabs: [
-                  Text(TextConstant.home),
-                  Text(TextConstant.scanQr),
-                ],
-              ).padOnly(bottom: 20),
-              Expanded(
-                child: TabBarView(
-                  children: [
-                    users.when(
-                      data: (data) {
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Center(
-                                  child: ProfilePicWidget(
-                                    authUserModel: data,
-                                    onTap: () {},
-                                  ),
+            Expanded(
+              child: TabBarView(
+                controller: tabController,
+                children: [
+                  users.when(
+                    data: (data) {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Center(
+                                child: ProfilePicWidget(
+                                  authUserModel: data,
+                                  onTap: () {},
                                 ),
+                              ),
 
-                                //bio
-                                CustomListTileWidget(
-                                  title: '${data.fname} ${data.lname}',
-                                  // showAtsign: true,
-                                  subtitleMaxLines: 4,
-                                  subtitle: data.bio,
-                                  isSubtitleUrl: data.website,
-                                ).padSymmetric(horizontal: 30),
-                              ].columnInPadding(10),
-                            ).padOnly(top: 10),
-                            Flexible(
-                                child: CustomQrCodeImageWidget(
+                              //bio
+                              CustomListTileWidget(
+                                title: '${data.fname} ${data.lname}',
+                                // showAtsign: true,
+                                subtitleMaxLines: 4,
+                                subtitle: data.bio,
+                                isSubtitleUrl: data.website,
+                              ).padSymmetric(horizontal: 30),
+                            ].columnInPadding(10),
+                          ).padOnly(top: 10),
+                          Flexible(
+                            child: CustomQrCodeImageWidget(
                               authUserModel: data,
                               isStaticTheme: false,
                               isDense: false,
@@ -107,55 +153,52 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> {
                                 //     size: context.sizeHeight(0.3),
                                 //     gapless: false,
                                 //     // padding: const EdgeInsets.all(12),
-                                //   ).padSymmetric(horizontal: 5).padOnly(bottom: 0),
-                                // ),
-                                ),
-                          ],
-                        );
-                      },
-                      error: (error, _) {
-                        return Center(
-                          child: Text(
-                            error.toString(),
+                                .padSymmetric(horizontal: 5)
+                                .padOnly(bottom: 0),
+                            // ),
                           ),
-                        );
-                      },
+                        ],
+                      );
+                    },
+                    error: (error, _) {
+                      return Center(
+                        child: Text(
+                          error.toString(),
+                        ),
+                      );
+                    },
 
-                      // SHIMMER LOADER
-                      loading: () => ShimmerWidget(
-                        child: Center(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              const ProfilePicWidget(),
-                              const CustomListTileWidget(
-                                title: 'Username',
-                                showAtsign: true,
-                                subtitle: 'Mobile/Product designer',
-                              ),
-                              Container(
-                                margin: AppEdgeInsets.eA12,
-                                height: context.sizeHeight(0.3),
-                                width: context.sizeWidth(0.7),
-                                padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 1),
-                                decoration: BoxDecoration(
-                                  // border: Border.all(color: Colors.white),
-                                  gradient: whiteGradient(context: context),
-                                ),
-                              ).padOnly(top: 15)
-                            ],
-                          ),
+                    // SHIMMER LOADER
+                    loading: () => ShimmerWidget(
+                      child: Center(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            const ProfilePicWidget(),
+                            const CustomListTileWidget(
+                              title: 'Username',
+                              showAtsign: true,
+                              subtitle: 'Mobile/Product designer',
+                            ),
+                            Container(
+                              margin: AppEdgeInsets.eA12,
+                              height: context.sizeHeight(0.3),
+                              width: context.sizeWidth(0.7),
+
+                              // padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 1),
+                            ).padOnly(top: 15)
+                          ],
                         ),
                       ),
                     ),
-                    // QrCodeScreen()
-                    QrCodeScanScree(),
-                  ],
-                ),
+                  ),
+                  // QrCodeScreen()
+                  QrCodeScanScreen(),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
