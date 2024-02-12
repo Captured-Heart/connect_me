@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:connect_me/app.dart' hide CameraFacing;
+import 'package:connect_me/app.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 

@@ -74,6 +74,7 @@ class MyCustomDropWidgetWithStrings extends StatelessWidget {
         return AutoSizeText(
           selectedItem,
           style: context.textTheme.bodySmall,
+          maxLines: 1,
         );
       },
       hintBuilder: (context, hint) {

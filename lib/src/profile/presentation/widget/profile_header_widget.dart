@@ -9,12 +9,16 @@ class ProfileHeaderWidget extends StatelessWidget {
   final AuthUserModel? users;
   @override
   Widget build(BuildContext context) {
-    var socialIcons = users?.socialMediaHandles?.keys.map((e) {
-      if (users?.socialMediaHandles?.values.map((e) => e).toList().isNotEmpty == true) {
+    inspect(users?.socialMediaHandles);
+
+    var socialCast = users?.socialMediaHandles;
+    var socialIcons = socialCast?.keys.map((e) {
+      if (socialCast.values.map((e) => e).toList().isNotEmpty == true) {
         return SocialDropdownEnum.values.firstWhere((element) => element.message == e);
       }
     }).toList();
-    var socialIconMap = users?.socialMediaHandles?.entries
+
+    var socialIconMap = socialCast?.entries
         .where((element) => element.key.contains(SocialDropdownEnum.values
             .firstWhere((elemen) => elemen.message == element.key)
             .message))

@@ -262,7 +262,10 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                           context: context,
                           pageListBuilder: (context) {
                             return [
-                              socialMediaModal(context, context.textTheme),
+                              socialMediaModal(
+                                context,
+                                socialMediaModel: authUserData?.socialMediaHandles,
+                              ),
                             ];
                           },
                         );

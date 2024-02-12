@@ -27,6 +27,22 @@ class AddSocialMediaDetailsNotifier extends StateNotifier<AsyncValue> {
       },
     );
   }
+
+  Future deleteSocialMediaMethod({required String socialKey}) async {
+    state = const AsyncValue.loading();
+    var deleteInfo = await socialMediaImpl.deleteSocialMedia(uuid: uuid, socialKey: socialKey);
+
+    state = deleteInfo.fold(
+      (failure) {
+        return AsyncValue.error(failure, StackTrace.current);
+      },
+      (success) {
+        return const AsyncValue.data(
+          TextConstant.successful,
+        );
+      },
+    );
+  }
 }
 
 final addSocialMediaProvider =
