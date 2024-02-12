@@ -1,40 +1,12 @@
 import 'package:connect_me/app.dart';
-import 'package:flutter/rendering.dart';
 
-class ColorTile extends StatelessWidget {
-  final Color color;
+final educationIndexNotifier = StateProvider<int>((ref) {
+  return 0;
+});
 
-  const ColorTile({super.key, required this.color});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: color,
-      height: 600,
-      child: Center(
-        child: Text(
-          //
-          color.toString(),
-          style: TextStyle(
-            color: color.computeLuminance() > 0.5 ? Colors.black : Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-List<Color> get allMaterialColors {
-  List<Color> allMaterialColorsWithShades = [];
-
-  for (MaterialColor color in Colors.primaries) {
-    allMaterialColorsWithShades.add(color.shade100);
-    allMaterialColorsWithShades.add(color.shade200);
-    allMaterialColorsWithShades.add(color.shade300);
-  }
-  return allMaterialColorsWithShades;
-}
+final workExpIndexNotifier = StateProvider<int>((ref) {
+  return 0;
+});
 
 class MoreScreen extends ConsumerStatefulWidget {
   const MoreScreen({super.key});
@@ -44,20 +16,12 @@ class MoreScreen extends ConsumerStatefulWidget {
 }
 
 class _MoreScreenState extends ConsumerState<MoreScreen> {
-  final materialColorsInGrid = allMaterialColors.take(20).toList();
-
-  final materialColorsInSliverList = allMaterialColors.sublist(20, 25);
-
-  final materialColorsInSpinner = allMaterialColors.sublist(30, 50);
-
   @override
   Widget build(BuildContext context) {
     final appdata = ref.watch(fetchAppDataProvider);
     final authUserData = ref.watch(fetchProfileProvider).valueOrNull;
     final educationList = ref.watch(fetchEducationListProvider('')).valueOrNull;
     final workExpList = ref.watch(fetchWorkListProvider('')).valueOrNull;
-
-    // inspect(authUserData);
 
     ref.listen(logOutNotifierProvider, (previous, next) {
       if (next.user?.uid == null) {
@@ -163,7 +127,13 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                         );
                       },
                     ),
-
+                    // Card(
+                    //   child: ListTile(
+                    //     dense: true,
+                    //     title: Text('School'),
+                    //     subtitle: Text('degree'),
+                    //   ),
+                    // ),
                     // EDUCATION
                     MoreCustomListTileWidget(
                       icon: educationCapIcon,
@@ -175,13 +145,47 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                             )
                           : null,
                       onTap: () {
-                        //TODO: LOAD ALL THE EDUCATION LIST BEFORE YOU SHOW THE TEXTFIELD FOR EDITING THEM
+                        ValueNotifier<int>? pageIndexNotifier = ValueNotifier<int>(0);
 
                         WoltModalSheet.show(
                           context: context,
+                          pageIndexNotifier: pageIndexNotifier,
                           pageListBuilder: (context) {
+                            // ValueNotifier<int> educationIndexNotifier = ValueNotifier<int>(0);
+
                             return [
-                              educationModal(context, context.textTheme),
+                              educationList?.isNotEmpty == true
+                                  ? educationListTile(
+                                      context,
+                                      // educationList: educationList,
+                                      pageIndexNotifier: pageIndexNotifier,
+                                    )
+                                  : educationModal(
+                                      context,
+                                      context.textTheme,
+                                      pageIndexNotifier: pageIndexNotifier,
+                                    ),
+
+                              // [Page 2], this is the modal with data from firebase
+                              educationModal(
+                                context,
+                                context.textTheme,
+                                pageIndexNotifier: pageIndexNotifier,
+                                // educationModel: educationList,
+                                onPop: () {
+                                  pageIndexNotifier.value = pageIndexNotifier.value - 1;
+                                },
+                              ),
+                              // this is the modal without the data from firebase, [page3]
+                              educationModal(
+                                context,
+                                context.textTheme,
+                                isEditMode: true,
+                                pageIndexNotifier: pageIndexNotifier,
+                                onPop: () {
+                                  pageIndexNotifier.value = pageIndexNotifier.value - 2;
+                                },
+                              ),
                             ];
                           },
                         );
@@ -199,18 +203,50 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                             )
                           : null,
                       onTap: () {
-                        //TODO: LOAD ALL THE EXPERIENCES BEFORE YOU SHOW THE TEXTFIELD FOR EDITING THEM
+                        ValueNotifier<int>? pageIndexNotifier = ValueNotifier<int>(0);
+
                         WoltModalSheet.show(
                           context: context,
+                          pageIndexNotifier: pageIndexNotifier,
                           pageListBuilder: (context) {
                             return [
-                              workExperienceModal(context, context.textTheme),
+                              workExpList?.isNotEmpty == true
+                                  ? workExperienceListTile(
+                                      context,
+                                      pageIndexNotifier: pageIndexNotifier,
+                                    )
+                                  : workExperienceModal(
+                                      context,
+                                      context.textTheme,
+                                      pageIndexNotifier: pageIndexNotifier,
+                                    ),
+
+                              // [Page 2], this is the modal with data from firebase
+                              workExperienceModal(
+                                context,
+                                context.textTheme,
+                                pageIndexNotifier: pageIndexNotifier,
+                                onPop: () {
+                                  pageIndexNotifier.value = pageIndexNotifier.value - 1;
+                                },
+                              ),
+                              //this is the modal without the data from firebase, [page3]
+                              workExperienceModal(
+                                context,
+                                context.textTheme,
+                                pageIndexNotifier: pageIndexNotifier,
+                                isEditMode: true,
+                                onPop: () {
+                                  pageIndexNotifier.value = pageIndexNotifier.value - 2;
+                                },
+                              )
                             ];
                           },
                         );
                       },
                     ),
 
+                    //SOCIAL MEDIA EXPERIENCE
                     MoreCustomListTileWidget(
                       icon: socialMediaIcon,
                       title: TextConstant.socialMediaHandles,
@@ -429,148 +465,5 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
             ].columnInPadding(10)),
       ),
     );
-  }
-}
-
-class Shifter extends SingleChildRenderObjectWidget {
-  /// Creates an instance of [Shifter].
-  const Shifter({
-    Key? key,
-    required Widget child,
-  }) : super(key: key, child: child);
-
-  @override
-  RenderObject createRenderObject(BuildContext context) {
-    return _SpinnerRenderSliver();
-  }
-}
-
-class _SpinnerRenderSliver extends RenderSliver with RenderObjectWithChildMixin<RenderBox> {
-  final LayerHandle<TransformLayer> _transformLayer = LayerHandle<TransformLayer>();
-  Matrix4? _paintTransform;
-
-  @override
-  void setupParentData(RenderObject child) {
-    if (child.parentData is! SliverPhysicalParentData) {
-      child.parentData = SliverPhysicalParentData();
-    }
-  }
-
-  @override
-  void performLayout() {
-    _paintTransform = null;
-
-    final constraints = this.constraints;
-    child!.layout(constraints.asBoxConstraints(), parentUsesSize: true);
-    final double childExtent;
-    final childSizeWidth = child!.size.width;
-    switch (constraints.axis) {
-      case Axis.horizontal:
-        childExtent = childSizeWidth;
-        break;
-      case Axis.vertical:
-        childExtent = child!.size.height;
-        break;
-    }
-
-    final paintedChildSize = calculatePaintOffset(
-      constraints,
-      from: 0.0,
-      to: childExtent,
-    );
-    final cacheExtent = calculateCacheOffset(
-      constraints,
-      from: 0.0,
-      to: childExtent,
-    );
-
-    final scrollOffset = constraints.scrollOffset;
-
-    if (scrollOffset > 0 && paintedChildSize > 0) {
-      final shift = (1 - paintedChildSize / childExtent) * childSizeWidth;
-
-      _paintTransform = Matrix4.identity()..translate(shift, 0.0);
-    }
-
-    assert(paintedChildSize.isFinite);
-    assert(paintedChildSize >= 0.0);
-    geometry = SliverGeometry(
-      scrollExtent: childExtent,
-      paintExtent: paintedChildSize,
-      cacheExtent: cacheExtent,
-      maxPaintExtent: childExtent,
-      hitTestExtent: paintedChildSize,
-      hasVisualOverflow:
-          childExtent > constraints.remainingPaintExtent || constraints.scrollOffset > 0.0,
-    );
-
-    _setChildParentData(child!, constraints, geometry!);
-  }
-
-  @override
-  void paint(PaintingContext context, Offset offset) {
-    if (child != null && geometry!.visible) {
-      _transformLayer.layer = context.pushTransform(
-        needsCompositing,
-        offset,
-        _paintTransform ?? Matrix4.identity(),
-        _paintChild,
-        oldLayer: _transformLayer.layer,
-      );
-    } else {
-      _transformLayer.layer = null;
-    }
-  }
-
-  @override
-  void applyPaintTransform(covariant RenderObject child, Matrix4 transform) {
-    if (_paintTransform != null) {
-      transform.multiply(_paintTransform!);
-    }
-    final childParentData = child.parentData! as SliverPhysicalParentData;
-
-    // for make it more readable
-    // ignore: cascade_invocations
-    childParentData.applyPaintTransform(transform);
-  }
-
-  @override
-  void dispose() {
-    _transformLayer.layer = null;
-    super.dispose();
-  }
-
-  void _paintChild(PaintingContext context, Offset offset) {
-    final childParentData = child!.parentData! as SliverPhysicalParentData;
-    context.paintChild(child!, offset + childParentData.paintOffset);
-  }
-
-  void _setChildParentData(
-    RenderObject child,
-    SliverConstraints constraints,
-    SliverGeometry geometry,
-  ) {
-    final childParentData = child.parentData! as SliverPhysicalParentData;
-    var dx = 0.0;
-    var dy = 0.0;
-    switch (applyGrowthDirectionToAxisDirection(
-      constraints.axisDirection,
-      constraints.growthDirection,
-    )) {
-      case AxisDirection.up:
-        dy = -(geometry.scrollExtent - (geometry.paintExtent + constraints.scrollOffset));
-        break;
-      case AxisDirection.right:
-        dx = -constraints.scrollOffset;
-        break;
-      case AxisDirection.down:
-        dy = -constraints.scrollOffset;
-        break;
-      case AxisDirection.left:
-        dx = -(geometry.scrollExtent - (geometry.paintExtent + constraints.scrollOffset));
-        break;
-    }
-
-    childParentData.paintOffset = Offset(dx, dy);
   }
 }

@@ -31,9 +31,9 @@ class EducationModel extends Equatable {
       startDate: json['startDate'] == null
           ? null
           : StartDateModel.fromJson(json['startDate'] as Map<String, dynamic>),
-      endDate: json['EndDate'] == null
+      endDate: json['endDate'] == null
           ? null
-          : EndDateModel.fromJson(json['EndDate'] as Map<String, dynamic>),
+          : EndDateModel.fromJson(json['endDate'] as Map<String, dynamic>),
       grade: json['grade'] as String?,
       award: json['award'] as String?,
       activities: json['activities'] as String?,
@@ -46,7 +46,7 @@ class EducationModel extends Equatable {
         'school': school,
         'degree': degree,
         'startDate': startDate?.toJson(),
-        'EndDate': endDate?.toJson(),
+        'endDate': endDate?.toJson(),
         'grade': grade,
         'award': award,
         'activities': activities,

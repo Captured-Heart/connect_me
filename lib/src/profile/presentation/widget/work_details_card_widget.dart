@@ -112,32 +112,48 @@ class WorkDetailsCardWidget extends StatelessWidget {
                               keys: TextConstant.location.toTitleCase(),
                               values: workExperience?.location ?? '',
                             ),
+                            AdditionalInfoListTileWidget(
+                              keys: TextConstant.dateOfBirth,
+                              values: workExperience?.formTitle ?? '',
+                            ),
+                            AdditionalInfoListTileWidget(
+                              keys: TextConstant.placeOfBirth,
+                              values: workExperience?.location ?? '',
+                            ),
+                            AdditionalInfoListTileWidget(
+                              keys: TextConstant.postalCode,
+                              values: workExperience?.locationType ?? '',
+                            ),
+                            AdditionalInfoListTileWidget(
+                              keys: TextConstant.driverLicenseNo,
+                              values: workExperience?.location ?? '',
+                            ),
                           ].columnInPadding(5),
                         ).padOnly(top: 1),
 
                         //! additional details  [DOB, PLACE, POSTAL CODE]
-                        Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              AdditionalInfoListTileWidget(
-                                keys: TextConstant.dateOfBirth,
-                                values: workExperience?.formTitle ?? '',
-                              ),
-                              AdditionalInfoListTileWidget(
-                                keys: TextConstant.placeOfBirth,
-                                values: workExperience?.location ?? '',
-                              ),
-                              AdditionalInfoListTileWidget(
-                                keys: TextConstant.postalCode,
-                                values: workExperience?.locationType ?? '',
-                              ),
-                              AdditionalInfoListTileWidget(
-                                keys: TextConstant.driverLicenseNo,
-                                values: workExperience?.location ?? '',
-                              ),
-                            ].columnInPadding(5)),
+                        // Column(
+                        //     mainAxisSize: MainAxisSize.min,
+                        //     children: [
+                        //       AdditionalInfoListTileWidget(
+                        //         keys: TextConstant.dateOfBirth,
+                        //         values: workExperience?.formTitle ?? '',
+                        //       ),
+                        //       AdditionalInfoListTileWidget(
+                        //         keys: TextConstant.placeOfBirth,
+                        //         values: workExperience?.location ?? '',
+                        //       ),
+                        //       AdditionalInfoListTileWidget(
+                        //         keys: TextConstant.postalCode,
+                        //         values: workExperience?.locationType ?? '',
+                        //       ),
+                        //       AdditionalInfoListTileWidget(
+                        //         keys: TextConstant.driverLicenseNo,
+                        //         values: workExperience?.location ?? '',
+                        //       ),
+                        //     ].columnInPadding(5)),
                       ],
-                    ).padAll(12),
+                    ).padAll(8),
                   ).padOnly(right: 5),
                 );
               }),
@@ -230,6 +246,7 @@ class EdiucationDetailsCardWidget extends StatelessWidget {
               shrinkWrap: true,
               physics: educationModel!.length < 2 ? const NeverScrollableScrollPhysics() : null,
               scrollDirection: Axis.horizontal,
+              
               itemBuilder: (context, index) {
                 var education = educationModel?[index];
                 return SizedBox(
@@ -246,40 +263,48 @@ class EdiucationDetailsCardWidget extends StatelessWidget {
                           children: [
                             AdditionalInfoListTileWidget(
                               keys: TextConstant.school.toTitleCase(),
-                              values: education?.school ?? '',
+                              values: education?.school?.toTitleCase() ?? '',
                             ),
                             AdditionalInfoListTileWidget(
                               keys: TextConstant.grade.toTitleCase(),
                               values: education?.grade ?? '',
                             ),
                             AdditionalInfoListTileWidget(
-                              keys: TextConstant.grade.toTitleCase(),
-                              values: education?.grade ?? '',
+                              keys: TextConstant.awardAndHonours,
+                              values: education?.award ?? '',
+                            ),
+                            AdditionalInfoListTileWidget(
+                              keys: TextConstant.activitiesAndOrg,
+                              values: education?.activities ?? '',
+                            ),
+                            AdditionalInfoListTileWidget(
+                              keys: TextConstant.degree,
+                              values: education?.degree ?? '',
                             ),
                           ].columnInPadding(3),
                         ).padOnly(top: 1),
 
-                        //! additional details  [DOB, PLACE, POSTAL CODE]
-                        Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              AdditionalInfoListTileWidget(
-                                keys: TextConstant.awardAndHonours,
-                                values: education?.award ?? '',
-                              ),
-                              AdditionalInfoListTileWidget(
-                                keys: TextConstant.activitiesAndOrg,
-                                values: education?.activities ?? '',
-                              ),
-                              AdditionalInfoListTileWidget(
-                                keys: TextConstant.degree,
-                                values: education?.degree ?? '',
-                              ),
-                              AdditionalInfoListTileWidget(
-                                keys: TextConstant.awardAndHonours,
-                                values: education?.award ?? '',
-                              ),
-                            ].columnInPadding(3)),
+                        //! additional details  [DOB, PLACE, POSTAL CODE].
+                        // Column(
+                        //     mainAxisSize: MainAxisSize.min,
+                        //     children: [
+                        //       AdditionalInfoListTileWidget(
+                        //         keys: TextConstant.awardAndHonours,
+                        //         values: education?.award ?? '',
+                        //       ),
+                        //       AdditionalInfoListTileWidget(
+                        //         keys: TextConstant.activitiesAndOrg,
+                        //         values: education?.activities ?? '',
+                        //       ),
+                        //       AdditionalInfoListTileWidget(
+                        //         keys: TextConstant.degree,
+                        //         values: education?.degree ?? '',
+                        //       ),
+                        //       AdditionalInfoListTileWidget(
+                        //         keys: TextConstant.awardAndHonours,
+                        //         values: education?.award ?? '',
+                        //       ),
+                        //     ].columnInPadding(3)),
                       ],
                     ).padAll(12),
                   ).padOnly(right: 5),

@@ -25,12 +25,31 @@ class AddEducationInfoNotifier extends StateNotifier<AsyncValue> {
 
     state = addInfo.fold(
       (failure) {
-        log('i am at the failure fold: $failure');
         return AsyncValue.error(failure, StackTrace.current);
       },
       (success) {
-        log('It is a success');
+        return const AsyncValue.data(
+          TextConstant.successful,
+        );
+      },
+    );
+  }
 
+  Future deleteEducationMethod({
+    required String docId,
+  }) async {
+    state = const AsyncValue.loading();
+//
+    var deleteInfo = await educationRepositoryImpl.deleteEducationInfo(
+      uuid: uuid,
+      docId: docId,
+    );
+
+    state = deleteInfo.fold(
+      (failure) {
+        return AsyncValue.error(failure, StackTrace.current);
+      },
+      (success) {
         return const AsyncValue.data(
           TextConstant.successful,
         );

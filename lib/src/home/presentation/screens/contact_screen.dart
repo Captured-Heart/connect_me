@@ -152,7 +152,7 @@ class _ContactScreenState extends ConsumerState<ContactScreen> with SingleTicker
                                     authUserModel: data[index],
                                   ),
                                   AutoSizeText(
-                                    contacts.username ?? faker.person.name(),
+                                    contacts.fullname,
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 1,
                                     textScaleFactor: 0.9,

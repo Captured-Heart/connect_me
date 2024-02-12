@@ -145,6 +145,17 @@ extension TooltipExtension on Widget {
   Widget tooltipWidget(String message) {
     return Tooltip(
       message: message,
+      child: this,
+    );
+  }
+}
+
+extension GestureDetectorExtension on Widget {
+  Widget onTapWidget({VoidCallback? onTap, VoidCallback? onLongPress}) {
+    return GestureDetector(
+      onTap: onTap,
+      onLongPress: onLongPress,
+      child: this,
     );
   }
 }

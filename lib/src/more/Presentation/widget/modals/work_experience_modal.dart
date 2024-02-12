@@ -2,12 +2,118 @@
 
 import 'package:connect_me/app.dart';
 
-//0113343316
-SliverWoltModalSheetPage workExperienceModal(BuildContext modalSheetContext, TextTheme textTheme) {
+import '../../screens/more_screens.dart';
+
+SliverWoltModalSheetPage workExperienceListTile(
+  BuildContext modalSheetContext, {
+  required ValueNotifier<int> pageIndexNotifier,
+}) {
   return WoltModalSheetPage(
     hasSabGradient: true,
     backgroundColor: modalSheetContext.theme.scaffoldBackgroundColor,
-    // topBarTitle: Text('Account Information', style: textTheme.titleSmall),
+
+    topBar: Container(
+      color: modalSheetContext.theme.cardColor,
+      alignment: Alignment.center,
+      child: Text(TextConstant.workExperience, style: modalSheetContext.textTheme.titleSmall),
+    ),
+    isTopBarLayerAlwaysVisible: true,
+    trailingNavBarWidget: IconButton(
+      padding: AppEdgeInsets.eA16,
+      icon: const Icon(Icons.close),
+      onPressed: Navigator.of(modalSheetContext).pop,
+    ).padOnly(right: 10),
+
+    // body
+    child: Consumer(builder: (context, ref, _) {
+      final workExperienceListAsync = ref.watch(fetchWorkListProvider(''));
+      var workExperienceList = workExperienceListAsync.valueOrNull;
+      return FullScreenLoader(
+          isLoading: workExperienceListAsync.isLoading,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              TextButton.icon(
+                onPressed: () {
+                  pageIndexNotifier.value = pageIndexNotifier.value + 2;
+                },
+                icon: const Icon(addIcon),
+                label: const Text(TextConstant.addNew),
+              ),
+              ...List.generate(
+                workExperienceList?.length ?? 1,
+                (index) => GestureDetector(
+                  onTap: () {
+                    ref.read(workExpIndexNotifier.notifier).update((state) => index);
+                    pageIndexNotifier.value = pageIndexNotifier.value + 1;
+                  },
+                  child: Card(
+                    color: modalSheetContext.colorScheme.surface,
+                    child: ListTile(
+                      dense: true,
+                      leading: CircleAvatar(
+                        backgroundColor: modalSheetContext.colorScheme.primaryContainer,
+                        child: Text(
+                          '${index + 1}',
+                          style: modalSheetContext.textTheme.labelLarge,
+                        ),
+                      ),
+                      title: Text(workExperienceList?[index].title?.toTitleCase() ?? ''),
+                      subtitle: Text(workExperienceList?[index].companyName?.toTitleCase() ?? ''),
+                      trailing: Container(
+                        padding: AppEdgeInsets.eA4,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: modalSheetContext.colorScheme.onSurface),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          deleteIcon,
+                          color: modalSheetContext.colorScheme.error,
+                          size: 17,
+                        ).tooltipWidget(TextConstant.delete).onTapWidget(onTap: () {
+                          //Todo: add delete function for the work expeirence
+                          ref
+                              .read(addEducationInfoProvider.notifier)
+                              .deleteEducationMethod(docId: workExperienceList?[index].docId ?? '')
+                              .whenComplete(
+                            () {
+                              ref.invalidate(
+                                fetchWorkListProvider(''),
+                              );
+                            },
+                          );
+                          Navigator.of(modalSheetContext).pop;
+                        }),
+                      ),
+                    ).padOnly(bottom: 10, top: 10),
+                  ),
+                ),
+              ),
+            ].columnInPadding(5),
+          ).padSymmetric(horizontal: 12, vertical: 10));
+    }),
+  );
+}
+
+//0113343316
+SliverWoltModalSheetPage workExperienceModal(
+  BuildContext modalSheetContext,
+  TextTheme textTheme, {
+  VoidCallback? onPop,
+  // List<WorkExperienceModel>? workExperienceList,
+  required ValueNotifier<int> pageIndexNotifier,
+  bool isEditMode = false,
+}) {
+  return WoltModalSheetPage(
+    hasSabGradient: true,
+    backgroundColor: modalSheetContext.theme.scaffoldBackgroundColor,
+    leadingNavBarWidget: onPop == null
+        ? const SizedBox.shrink()
+        : IconButton(
+            padding: AppEdgeInsets.eA16,
+            icon: const Icon(Icons.arrow_back),
+            onPressed: onPop,
+          ).padOnly(left: 10),
     topBar: Container(
       color: modalSheetContext.theme.cardColor,
       alignment: Alignment.center,
@@ -21,15 +127,28 @@ SliverWoltModalSheetPage workExperienceModal(BuildContext modalSheetContext, Tex
     ).padOnly(right: 10),
 
     // body
-    child: const WorkExperienceBody().padAll(15),
+    child: Consumer(
+      builder: (context, ref, _) {
+        final workIndex = ref.watch(workExpIndexNotifier);
+        final workExperienceList = ref.watch(fetchWorkListProvider('')).valueOrNull;
+
+        return WorkExperienceBody(
+          pageIndexNotifier: pageIndexNotifier,
+          workExpModel: isEditMode == true ? null : workExperienceList?[workIndex],
+        ).padAll(15);
+      },
+    ),
   );
 }
 
 class WorkExperienceBody extends ConsumerStatefulWidget {
   const WorkExperienceBody({
     super.key,
+    required this.pageIndexNotifier,
+    this.workExpModel,
   });
-
+  final WorkExperienceModel? workExpModel;
+  final ValueNotifier<int> pageIndexNotifier;
   @override
   ConsumerState<WorkExperienceBody> createState() => _WorkExperienceBodyState();
 }
@@ -54,33 +173,61 @@ class _WorkExperienceBodyState extends ConsumerState<WorkExperienceBody> {
     'Remote',
   ];
 
-  // final TextEditingControllerClass controller = TextEditingControllerClass();
+  late ValueNotifier<String> employmentTypeNotifier;
+  late ValueNotifier<String> locationTypeNotifier;
+  late ValueNotifier<String> titleNotifier;
+  late ValueNotifier<String> companyNameNotifier;
+  late ValueNotifier<String> locationNotifier;
+  late ValueNotifier<TextEditingController> monthNotifier;
+  late ValueNotifier<TextEditingController> yearNotifier;
+  late ValueNotifier<TextEditingController> endMonthNotifier;
+  late ValueNotifier<TextEditingController> endYearNotifier;
   final ValueNotifier<bool> isCurrentlyWorkingNotifier = ValueNotifier(true);
-  final ValueNotifier<String> employmentTypeNotifier = ValueNotifier('');
-  final ValueNotifier<String> locationTypeNotifier = ValueNotifier('');
-  final ValueNotifier<String> titleNotifier = ValueNotifier('');
-  final ValueNotifier<String> companyNameNotifier = ValueNotifier('');
-  final ValueNotifier<String> locationNotifier = ValueNotifier('');
-  final ValueNotifier<TextEditingController> monthNotifier =
-      ValueNotifier<TextEditingController>(TextEditingController());
-  final ValueNotifier<TextEditingController> yearNotifier =
-      ValueNotifier<TextEditingController>(TextEditingController());
-  final ValueNotifier<TextEditingController> endMonthNotifier =
-      ValueNotifier<TextEditingController>(TextEditingController());
-  final ValueNotifier<TextEditingController> endYearNotifier =
-      ValueNotifier<TextEditingController>(TextEditingController());
+
+  @override
+  void initState() {
+    employmentTypeNotifier = ValueNotifier(widget.workExpModel?.employmentType ?? '');
+    locationTypeNotifier = ValueNotifier(widget.workExpModel?.locationType ?? '');
+    titleNotifier = ValueNotifier(widget.workExpModel?.title ?? '');
+    companyNameNotifier = ValueNotifier(widget.workExpModel?.companyName ?? '');
+    locationNotifier = ValueNotifier(widget.workExpModel?.location ?? '');
+    monthNotifier = ValueNotifier<TextEditingController>(
+        TextEditingController(text: widget.workExpModel?.startDate?.month));
+    yearNotifier = ValueNotifier<TextEditingController>(
+        TextEditingController(text: widget.workExpModel?.startDate?.year));
+    endMonthNotifier = ValueNotifier<TextEditingController>(
+        TextEditingController(text: widget.workExpModel?.endDate?.endMonth));
+    endYearNotifier = ValueNotifier<TextEditingController>(
+        TextEditingController(text: widget.workExpModel?.endDate?.endYear));
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    employmentTypeNotifier.dispose();
+    locationTypeNotifier.dispose();
+    titleNotifier.dispose();
+    companyNameNotifier.dispose();
+    locationNotifier.dispose();
+    monthNotifier.dispose();
+    yearNotifier.dispose();
+    endMonthNotifier.dispose();
+    endYearNotifier.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final infoState = ref.watch(addWorkExperienceProvider);
-    ref.listen(addWorkExperienceProvider, (previous, next) {
-      if (next.asData?.hasValue == true && !next.hasError) {
-        showScaffoldSnackBarMessage(
-          'Successful'.hardCodedString,
-          duration: 5,
-        );
-      }
-    });
+    // ref.listen(addWorkExperienceProvider, (previous, next) {
+    //   if (next.asData?.hasValue == true && !next.hasError) {
+    //     showScaffoldSnackBarMessage(
+    //       TextConstant.successful,
+    //       duration: 5,
+    //     );
+    //   }
+    // });
+
     return ListenableBuilder(
         listenable: Listenable.merge(
           [
@@ -132,6 +279,7 @@ class _WorkExperienceBodyState extends ConsumerState<WorkExperienceBody> {
                     ),
                     MyCustomDropWidgetWithStrings(
                       items: employmentType,
+                      initialItem: employmentTypeNotifier.value,
                       onChanged: (p0) {
                         employmentTypeNotifier.value = p0;
                       },
@@ -144,10 +292,17 @@ class _WorkExperienceBodyState extends ConsumerState<WorkExperienceBody> {
                   // controller: controller.companyNameController,
                   initialValue: companyNameNotifier.value,
                   hintText: TextConstant.exGoogle,
-                  label: TextConstant.companyName,
+                  label: '${TextConstant.companyName}*',
                   inputFormatters: const [],
                   onChanged: (value) {
                     companyNameNotifier.value = value;
+                  },
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return TextConstant.required;
+                    } else {
+                      return null;
+                    }
                   },
                 ),
 
@@ -173,6 +328,7 @@ class _WorkExperienceBodyState extends ConsumerState<WorkExperienceBody> {
                     ),
                     MyCustomDropWidgetWithStrings(
                       items: locationType,
+                      initialItem: locationTypeNotifier.value,
                       onChanged: (p0) {
                         locationTypeNotifier.value = p0;
                       },
@@ -347,7 +503,7 @@ class _WorkExperienceBodyState extends ConsumerState<WorkExperienceBody> {
                               endDate,
                               // endMonthNotifier.value.text,
                               // endYearNotifier.value.text,
-                              docId,
+                              widget.workExpModel?.docId ?? docId,
                               DateTime.now().toIso8601String(),
                             ],
                             customKeys: // initiate my custom keys
@@ -368,11 +524,18 @@ class _WorkExperienceBodyState extends ConsumerState<WorkExperienceBody> {
                           if (workExperienceFormKey.currentState!.validate()) {
                             ref
                                 .read(addWorkExperienceProvider.notifier)
-                                .addWorkExperienceMethod(map: map, docId: docId)
-                                .whenComplete(() {
-                              ref.invalidate(fetchProfileProvider);
-                              pop(context);
-                            });
+                                .addWorkExperienceMethod(
+                                    map: map, docId: widget.workExpModel?.docId ?? docId)
+                                .whenComplete(
+                              () {
+                                ref.invalidate(fetchWorkListProvider(''));
+                              },
+                            );
+                            if (widget.workExpModel == null || widget.workExpModel?.title == null) {
+                              widget.pageIndexNotifier.value = widget.pageIndexNotifier.value - 2;
+                            } else {
+                              widget.pageIndexNotifier.value = widget.pageIndexNotifier.value - 1;
+                            }
                           }
                         },
                         child: infoState.isLoading == true

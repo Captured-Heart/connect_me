@@ -167,13 +167,16 @@ class AuthRepositoryImpl implements AuthRepository {
           await _firebaseFirestore
               .collection(FirebaseCollectionEnums.users.value)
               .doc(currentUser.id)
-              .set(AuthUserModel(
-                email: currentUser.email,
-                docId: currentUser.id,
-                imgUrl: currentUser.photoUrl ?? '',
-                username: currentUser.displayName,
-                isGoogleSigned: true,
-              ).toJson())
+              .set(
+                AuthUserModel(
+                  email: currentUser.email,
+                  docId: currentUser.id,
+                  imgUrl: currentUser.photoUrl ?? '',
+                  username: currentUser.displayName,
+                  fname: currentUser.displayName,
+                  isGoogleSigned: true,
+                ).toJson(),
+              )
               .onError(
                 (error, stackTrace) => throw Left(
                   AppException(

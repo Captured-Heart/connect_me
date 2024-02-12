@@ -51,10 +51,11 @@ class MyCustomDropWidgetWithStrings extends StatelessWidget {
     this.hintText,
     this.onChanged,
     this.validator,
+    this.initialItem,
   });
 
   final List<String> items;
-  final String? hintText;
+  final String? hintText, initialItem;
   final String? Function(String?)? validator;
   final dynamic Function(String)? onChanged;
   @override
@@ -62,6 +63,7 @@ class MyCustomDropWidgetWithStrings extends StatelessWidget {
     return CustomDropdown(
       items: items,
       validator: validator,
+      initialItem: initialItem?.isEmpty == true ? null : initialItem,
       listItemBuilder: (context, item) {
         return AutoSizeText(
           item,

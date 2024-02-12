@@ -20,12 +20,13 @@ class FullScreenLoader extends StatelessWidget {
     return Stack(
       children: [
         child,
-        BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-          child: Opacity(
-            opacity: 0.2,
-            child: ModalBarrier(
-                dismissible: false, color: Theme.of(context).primaryColor),
+        Positioned.fill(
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+            child: Opacity(
+              opacity: 0.2,
+              child: ModalBarrier(dismissible: false, color: Theme.of(context).primaryColor),
+            ),
           ),
         ),
         // Align(

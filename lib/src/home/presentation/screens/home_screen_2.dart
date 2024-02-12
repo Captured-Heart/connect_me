@@ -118,7 +118,7 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> with SingleTickerProv
 
                               //bio
                               CustomListTileWidget(
-                                title: '${data.fname} ${data.lname}',
+                                title: data.username ?? '',
                                 // showAtsign: true,
                                 subtitleMaxLines: 4,
                                 subtitle: data.bio,
@@ -185,11 +185,10 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> with SingleTickerProv
                               margin: AppEdgeInsets.eA12,
                               height: context.sizeHeight(0.3),
                               width: context.sizeWidth(0.7),
-
                               // padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 1),
                             ).padOnly(top: 15)
                           ],
-                        ),
+                        ).padOnly(top: 20),
                       ),
                     ),
                   ),

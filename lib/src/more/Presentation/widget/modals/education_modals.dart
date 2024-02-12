@@ -1,12 +1,118 @@
 // EDUCATION MODEL
+
 import 'package:connect_me/app.dart';
 
-SliverWoltModalSheetPage educationModal(
-    BuildContext modalSheetContext, TextTheme textTheme) {
+import '../../screens/more_screens.dart';
+
+SliverWoltModalSheetPage educationListTile(
+  BuildContext modalSheetContext, {
+  required ValueNotifier<int> pageIndexNotifier,
+}) {
   return WoltModalSheetPage(
     hasSabGradient: true,
     backgroundColor: modalSheetContext.theme.scaffoldBackgroundColor,
     // topBarTitle: Text('Account Information', style: textTheme.titleSmall),
+    topBar: Container(
+      color: modalSheetContext.theme.cardColor,
+      alignment: Alignment.center,
+      child: Text(TextConstant.education, style: modalSheetContext.textTheme.titleSmall),
+    ),
+    isTopBarLayerAlwaysVisible: true,
+    trailingNavBarWidget: IconButton(
+      padding: AppEdgeInsets.eA16,
+      icon: const Icon(Icons.close),
+      onPressed: Navigator.of(modalSheetContext).pop,
+    ).padOnly(right: 10),
+
+    // body
+    child: Consumer(builder: (context, ref, _) {
+      final educationListAsync = ref.watch(fetchEducationListProvider(''));
+      var educationList = educationListAsync.valueOrNull;
+      return FullScreenLoader(
+          isLoading: educationListAsync.isLoading,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              TextButton.icon(
+                onPressed: () {
+                  pageIndexNotifier.value = pageIndexNotifier.value + 2;
+                },
+                icon: const Icon(addIcon),
+                label: const Text(TextConstant.addNew),
+              ),
+              ...List.generate(
+                educationList?.length ?? 1,
+                (index) => GestureDetector(
+                  onTap: () {
+                    ref.read(educationIndexNotifier.notifier).update((state) => index);
+                    pageIndexNotifier.value = pageIndexNotifier.value + 1;
+                  },
+                  child: Card(
+                    color: modalSheetContext.colorScheme.surface,
+                    child: ListTile(
+                      dense: true,
+                      leading: CircleAvatar(
+                        backgroundColor: modalSheetContext.colorScheme.primaryContainer,
+                        child: Text(
+                          '${index + 1}',
+                          style: modalSheetContext.textTheme.labelLarge,
+                        ),
+                      ),
+                      title: Text(educationList?[index].school?.toTitleCase() ?? ''),
+                      subtitle: Text(educationList?[index].degree?.toTitleCase() ?? ''),
+                      trailing: Container(
+                        padding: AppEdgeInsets.eA4,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: modalSheetContext.colorScheme.onSurface),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          deleteIcon,
+                          color: modalSheetContext.colorScheme.error,
+                          size: 17,
+                        ).tooltipWidget(TextConstant.delete).onTapWidget(onTap: () {
+                          ref
+                              .read(addEducationInfoProvider.notifier)
+                              .deleteEducationMethod(docId: educationList?[index].docId ?? '')
+                              .whenComplete(
+                            () {
+                              ref.invalidate(
+                                fetchEducationListProvider(''),
+                              );
+                            },
+                          );
+                          Navigator.of(modalSheetContext).pop;
+                        }),
+                      ),
+                    ).padOnly(bottom: 10, top: 10),
+                  ),
+                ),
+              ),
+            ].columnInPadding(5),
+          ).padSymmetric(horizontal: 12, vertical: 10));
+    }),
+  );
+}
+
+SliverWoltModalSheetPage educationModal(
+  BuildContext modalSheetContext,
+  TextTheme textTheme, {
+  VoidCallback? onPop,
+  bool isEditMode = false,
+  // List<EducationModel>? educationModel,
+  required ValueNotifier<int> pageIndexNotifier,
+}) {
+  return WoltModalSheetPage(
+    hasSabGradient: true,
+    backgroundColor: modalSheetContext.theme.scaffoldBackgroundColor,
+    // topBarTitle: Text('Account Information', style: textTheme.titleSmall),
+    leadingNavBarWidget: onPop == null
+        ? const SizedBox.shrink()
+        : IconButton(
+            padding: AppEdgeInsets.eA16,
+            icon: const Icon(Icons.arrow_back),
+            onPressed: onPop,
+          ).padOnly(left: 10),
     topBar: Container(
       color: modalSheetContext.theme.cardColor,
       alignment: Alignment.center,
@@ -20,7 +126,15 @@ SliverWoltModalSheetPage educationModal(
     ).padOnly(right: 10),
 
     // body
-    child: const EducationModalBody().padAll(15),
+    child: Consumer(builder: (context, ref, _) {
+      final educationIndex = ref.watch(educationIndexNotifier);
+      final educationList = ref.watch(fetchEducationListProvider('')).valueOrNull;
+
+      return EducationModalBody(
+        educationModel: isEditMode == true ? null : educationList?[educationIndex],
+        pageIndexNotifier: pageIndexNotifier,
+      ).padAll(15);
+    }),
   );
 }
 
@@ -28,30 +142,63 @@ class EducationModalBody extends ConsumerStatefulWidget {
   const EducationModalBody({
     super.key,
     this.educationModel,
+    required this.pageIndexNotifier,
   });
   final EducationModel? educationModel;
+  final ValueNotifier<int> pageIndexNotifier;
   @override
   ConsumerState<EducationModalBody> createState() => _EducationModalBodyState();
 }
 
 class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
   final GlobalKey<FormState> educationFormKey = GlobalKey<FormState>();
+  // late ValueNotifier<TextEditingController> monthNotifier;
+  //  late ValueNotifier<TextEditingController> yearNotifier;
+  late ValueNotifier<String> schoolNotifier;
+  late ValueNotifier<String> degreeNotifier;
+  late ValueNotifier<TextEditingController> monthNotifier;
+  late ValueNotifier<TextEditingController> yearNotifier;
+  late ValueNotifier<TextEditingController> endMonthNotifier;
+  late ValueNotifier<TextEditingController> endYearNotifier;
+  late ValueNotifier<String> activitiesNotifier;
+  late ValueNotifier<String> gradeNotifier;
+  late ValueNotifier<String> awardNotifier;
+  @override
+  void initState() {
+    schoolNotifier = ValueNotifier<String>(widget.educationModel?.school ?? '');
+    degreeNotifier = ValueNotifier<String>(widget.educationModel?.degree ?? '');
+    monthNotifier = ValueNotifier<TextEditingController>(
+        TextEditingController(text: widget.educationModel?.startDate?.month));
+    yearNotifier = ValueNotifier<TextEditingController>(
+        TextEditingController(text: widget.educationModel?.startDate?.year));
+    endMonthNotifier = ValueNotifier<TextEditingController>(
+        TextEditingController(text: widget.educationModel?.endDate?.endMonth));
+    endYearNotifier = ValueNotifier<TextEditingController>(
+      TextEditingController(text: widget.educationModel?.endDate?.endYear),
+    );
+
+    activitiesNotifier = ValueNotifier<String>('');
+    gradeNotifier = ValueNotifier<String>(widget.educationModel?.grade ?? '');
+    awardNotifier = ValueNotifier<String>(widget.educationModel?.award ?? '');
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    schoolNotifier.dispose();
+    degreeNotifier.dispose();
+    monthNotifier.dispose();
+    yearNotifier.dispose();
+    endMonthNotifier.dispose();
+    endYearNotifier.dispose();
+    activitiesNotifier.dispose();
+    gradeNotifier.dispose();
+    awardNotifier.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final ValueNotifier<TextEditingController> monthNotifier =
-        ValueNotifier<TextEditingController>(TextEditingController());
-    final ValueNotifier<TextEditingController> yearNotifier =
-        ValueNotifier<TextEditingController>(TextEditingController());
-    final ValueNotifier<TextEditingController> endMonthNotifier =
-        ValueNotifier<TextEditingController>(TextEditingController());
-    final ValueNotifier<TextEditingController> endYearNotifier =
-        ValueNotifier<TextEditingController>(TextEditingController());
-    final ValueNotifier<String> schoolNotifier = ValueNotifier<String>('');
-    final ValueNotifier<String> degreeNotifier = ValueNotifier<String>('');
-    final ValueNotifier<String> activitiesNotifier = ValueNotifier<String>('');
-    final ValueNotifier<String> gradeNotifier = ValueNotifier<String>('');
-    final ValueNotifier<String> awardNotifier = ValueNotifier<String>('');
     final infoState = ref.watch(addEducationInfoProvider);
 
     return ListenableBuilder(
@@ -128,10 +275,8 @@ class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
                           showCupertinoDateWidget(
                             context: context,
                             onConfirm: (date) {
-                              monthNotifier.value.text =
-                                  dateFormattedToMonth(date);
-                              yearNotifier.value.text =
-                                  dateFormattedToYear(date);
+                              monthNotifier.value.text = dateFormattedToMonth(date);
+                              yearNotifier.value.text = dateFormattedToYear(date);
                             },
                           );
                         },
@@ -152,10 +297,8 @@ class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
                           showCupertinoDateWidget(
                             context: context,
                             onConfirm: (date) {
-                              monthNotifier.value.text =
-                                  dateFormattedToMonth(date);
-                              yearNotifier.value.text =
-                                  dateFormattedToYear(date);
+                              monthNotifier.value.text = dateFormattedToMonth(date);
+                              yearNotifier.value.text = dateFormattedToYear(date);
                             },
                           );
                         },
@@ -185,10 +328,8 @@ class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
                           showCupertinoDateWidget(
                             context: context,
                             onConfirm: (date) {
-                              endMonthNotifier.value.text =
-                                  dateFormattedToMonth(date);
-                              endYearNotifier.value.text =
-                                  dateFormattedToYear(date);
+                              endMonthNotifier.value.text = dateFormattedToMonth(date);
+                              endYearNotifier.value.text = dateFormattedToYear(date);
                             },
                           );
                         },
@@ -209,10 +350,8 @@ class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
                           showCupertinoDateWidget(
                             context: context,
                             onConfirm: (date) {
-                              endMonthNotifier.value.text =
-                                  dateFormattedToMonth(date);
-                              endYearNotifier.value.text =
-                                  dateFormattedToYear(date);
+                              endMonthNotifier.value.text = dateFormattedToMonth(date);
+                              endYearNotifier.value.text = dateFormattedToYear(date);
                             },
                           );
                         },
@@ -263,9 +402,8 @@ class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
                             ? infoState.error.toString()
                             : infoState.valueOrNull.toString(),
                         style: AppTextStyle.bodyMedium.copyWith(
-                            color: infoState.hasError
-                                ? Colors.red
-                                : AppThemeColorDark.successColor),
+                            color:
+                                infoState.hasError ? Colors.red : AppThemeColorDark.successColor),
                       ),
                 // ! Save btn
                 Align(
@@ -273,29 +411,41 @@ class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
                   child: ElevatedButton(
                     onPressed: () {
                       var docId = const Uuid().v4();
+                      Map<String, dynamic> startdate = {
+                        FirebaseDocsFieldEnums.month.name: monthNotifier.value.text,
+                        FirebaseDocsFieldEnums.year.name: yearNotifier.value.text,
+                      };
+                      Map<String, dynamic> endDate = {
+                        FirebaseDocsFieldEnums.endMonth.name: endMonthNotifier.value.text,
+                        FirebaseDocsFieldEnums.endYear.name: endYearNotifier.value.text,
+                      };
 
                       MapDynamicString map = CreateFormMap.createDataMap(
                         controllersText: [
                           schoolNotifier.value,
                           degreeNotifier.value,
-                          monthNotifier.value.text,
-                          yearNotifier.value.text,
-                          endMonthNotifier.value.text,
-                          endYearNotifier.value.text,
+                          // monthNotifier.value.text,
+                          // yearNotifier.value.text,
+                          startdate,
+                          // endMonthNotifier.value.text,
+                          // endYearNotifier.value.text,
+                          endDate,
                           gradeNotifier.value,
                           awardNotifier.value,
                           activitiesNotifier.value,
-                          docId,
+                          widget.educationModel?.docId ?? docId,
                           DateTime.now().toIso8601String(),
                         ],
                         customKeys: // initiate my custom keys
                             [
                           FirebaseDocsFieldEnums.school.name,
                           FirebaseDocsFieldEnums.degree.name,
-                          FirebaseDocsFieldEnums.month.name,
-                          FirebaseDocsFieldEnums.year.name,
-                          FirebaseDocsFieldEnums.endMonth.name,
-                          FirebaseDocsFieldEnums.endYear.name,
+                          // FirebaseDocsFieldEnums.month.name,
+                          // FirebaseDocsFieldEnums.year.name,
+                          FirebaseDocsFieldEnums.startDate.name,
+                          // FirebaseDocsFieldEnums.endMonth.name,
+                          // FirebaseDocsFieldEnums.endYear.name,
+                          FirebaseDocsFieldEnums.endDate.name,
                           FirebaseDocsFieldEnums.grade.name,
                           FirebaseDocsFieldEnums.award.name,
                           FirebaseDocsFieldEnums.activities.name,
@@ -308,10 +458,19 @@ class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
                       if (educationFormKey.currentState!.validate()) {
                         ref
                             .read(addEducationInfoProvider.notifier)
-                            .addEducationInfoMethod(map: map, docId: docId)
+                            .addEducationInfoMethod(
+                                map: map, docId: widget.educationModel?.docId ?? docId)
                             .whenComplete(
-                              () => ref.invalidate(fetchProfileProvider),
-                            );
+                          () {
+                            ref.invalidate(fetchEducationListProvider(''));
+                          },
+                        );
+                        if (widget.educationModel == null ||
+                            widget.educationModel?.school == null) {
+                          widget.pageIndexNotifier.value = widget.pageIndexNotifier.value - 2;
+                        } else {
+                          widget.pageIndexNotifier.value = widget.pageIndexNotifier.value - 1;
+                        }
                       }
                     },
                     child: infoState.isLoading == true

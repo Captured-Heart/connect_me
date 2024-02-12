@@ -6,4 +6,9 @@ abstract class EducationRepository {
     required String docId,
     required MapDynamicString map,
   });
+
+  Future<Either<AppException, void>> deleteEducationInfo({
+    required String uuid,
+    required String docId,
+  });
 }

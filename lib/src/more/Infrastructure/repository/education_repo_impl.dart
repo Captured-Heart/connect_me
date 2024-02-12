@@ -24,6 +24,21 @@ class EducationRepositoryImpl extends EducationRepository {
       return Left(AppException(e.toString()));
     }
   }
+
+  @override
+  Future<Either<AppException, void>> deleteEducationInfo(
+      {required String uuid, required String docId}) async {
+    try {
+      var deleteInfo = cloudFirestore
+          .collection(FirebaseCollectionEnums.users.value)
+          .doc(uuid)
+          .collection(FirebaseCollectionEnums.education.value)
+          .doc(docId);
+      return Right(deleteInfo.delete());
+    } catch (e) {
+      return Left(AppException(e.toString()));
+    }
+  }
 }
 
 final educationImplProvider = Provider<EducationRepositoryImpl>((ref) {
