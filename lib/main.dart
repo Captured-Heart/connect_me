@@ -42,13 +42,23 @@ class _MainAppState extends State<MainApp> {
 
   List<ShortcutItem> forIos = [
     const ShortcutItem(
-        type: 'action_one', localizedTitle: TextConstant.viewQrCode, icon: 'AppIcon'),
-    const ShortcutItem(type: 'action_two', localizedTitle: TextConstant.scanQr, icon: 'AppIcon')
+        type: 'action_one',
+        localizedTitle: TextConstant.viewQrCode,
+        icon: 'AppIcon'),
+    const ShortcutItem(
+        type: 'action_two',
+        localizedTitle: TextConstant.scanQr,
+        icon: 'AppIcon')
   ];
   List<ShortcutItem> forAndroid = [
     const ShortcutItem(
-        type: 'action_one', localizedTitle: TextConstant.viewQrCode, icon: 'ic_launcher'),
-    const ShortcutItem(type: 'action_two', localizedTitle: TextConstant.scanQr, icon: 'ic_launcher')
+        type: 'action_one',
+        localizedTitle: TextConstant.viewQrCode,
+        icon: 'ic_launcher'),
+    const ShortcutItem(
+        type: 'action_two',
+        localizedTitle: TextConstant.scanQr,
+        icon: 'ic_launcher')
   ];
   @override
   void initState() {
@@ -60,7 +70,6 @@ class _MainAppState extends State<MainApp> {
     QuickActions quickActions = const QuickActions();
 
     quickActions.initialize((type) {
-
       // TODO: INITIALIZE THE HOME ACTION WIDGET TO NAVIGATE TO SCREEN
       log('type is: $type');
 

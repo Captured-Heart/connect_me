@@ -61,10 +61,13 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                         warningDialogs(
                           context: context,
                           dialogModel: DialogModel(
-                            title: 'Are you sure you want to log out?'.hardCodedString,
+                            title: 'Are you sure you want to log out?'
+                                .hardCodedString,
                             content: null,
                             onPostiveAction: () {
-                              ref.read(logOutNotifierProvider.notifier).signOutUsers();
+                              ref
+                                  .read(logOutNotifierProvider.notifier)
+                                  .signOutUsers();
                             },
                           ),
                         );
@@ -87,7 +90,8 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                           context: context,
                           pageListBuilder: (context) {
                             return [
-                              accountInformationModal(context, context.textTheme, authUserData),
+                              accountInformationModal(
+                                  context, context.textTheme, authUserData),
                             ];
                           },
                         );
@@ -138,14 +142,16 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                     MoreCustomListTileWidget(
                       icon: educationCapIcon,
                       title: TextConstant.education,
-                      trailingWidget: educationList == null || educationList.isEmpty
-                          ? Icon(
-                              warningIcon,
-                              color: context.colorScheme.tertiary,
-                            )
-                          : null,
+                      trailingWidget:
+                          educationList == null || educationList.isEmpty
+                              ? Icon(
+                                  warningIcon,
+                                  color: context.colorScheme.tertiary,
+                                )
+                              : null,
                       onTap: () {
-                        ValueNotifier<int>? pageIndexNotifier = ValueNotifier<int>(0);
+                        ValueNotifier<int>? pageIndexNotifier =
+                            ValueNotifier<int>(0);
 
                         WoltModalSheet.show(
                           context: context,
@@ -173,7 +179,8 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                                 pageIndexNotifier: pageIndexNotifier,
                                 // educationModel: educationList,
                                 onPop: () {
-                                  pageIndexNotifier.value = pageIndexNotifier.value - 1;
+                                  pageIndexNotifier.value =
+                                      pageIndexNotifier.value - 1;
                                 },
                               ),
                               // this is the modal without the data from firebase, [page3]
@@ -183,7 +190,8 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                                 isEditMode: true,
                                 pageIndexNotifier: pageIndexNotifier,
                                 onPop: () {
-                                  pageIndexNotifier.value = pageIndexNotifier.value - 2;
+                                  pageIndexNotifier.value =
+                                      pageIndexNotifier.value - 2;
                                 },
                               ),
                             ];
@@ -203,7 +211,8 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                             )
                           : null,
                       onTap: () {
-                        ValueNotifier<int>? pageIndexNotifier = ValueNotifier<int>(0);
+                        ValueNotifier<int>? pageIndexNotifier =
+                            ValueNotifier<int>(0);
 
                         WoltModalSheet.show(
                           context: context,
@@ -227,7 +236,8 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                                 context.textTheme,
                                 pageIndexNotifier: pageIndexNotifier,
                                 onPop: () {
-                                  pageIndexNotifier.value = pageIndexNotifier.value - 1;
+                                  pageIndexNotifier.value =
+                                      pageIndexNotifier.value - 1;
                                 },
                               ),
                               //this is the modal without the data from firebase, [page3]
@@ -237,7 +247,8 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                                 pageIndexNotifier: pageIndexNotifier,
                                 isEditMode: true,
                                 onPop: () {
-                                  pageIndexNotifier.value = pageIndexNotifier.value - 2;
+                                  pageIndexNotifier.value =
+                                      pageIndexNotifier.value - 2;
                                 },
                               )
                             ];
@@ -257,14 +268,14 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                             )
                           : null,
                       onTap: () {
-                        // TODO: LOAD SOCIAL MEDIA TO DELETE, OR EDIT DETAILS
                         WoltModalSheet.show(
                           context: context,
                           pageListBuilder: (context) {
                             return [
                               socialMediaModal(
                                 context,
-                                socialMediaModel: authUserData?.socialMediaHandles,
+                                socialMediaModel:
+                                    authUserData?.socialMediaHandles,
                               ),
                             ];
                           },
@@ -290,7 +301,8 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                       onTap: () {
                         ref
                             .read(helpCenterImplProvider)
-                            .contactTwitter(appdata.valueOrNull?.twitterSupport ?? '')
+                            .contactTwitter(
+                                appdata.valueOrNull?.twitterSupport ?? '')
                             .onError((error, stackTrace) {
                           showScaffoldSnackBarMessageNoColor(
                             TextConstant.currentlyUnavailable,
@@ -309,7 +321,8 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                       onTap: () {
                         ref
                             .read(helpCenterImplProvider)
-                            .contactWhatsapp(appdata.valueOrNull?.whatsappSupport ?? '')
+                            .contactWhatsapp(
+                                appdata.valueOrNull?.whatsappSupport ?? '')
                             .onError((error, stackTrace) {
                           showScaffoldSnackBarMessageNoColor(
                             TextConstant.currentlyUnavailable,
@@ -330,7 +343,8 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                       onTap: () {
                         ref
                             .read(helpCenterImplProvider)
-                            .contactEmail(appdata.valueOrNull?.emailSupport ?? '')
+                            .contactEmail(
+                                appdata.valueOrNull?.emailSupport ?? '')
                             .onError((error, stackTrace) {
                           showScaffoldSnackBarMessageNoColor(
                             TextConstant.currentlyUnavailable,
@@ -376,11 +390,12 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                     MoreCustomListTileWidget(
                       icon: twitterIcon,
                       title: TextConstant.developerOnTwitter,
-                      subtitle: TextConstant.capturedHeart,
+                      subtitle: "@${TextConstant.capturedHeart}",
                       onTap: () {
                         ref
                             .read(helpCenterImplProvider)
-                            .contactDevTwitter(appdata.valueOrNull?.devTwitter ?? '')
+                            .contactDevTwitter(
+                                appdata.valueOrNull?.devTwitter ?? '')
                             .onError((error, stackTrace) {
                           showScaffoldSnackBarMessageNoColor(
                             TextConstant.currentlyUnavailable,
@@ -454,10 +469,13 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                     warningDialogs(
                       context: context,
                       dialogModel: DialogModel(
-                        title: 'Are you sure you want to log out?'.hardCodedString,
+                        title:
+                            'Are you sure you want to log out?'.hardCodedString,
                         content: null,
                         onPostiveAction: () {
-                          ref.read(logOutNotifierProvider.notifier).signOutUsers();
+                          ref
+                              .read(logOutNotifierProvider.notifier)
+                              .signOutUsers();
                         },
                       ),
                     );

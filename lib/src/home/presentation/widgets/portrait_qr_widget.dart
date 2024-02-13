@@ -43,7 +43,9 @@ class PortraitQrCodeWidget extends StatelessWidget {
             AutoSizeText(
               TextConstant.scanQrCodeToConnect,
               style: context.textTheme.bodySmall?.copyWith(
-                color: isStaticTheme == true ? Colors.black : context.colorScheme.onSurface,
+                color: isStaticTheme == true
+                    ? Colors.black
+                    : context.colorScheme.onSurface,
               ),
               textScaleFactor: 0.8,
             )
@@ -73,23 +75,31 @@ class CustomQrCodeImageWidget extends StatelessWidget {
           ? const EdgeInsets.only(top: 15, right: 10, left: 10, bottom: 3)
           : const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       padding: EdgeInsets.symmetric(
-          vertical: isDense == true ? 3 : 5, horizontal: isDense == true ? 3 : 5),
+          vertical: isDense == true ? 3 : 5,
+          horizontal: isDense == true ? 3 : 5),
       decoration: BoxDecoration(
         border: Border.all(
-          color: isStaticTheme == true ? Colors.black : context.colorScheme.onBackground,
+          color: isStaticTheme == true
+              ? Colors.black
+              : context.colorScheme.onBackground,
           width: isDense == true ? 3 : 7,
         ),
       ),
       child: QrImageView(
-        data: authUserModel?.docId ?? '',
-
-        backgroundColor: isStaticTheme == true ? Colors.black : context.colorScheme.onSurface,
+        data: '${TextConstant.uuidPrefixTag}${authUserModel?.docId}',
+        backgroundColor: isStaticTheme == true
+            ? Colors.black
+            : context.colorScheme.onSurface,
         eyeStyle: QrEyeStyle(
-          color: isStaticTheme == true ? Colors.white : context.colorScheme.surface,
+          color: isStaticTheme == true
+              ? Colors.white
+              : context.colorScheme.surface,
           eyeShape: QrEyeShape.square,
         ),
         dataModuleStyle: QrDataModuleStyle(
-          color: isStaticTheme == true ? Colors.white : context.colorScheme.surface,
+          color: isStaticTheme == true
+              ? Colors.white
+              : context.colorScheme.surface,
           dataModuleShape: QrDataModuleShape.circle,
         ),
         embeddedImage: const AssetImage(

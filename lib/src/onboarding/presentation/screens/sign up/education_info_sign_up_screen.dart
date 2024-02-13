@@ -4,10 +4,12 @@ class EducationInfoSignUpScreen extends ConsumerStatefulWidget {
   const EducationInfoSignUpScreen({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _EducationInfoSignUpScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _EducationInfoSignUpScreenState();
 }
 
-class _EducationInfoSignUpScreenState extends ConsumerState<EducationInfoSignUpScreen> {
+class _EducationInfoSignUpScreenState
+    extends ConsumerState<EducationInfoSignUpScreen> {
   //
   final GlobalKey<FormState> educationFormKey = GlobalKey<FormState>();
 //
@@ -110,8 +112,10 @@ class _EducationInfoSignUpScreenState extends ConsumerState<EducationInfoSignUpS
                               showCupertinoDateWidget(
                                 context: context,
                                 onConfirm: (date) {
-                                  monthNotifier.value.text = dateFormattedToMonth(date);
-                                  yearNotifier.value.text = dateFormattedToYear(date);
+                                  monthNotifier.value.text =
+                                      dateFormattedToMonth(date);
+                                  yearNotifier.value.text =
+                                      dateFormattedToYear(date);
                                 },
                               );
                             },
@@ -132,8 +136,10 @@ class _EducationInfoSignUpScreenState extends ConsumerState<EducationInfoSignUpS
                               showCupertinoDateWidget(
                                 context: context,
                                 onConfirm: (date) {
-                                  monthNotifier.value.text = dateFormattedToMonth(date);
-                                  yearNotifier.value.text = dateFormattedToYear(date);
+                                  monthNotifier.value.text =
+                                      dateFormattedToMonth(date);
+                                  yearNotifier.value.text =
+                                      dateFormattedToYear(date);
                                 },
                               );
                             },
@@ -163,8 +169,10 @@ class _EducationInfoSignUpScreenState extends ConsumerState<EducationInfoSignUpS
                               showCupertinoDateWidget(
                                 context: context,
                                 onConfirm: (date) {
-                                  endMonthNotifier.value.text = dateFormattedToMonth(date);
-                                  endYearNotifier.value.text = dateFormattedToYear(date);
+                                  endMonthNotifier.value.text =
+                                      dateFormattedToMonth(date);
+                                  endYearNotifier.value.text =
+                                      dateFormattedToYear(date);
                                 },
                               );
                             },
@@ -185,8 +193,10 @@ class _EducationInfoSignUpScreenState extends ConsumerState<EducationInfoSignUpS
                               showCupertinoDateWidget(
                                 context: context,
                                 onConfirm: (date) {
-                                  endMonthNotifier.value.text = dateFormattedToMonth(date);
-                                  endYearNotifier.value.text = dateFormattedToYear(date);
+                                  endMonthNotifier.value.text =
+                                      dateFormattedToMonth(date);
+                                  endYearNotifier.value.text =
+                                      dateFormattedToYear(date);
                                 },
                               );
                             },
@@ -274,7 +284,8 @@ class _EducationInfoSignUpScreenState extends ConsumerState<EducationInfoSignUpS
                               .read(addEducationInfoProvider.notifier)
                               .addEducationInfoMethod(map: map, docId: docId)
                               .whenComplete(
-                                () => ref.invalidate(fetchEducationListProvider),
+                                () =>
+                                    ref.invalidate(fetchEducationListProvider),
                               );
                         }
                       },

@@ -54,11 +54,15 @@ class CustomListTileWidget extends StatelessWidget {
         isSubtitleUrl != null || isSubtitleUrl?.isNotEmpty == true
             ? GestureDetector(
                 onTap: () {
-                  subtitle != null ? UrlOptions.launchWeb(isSubtitleUrl!, launchModeEXT: true) : null;
+                  subtitle != null
+                      ? UrlOptions.launchWeb(isSubtitleUrl!,
+                          launchModeEXT: true)
+                      : null;
                 },
                 child: Container(
                   margin: const EdgeInsets.only(top: 5),
-                  padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
                   decoration: BoxDecoration(
                     borderRadius: AppBorderRadius.c12,
                     border: Border.all(
@@ -90,7 +94,7 @@ class CustomListTileWidget extends StatelessWidget {
                 ),
               )
             : const SizedBox.shrink()
-      ],
+      ].columnInPadding(2),
     );
   }
 }

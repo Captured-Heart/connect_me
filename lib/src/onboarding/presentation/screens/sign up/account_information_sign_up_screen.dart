@@ -6,10 +6,12 @@ class AccountInformationSignUpScreen extends ConsumerStatefulWidget {
   const AccountInformationSignUpScreen({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _AccountInformationSignUpScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _AccountInformationSignUpScreenState();
 }
 
-class _AccountInformationSignUpScreenState extends ConsumerState<AccountInformationSignUpScreen> {
+class _AccountInformationSignUpScreenState
+    extends ConsumerState<AccountInformationSignUpScreen> {
   final GlobalKey<FormState> accountKey = GlobalKey<FormState>();
 
   final ValueNotifier<String> phonePrefixNotifier = ValueNotifier('+234');
@@ -62,7 +64,8 @@ class _AccountInformationSignUpScreenState extends ConsumerState<AccountInformat
                               imgUrl.value = value.path;
                             }
                           }).onError((error, stackTrace) {
-                            showScaffoldSnackBarMessage(error.toString(), isError: true);
+                            showScaffoldSnackBarMessage(error.toString(),
+                                isError: true);
                           });
                         }
                       },
@@ -89,12 +92,16 @@ class _AccountInformationSignUpScreenState extends ConsumerState<AccountInformat
                                         child: Container(
                                           width: 200,
                                           height: 35,
-                                          color: AppThemeColorDark.textError.withOpacity(0.7),
+                                          color: AppThemeColorDark.textError
+                                              .withOpacity(0.7),
                                           child: Center(
                                             child: Text(
                                               TextConstant.delete,
-                                              style: context.textTheme.bodyMedium?.copyWith(
-                                                color: AppThemeColorDark.textDark,
+                                              style: context
+                                                  .textTheme.bodyMedium
+                                                  ?.copyWith(
+                                                color:
+                                                    AppThemeColorDark.textDark,
                                               ),
                                               textAlign: TextAlign.center,
                                             ),
@@ -176,7 +183,8 @@ class _AccountInformationSignUpScreenState extends ConsumerState<AccountInformat
 
                             //
                             AuthTextFieldWidget(
-                              controller: TextEditingController(text: authUserData?.email ?? ''),
+                              controller: TextEditingController(
+                                  text: authUserData?.email ?? ''),
                               labelMaterial: TextConstant.email,
                               readOnly: true,
                             ),
@@ -224,7 +232,8 @@ class _AccountInformationSignUpScreenState extends ConsumerState<AccountInformat
                             ElevatedButton(
                               onPressed: () {
                                 // inspect(
-                                MapDynamicString map = CreateFormMap.createDataMap(
+                                MapDynamicString map =
+                                    CreateFormMap.createDataMap(
                                   controllersText: [
                                     // controller.firstNameController.text,
                                     // controller.lastNameController.text,

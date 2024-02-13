@@ -10,9 +10,10 @@ class ContactScreen extends ConsumerStatefulWidget {
   ConsumerState<ContactScreen> createState() => _ContactScreenState();
 }
 
-class _ContactScreenState extends ConsumerState<ContactScreen> with SingleTickerProviderStateMixin {
-  final ValueNotifier<bool> gridLayout =
-      ValueNotifier<bool>(SharedPreferencesHelper.getBoolPref(SharedKeys.myConnectLayout.name));
+class _ContactScreenState extends ConsumerState<ContactScreen>
+    with SingleTickerProviderStateMixin {
+  final ValueNotifier<bool> gridLayout = ValueNotifier<bool>(
+      SharedPreferencesHelper.getBoolPref(SharedKeys.myConnectLayout.name));
   late Animation<double> animation;
   late AnimationController controller;
   @override
@@ -28,7 +29,7 @@ class _ContactScreenState extends ConsumerState<ContactScreen> with SingleTicker
 
   @override
   Widget build(BuildContext context) {
-    final contacts = ref.watch(fetchContactsProvider);
+    final contacts = ref.watch(fetchContactsProvider.select((_) => _));
     // if (contacts.hasError || contacts.error != null) {
     //   showScaffoldSnackBarMessage(contacts.error.toString(), isError: true);
     // }
@@ -86,6 +87,9 @@ class _ContactScreenState extends ConsumerState<ContactScreen> with SingleTicker
                               ProfileScreenOthers(
                                 users: data[index],
                                 uuid: data[index].docId,
+                                onDispose: () {
+                                  log('disposed');
+                                },
                               ),
                             );
                           },
@@ -141,6 +145,7 @@ class _ContactScreenState extends ConsumerState<ContactScreen> with SingleTicker
                                 ProfileScreenOthers(
                                   users: contacts,
                                   uuid: contacts.docId,
+                                  onDispose: () {},
                                 ),
                               );
                             },
@@ -205,7 +210,7 @@ class ContactListTile extends StatelessWidget {
             imgUrl: contacts.imgUrl ?? ImagesConstant.noImagePlaceholderHttp,
           ),
         ),
-        title: AutoSizeText(contacts.username ?? ''),
+        title: AutoSizeText(contacts.fullname),
         subtitle: AutoSizeText(
           contacts.bio ?? '',
           maxLines: 2,
@@ -217,7 +222,6 @@ class ContactListTile extends StatelessWidget {
           textBaseline: TextBaseline.alphabetic,
           mainAxisSize: MainAxisSize.min,
           children: [
-            //TODO: ADD CALL AND SCAN DIALOG SHOW
             CircleChipButton(
               iconData: Icons.call,
               onTap: onCall,

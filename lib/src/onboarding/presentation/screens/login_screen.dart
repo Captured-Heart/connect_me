@@ -1,7 +1,8 @@
 import 'package:connect_me/app.dart';
 import 'package:flutter/gestures.dart';
 
-final flipCardControllerProvider = Provider.autoDispose<FlipCardController>((ref) {
+final flipCardControllerProvider =
+    Provider.autoDispose<FlipCardController>((ref) {
   return FlipCardController();
 });
 
@@ -49,7 +50,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     child: ListView(
                       shrinkWrap: true,
                       dragStartBehavior: DragStartBehavior.start,
-                      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+                      keyboardDismissBehavior:
+                          ScrollViewKeyboardDismissBehavior.onDrag,
                       // mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         FlipCard(

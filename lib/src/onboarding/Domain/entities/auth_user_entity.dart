@@ -31,8 +31,7 @@ class AuthUserModel extends Equatable {
   // final String? street;
   // final String? driverLicenseNo;
   // final String? postalCode;
-  String get fullname => '$fname $lname';
- 
+  String get fullname => fname == null ? '$username' : '$fname $lname';
 
   const AuthUserModel(
       {this.username,

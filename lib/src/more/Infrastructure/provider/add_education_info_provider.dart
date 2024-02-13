@@ -59,7 +59,8 @@ class AddEducationInfoNotifier extends StateNotifier<AsyncValue> {
 }
 
 final addEducationInfoProvider =
-    StateNotifierProvider.autoDispose<AddEducationInfoNotifier, AsyncValue>((ref) {
+    StateNotifierProvider.autoDispose<AddEducationInfoNotifier, AsyncValue>(
+        (ref) {
   final educationImpl = ref.read(educationImplProvider);
   final uuid = ref.read(currentUUIDProvider);
 

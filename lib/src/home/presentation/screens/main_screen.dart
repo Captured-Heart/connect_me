@@ -56,39 +56,57 @@ class MainScreen extends ConsumerWidget {
     }
   }
 
+  Future<bool> onWillPop({
+    required WidgetRef ref,
+    required int currentIndex,
+  }) async {
+    if (currentIndex > 0) {
+      ref.read(bottomNavBarIndexProvider.notifier).update((state) => 0);
+      return false;
+    } else if (currentIndex == 0) {
+      return true;
+    }
+    return false;
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentIndex = ref.watch(bottomNavBarIndexProvider);
     final hideNavBar = ref.watch(hideBottomNavBarProvider);
-    return Scaffold(
-      bottomNavigationBar: hideNavBar == true
-          ? const SizedBox.shrink()
-          : FadeInUp(
-              child: BottomNavigationBar(
-                  type: BottomNavigationBarType.fixed,
-                  currentIndex: currentIndex,
-                  onTap: (value) {
-                    ref.read(bottomNavBarIndexProvider.notifier).update((state) => value);
-                  },
-                  items: List.generate(
-                    4,
-                    (index) {
-                      return BottomNavigationBarItem(
-                        icon: SvgPicture.asset(
-                          NavBarItems.values[index].icon,
-                          fit: BoxFit.fill,
-                          height: 30,
-                          color: index == currentIndex
-                              ? context.colorScheme.primary
-                              : context.colorScheme.outline,
-                        ),
-                        label: NavBarItems.values[index].label,
-                        tooltip: NavBarItems.values[index].label,
-                      );
+    return WillPopScope(
+      onWillPop: () => onWillPop(ref: ref, currentIndex: currentIndex),
+      child: Scaffold(
+        bottomNavigationBar: hideNavBar == true
+            ? const SizedBox.shrink()
+            : FadeInUp(
+                child: BottomNavigationBar(
+                    type: BottomNavigationBarType.fixed,
+                    currentIndex: currentIndex,
+                    onTap: (value) {
+                      ref
+                          .read(bottomNavBarIndexProvider.notifier)
+                          .update((state) => value);
                     },
-                  )),
-            ),
-      body: bodyWidget(currentIndex: currentIndex),
+                    items: List.generate(
+                      4,
+                      (index) {
+                        return BottomNavigationBarItem(
+                          icon: SvgPicture.asset(
+                            NavBarItems.values[index].icon,
+                            fit: BoxFit.fill,
+                            height: 30,
+                            color: index == currentIndex
+                                ? context.colorScheme.primary
+                                : context.colorScheme.outline,
+                          ),
+                          label: NavBarItems.values[index].label,
+                          tooltip: NavBarItems.values[index].label,
+                        );
+                      },
+                    )),
+              ),
+        body: bodyWidget(currentIndex: currentIndex),
+      ),
     );
   }
 }

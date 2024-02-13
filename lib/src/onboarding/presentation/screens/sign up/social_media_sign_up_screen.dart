@@ -4,11 +4,15 @@ class SocialMediaSignUpScreen extends ConsumerStatefulWidget {
   const SocialMediaSignUpScreen({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _SocialMediaSignUpScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _SocialMediaSignUpScreenState();
 }
 
-class _SocialMediaSignUpScreenState extends ConsumerState<SocialMediaSignUpScreen> {
-  final List<SocialClass> textEditingControllerList = [SocialClass(title: '', link: '')];
+class _SocialMediaSignUpScreenState
+    extends ConsumerState<SocialMediaSignUpScreen> {
+  final List<SocialClass> textEditingControllerList = [
+    SocialClass(title: '', link: '')
+  ];
   final GlobalKey<FormState> socialKey = GlobalKey<FormState>();
 
   final List<String> items = [
@@ -77,7 +81,8 @@ class _SocialMediaSignUpScreenState extends ConsumerState<SocialMediaSignUpScree
                         flex: 5,
                         child: AuthTextFieldWidget(
                           contentPadding: AppEdgeInsets.eA18,
-                          controller: TextEditingController(text: controller.link),
+                          controller:
+                              TextEditingController(text: controller.link),
                           onChanged: (link) {
                             controller.link = link;
                           },
@@ -104,7 +109,9 @@ class _SocialMediaSignUpScreenState extends ConsumerState<SocialMediaSignUpScree
                     },
                     style: TextButton.styleFrom(
                         shape: RoundedRectangleBorder(
-                            side: BorderSide(color: context.colorScheme.onSurface, width: 0.3),
+                            side: BorderSide(
+                                color: context.colorScheme.onSurface,
+                                width: 0.3),
                             borderRadius: AppBorderRadius.c10),
                         padding: AppEdgeInsets.eA16),
                     icon: const Icon(addIcon),

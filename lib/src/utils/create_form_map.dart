@@ -9,8 +9,7 @@ class CreateFormMap {
 
     // Iterate over my List of TextControllers
     for (int i = 0; i < controllersText.length; i++) {
-      var text =
-          controllersText[i]; // i am trying to avoid empty spaces
+      var text = controllersText[i]; // i am trying to avoid empty spaces
 
       // Check if any of controller's text is empty
       if (text.isNotEmpty || text != null) {

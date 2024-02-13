@@ -46,7 +46,8 @@ class AccountInfoModalBody extends ConsumerStatefulWidget {
   final AuthUserModel? authUserModel;
 
   @override
-  ConsumerState<AccountInfoModalBody> createState() => _AccountInfoModalBodyState();
+  ConsumerState<AccountInfoModalBody> createState() =>
+      _AccountInfoModalBodyState();
 }
 
 class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
@@ -56,7 +57,8 @@ class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
 
     // I AM DOWNLOADING THE USER PREVIOUS IMAGE AND PASS AS FILE IMAGE
     if (authUserModel?.imgUrl?.isNotEmpty == true) {
-      downloadAndSaveImage(authUserModel?.imgUrl ?? ImagesConstant.noImagePlaceholderHttp)
+      downloadAndSaveImage(
+              authUserModel?.imgUrl ?? ImagesConstant.noImagePlaceholderHttp)
           .then((value) => imgUrlFirebaseNotifier.value = value);
     }
     super.initState();
@@ -74,7 +76,8 @@ class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
     return file.path;
   }
 
-  final ValueNotifier<String> imgUrlFirebaseNotifier = ValueNotifier<String>('');
+  final ValueNotifier<String> imgUrlFirebaseNotifier =
+      ValueNotifier<String>('');
   @override
   Widget build(BuildContext context) {
     final infoState = ref.watch(addAccountInfoProvider);
@@ -114,28 +117,50 @@ class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
                 // widget.authUserModel?.imgUrl?.isNotEmpty == true && imgUrlFirebaseNotifier.value.isEmpty
                 //     ? const CircularProgressIndicator()
                 //     :
-                     AddProfilePictureWidget(
-                        onTapAddPhoto: () {
-                          pickImageFunction(pickCamera: false).then((value) {
-                            if (value != null) {
-                              imgUrlFirebaseNotifier.value = value.path;
-                            }
-                          });
-                        },
-                        onTapCamera: () {
-                          pickImageFunction(pickCamera: true).then((value) {
-                            if (value != null) {
-                              imgUrlFirebaseNotifier.value = value.path;
-                            }
-                          });
-                        },
-                        onDeleteImage: () {
-                          imgUrlFirebaseNotifier.value = '';
-                        },
-                        isFromFirebase: imgUrlFirebaseNotifier.value.isNotEmpty,
-                        imgUrl: imgUrlFirebaseNotifier.value,
-                        imageIsLoading:  widget.authUserModel?.imgUrl?.isNotEmpty == true && imgUrlFirebaseNotifier.value.isEmpty,
-                      ),
+
+                // imgUrlFirebaseNotifier.value.isEmpty
+                //     ? AddProfilePictureWidget(
+                //         onTapAddPhoto: () {
+                //           pickImageFunction(pickCamera: false).then((value) {
+                //             if (value != null) {
+                //               imgUrlFirebaseNotifier.value = value.path;
+                //             }
+                //           });
+                //         },
+                //         onTapCamera: () {
+                //           pickImageFunction(pickCamera: true).then((value) {
+                //             if (value != null) {
+                //               imgUrlFirebaseNotifier.value = value.path;
+                //             }
+                //           });
+                //         },
+                //       )
+                //     :
+
+                AddProfilePictureWidget(
+                  onTapAddPhoto: () {
+                    pickImageFunction(pickCamera: false).then((value) {
+                      if (value != null) {
+                        imgUrlFirebaseNotifier.value = value.path;
+                      }
+                    });
+                  },
+                  onTapCamera: () {
+                    pickImageFunction(pickCamera: true).then((value) {
+                      if (value != null) {
+                        imgUrlFirebaseNotifier.value = value.path;
+                      }
+                    });
+                  },
+                  onDeleteImage: () {
+                    imgUrlFirebaseNotifier.value = '';
+                  },
+                  isFromFirebase: imgUrlFirebaseNotifier.value.isNotEmpty,
+                  imgUrl: imgUrlFirebaseNotifier.value,
+                  imageIsLoading:
+                      widget.authUserModel?.imgUrl?.isNotEmpty == true &&
+                          imgUrlFirebaseNotifier.value.isEmpty,
+                ),
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -167,7 +192,8 @@ class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
                   ],
                 ),
                 AuthTextFieldWidget(
-                  controller: TextEditingController(text: widget.authUserModel?.email ?? ''),
+                  controller: TextEditingController(
+                      text: widget.authUserModel?.email ?? ''),
                   labelMaterial: TextConstant.email,
                   readOnly: true,
                 ),
@@ -219,8 +245,9 @@ class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
                             ? infoState.error.toString()
                             : infoState.valueOrNull.toString(),
                         style: AppTextStyle.bodyMedium.copyWith(
-                            color:
-                                infoState.hasError ? Colors.red : AppThemeColorDark.successColor),
+                            color: infoState.hasError
+                                ? Colors.red
+                                : AppThemeColorDark.successColor),
                       ),
 
                 Align(

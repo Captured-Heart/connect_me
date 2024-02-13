@@ -1,4 +1,3 @@
-
 import 'package:connect_me/app.dart';
 
 class IconAndTextWidget extends StatelessWidget {
@@ -31,8 +30,9 @@ class IconAndTextWidget extends StatelessWidget {
             child: AutoSizeText(
               text,
               maxLines: 1,
-              style: context.textTheme.bodyMedium
-                  ?.copyWith(color: color ?? context.colorScheme.onBackground, fontSize: 11),
+              style: context.textTheme.bodyMedium?.copyWith(
+                  color: color ?? context.colorScheme.onBackground,
+                  fontSize: 11),
               minFontSize: 10,
               maxFontSize: 12,
               textScaleFactor: 0.9,

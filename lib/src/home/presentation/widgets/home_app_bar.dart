@@ -119,17 +119,18 @@ class CircleChipButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Tooltip(
+        margin: EdgeInsets.zero,
         message: tooltip,
         child: Chip(
           backgroundColor: context.colorScheme.inversePrimary.withOpacity(0.4),
           visualDensity: VisualDensity.compact,
-
           label: Icon(
             iconData,
             semanticLabel: tooltip,
-            size: 22,
+            size: 20,
           ),
-          // labelPadding: AppEdgeInsets.eA2,
+          labelPadding: AppEdgeInsets.eA2,
+          padding: AppEdgeInsets.eA2,
           shape: const CircleBorder(),
           side: BorderSide(width: 0.5, color: context.colorScheme.onSurface),
         ),

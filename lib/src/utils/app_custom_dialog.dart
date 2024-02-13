@@ -16,7 +16,7 @@ Future<void> warningDialogs({
             ? AppCustomSuccessDialog(dialogModel: dialogModel)
             : AppCustomDialogWarning(
                 dialogModel: dialogModel,
-                content: content,
+                // content: content,
               );
       },
     );
@@ -26,10 +26,10 @@ class AppCustomDialogWarning extends StatefulWidget {
   const AppCustomDialogWarning({
     super.key,
     required this.dialogModel,
-    this.content,
+    // this.content,
   });
   final DialogModel dialogModel;
-  final Widget? content;
+  // final Widget? content;
 
   @override
   State<AppCustomDialogWarning> createState() => _AppCustomDialogWarningState();
@@ -48,27 +48,28 @@ class _AppCustomDialogWarningState extends State<AppCustomDialogWarning> {
                 textScaleFactor: 1.1,
                 textAlign: TextAlign.center,
               ).padOnly(bottom: 10),
-        content: widget.content == null
-            ? null
-            : Row(
-                children: [
-                  widget.dialogModel.hasImage == false
-                      ? const SizedBox.shrink()
-                      : CachedNetworkImageWidget(
-                          imgUrl: widget.dialogModel.imgUrl,
-                          height: widget.dialogModel.height ?? 80,
+        content: widget.dialogModel.content ??
+            (widget.dialogModel.contentText != null
+                ? Row(
+                    children: [
+                      widget.dialogModel.hasImage == false
+                          ? const SizedBox.shrink()
+                          : CachedNetworkImageWidget(
+                              imgUrl: widget.dialogModel.imgUrl,
+                              height: widget.dialogModel.height ?? 80,
+                            ),
+                      Expanded(
+                        child: Text(
+                          widget.dialogModel.contentText ?? '',
+                          textScaleFactor: 1.1,
+                          textAlign: widget.dialogModel.hasImage == true
+                              ? TextAlign.left
+                              : TextAlign.center,
                         ),
-                  Expanded(
-                    child: Text(
-                      widget.dialogModel.errorMessage ?? '',
-                      textScaleFactor: 1.1,
-                      textAlign: widget.dialogModel.hasImage == true
-                          ? TextAlign.left
-                          : TextAlign.center,
-                    ),
-                  )
-                ].rowInPadding(10),
-              ).padSymmetric(horizontal: 15),
+                      )
+                    ].rowInPadding(10),
+                  ).padSymmetric(horizontal: 15)
+                : const SizedBox.shrink()),
         actions: [
           TextButton(
             onPressed: widget.dialogModel.onNegativeAction ??
@@ -106,7 +107,28 @@ class _AppCustomDialogWarningState extends State<AppCustomDialogWarning> {
               ).padOnly(bottom: 10),
 
         //?.padSymmetric(horizontal: 20, vertical: 10)
-        content: widget.content,
+        content: widget.dialogModel.content ??
+            (widget.dialogModel.contentText != null
+                ? Row(
+                    children: [
+                      widget.dialogModel.hasImage == false
+                          ? const SizedBox.shrink()
+                          : CachedNetworkImageWidget(
+                              imgUrl: widget.dialogModel.imgUrl,
+                              height: widget.dialogModel.height ?? 80,
+                            ),
+                      Expanded(
+                        child: Text(
+                          widget.dialogModel.contentText ?? '',
+                          textScaleFactor: 1.1,
+                          textAlign: widget.dialogModel.hasImage == true
+                              ? TextAlign.left
+                              : TextAlign.center,
+                        ),
+                      )
+                    ].rowInPadding(10),
+                  ).padSymmetric(horizontal: 15)
+                : const SizedBox.shrink()),
         // contentPadding: const EdgeInsets.only(top: 5),
         actionsAlignment: MainAxisAlignment.spaceAround,
         // contentTextStyle: context.theme.textTheme.bodyMedium,

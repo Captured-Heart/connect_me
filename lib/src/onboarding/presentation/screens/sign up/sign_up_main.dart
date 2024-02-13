@@ -46,7 +46,8 @@ class SignUpMainScreen extends ConsumerWidget {
                               )
                             : null,
                         onTap: () {
-                          pushAsVoid(context, const AccountInformationSignUpScreen());
+                          pushAsVoid(
+                              context, const AccountInformationSignUpScreen());
                         },
                       ),
                     ),
@@ -54,14 +55,16 @@ class SignUpMainScreen extends ConsumerWidget {
                       elevation: 2,
                       child: MoreCustomListTileWidget(
                         title: TextConstant.education,
-                        trailingWidget: education?.isEmpty == true || education == null
-                            ? null
-                            : const Icon(
-                                checkCircleIcon,
-                                color: AppThemeColorDark.successColor,
-                              ),
+                        trailingWidget:
+                            education?.isEmpty == true || education == null
+                                ? null
+                                : const Icon(
+                                    checkCircleIcon,
+                                    color: AppThemeColorDark.successColor,
+                                  ),
                         onTap: () {
-                          pushAsVoid(context, const EducationInfoSignUpScreen());
+                          pushAsVoid(
+                              context, const EducationInfoSignUpScreen());
                         },
                       ),
                     ),
@@ -69,7 +72,8 @@ class SignUpMainScreen extends ConsumerWidget {
                       elevation: 2,
                       child: MoreCustomListTileWidget(
                         title: TextConstant.workExperience,
-                        trailingWidget: workExperience?.isEmpty == true || workExperience == null
+                        trailingWidget: workExperience?.isEmpty == true ||
+                                workExperience == null
                             ? null
                             : const Icon(
                                 checkCircleIcon,
@@ -87,13 +91,14 @@ class SignUpMainScreen extends ConsumerWidget {
                       elevation: 2,
                       child: MoreCustomListTileWidget(
                         title: TextConstant.socialMediaHandles,
-                        trailingWidget: authUserData?.socialMediaHandles?.isEmpty == true ||
-                                authUserData?.socialMediaHandles == null
-                            ? null
-                            : const Icon(
-                                checkCircleIcon,
-                                color: AppThemeColorDark.successColor,
-                              ),
+                        trailingWidget:
+                            authUserData?.socialMediaHandles?.isEmpty == true ||
+                                    authUserData?.socialMediaHandles == null
+                                ? null
+                                : const Icon(
+                                    checkCircleIcon,
+                                    color: AppThemeColorDark.successColor,
+                                  ),
                         onTap: () {
                           pushAsVoid(
                             context,
@@ -122,9 +127,12 @@ class SignUpMainScreen extends ConsumerWidget {
                 //complete button
                 ElevatedButton(
                   onPressed: authUserData?.completedSignUp == true &&
-                          (education?.isNotEmpty == true || education != null) &&
-                          (workExperience?.isNotEmpty == true || workExperience != null) &&
-                          (authUserData?.socialMediaHandles?.isNotEmpty == true ||
+                          (education?.isNotEmpty == true ||
+                              education != null) &&
+                          (workExperience?.isNotEmpty == true ||
+                              workExperience != null) &&
+                          (authUserData?.socialMediaHandles?.isNotEmpty ==
+                                  true ||
                               authUserData?.socialMediaHandles != null)
                       ? () {
                           pushReplacement(context, const MainScreen());

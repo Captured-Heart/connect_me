@@ -68,7 +68,8 @@ class _SupportModalBodyState extends State<SupportModalBody> {
                     .replaceRange(29, 33, '****'),
                 onTap: () {
                   FlutterClipboard.controlC(
-                    widget.appDataModel?.btcAddress ?? TextConstant.currentlyUnavailable,
+                    widget.appDataModel?.btcAddress ??
+                        TextConstant.currentlyUnavailable,
                   ).then(
                     (value) => isCopiedNotifier.value = value,
                   );
@@ -76,14 +77,17 @@ class _SupportModalBodyState extends State<SupportModalBody> {
                 trailingWidget: GestureDetector(
                   onTap: () {
                     FlutterClipboard.controlC(
-                      widget.appDataModel?.btcAddress ?? TextConstant.currentlyUnavailable,
+                      widget.appDataModel?.btcAddress ??
+                          TextConstant.currentlyUnavailable,
                     ).then(
                       (value) => isCopiedNotifier.value = value,
                     );
                   },
                   child: Icon(
                     isCopied == true ? checkCircleIcon : copyIcon,
-                    color: isCopied == true ? AppThemeColorDark.successColor : null,
+                    color: isCopied == true
+                        ? AppThemeColorDark.successColor
+                        : null,
                   ),
                 ),
               ),
@@ -93,7 +97,8 @@ class _SupportModalBodyState extends State<SupportModalBody> {
                 subtitle: widget.appDataModel?.buyMeCoffee,
                 onTap: () {
                   UrlOptions.launchWeb(
-                    widget.appDataModel?.buyMeCoffee ?? TextConstant.currentlyUnavailable,
+                    widget.appDataModel?.buyMeCoffee ??
+                        TextConstant.currentlyUnavailable,
                     launchModeEXT: true,
                   );
                 },

@@ -15,7 +15,8 @@ SliverWoltModalSheetPage educationListTile(
     topBar: Container(
       color: modalSheetContext.theme.cardColor,
       alignment: Alignment.center,
-      child: Text(TextConstant.education, style: modalSheetContext.textTheme.titleSmall),
+      child: Text(TextConstant.education,
+          style: modalSheetContext.textTheme.titleSmall),
     ),
     isTopBarLayerAlwaysVisible: true,
     trailingNavBarWidget: IconButton(
@@ -44,7 +45,9 @@ SliverWoltModalSheetPage educationListTile(
                 educationList?.length ?? 1,
                 (index) => GestureDetector(
                   onTap: () {
-                    ref.read(educationIndexNotifier.notifier).update((state) => index);
+                    ref
+                        .read(educationIndexNotifier.notifier)
+                        .update((state) => index);
                     pageIndexNotifier.value = pageIndexNotifier.value + 1;
                   },
                   child: Card(
@@ -52,28 +55,34 @@ SliverWoltModalSheetPage educationListTile(
                     child: ListTile(
                       dense: true,
                       leading: CircleAvatar(
-                        backgroundColor: modalSheetContext.colorScheme.primaryContainer,
+                        backgroundColor:
+                            modalSheetContext.colorScheme.primaryContainer,
                         child: Text(
                           '${index + 1}',
                           style: modalSheetContext.textTheme.labelLarge,
                         ),
                       ),
-                      title: Text(educationList?[index].school?.toTitleCase() ?? ''),
-                      subtitle: Text(educationList?[index].degree?.toTitleCase() ?? ''),
+                      title: Text(
+                          educationList?[index].school?.toTitleCase() ?? ''),
+                      subtitle: Text(
+                          educationList?[index].degree?.toTitleCase() ?? ''),
                       trailing: Container(
                         padding: AppEdgeInsets.eA4,
                         decoration: BoxDecoration(
-                          border: Border.all(color: modalSheetContext.colorScheme.onSurface),
+                          border: Border.all(
+                              color: modalSheetContext.colorScheme.onSurface),
                           shape: BoxShape.circle,
                         ),
                         child: Icon(
                           deleteIcon,
                           color: modalSheetContext.colorScheme.error,
                           size: 17,
-                        ).tooltipWidget(TextConstant.delete).onTapWidget(onTap: () {
+                        ).tooltipWidget(TextConstant.delete).onTapWidget(
+                            onTap: () {
                           ref
                               .read(addEducationInfoProvider.notifier)
-                              .deleteEducationMethod(docId: educationList?[index].docId ?? '')
+                              .deleteEducationMethod(
+                                  docId: educationList?[index].docId ?? '')
                               .whenComplete(
                             () {
                               ref.invalidate(
@@ -128,10 +137,12 @@ SliverWoltModalSheetPage educationModal(
     // body
     child: Consumer(builder: (context, ref, _) {
       final educationIndex = ref.watch(educationIndexNotifier);
-      final educationList = ref.watch(fetchEducationListProvider('')).valueOrNull;
+      final educationList =
+          ref.watch(fetchEducationListProvider('')).valueOrNull;
 
       return EducationModalBody(
-        educationModel: isEditMode == true ? null : educationList?[educationIndex],
+        educationModel:
+            isEditMode == true ? null : educationList?[educationIndex],
         pageIndexNotifier: pageIndexNotifier,
       ).padAll(15);
     }),
@@ -275,8 +286,10 @@ class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
                           showCupertinoDateWidget(
                             context: context,
                             onConfirm: (date) {
-                              monthNotifier.value.text = dateFormattedToMonth(date);
-                              yearNotifier.value.text = dateFormattedToYear(date);
+                              monthNotifier.value.text =
+                                  dateFormattedToMonth(date);
+                              yearNotifier.value.text =
+                                  dateFormattedToYear(date);
                             },
                           );
                         },
@@ -297,8 +310,10 @@ class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
                           showCupertinoDateWidget(
                             context: context,
                             onConfirm: (date) {
-                              monthNotifier.value.text = dateFormattedToMonth(date);
-                              yearNotifier.value.text = dateFormattedToYear(date);
+                              monthNotifier.value.text =
+                                  dateFormattedToMonth(date);
+                              yearNotifier.value.text =
+                                  dateFormattedToYear(date);
                             },
                           );
                         },
@@ -328,8 +343,10 @@ class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
                           showCupertinoDateWidget(
                             context: context,
                             onConfirm: (date) {
-                              endMonthNotifier.value.text = dateFormattedToMonth(date);
-                              endYearNotifier.value.text = dateFormattedToYear(date);
+                              endMonthNotifier.value.text =
+                                  dateFormattedToMonth(date);
+                              endYearNotifier.value.text =
+                                  dateFormattedToYear(date);
                             },
                           );
                         },
@@ -350,8 +367,10 @@ class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
                           showCupertinoDateWidget(
                             context: context,
                             onConfirm: (date) {
-                              endMonthNotifier.value.text = dateFormattedToMonth(date);
-                              endYearNotifier.value.text = dateFormattedToYear(date);
+                              endMonthNotifier.value.text =
+                                  dateFormattedToMonth(date);
+                              endYearNotifier.value.text =
+                                  dateFormattedToYear(date);
                             },
                           );
                         },
@@ -402,8 +421,9 @@ class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
                             ? infoState.error.toString()
                             : infoState.valueOrNull.toString(),
                         style: AppTextStyle.bodyMedium.copyWith(
-                            color:
-                                infoState.hasError ? Colors.red : AppThemeColorDark.successColor),
+                            color: infoState.hasError
+                                ? Colors.red
+                                : AppThemeColorDark.successColor),
                       ),
                 // ! Save btn
                 Align(
@@ -412,12 +432,16 @@ class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
                     onPressed: () {
                       var docId = const Uuid().v4();
                       Map<String, dynamic> startdate = {
-                        FirebaseDocsFieldEnums.month.name: monthNotifier.value.text,
-                        FirebaseDocsFieldEnums.year.name: yearNotifier.value.text,
+                        FirebaseDocsFieldEnums.month.name:
+                            monthNotifier.value.text,
+                        FirebaseDocsFieldEnums.year.name:
+                            yearNotifier.value.text,
                       };
                       Map<String, dynamic> endDate = {
-                        FirebaseDocsFieldEnums.endMonth.name: endMonthNotifier.value.text,
-                        FirebaseDocsFieldEnums.endYear.name: endYearNotifier.value.text,
+                        FirebaseDocsFieldEnums.endMonth.name:
+                            endMonthNotifier.value.text,
+                        FirebaseDocsFieldEnums.endYear.name:
+                            endYearNotifier.value.text,
                       };
 
                       MapDynamicString map = CreateFormMap.createDataMap(
@@ -459,7 +483,8 @@ class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
                         ref
                             .read(addEducationInfoProvider.notifier)
                             .addEducationInfoMethod(
-                                map: map, docId: widget.educationModel?.docId ?? docId)
+                                map: map,
+                                docId: widget.educationModel?.docId ?? docId)
                             .whenComplete(
                           () {
                             ref.invalidate(fetchEducationListProvider(''));
@@ -467,9 +492,11 @@ class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
                         );
                         if (widget.educationModel == null ||
                             widget.educationModel?.school == null) {
-                          widget.pageIndexNotifier.value = widget.pageIndexNotifier.value - 2;
+                          widget.pageIndexNotifier.value =
+                              widget.pageIndexNotifier.value - 2;
                         } else {
-                          widget.pageIndexNotifier.value = widget.pageIndexNotifier.value - 1;
+                          widget.pageIndexNotifier.value =
+                              widget.pageIndexNotifier.value - 1;
                         }
                       }
                     },

@@ -31,12 +31,15 @@ class CustomTabBar extends StatelessWidget implements PreferredSizeWidget {
         indicatorSize: TabBarIndicatorSize.label,
 
         indicator: UnderlineTabIndicator(
-          borderSide: BorderSide(color: context.colorScheme.onBackground, width: 2),
+          borderSide:
+              BorderSide(color: context.colorScheme.onBackground, width: 2),
         ),
         splashBorderRadius: BorderRadius.circular(40),
         splashFactory: NoSplash.splashFactory,
         overlayColor: MaterialStateProperty.resolveWith<Color?>(
-          (states) => states.contains(MaterialState.selected) ? null : Colors.transparent,
+          (states) => states.contains(MaterialState.selected)
+              ? null
+              : Colors.transparent,
         ),
         // onTap: (value) {
         //   log(value.toString());
@@ -80,8 +83,8 @@ class CustomTabBar2 extends StatelessWidget implements PreferredSizeWidget {
           color: context.colorScheme.onBackground,
         ),
         labelPadding: AppEdgeInsets.eA12,
-        unselectedLabelStyle:
-            context.textTheme.labelLarge?.copyWith(color: context.colorScheme.onSurface),
+        unselectedLabelStyle: context.textTheme.labelLarge
+            ?.copyWith(color: context.colorScheme.onSurface),
 
         labelColor: context.colorScheme.onBackground,
         dividerColor: Colors.transparent,
@@ -100,7 +103,9 @@ class CustomTabBar2 extends StatelessWidget implements PreferredSizeWidget {
         splashBorderRadius: BorderRadius.circular(40),
         splashFactory: NoSplash.splashFactory,
         overlayColor: MaterialStateProperty.resolveWith<Color?>(
-          (states) => states.contains(MaterialState.selected) ? null : Colors.transparent,
+          (states) => states.contains(MaterialState.selected)
+              ? null
+              : Colors.transparent,
         ),
 
         tabs: tabs,
@@ -128,7 +133,7 @@ class CustomTabBar3 extends StatelessWidget implements PreferredSizeWidget {
       isScrollable: false,
       onTap: onTap,
       enableFeedback: true,
-      
+
       controller: tabController,
       labelStyle: context.textTheme.labelLarge?.copyWith(
         fontWeight: AppFontWeight.w500,
@@ -157,7 +162,8 @@ class CustomTabBar3 extends StatelessWidget implements PreferredSizeWidget {
       splashBorderRadius: BorderRadius.circular(40),
       splashFactory: NoSplash.splashFactory,
       overlayColor: MaterialStateProperty.resolveWith<Color?>(
-        (states) => states.contains(MaterialState.selected) ? null : Colors.transparent,
+        (states) =>
+            states.contains(MaterialState.selected) ? null : Colors.transparent,
       ),
 
       tabs: tabs,

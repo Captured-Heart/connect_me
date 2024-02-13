@@ -109,16 +109,20 @@ class NewProfileScreen extends ConsumerWidget {
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
                                           Column(
-                                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.stretch,
                                             children: [
                                               AutoSizeText(
                                                 'Univeristy of Nigeria, Nsukka',
-                                                style: context.textTheme.titleSmall,
+                                                style: context
+                                                    .textTheme.titleSmall,
                                               ),
                                               AutoSizeText(
                                                   'Bachelor\'s Degree . Electrical Engineering'),
-                                              AutoSizeText('Apr 2017 - July 2022'),
-                                              AutoSizeText('First Class Honours'),
+                                              AutoSizeText(
+                                                  'Apr 2017 - July 2022'),
+                                              AutoSizeText(
+                                                  'First Class Honours'),
                                             ].columnInPadding(3),
                                           ),
 
@@ -130,18 +134,22 @@ class NewProfileScreen extends ConsumerWidget {
                                                 contentPadding: EdgeInsets.zero,
                                                 title: Text(
                                                   TextConstant.awardAndHonours,
-                                                  style: context.textTheme.titleSmall,
+                                                  style: context
+                                                      .textTheme.titleSmall,
                                                 ).padOnly(bottom: 3),
-                                                subtitle: Text('okafor chiozoba'),
+                                                subtitle:
+                                                    Text('okafor chiozoba'),
                                               ),
                                               ListTile(
                                                 contentPadding: EdgeInsets.zero,
                                                 title: Text(
                                                   TextConstant.activitiesAndOrg,
-                                                  style: context.textTheme.titleSmall,
+                                                  style: context
+                                                      .textTheme.titleSmall,
                                                 ).padOnly(bottom: 3),
                                                 subtitle: Text(exam
-                                                    .replaceAll(RegExp(r','), '\n')
+                                                    .replaceAll(
+                                                        RegExp(r','), '\n')
                                                     .toTitleCase()),
                                               ),
                                             ],
@@ -185,13 +193,15 @@ class NewProfileScreen extends ConsumerWidget {
                                     Expanded(
                                         child: Column(
                                       mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         AutoSizeText(
                                           'Software Developer',
                                           style: context.textTheme.titleSmall,
                                         ),
-                                        AutoSizeText('Microsoft & sons Limited'),
+                                        AutoSizeText(
+                                            'Microsoft & sons Limited'),
                                         AutoSizeText('Full-time - Hybrid'),
                                         AutoSizeText('Apr 2017 - July 2022'),
                                       ],

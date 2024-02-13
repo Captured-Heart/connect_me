@@ -1,4 +1,4 @@
-import 'dart:math';
+import 'dart:math' hide log;
 
 import 'package:connect_me/app.dart';
 import 'package:image_picker/image_picker.dart';
@@ -14,15 +14,7 @@ class QrCodeScanScreen extends ConsumerStatefulWidget {
 class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
   BarcodeCapture? barcode;
 
-  final MobileScannerController controller = MobileScannerController(
-      // torchEnabled: false, useNewCameraSelector: true,
-      // formats: [BarcodeFormat.qrCode]
-      // facing: CameraFacing.front,
-      // detectionSpeed: DetectionSpeed.normal
-      // detectionTimeoutMs: 1000,
-      // returnImage: false,
-      );
-
+  final MobileScannerController controller = MobileScannerController();
   bool isStarted = true;
 
   void _startOrStop() {
@@ -45,10 +37,28 @@ class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
     }
   }
 
+  // @override
+  // void initState() {
+  //   controller.start();
+
+  //   log('init state');
+
+  //   // _startOrStop();
+  //   super.initState();
+  // }
+
+  // @override
+  // void dispose() {
+  //   controller.stop();
+  //   log('is just starting: ${controller.isStarting}');
+
+  //   super.dispose();
+  // }
+
   int? numberOfCameras;
   @override
   Widget build(BuildContext context) {
-    final scanWindow = Rect.fromCenter(
+    var scanWindow = Rect.fromCenter(
       center: context.center(
         Offset(
           1,
@@ -58,6 +68,8 @@ class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
       width: context.sizeWidth(0.65),
       height: context.sizeHeight(0.35),
     );
+
+    // log('is just starting: ${controller.isStarting}');
     return Scaffold(
       body: Builder(
         builder: (context) {
@@ -71,54 +83,67 @@ class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
                     setState(() {});
                   }
                 },
+                // placeholderBuilder: (p0, p1) {
+                //   return const Center(
+                //     child: CircularProgressIndicator.adaptive(),
+                //   );
+                // },
                 scanWindow: scanWindow,
                 controller: controller,
                 errorBuilder: (context, error, child) {
                   inspect(error);
                   return Center(
                     child: Text(
-                      '${error.errorDetails?.message}\n             Check Camera Permissions!' ??
-                          'error',
+                      '''Check Camera Permissions! 
+                      or 
+      Restart scan process'''
+                          .hardCodedString,
                     ),
                   );
                 },
-                // overlay: Center(
-                //   child: Card(
-                //     color: Colors.red,
-                //     shape: CustomOverlayShape(
-                //       borderColor: Colors.red,
-                //       borderRadius: 10,
-                //       borderLength: 30,
-                //       borderWidth: 10,
-                //       cutOutSize: context.sizeHeight(0.4),
-                //     ),
-                //   ),
-                // ),
                 fit: BoxFit.cover,
                 onDetect: (barcode) {
-                  //TODO: NAVIGATE TO THE PROFILE OTHER SCREEN HERE
-                  setState(() {
-                    this.barcode = barcode;
-                  });
+                  // _startOrStop();
+                  controller.stop();
+
+                  final uuid = barcode.barcodes.first.rawValue
+                      .toString()
+                      .replaceAll(TextConstant.uuidPrefixTag, '')
+                      .trim();
+                  pushAsVoid(
+                    context,
+                    ProfileScreenOthers(
+                      uuid: uuid,
+                      onDispose: () {
+                        controller.start();
+                      },
+                    ),
+                  );
+                  log('this is the barcode scanned ${barcode.barcodes.first.rawValue}');
                 },
               ),
               Align(
                 alignment: Alignment.topCenter,
                 child: CustomPaint(
-                  size: Size(context.sizeWidth(1), context.sizeHeight(0.1)),
+                  size: Size(
+                    context.sizeWidth(1),
+                    context.sizeHeight(0.1),
+                  ),
                   painter: ScannerOverlay(scanWindow),
                 ),
               ),
+
+              // All the action buttons [Image], [Switch Camera], [Flash]
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
                   alignment: Alignment.center,
                   height: 100,
-                  // color: Colors.black.withOpacity(0.4),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      //! FLASH TORCH
                       ValueListenableBuilder(
                         valueListenable: controller.hasTorchState,
                         builder: (context, state, child) {
@@ -172,7 +197,7 @@ class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
                       //   ),
                       // ),
 
-//! CAMERA SWITCH
+                      //! CAMERA SWITCH
                       IconButton(
                         color: AppThemeColorDark.textDark,
                         tooltip: 'Switch Camera'.hardCodedString,
@@ -181,9 +206,9 @@ class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
                           builder: (context, state, child) {
                             switch (state) {
                               case CameraFacing.front:
-                                return const Icon(Icons.camera_front);
-                              case CameraFacing.back:
                                 return const Icon(Icons.camera_rear);
+                              case CameraFacing.back:
+                                return const Icon(Icons.cameraswitch_outlined);
                             }
                           },
                         ),
@@ -199,7 +224,7 @@ class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
                         iconSize: 32.0,
                         onPressed: () async {
                           final ImagePicker picker = ImagePicker();
-                          // Pick an image
+
                           final XFile? image = await picker.pickImage(
                             source: ImageSource.gallery,
                           );
@@ -217,6 +242,8 @@ class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
                             } else {
                               //TODO: WHAT HAPPENS IF THE BARCODE COULDNT BE ANALYZED
                               if (!mounted) return;
+                              showScaffoldSnackBarMessage('');
+
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                   content: Text('No barcode found!'),

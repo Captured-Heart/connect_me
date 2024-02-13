@@ -8,7 +8,8 @@ import 'package:http/http.dart' as http;
 // import 'package:flutter/src/widgets/image.dart' as ui;
 // import 'package:flutter/ui/widgets/painting.dart';
 
-final uint8ListImageProvider = FutureProvider.family<Uint8List, String>((ref, imgUrl) async {
+final uint8ListImageProvider =
+    FutureProvider.family<Uint8List, String>((ref, imgUrl) async {
   return _resizeImage(imgUrl);
 });
 
@@ -184,11 +185,13 @@ Future<Uint8List> _resizeImage(String imgUrl) async {
   // ByteData? originalByteData = await originalUiImage.toByteData();
   // log('original image ByteData size is ${originalByteData!.lengthInBytes}');
 
-  var codec = await instantiateImageCodec(originalUnit8List, targetHeight: 100, targetWidth: 100);
+  var codec = await instantiateImageCodec(originalUnit8List,
+      targetHeight: 100, targetWidth: 100);
   var frameInfo = await codec.getNextFrame();
   Image targetUiImage = frameInfo.image;
 
-  ByteData? targetByteData = await targetUiImage.toByteData(format: ImageByteFormat.png);
+  ByteData? targetByteData =
+      await targetUiImage.toByteData(format: ImageByteFormat.png);
   // print('target image ByteData size is ${targetByteData!.lengthInBytes}');
   targetlUinit8List = targetByteData!.buffer.asUint8List();
 

@@ -30,7 +30,8 @@ class AdditionalDetailsCardWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         AdditionalInfoListTileWidget(
-                          keys: FirebaseDocsFieldEnums.country.name.toTitleCase(),
+                          keys:
+                              FirebaseDocsFieldEnums.country.name.toTitleCase(),
                           values: addInfo?.country ?? '',
                         ),
                         AdditionalInfoListTileWidget(

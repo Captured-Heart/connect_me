@@ -19,13 +19,15 @@ class AccountInfoImpl extends AccountInfoRepository {
     required String imgUrl,
   }) async {
     try {
-      var imgUrlLink =
-          await addImgToStorage(filePath: imgUrl, childPath: uuid).onError((error, stackTrace) {
+      var imgUrlLink = await addImgToStorage(filePath: imgUrl, childPath: uuid)
+          .onError((error, stackTrace) {
         throw Left(AppException(error.toString()));
       });
       map.putIfAbsent(FirebaseDocsFieldEnums.imgUrl.name, () => imgUrlLink);
       map.putIfAbsent(FirebaseDocsFieldEnums.completedSignUp.name, () => true);
-      var addAccount = firebaseFirestore.collection(FirebaseCollectionEnums.users.value).doc(uuid);
+      var addAccount = firebaseFirestore
+          .collection(FirebaseCollectionEnums.users.value)
+          .doc(uuid);
       return Right(addAccount.set(map, SetOptions(merge: true)));
     } catch (e) {
       return Left(
@@ -37,7 +39,8 @@ class AccountInfoImpl extends AccountInfoRepository {
   }
 }
 
-Future<String> addImgToStorage({required String filePath, required String childPath}) async {
+Future<String> addImgToStorage(
+    {required String filePath, required String childPath}) async {
   // var filePath = 'sddsfv/sfvs';
 //   log('''
 // $filePath
@@ -46,8 +49,9 @@ Future<String> addImgToStorage({required String filePath, required String childP
 
 // and childPath:  $childPath
 // ''');
-  Reference storageRef =
-      FirebaseStorage.instance.ref(FirebaseCollectionEnums.accountInfo.value).child(childPath);
+  Reference storageRef = FirebaseStorage.instance
+      .ref(FirebaseCollectionEnums.accountInfo.value)
+      .child(childPath);
 
   UploadTask putFile = storageRef.putFile(File(filePath));
   TaskSnapshot uploadedFile = await putFile.whenComplete(() {

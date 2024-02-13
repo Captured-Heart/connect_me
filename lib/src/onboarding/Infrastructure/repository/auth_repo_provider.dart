@@ -26,7 +26,8 @@ final currentUUIDProvider = Provider<String>((ref) {
   final firestore = ref.read(cloudFirestoreProvider);
   // final analytics = ref.read(analyticsProvider);
 
-  return AuthRepositoryImpl(ref.read(firebaseProvider), googleSign, firestore).currentUUIDProvider!;
+  return AuthRepositoryImpl(ref.read(firebaseProvider), googleSign, firestore)
+      .currentUUIDProvider!;
 });
 
 /// this is the auth provider [with_signIn_signout_google_signin]

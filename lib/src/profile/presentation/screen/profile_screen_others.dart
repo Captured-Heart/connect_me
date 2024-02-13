@@ -1,14 +1,79 @@
 import 'package:connect_me/app.dart';
 
 class ProfileScreenOthers extends ConsumerStatefulWidget {
-  const ProfileScreenOthers({super.key, this.users, this.uuid});
+  const ProfileScreenOthers({
+    super.key,
+    this.users,
+    this.uuid,
+    required this.onDispose,
+  });
   final AuthUserModel? users;
   final String? uuid;
+  final VoidCallback onDispose;
+
   @override
   ConsumerState<ProfileScreenOthers> createState() => _ProfileScreenOthersState();
 }
 
 class _ProfileScreenOthersState extends ConsumerState<ProfileScreenOthers> {
+  @override
+  void dispose() {
+    widget.onDispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    if (widget.users == null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        var docId = const Uuid().v4();
+        setState(() {});
+        Future.delayed(const Duration(seconds: 2), () {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AppCustomDialogWarning(
+                dialogModel: DialogModel(
+                  // title: 'Add to contact',
+                  // contentText: 'Do you want to add [${users.fullname}] to contacts?',
+                  content: RichText(
+                    text: TextSpan(
+                      text: 'Add ',
+                      children: [
+                        TextSpan(
+                          text: widget.users?.fullname,
+                          style: context.textTheme.titleSmall,
+                        ),
+                        const TextSpan(text: ' to contacts?')
+                      ],
+                      style: context.textTheme.titleMedium,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  postiveActionText: TextConstant.ok,
+                  // negativeActionText: TextConstant.cancel,
+                  onPostiveAction: () {
+                    ref.read(addUsersToContactNotifierProvider.notifier).addUsersToContactsMethod(
+                          docId: docId,
+                          map: ContactsModel(
+                            docId: docId,
+                            connectTo: widget.users?.docId,
+                            userId: ref.read(currentUUIDProvider),
+                          ).toJson(),
+                        );
+                    pop(context);
+                  },
+                ),
+              );
+            },
+          );
+        });
+      });
+    }
+
+    super.initState();
+  }
+
   @override
   // double offset = 0.0;
 
@@ -23,8 +88,6 @@ class _ProfileScreenOthersState extends ConsumerState<ProfileScreenOthers> {
     final users = ref.watch(fetchOthersProfileProvider(widget.uuid)).valueOrNull;
     final workExperience = ref.watch(fetchWorkListProvider(widget.uuid)).valueOrNull;
     final educationExperience = ref.watch(fetchEducationListProvider(widget.uuid)).valueOrNull;
-
-    // inspect(workExperience);
 
     var addInfo = users?.additionalDetails;
     return Scaffold(

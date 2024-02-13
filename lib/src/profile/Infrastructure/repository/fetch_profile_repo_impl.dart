@@ -15,24 +15,15 @@ class FetchProfileRepoImpl implements ProfileRepository {
       if (uuid.isEmpty) {
         throw TextConstant.noUserFound;
       }
-      var result =
-          await _firebaseFirestore.collection(FirebaseCollectionEnums.users.value).doc(uuid).get();
+      var result = await _firebaseFirestore
+          .collection(FirebaseCollectionEnums.users.value)
+          .doc(uuid)
+          .get();
 
       return AuthUserModel.fromJson(result.data()!);
     } catch (e) {
       throw e.toString();
     }
-  }
-
-//! fetch list of connects uuid
-  @override
-  Future<List<String?>> fetchListOfConnectsUuid({required String uuid}) async {
-    var result = await _firebaseFirestore
-        .collection(FirebaseCollectionEnums.connects.value)
-        .where(FirebaseDocsFieldEnums.userId.name, isEqualTo: uuid)
-        .get();
-
-    return result.docs.map((e) => AuthUserModel.fromJson(e.data()).connectTo).toList();
   }
 
 //! fetch work is just for debugging
@@ -57,39 +48,37 @@ class FetchProfileRepoImpl implements ProfileRepository {
 
   //! FETCH EDUCATION LIST
   @override
-  Future<List<EducationModel>> fetchEducationList({required String uuid}) async {
+  Future<List<EducationModel>> fetchEducationList(
+      {required String uuid}) async {
     var result = _firebaseFirestore
         .collection(FirebaseCollectionEnums.users.value)
         .doc(uuid)
         .collection(FirebaseCollectionEnums.education.value);
 
-    return result
-        .get()
-        .then((value) => value.docs.map((e) => EducationModel.fromJson(e.data())).toList());
+    return result.get().then((value) =>
+        value.docs.map((e) => EducationModel.fromJson(e.data())).toList());
   }
 
-  // ! fetch the list of contacts profile
-  @override
-  Future<List<AuthUserModel>> fetchContactsProfile({required List<String?> uuid}) async {
-    try {
-      if (uuid.isEmpty) {
-        throw TextConstant.noRecordFound;
-      }
-      var result = await _firebaseFirestore
-          .collection(FirebaseCollectionEnums.users.value)
-          .where(
-            FirebaseDocsFieldEnums.docId.name,
-            whereIn: uuid,
-          )
-          .get();
-      return result.docs.map((e) => AuthUserModel.fromJson(e.data())).toList();
-    } catch (e) {
-      throw e.toString();
-    }
-  }
+  // // ! fetch the list of contacts profile
+  // @override
+  // Future<List<AuthUserModel>> fetchContactsProfile({required List<String?> uuid}) async {
+  //   try {
+  //     if (uuid.isEmpty) {
+  //       throw TextConstant.noRecordFound;
+  //     }
+  //     var result = await _firebaseFirestore
+  //         .collection(FirebaseCollectionEnums.users.value)
+  //         .where(
+  //           FirebaseDocsFieldEnums.docId.name,
+  //           whereIn: uuid,
+  //         )
+  //         .get();
+  //     return result.docs.map((e) => AuthUserModel.fromJson(e.data())).toList();
+  //   } catch (e) {
+  //     throw e.toString();
+  //   }
+  // }
 }
-
-
 
 // // import 'dart:developer';
 

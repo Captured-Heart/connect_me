@@ -4,10 +4,12 @@ class WorkExperienceSignUpScreen extends ConsumerStatefulWidget {
   const WorkExperienceSignUpScreen({super.key});
 
   @override
-  ConsumerState<WorkExperienceSignUpScreen> createState() => _WorkExperienceSignUpScreenState();
+  ConsumerState<WorkExperienceSignUpScreen> createState() =>
+      _WorkExperienceSignUpScreenState();
 }
 
-class _WorkExperienceSignUpScreenState extends ConsumerState<WorkExperienceSignUpScreen> {
+class _WorkExperienceSignUpScreenState
+    extends ConsumerState<WorkExperienceSignUpScreen> {
   final GlobalKey<FormState> workExperienceFormKey = GlobalKey<FormState>();
 
   final List<String> employmentType = [
@@ -92,7 +94,7 @@ class _WorkExperienceSignUpScreenState extends ConsumerState<WorkExperienceSignU
                           }
                         },
                       ),
-              
+
                       //! employment name
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,7 +112,7 @@ class _WorkExperienceSignUpScreenState extends ConsumerState<WorkExperienceSignU
                           ),
                         ].columnInPadding(8),
                       ),
-              
+
                       //! company name
                       AuthTextFieldWidget(
                         // controller: controller.companyNameController,
@@ -122,7 +124,7 @@ class _WorkExperienceSignUpScreenState extends ConsumerState<WorkExperienceSignU
                           companyNameNotifier.value = value;
                         },
                       ),
-              
+
                       //! location
                       AuthTextFieldWidget(
                         // controller: controller.locationController,
@@ -134,7 +136,7 @@ class _WorkExperienceSignUpScreenState extends ConsumerState<WorkExperienceSignU
                           locationNotifier.value = value;
                         },
                       ),
-              
+
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -169,7 +171,7 @@ class _WorkExperienceSignUpScreenState extends ConsumerState<WorkExperienceSignU
                           ))
                         ],
                       ),
-              
+
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -179,7 +181,7 @@ class _WorkExperienceSignUpScreenState extends ConsumerState<WorkExperienceSignU
                             maxLines: 1,
                             textScaleFactor: 0.9,
                           ),
-              
+
                           Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -192,8 +194,10 @@ class _WorkExperienceSignUpScreenState extends ConsumerState<WorkExperienceSignU
                                     showCupertinoDateWidget(
                                       context: context,
                                       onConfirm: (date) {
-                                        monthNotifier.value.text = dateFormattedToMonth(date);
-                                        yearNotifier.value.text = dateFormattedToYear(date);
+                                        monthNotifier.value.text =
+                                            dateFormattedToMonth(date);
+                                        yearNotifier.value.text =
+                                            dateFormattedToYear(date);
                                       },
                                     );
                                   },
@@ -210,8 +214,10 @@ class _WorkExperienceSignUpScreenState extends ConsumerState<WorkExperienceSignU
                                     showCupertinoDateWidget(
                                       context: context,
                                       onConfirm: (date) {
-                                        monthNotifier.value.text = dateFormattedToMonth(date);
-                                        yearNotifier.value.text = dateFormattedToYear(date);
+                                        monthNotifier.value.text =
+                                            dateFormattedToMonth(date);
+                                        yearNotifier.value.text =
+                                            dateFormattedToYear(date);
                                       },
                                     );
                                   },
@@ -221,7 +227,7 @@ class _WorkExperienceSignUpScreenState extends ConsumerState<WorkExperienceSignU
                           ),
                         ].columnInPadding(7),
                       ),
-              
+
                       // END YEAR
                       isCurrentlyWorkingNotifier.value == true
                           ? const SizedBox.shrink()
@@ -247,7 +253,8 @@ class _WorkExperienceSignUpScreenState extends ConsumerState<WorkExperienceSignU
                                             onConfirm: (date) {
                                               endMonthNotifier.value.text =
                                                   dateFormattedToMonth(date);
-                                              endYearNotifier.value.text = dateFormattedToYear(date);
+                                              endYearNotifier.value.text =
+                                                  dateFormattedToYear(date);
                                             },
                                           );
                                         },
@@ -267,7 +274,8 @@ class _WorkExperienceSignUpScreenState extends ConsumerState<WorkExperienceSignU
                                             onConfirm: (date) {
                                               endMonthNotifier.value.text =
                                                   dateFormattedToMonth(date);
-                                              endYearNotifier.value.text = dateFormattedToYear(date);
+                                              endYearNotifier.value.text =
+                                                  dateFormattedToYear(date);
                                             },
                                           );
                                         },
@@ -277,26 +285,31 @@ class _WorkExperienceSignUpScreenState extends ConsumerState<WorkExperienceSignU
                                 ),
                               ].columnInPadding(7),
                             ),
-              
+
                       // SAVE BUTTON
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           // to check the progress
-              
+
                           ElevatedButton(
                             onPressed: () {
                               var docId = const Uuid().v4();
                               Map<String, dynamic> startdate = {
-                                FirebaseDocsFieldEnums.month.name: monthNotifier.value.text,
-                                FirebaseDocsFieldEnums.year.name: yearNotifier.value.text,
+                                FirebaseDocsFieldEnums.month.name:
+                                    monthNotifier.value.text,
+                                FirebaseDocsFieldEnums.year.name:
+                                    yearNotifier.value.text,
                               };
                               Map<String, dynamic> endDate = {
-                                FirebaseDocsFieldEnums.endMonth.name: endMonthNotifier.value.text,
-                                FirebaseDocsFieldEnums.endYear.name: endYearNotifier.value.text,
+                                FirebaseDocsFieldEnums.endMonth.name:
+                                    endMonthNotifier.value.text,
+                                FirebaseDocsFieldEnums.endYear.name:
+                                    endYearNotifier.value.text,
                               };
-              
-                              MapDynamicString map = CreateFormMap.createDataMap(
+
+                              MapDynamicString map =
+                                  CreateFormMap.createDataMap(
                                 controllersText: [
                                   titleNotifier.value,
                                   employmentTypeNotifier.value,
@@ -327,10 +340,12 @@ class _WorkExperienceSignUpScreenState extends ConsumerState<WorkExperienceSignU
                                   FirebaseDocsFieldEnums.createdAt.name,
                                 ],
                               );
-                              if (workExperienceFormKey.currentState!.validate()) {
+                              if (workExperienceFormKey.currentState!
+                                  .validate()) {
                                 ref
                                     .read(addWorkExperienceProvider.notifier)
-                                    .addWorkExperienceMethod(map: map, docId: docId)
+                                    .addWorkExperienceMethod(
+                                        map: map, docId: docId)
                                     .whenComplete(() {
                                   ref.invalidate(fetchWorkListProvider);
                                   pop(context);

@@ -12,24 +12,21 @@ class ProfileScreen extends ConsumerStatefulWidget {
 }
 
 class _ProfileScreenState extends ConsumerState<ProfileScreen> {
-  double offset = 0.0;
-
   @override
   Widget build(BuildContext context) {
     ref.listen(authStateChangesProvider, (previous, next) {
       if (next.value?.uid == null) {
-        // log('i popped off screen');
         pushReplacement(context, const LoginScreen());
       }
     });
     final users = ref.watch(fetchProfileProvider).valueOrNull;
     final workExperience = ref.watch(fetchWorkListProvider('')).valueOrNull;
-    final educationExperience = ref.watch(fetchEducationListProvider('')).valueOrNull;
+    final educationExperience =
+        ref.watch(fetchEducationListProvider('')).valueOrNull;
     var addInfo = users?.additionalDetails;
 
     // inspect(users);
     return Scaffold(
-      
       // appBar: AppBar(
       //   backgroundColor: context.theme.scaffoldBackgroundColor,
       //   toolbarHeight: kToolbarHeight * 0.8,
@@ -46,13 +43,14 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 padding: AppEdgeInsets.eV12,
                 children: [
                   //! profile header
-                  ProfileHeaderWidget(
+                  ProfileScreenHeaderWidget(
                     users: widget.uuid?.isEmpty == true ? users : users,
                   ),
 
                   //! bio details
                   (users.bio?.isEmpty == true || users.bio == null) &&
-                          (users.email?.isEmpty == true || users.email == null) &&
+                          (users.email?.isEmpty == true ||
+                              users.email == null) &&
                           (users.phone?.isEmpty == true || users.phone == null)
                       ? const SizedBox.shrink()
                       : BioDetailsWidget(users: users),
@@ -65,11 +63,13 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
 
                   workExperience == null || workExperience.isEmpty
                       ? const SizedBox.shrink()
-                      : WorkDetailsCardWidget(workExperienceModel: workExperience),
+                      : WorkDetailsCardWidget(
+                          workExperienceModel: workExperience),
 
                   educationExperience == null || educationExperience.isEmpty
                       ? const SizedBox.shrink()
-                      : EdiucationDetailsCardWidget(educationModel: educationExperience),
+                      : EdiucationDetailsCardWidget(
+                          educationModel: educationExperience),
                 ],
               ).padSymmetric(horizontal: 20),
             ),

@@ -81,14 +81,16 @@ class WorkDetailsCardWidget extends StatelessWidget {
           child: ListView.builder(
               itemCount: workExperienceModel?.length,
               shrinkWrap: true,
-              physics:
-                  workExperienceModel!.length < 2 ? const NeverScrollableScrollPhysics() : null,
+              physics: workExperienceModel!.length < 2
+                  ? const NeverScrollableScrollPhysics()
+                  : null,
               // physics: const NeverScrollableScrollPhysics(),
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 var workExperience = workExperienceModel?[index];
                 return SizedBox(
-                  width: context.sizeWidth(workExperienceModel!.length < 2 ? 0.9 : 0.75),
+                  width: context
+                      .sizeWidth(workExperienceModel!.length < 2 ? 0.9 : 0.75),
                   child: Card(
                     elevation: 3,
                     child: Column(
@@ -244,13 +246,15 @@ class EdiucationDetailsCardWidget extends StatelessWidget {
           child: ListView.builder(
               itemCount: educationModel?.length,
               shrinkWrap: true,
-              physics: educationModel!.length < 2 ? const NeverScrollableScrollPhysics() : null,
+              physics: educationModel!.length < 2
+                  ? const NeverScrollableScrollPhysics()
+                  : null,
               scrollDirection: Axis.horizontal,
-              
               itemBuilder: (context, index) {
                 var education = educationModel?[index];
                 return SizedBox(
-                  width: context.sizeWidth(educationModel!.length < 2 ? 0.9 : 0.75),
+                  width: context
+                      .sizeWidth(educationModel!.length < 2 ? 0.9 : 0.75),
                   child: Card(
                     elevation: 3,
                     child: Column(

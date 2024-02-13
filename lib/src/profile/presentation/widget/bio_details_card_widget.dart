@@ -1,4 +1,3 @@
-
 import 'package:connect_me/app.dart';
 
 class BioDetailsWidget extends StatelessWidget {
@@ -41,7 +40,8 @@ class BioDetailsWidget extends StatelessWidget {
                           iconData: Icons.call_outlined,
                           color: AppThemeColorDark.textButton,
                           onTap: () {
-                            UrlOptions.makePhoneCall('${users?.phonePrefix}${users?.phone}');
+                            UrlOptions.makePhoneCall(
+                                '${users?.phonePrefix}${users?.phone}');
                           },
                         ).padAll(10),
                   users?.email?.isEmpty == true || users?.email == null

@@ -1,7 +1,7 @@
 abstract class TextConstant {
   //
   static const appTitle = 'Connect Me';
-
+  static const uuidPrefixTag = 'CONNECT_ME_';
 /*----------------------------------------------------------------------
           SIGN UP AND LOGIN SCREEN
 -----------------------------------------------------------------------*/
@@ -124,6 +124,8 @@ NB: This is diplayed in your Qr_Code card and is visible to all''';
 
   static const profilePhotoRequired = 'Profile photo (Required)';
   static const addAPhoto = 'Add a photo';
+  static const addToContact = 'Add to contact';
+
   static const yourAccount = 'Your Account';
   static const nameDisplayPicture = 'Name, display picture, website, etc';
   static const otherInformation = 'Other Information';

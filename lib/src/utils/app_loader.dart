@@ -25,7 +25,8 @@ class FullScreenLoader extends StatelessWidget {
             filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
             child: Opacity(
               opacity: 0.2,
-              child: ModalBarrier(dismissible: false, color: Theme.of(context).primaryColor),
+              child: ModalBarrier(
+                  dismissible: false, color: Theme.of(context).primaryColor),
             ),
           ),
         ),

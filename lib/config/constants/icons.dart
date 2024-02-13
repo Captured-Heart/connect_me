@@ -61,15 +61,23 @@ const IconData warningIcon = Icons.warning_rounded;
 // const IconData addIcon = Icons.add;
 
 abstract class IconConstants {
-  static const String homeIconPNGselected = 'assets/Icon_PNG_Selected/icon_home.png';
-  static const String connectIconPNGselected = 'assets/Icon_PNG_Selected/icon_contacts.png';
-  static const String profileIconPNGselected = 'assets/Icon_PNG_Selected/icon_profile.png';
-  static const String moreIconPNGselected = 'assets/Icon_PNG_Selected/icon_more.png';
+  static const String homeIconPNGselected =
+      'assets/Icon_PNG_Selected/icon_home.png';
+  static const String connectIconPNGselected =
+      'assets/Icon_PNG_Selected/icon_contacts.png';
+  static const String profileIconPNGselected =
+      'assets/Icon_PNG_Selected/icon_profile.png';
+  static const String moreIconPNGselected =
+      'assets/Icon_PNG_Selected/icon_more.png';
 
-  static const String homeIconPNGunselected = 'assets/Icon_PNG_Unselected/icon_home.png';
-  static const String connectIconPNGunselected = 'assets/Icon_PNG_Unselected/icon_connect.png';
-  static const String profileIconPNGunselected = 'assets/Icon_PNG_Unselected/icon_profile.png';
-  static const String moreIconPNGunselected = 'assets/Icon_PNG_Unselected/icon_more.png';
+  static const String homeIconPNGunselected =
+      'assets/Icon_PNG_Unselected/icon_home.png';
+  static const String connectIconPNGunselected =
+      'assets/Icon_PNG_Unselected/icon_connect.png';
+  static const String profileIconPNGunselected =
+      'assets/Icon_PNG_Unselected/icon_profile.png';
+  static const String moreIconPNGunselected =
+      'assets/Icon_PNG_Unselected/icon_more.png';
 // static const String =
 // static const String =
   // static const String homeIconSVGselected = 'assets/Icon_PNG_Selected/icon_home.png';
@@ -77,9 +85,13 @@ abstract class IconConstants {
   // static const String profileIconSVGselected = 'assets/Icon_PNG_Selected/icon_profile.png';
   // static const String moreIconSVGselected = 'assets/Icon_PNG_Selected/icon_more.png';
 
-  static const String connectIconSVGunselected = 'assets/Icon_SVG_Unselected/icon grid 24_24-1.svg';
-  static const String profileIconSVGunselected = 'assets/Icon_SVG_Unselected/icon grid 24_24-2.svg';
-  static const String moreIconSVGunselected = 'assets/Icon_SVG_Unselected/icon grid 24_24-3.svg';
-  static const String homeIconSVGunselected = 'assets/Icon_SVG_Unselected/icon grid 24_24.svg';
+  static const String connectIconSVGunselected =
+      'assets/Icon_SVG_Unselected/icon grid 24_24-1.svg';
+  static const String profileIconSVGunselected =
+      'assets/Icon_SVG_Unselected/icon grid 24_24-2.svg';
+  static const String moreIconSVGunselected =
+      'assets/Icon_SVG_Unselected/icon grid 24_24-3.svg';
+  static const String homeIconSVGunselected =
+      'assets/Icon_SVG_Unselected/icon grid 24_24.svg';
 }
 //homeIconSVGunselected

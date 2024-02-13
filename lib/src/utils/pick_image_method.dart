@@ -8,7 +8,8 @@ Future<XFile?> pickImageFunction({
 
   final selected = await picker.pickImage(
     source: pickCamera == true ? ImageSource.camera : ImageSource.gallery,
-    preferredCameraDevice: cameraRear == true ? CameraDevice.rear : CameraDevice.front,
+    preferredCameraDevice:
+        cameraRear == true ? CameraDevice.rear : CameraDevice.front,
     imageQuality: 95,
     maxHeight: 400,
   );
@@ -39,7 +40,8 @@ Future<XFile?> pickFromGalleryFunctionNew({
   if (isImage == true) {
     final selectedImage = await picker.pickImage(
       source: pickCamera == true ? ImageSource.camera : ImageSource.gallery,
-      preferredCameraDevice: cameraRear == true ? CameraDevice.rear : CameraDevice.front,
+      preferredCameraDevice:
+          cameraRear == true ? CameraDevice.rear : CameraDevice.front,
       imageQuality: 95,
       maxHeight: 400,
     );
@@ -47,7 +49,8 @@ Future<XFile?> pickFromGalleryFunctionNew({
   } else {
     final selectedVideo = await picker.pickVideo(
         source: pickCamera == true ? ImageSource.camera : ImageSource.gallery,
-        preferredCameraDevice: cameraRear == true ? CameraDevice.rear : CameraDevice.front,
+        preferredCameraDevice:
+            cameraRear == true ? CameraDevice.rear : CameraDevice.front,
         maxDuration: const Duration(seconds: 100));
     return selectedVideo;
   }
