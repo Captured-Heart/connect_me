@@ -6,4 +6,5 @@ abstract class AccountInfoRepository {
     required MapDynamicString map,
     required String imgUrl,
   });
+  Future<Either<AppException, void>> updateScanCount({required String uuid});
 }

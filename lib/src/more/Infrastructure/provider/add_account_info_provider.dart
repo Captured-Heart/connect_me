@@ -8,8 +8,7 @@ class AddAccountInfoNotifier extends StateNotifier<AsyncValue> {
 
   final AccountInfoImpl accountInfoImpl;
   final String uuid;
-  Future addAccountInfo(
-      {required MapDynamicString map, required String imgUrl}) async {
+  Future addAccountInfo({required MapDynamicString map, required String imgUrl}) async {
     state = const AsyncValue.loading();
     var addInfo = await accountInfoImpl.addAccountInfo(
       uuid: uuid,
@@ -31,11 +30,26 @@ class AddAccountInfoNotifier extends StateNotifier<AsyncValue> {
       },
     );
   }
+
+  Future updateScanCount() async {
+    state = const AsyncValue.loading();
+    var addCount = await accountInfoImpl.updateScanCount(uuid: uuid);
+
+    state = addCount.fold(
+      (failure) {
+        return AsyncValue.error(failure, StackTrace.current);
+      },
+      (success) {
+        return const AsyncValue.data(
+          TextConstant.successful,
+        );
+      },
+    );
+  }
 }
 
 final addAccountInfoProvider =
-    StateNotifierProvider.autoDispose<AddAccountInfoNotifier, AsyncValue>(
-        (ref) {
+    StateNotifierProvider.autoDispose<AddAccountInfoNotifier, AsyncValue>((ref) {
   final accountInfoImpl = ref.read(accountInfoImplProvider);
   final uuid = ref.read(currentUUIDProvider);
 

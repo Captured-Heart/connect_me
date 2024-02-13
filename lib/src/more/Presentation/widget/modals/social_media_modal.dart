@@ -17,8 +17,7 @@ SliverWoltModalSheetPage socialMediaModal(
     topBar: Container(
       color: modalSheetContext.theme.cardColor,
       alignment: Alignment.center,
-      child: Text(TextConstant.socialMediaHandles,
-          style: modalSheetContext.textTheme.titleSmall),
+      child: Text(TextConstant.socialMediaHandles, style: modalSheetContext.textTheme.titleSmall),
     ),
     isTopBarLayerAlwaysVisible: true,
     trailingNavBarWidget: IconButton(
@@ -51,9 +50,7 @@ class SocialMediaBody extends ConsumerStatefulWidget {
 }
 
 class _SocialMediaBodyState extends ConsumerState<SocialMediaBody> {
-  final List<SocialClass> textEditingControllerList = [
-    SocialClass(title: '', link: '')
-  ];
+  final List<SocialClass> textEditingControllerList = [SocialClass(title: '', link: '')];
   final GlobalKey<FormState> socialKey = GlobalKey<FormState>();
 
   final List<String> items = [
@@ -101,8 +98,7 @@ class _SocialMediaBodyState extends ConsumerState<SocialMediaBody> {
       }
     });
 
-    items.removeWhere(
-        (element) => widget.socialMediaModel?.keys.contains(element) ?? false);
+    items.removeWhere((element) => widget.socialMediaModel?.keys.contains(element) ?? false);
     // log(items.toString());
 
     return Form(
@@ -119,9 +115,7 @@ class _SocialMediaBodyState extends ConsumerState<SocialMediaBody> {
                   physics: const NeverScrollableScrollPhysics(),
                   padding: EdgeInsets.zero,
                   itemBuilder: (context, index) {
-                    var socialType = widget.socialMediaModel?.entries
-                        .map((e) => e)
-                        .toList()[index];
+                    var socialType = widget.socialMediaModel?.entries.map((e) => e).toList()[index];
                     return Row(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -130,8 +124,7 @@ class _SocialMediaBodyState extends ConsumerState<SocialMediaBody> {
                           flex: 3,
                           child: AuthTextFieldWidget(
                             readOnly: true,
-                            controller:
-                                TextEditingController(text: socialType?.key),
+                            controller: TextEditingController(text: socialType?.key),
                             maxLines: 1,
                           ),
                         ),
@@ -142,8 +135,7 @@ class _SocialMediaBodyState extends ConsumerState<SocialMediaBody> {
                           flex: 6,
                           child: AuthTextFieldWidget(
                             contentPadding: AppEdgeInsets.eA18,
-                            controller:
-                                TextEditingController(text: socialType?.value),
+                            controller: TextEditingController(text: socialType?.value),
                             maxLines: 1,
                             onChanged: (link) {
                               // controller.link = link;
@@ -164,8 +156,7 @@ class _SocialMediaBodyState extends ConsumerState<SocialMediaBody> {
                           padding: AppEdgeInsets.eA4,
                           margin: const EdgeInsets.only(left: 15),
                           decoration: BoxDecoration(
-                            border: Border.all(
-                                color: context.colorScheme.onSurface),
+                            border: Border.all(color: context.colorScheme.onSurface),
                             shape: BoxShape.circle,
                           ),
                           child: Icon(
@@ -228,8 +219,7 @@ class _SocialMediaBodyState extends ConsumerState<SocialMediaBody> {
                         flex: 5,
                         child: AuthTextFieldWidget(
                           contentPadding: AppEdgeInsets.eA18,
-                          controller:
-                              TextEditingController(text: controller.link),
+                          controller: TextEditingController(text: controller.link),
                           maxLines: 1,
                           onChanged: (link) {
                             controller.link = link;

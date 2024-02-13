@@ -22,6 +22,7 @@ class AuthUserModel extends Equatable {
   final Map<String, dynamic>? socialMediaHandles;
   final AdditionalDetailsModel? additionalDetails;
   final String? connectTo;
+  final int? scanCount;
   final bool? completedSignUp;
 
   // final String? placeOfBirth;
@@ -31,7 +32,7 @@ class AuthUserModel extends Equatable {
   // final String? street;
   // final String? driverLicenseNo;
   // final String? postalCode;
-  String get fullname => fname == null ? '$username' : '$fname $lname';
+  String get fullname => fname == null || lname == null ? '$username' : '$fname $lname';
 
   const AuthUserModel(
       {this.username,
@@ -50,6 +51,7 @@ class AuthUserModel extends Equatable {
       this.lname,
       this.phonePrefix,
       this.connectTo,
+      this.scanCount,
       // this.placeOfBirth,
       // this.country,
       // this.state,
@@ -77,6 +79,7 @@ class AuthUserModel extends Equatable {
         posts: json['posts'] as List<dynamic>?,
         socialMediaHandles: json['socialMediaHandles'] as Map<String, dynamic>?,
         connectTo: json['connectTo'] as String?,
+        scanCount: json['scanCount'] as int?,
 
         // placeOfBirth: json['placeOfBirth'] as String?,
         // country: json['country'] as String?,
@@ -108,6 +111,7 @@ class AuthUserModel extends Equatable {
         'website': website,
         'phonePrefix': phonePrefix,
         'connectTo': connectTo,
+        'scanCount': scanCount,
         // 'placeOfBirth': placeOfBirth,
         // 'country': country,
         // 'state': state,
@@ -144,6 +148,7 @@ class AuthUserModel extends Equatable {
     // String? postalCode,
     AdditionalDetailsModel? additionalDetails,
     String? connectTo,
+    int? scanCount,
     bool? completedSignUp,
   }) {
     return AuthUserModel(
@@ -170,7 +175,7 @@ class AuthUserModel extends Equatable {
       // driverLicenseNo: driverLicenseNo ?? this.driverLicenseNo,
       // postalCode: postalCode ?? this.postalCode,
       additionalDetails: additionalDetails ?? this.additionalDetails,
-
+      scanCount: scanCount ?? this.scanCount,
       connectTo: connectTo ?? this.connectTo,
       completedSignUp: completedSignUp ?? this.completedSignUp,
     );
@@ -202,6 +207,7 @@ class AuthUserModel extends Equatable {
         // postalCode,
         additionalDetails,
         connectTo,
+        scanCount,
         completedSignUp,
       ];
 }

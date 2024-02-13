@@ -10,10 +10,9 @@ class ContactScreen extends ConsumerStatefulWidget {
   ConsumerState<ContactScreen> createState() => _ContactScreenState();
 }
 
-class _ContactScreenState extends ConsumerState<ContactScreen>
-    with SingleTickerProviderStateMixin {
-  final ValueNotifier<bool> gridLayout = ValueNotifier<bool>(
-      SharedPreferencesHelper.getBoolPref(SharedKeys.myConnectLayout.name));
+class _ContactScreenState extends ConsumerState<ContactScreen> with SingleTickerProviderStateMixin {
+  final ValueNotifier<bool> gridLayout =
+      ValueNotifier<bool>(SharedPreferencesHelper.getBoolPref(SharedKeys.myConnectLayout.name));
   late Animation<double> animation;
   late AnimationController controller;
   @override

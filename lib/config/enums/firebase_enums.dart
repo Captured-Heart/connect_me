@@ -76,4 +76,5 @@ enum FirebaseDocsFieldEnums {
   connectTo,
   userId,
   completedSignUp,
+  scanCount,
 }

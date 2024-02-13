@@ -46,19 +46,34 @@ class AccountInfoModalBody extends ConsumerStatefulWidget {
   final AuthUserModel? authUserModel;
 
   @override
-  ConsumerState<AccountInfoModalBody> createState() =>
-      _AccountInfoModalBodyState();
+  ConsumerState<AccountInfoModalBody> createState() => _AccountInfoModalBodyState();
 }
 
 class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
+  late ValueNotifier<String> phonePrefixNotifier;
+  late ValueNotifier<String> fnameNotifier;
+  late ValueNotifier<String> lnameNotifier;
+  late ValueNotifier<String> emailNotifier;
+  late ValueNotifier<String> phoneNotifier;
+  late ValueNotifier<String> webNotifier;
+  late ValueNotifier<String> bioNotifier;
+
   @override
   void initState() {
+    phonePrefixNotifier = ValueNotifier(widget.authUserModel?.phonePrefix ?? '');
+    fnameNotifier = ValueNotifier<String>(widget.authUserModel?.fname ?? '');
+    lnameNotifier = ValueNotifier<String>(widget.authUserModel?.lname ?? '');
+    emailNotifier = ValueNotifier<String>(widget.authUserModel?.email ?? '');
+    phoneNotifier = ValueNotifier<String>(widget.authUserModel?.phone ?? '');
+    webNotifier = ValueNotifier<String>(widget.authUserModel?.website ?? '');
+    bioNotifier = ValueNotifier<String>(widget.authUserModel?.bio ?? '');
+
+    //
     final authUserModel = ref.read(fetchProfileProvider).valueOrNull;
 
     // I AM DOWNLOADING THE USER PREVIOUS IMAGE AND PASS AS FILE IMAGE
     if (authUserModel?.imgUrl?.isNotEmpty == true) {
-      downloadAndSaveImage(
-              authUserModel?.imgUrl ?? ImagesConstant.noImagePlaceholderHttp)
+      downloadAndSaveImage(authUserModel?.imgUrl ?? ImagesConstant.noImagePlaceholderHttp)
           .then((value) => imgUrlFirebaseNotifier.value = value);
     }
     super.initState();
@@ -76,25 +91,10 @@ class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
     return file.path;
   }
 
-  final ValueNotifier<String> imgUrlFirebaseNotifier =
-      ValueNotifier<String>('');
+  final ValueNotifier<String> imgUrlFirebaseNotifier = ValueNotifier<String>('');
   @override
   Widget build(BuildContext context) {
     final infoState = ref.watch(addAccountInfoProvider);
-    final ValueNotifier<String> phonePrefixNotifier =
-        ValueNotifier(widget.authUserModel?.phonePrefix ?? '');
-    final ValueNotifier<String> fnameNotifier =
-        ValueNotifier<String>(widget.authUserModel?.fname ?? '');
-    final ValueNotifier<String> lnameNotifier =
-        ValueNotifier<String>(widget.authUserModel?.lname ?? '');
-    final ValueNotifier<String> emailNotifier =
-        ValueNotifier<String>(widget.authUserModel?.email ?? '');
-    final ValueNotifier<String> phoneNotifier =
-        ValueNotifier<String>(widget.authUserModel?.phone ?? '');
-    final ValueNotifier<String> webNotifier =
-        ValueNotifier<String>(widget.authUserModel?.website ?? '');
-    final ValueNotifier<String> bioNotifier =
-        ValueNotifier<String>(widget.authUserModel?.bio ?? '');
 
     return ListenableBuilder(
         listenable: Listenable.merge(
@@ -157,9 +157,8 @@ class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
                   },
                   isFromFirebase: imgUrlFirebaseNotifier.value.isNotEmpty,
                   imgUrl: imgUrlFirebaseNotifier.value,
-                  imageIsLoading:
-                      widget.authUserModel?.imgUrl?.isNotEmpty == true &&
-                          imgUrlFirebaseNotifier.value.isEmpty,
+                  imageIsLoading: widget.authUserModel?.imgUrl?.isNotEmpty == true &&
+                      imgUrlFirebaseNotifier.value.isEmpty,
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.min,
@@ -192,8 +191,7 @@ class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
                   ],
                 ),
                 AuthTextFieldWidget(
-                  controller: TextEditingController(
-                      text: widget.authUserModel?.email ?? ''),
+                  controller: TextEditingController(text: widget.authUserModel?.email ?? ''),
                   labelMaterial: TextConstant.email,
                   readOnly: true,
                 ),
@@ -245,9 +243,8 @@ class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
                             ? infoState.error.toString()
                             : infoState.valueOrNull.toString(),
                         style: AppTextStyle.bodyMedium.copyWith(
-                            color: infoState.hasError
-                                ? Colors.red
-                                : AppThemeColorDark.successColor),
+                            color:
+                                infoState.hasError ? Colors.red : AppThemeColorDark.successColor),
                       ),
 
                 Align(

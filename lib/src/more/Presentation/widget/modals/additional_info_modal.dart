@@ -14,8 +14,7 @@ SliverWoltModalSheetPage additionalInfoModal(
     topBar: Container(
       color: modalSheetContext.theme.cardColor,
       alignment: Alignment.center,
-      child: Text(TextConstant.additionalDetails,
-          style: modalSheetContext.textTheme.titleSmall),
+      child: Text(TextConstant.additionalDetails, style: modalSheetContext.textTheme.titleSmall),
     ),
     isTopBarLayerAlwaysVisible: true,
     trailingNavBarWidget: IconButton(
@@ -45,47 +44,63 @@ class AdditionalInfoModalBody extends ConsumerStatefulWidget {
   final AuthUserModel authUserModel;
 
   @override
-  ConsumerState<AdditionalInfoModalBody> createState() =>
-      _AdditionalInfoModalBodyState();
+  ConsumerState<AdditionalInfoModalBody> createState() => _AdditionalInfoModalBodyState();
 }
 
-class _AdditionalInfoModalBodyState
-    extends ConsumerState<AdditionalInfoModalBody> {
-  // final TextEditingControllerClass controller = TextEditingControllerClass();
+class _AdditionalInfoModalBodyState extends ConsumerState<AdditionalInfoModalBody> {
+  late ValueNotifier<TextEditingController> dobNotifier;
+  late ValueNotifier<DateTime> dobDateTimeNotifier;
+  late ValueNotifier<String?> countryNotifier;
+  late ValueNotifier<String?> stateNotifier;
+  late ValueNotifier<String?> cityNotifier;
+  late ValueNotifier<String> placeOfBirthNotifier;
+  late ValueNotifier<String> driverLicenseNoNotifier;
+  late ValueNotifier<String> postalCodeNotifier;
+  late ValueNotifier<String> streetNotifier;
+
+  @override
+  void initState() {
+    dobNotifier = ValueNotifier<TextEditingController>(TextEditingController(
+        text: dateFormatted2(widget.authUserModel.date?.toDate() ?? DateTime.now())));
+
+    dobDateTimeNotifier =
+        ValueNotifier<DateTime>(widget.authUserModel.date?.toDate() ?? DateTime.now());
+    countryNotifier = ValueNotifier<String?>(widget.authUserModel.additionalDetails?.country);
+    stateNotifier = ValueNotifier<String?>(widget.authUserModel.additionalDetails?.state);
+    cityNotifier = ValueNotifier<String?>(widget.authUserModel.additionalDetails?.city);
+    placeOfBirthNotifier =
+        ValueNotifier<String>(widget.authUserModel.additionalDetails?.placeOfBirth ?? '');
+    driverLicenseNoNotifier =
+        ValueNotifier<String>(widget.authUserModel.additionalDetails?.driverLicenseNo ?? '');
+    postalCodeNotifier =
+        ValueNotifier<String>(widget.authUserModel.additionalDetails?.postalCode ?? '');
+    streetNotifier = ValueNotifier<String>(widget.authUserModel.additionalDetails?.street ?? '');
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-//     ref.listen(addAdditionalDetailsProvider, (previous, next) {
-//       if (next == null) {
-//         ref.refresh(addAdditionalDetailsProvider);
-//       }
-//       log('''
-// this is the previous: ${previous?.value}
-
-// this is the next: ${next.valueOrNull}
-// ''');
-//     });
     // inspect(widget.authUserModel);
-    final ValueNotifier<TextEditingController> dobNotifier =
-        ValueNotifier<TextEditingController>(TextEditingController(
-            text: dateFormatted2(
-                widget.authUserModel.date?.toDate() ?? DateTime.now())));
-    final ValueNotifier<DateTime> dobDateTimeNotifier = ValueNotifier<DateTime>(
-        widget.authUserModel.date?.toDate() ?? DateTime.now());
-    final ValueNotifier<String?> countryNotifier =
-        ValueNotifier<String?>(widget.authUserModel.additionalDetails?.country);
-    final ValueNotifier<String?> stateNotifier =
-        ValueNotifier<String?>(widget.authUserModel.additionalDetails?.state);
-    final ValueNotifier<String?> cityNotifier =
-        ValueNotifier<String?>(widget.authUserModel.additionalDetails?.city);
-    final ValueNotifier<String> placeOfBirthNotifier = ValueNotifier<String>(
-        widget.authUserModel.additionalDetails?.placeOfBirth ?? '');
-    final ValueNotifier<String> driverLicenseNoNotifier = ValueNotifier<String>(
-        widget.authUserModel.additionalDetails?.driverLicenseNo ?? '');
-    final ValueNotifier<String> postalCodeNotifier = ValueNotifier<String>(
-        widget.authUserModel.additionalDetails?.postalCode ?? '');
-    final ValueNotifier<String> streetNotifier = ValueNotifier<String>(
-        widget.authUserModel.additionalDetails?.street ?? '');
+    // final ValueNotifier<TextEditingController> dobNotifier =
+    //     ValueNotifier<TextEditingController>(TextEditingController(
+    //         text: dateFormatted2(
+    //             widget.authUserModel.date?.toDate() ?? DateTime.now())));
+    // final ValueNotifier<DateTime> dobDateTimeNotifier = ValueNotifier<DateTime>(
+    //     widget.authUserModel.date?.toDate() ?? DateTime.now());
+    // final ValueNotifier<String?> countryNotifier =
+    //     ValueNotifier<String?>(widget.authUserModel.additionalDetails?.country);
+    // final ValueNotifier<String?> stateNotifier =
+    //     ValueNotifier<String?>(widget.authUserModel.additionalDetails?.state);
+    // final ValueNotifier<String?> cityNotifier =
+    //     ValueNotifier<String?>(widget.authUserModel.additionalDetails?.city);
+    // final ValueNotifier<String> placeOfBirthNotifier = ValueNotifier<String>(
+    //     widget.authUserModel.additionalDetails?.placeOfBirth ?? '');
+    // final ValueNotifier<String> driverLicenseNoNotifier = ValueNotifier<String>(
+    //     widget.authUserModel.additionalDetails?.driverLicenseNo ?? '');
+    // final ValueNotifier<String> postalCodeNotifier = ValueNotifier<String>(
+    //     widget.authUserModel.additionalDetails?.postalCode ?? '');
+    // final ValueNotifier<String> streetNotifier = ValueNotifier<String>(
+    //     widget.authUserModel.additionalDetails?.street ?? '');
 
     final infoState = ref.watch(addAdditionalDetailsProvider);
 
@@ -165,11 +180,11 @@ class _AdditionalInfoModalBodyState
                   ),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                selectedItemStyle: context.textTheme.bodyMedium
-                    ?.copyWith(fontWeight: AppFontWeight.w100),
+                selectedItemStyle:
+                    context.textTheme.bodyMedium?.copyWith(fontWeight: AppFontWeight.w100),
                 dropdownHeadingStyle: context.textTheme.bodyLarge,
-                dropdownItemStyle: context.textTheme.bodyMedium
-                    ?.copyWith(fontWeight: AppFontWeight.w100),
+                dropdownItemStyle:
+                    context.textTheme.bodyMedium?.copyWith(fontWeight: AppFontWeight.w100),
               ),
 
 // ! STREET
@@ -220,9 +235,7 @@ class _AdditionalInfoModalBodyState
                           ? infoState.error.toString()
                           : infoState.valueOrNull.toString(),
                       style: AppTextStyle.bodyMedium.copyWith(
-                          color: infoState.hasError
-                              ? Colors.red
-                              : AppThemeColorDark.successColor),
+                          color: infoState.hasError ? Colors.red : AppThemeColorDark.successColor),
                     ),
 
 //! save button

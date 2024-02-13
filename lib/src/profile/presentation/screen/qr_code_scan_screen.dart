@@ -83,11 +83,6 @@ class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
                     setState(() {});
                   }
                 },
-                // placeholderBuilder: (p0, p1) {
-                //   return const Center(
-                //     child: CircularProgressIndicator.adaptive(),
-                //   );
-                // },
                 scanWindow: scanWindow,
                 controller: controller,
                 errorBuilder: (context, error, child) {
@@ -110,6 +105,8 @@ class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
                       .toString()
                       .replaceAll(TextConstant.uuidPrefixTag, '')
                       .trim();
+                  ref.read(addAccountInfoProvider.notifier).updateScanCount();
+
                   pushAsVoid(
                     context,
                     ProfileScreenOthers(

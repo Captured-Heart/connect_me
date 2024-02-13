@@ -20,7 +20,7 @@ class ProfileHeaderWidget extends StatelessWidget {
                 authUserModel: users,
               ),
               CustomListTileWidget(
-                title: users?.username ?? '',
+                title: users?.fullname ?? '',
                 // showAtsign: true,
                 subtitleMaxLines: 3,
                 subtitle: users?.bio,
@@ -46,8 +46,7 @@ class ProfileScreenHeaderWidget extends ConsumerWidget {
     var socialCast = users?.socialMediaHandles;
     var socialIcons = socialCast?.keys.map((e) {
       if (socialCast.values.map((e) => e).toList().isNotEmpty == true) {
-        return SocialDropdownEnum.values
-            .firstWhere((element) => element.message == e);
+        return SocialDropdownEnum.values.firstWhere((element) => element.message == e);
       }
     }).toList();
 
@@ -88,11 +87,9 @@ class ProfileScreenHeaderWidget extends ConsumerWidget {
                         tooltip: socialIcons[index]?.message ?? '',
                         onTap: () {
                           log('the link clicked is $link');
-                          UrlOptions.launchWeb(link, launchModeEXT: true)
-                              .onError(
+                          UrlOptions.launchWeb(link, launchModeEXT: true).onError(
                             (error, stackTrace) {
-                              showScaffoldSnackBarMessage(error.toString(),
-                                  isError: true);
+                              showScaffoldSnackBarMessage(error.toString(), isError: true);
                             },
                           );
                         },
