@@ -19,7 +19,9 @@ class _ProfileScreenOthersState extends ConsumerState<ProfileScreenOthers> {
   @override
   void initState() {
     super.initState();
-    showDialogOnFirstTime(users: widget.users);
+    if (widget.fromScanScreen == true) {
+      showDialogOnFirstTime(users: widget.users);
+    }
   }
 
   void showDialogOnFirstTime({required AuthUserModel? users}) {
@@ -31,7 +33,6 @@ class _ProfileScreenOthersState extends ConsumerState<ProfileScreenOthers> {
           builder: (context) {
             return AppCustomDialogWarning(
               dialogModel: DialogModel(
-               
                 content: RichText(
                   text: TextSpan(
                     text: 'Add ',

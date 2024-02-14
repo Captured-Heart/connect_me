@@ -83,9 +83,7 @@ class MainScreen extends ConsumerWidget {
                     type: BottomNavigationBarType.fixed,
                     currentIndex: currentIndex,
                     onTap: (value) {
-                      ref
-                          .read(bottomNavBarIndexProvider.notifier)
-                          .update((state) => value);
+                      ref.read(bottomNavBarIndexProvider.notifier).update((state) => value);
                     },
                     items: List.generate(
                       4,

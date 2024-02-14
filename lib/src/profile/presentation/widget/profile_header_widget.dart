@@ -67,8 +67,8 @@ class ProfileScreenHeaderWidget extends ConsumerWidget {
             subtitleMaxLines: 3,
             subtitle: users?.username,
             isSubtitleUrl: users?.website,
-          ).padSymmetric(horizontal: 10),
-          socialIcons == null
+          ).padSymmetric(horizontal: 10, vertical: 5),
+          socialIcons == null || socialIcons.isEmpty
               ? const SizedBox.shrink()
               : SizedBox(
                   height: 40,

@@ -101,6 +101,7 @@ class ProfileScreen1 extends ConsumerWidget {
                         //   ),
                         // ),
                         //? SOCIAL MEDIA LINKS
+                        socialIcons?.isEmpty == true  ? const SizedBox.shrink():
                         SizedBox(
                           height: 60,
                           // width: context.sizeWidth(1),

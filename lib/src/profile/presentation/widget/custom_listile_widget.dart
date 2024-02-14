@@ -35,10 +35,8 @@ class CustomListTileWidget extends StatelessWidget {
           ),
           textScaleFactor: 0.95,
         ).padOnly(bottom: 2),
-        subtitle == null
+        subtitle == null || subtitle?.isEmpty == true
             ? const SizedBox.shrink()
-
-            // TextButton(onPressed: () {}, child: Text(subtitle ?? ''))
             : AutoSizeText(
                 showAtsign == true ? '@$subtitle' : '$subtitle',
                 maxLines: subtitleMaxLines,
@@ -55,14 +53,12 @@ class CustomListTileWidget extends StatelessWidget {
             ? GestureDetector(
                 onTap: () {
                   subtitle != null
-                      ? UrlOptions.launchWeb(isSubtitleUrl!,
-                          launchModeEXT: true)
+                      ? UrlOptions.launchWeb(isSubtitleUrl!, launchModeEXT: true)
                       : null;
                 },
                 child: Container(
                   margin: const EdgeInsets.only(top: 5),
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
+                  padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
                   decoration: BoxDecoration(
                     borderRadius: AppBorderRadius.c12,
                     border: Border.all(

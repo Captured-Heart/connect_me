@@ -68,23 +68,7 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> with SingleTickerProv
     return false;
   }
 
-  // bool expression1 = true;
-  // bool expression2 = false;
-  // bool expression3 = true;
-  // bool expression4 = true;
-
-  // // Count the number of true expressions
-  // int trueCount = 0;
-  // if (expression1) trueCount++;
-  // if (expression2) trueCount++;
-  // if (expression3) trueCount++;
-  // if (expression4) trueCount++;
-
-  // // Calculate the percentage
-  // double percentage = (trueCount / 4) * 100;
-
   int percentageRate({required List<bool> progressBoolList}) {
-    // Example list of boolean expressions
     int trueCount = progressBoolList.where((element) => element == false).length;
     double progressPercentage = (trueCount / progressBoolList.length) * 100;
     return progressPercentage.round();
@@ -115,7 +99,32 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> with SingleTickerProv
     return WillPopScope(
       onWillPop: () => onWillPop(),
       child: Scaffold(
-        floatingActionButton: FloatingActionButton(onPressed: () {}),
+        floatingActionButton: FloatingActionButton.extended(
+          label: LottieBuilder.asset(
+            ImagesConstant.lottieQrCode,
+            frameRate: FrameRate.composition,
+            options: LottieOptions(enableApplyingOpacityToLayers: true),
+            fit: BoxFit.contain,
+            height: 30,
+            filterQuality: FilterQuality.high,
+          ),
+          // icon: Icon(Icons.qr),
+          onPressed: () {
+            if (users.valueOrNull != null) {
+              pushAsVoid(
+                context,
+                ShareQrCodeScreen(
+                  authUserModel: users.valueOrNull,
+                ),
+              );
+            } else {
+              showScaffoldSnackBarMessageNoColor(
+                AuthErrors.networkFailure.errorMessage,
+                context: context,
+              );
+            }
+          },
+        ),
         appBar: AppBar(
           elevation: 0,
           toolbarHeight: kToolbarHeight * 1.5,

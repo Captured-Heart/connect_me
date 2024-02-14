@@ -18,6 +18,8 @@ abstract class ImagesConstant {
   static const String qrCodeBG1 = 'assets/images/qrcode_BG1.png';
   static const String qrCodeBG2 = 'assets/images/qrcode_BG2.png';
   static const String qrCodeImage = 'assets/images/connect_QRCode.png';
+  static const String lottieQrCode = 'assets/images/lottie_qr_code.json';
+
 
 
 //
