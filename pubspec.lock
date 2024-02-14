@@ -73,14 +73,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.0"
-  awesome_dialog:
-    dependency: "direct main"
-    description:
-      name: awesome_dialog
-      sha256: c5bccfc0cd94f2025ba6af324e723b99241859e49d9951933d0e1a7952f4f8bb
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.2.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -225,14 +217,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.5"
-  expandable:
-    dependency: "direct main"
-    description:
-      name: expandable
-      sha256: "9604d612d4d1146dafa96c6d8eec9c2ff0994658d6d09fed720ab788c7f5afc2"
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.0.1"
   fake_async:
     dependency: transitive
     description:
@@ -241,14 +225,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.1"
-  faker:
-    dependency: "direct main"
-    description:
-      name: faker
-      sha256: "746e59f91d8b06a389e74cf76e909a05ed69c12691768e2f93557fdf29200fd0"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.0"
   ffi:
     dependency: transitive
     description:
@@ -528,14 +504,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.12.0+4"
-  graphs:
-    dependency: transitive
-    description:
-      name: graphs
-      sha256: aedc5a15e78fc65a6e23bcd927f24c64dd995062bcd1ca6eda65a3cff92a4d19
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.3.1"
   http:
     dependency: transitive
     description:
@@ -896,22 +864,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.1"
-  rive:
-    dependency: transitive
-    description:
-      name: rive
-      sha256: ae75a6e9cfbf146630bfb1feba97ee582d935508be6b362e4bd197b9c55a6dd3
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.12.4"
-  rive_common:
-    dependency: transitive
-    description:
-      name: rive_common
-      sha256: f4e20d0a99c5040c85624a3eb2b0b6b19e614d93a693c3bb25cf6e7bb2d3d6d3
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.8"
   riverpod:
     dependency: transitive
     description:

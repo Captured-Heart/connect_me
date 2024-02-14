@@ -76,8 +76,7 @@ class _AppCustomDialogWarningState extends State<AppCustomDialogWarning> {
                 () {
                   pop(context);
                 },
-            style: TextButton.styleFrom(
-                foregroundColor: context.theme.colorScheme.error),
+            style: TextButton.styleFrom(foregroundColor: context.theme.colorScheme.error),
             child: Text(
               widget.dialogModel.negativeActionText ?? TextConstant.cancel,
             ),
@@ -85,10 +84,8 @@ class _AppCustomDialogWarningState extends State<AppCustomDialogWarning> {
           // SizedBox.shrink(),
           TextButton(
             onPressed: widget.dialogModel.onPostiveAction,
-            style: TextButton.styleFrom(
-                foregroundColor: context.theme.colorScheme.onBackground),
-            child: Text(
-                widget.dialogModel.postiveActionText ?? TextConstant.confirm),
+            style: TextButton.styleFrom(foregroundColor: context.theme.colorScheme.onBackground),
+            child: Text(widget.dialogModel.postiveActionText ?? TextConstant.confirm),
           )
         ],
       );
@@ -139,16 +136,12 @@ class _AppCustomDialogWarningState extends State<AppCustomDialogWarning> {
                   () {
                     pop(context);
                   },
-              style: TextButton.styleFrom(
-                  foregroundColor: context.theme.colorScheme.error),
-              child: Text(widget.dialogModel.negativeActionText ??
-                  TextConstant.cancel)),
+              style: TextButton.styleFrom(foregroundColor: context.theme.colorScheme.error),
+              child: Text(widget.dialogModel.negativeActionText ?? TextConstant.cancel)),
           TextButton(
             onPressed: widget.dialogModel.onPostiveAction,
-            style: TextButton.styleFrom(
-                foregroundColor: context.theme.colorScheme.onBackground),
-            child: Text(
-                widget.dialogModel.postiveActionText ?? TextConstant.confirm),
+            style: TextButton.styleFrom(foregroundColor: context.theme.colorScheme.onBackground),
+            child: Text(widget.dialogModel.postiveActionText ?? TextConstant.confirm),
           )
         ],
       );
@@ -180,19 +173,25 @@ class _AppCustomSuccessDialogState extends State<AppCustomSuccessDialog> {
             ? null
             : Text(
                 widget.dialogModel.title!,
-                textScaleFactor: 1.1,
+                textScaleFactor: 1.0,
                 textAlign: TextAlign.center,
               ).padOnly(bottom: 10),
-        content: widget.dialogModel.contentText?.isEmpty == false
-            ? Text(widget.dialogModel.contentText ?? '')
-            : null,
+        content: widget.dialogModel.content ??
+            (widget.dialogModel.hasImage == true
+                ? Image.asset(
+                    widget.dialogModel.imgUrl?.startsWith('https:') == false
+                        ? widget.dialogModel.imgUrl ?? ImagesConstant.qrCodeImage
+                        : ImagesConstant.qrCodeImage,
+                    height: 170,
+                  )
+                : widget.dialogModel.contentText?.isEmpty == false
+                    ? Text(widget.dialogModel.contentText ?? '')
+                    : null),
         actions: [
           TextButton(
             onPressed: widget.dialogModel.onPostiveAction,
-            style: TextButton.styleFrom(
-                foregroundColor: context.theme.colorScheme.onBackground),
-            child: Text(
-                widget.dialogModel.postiveActionText ?? TextConstant.confirm),
+            style: TextButton.styleFrom(foregroundColor: context.theme.colorScheme.onBackground),
+            child: Text(widget.dialogModel.postiveActionText ?? TextConstant.confirm),
           )
         ],
       );
@@ -201,6 +200,7 @@ class _AppCustomSuccessDialogState extends State<AppCustomSuccessDialog> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
+        insetPadding: const EdgeInsets.all(80),
         titleTextStyle: AppTextStyle.bodyMedium,
         title: widget.dialogModel.title == null
             ? null
@@ -211,9 +211,17 @@ class _AppCustomSuccessDialogState extends State<AppCustomSuccessDialog> {
               ).padOnly(bottom: 10),
 
         //?.padSymmetric(horizontal: 20, vertical: 10)
-        content: widget.dialogModel.contentText?.isEmpty == false
-            ? Text(widget.dialogModel.contentText ?? '')
-            : null,
+        content: widget.dialogModel.content ??
+            (widget.dialogModel.hasImage == true
+                ? Image.asset(
+                    widget.dialogModel.imgUrl?.startsWith('https:') == false
+                        ? widget.dialogModel.imgUrl ?? ImagesConstant.qrCodeImage
+                        : ImagesConstant.qrCodeImage,
+                    height: 170,
+                  )
+                : widget.dialogModel.contentText?.isEmpty == false
+                    ? Text(widget.dialogModel.contentText ?? '')
+                    : null),
         // contentPadding: const EdgeInsets.only(top: 5),
         actionsAlignment: MainAxisAlignment.spaceAround,
         // contentTextStyle: context.theme.textTheme.bodyMedium,
@@ -221,10 +229,8 @@ class _AppCustomSuccessDialogState extends State<AppCustomSuccessDialog> {
         actions: [
           TextButton(
             onPressed: widget.dialogModel.onPostiveAction,
-            style: TextButton.styleFrom(
-                foregroundColor: context.theme.colorScheme.onBackground),
-            child: Text(
-                widget.dialogModel.postiveActionText ?? TextConstant.confirm),
+            style: TextButton.styleFrom(foregroundColor: context.theme.colorScheme.onBackground),
+            child: Text(widget.dialogModel.postiveActionText ?? TextConstant.confirm),
           )
         ],
       );

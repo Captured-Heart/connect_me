@@ -5,11 +5,11 @@ class ProfileScreenOthers extends ConsumerStatefulWidget {
     super.key,
     this.users,
     this.uuid,
-    required this.onDispose,
+    this.fromScanScreen = false,
   });
   final AuthUserModel? users;
   final String? uuid;
-  final VoidCallback onDispose;
+  final bool fromScanScreen;
 
   @override
   ConsumerState<ProfileScreenOthers> createState() => _ProfileScreenOthersState();
@@ -17,65 +17,55 @@ class ProfileScreenOthers extends ConsumerStatefulWidget {
 
 class _ProfileScreenOthersState extends ConsumerState<ProfileScreenOthers> {
   @override
-  void dispose() {
-    widget.onDispose();
-    super.dispose();
-  }
-
-  @override
   void initState() {
-    if (widget.users == null) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        var docId = const Uuid().v4();
-        setState(() {});
-        Future.delayed(const Duration(seconds: 2), () {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return AppCustomDialogWarning(
-                dialogModel: DialogModel(
-                  // title: 'Add to contact',
-                  // contentText: 'Do you want to add [${users.fullname}] to contacts?',
-                  content: RichText(
-                    text: TextSpan(
-                      text: 'Add ',
-                      children: [
-                        TextSpan(
-                          text: widget.users?.fullname,
-                          style: context.textTheme.titleSmall,
-                        ),
-                        const TextSpan(text: ' to contacts?')
-                      ],
-                      style: context.textTheme.titleMedium,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  postiveActionText: TextConstant.ok,
-                  // negativeActionText: TextConstant.cancel,
-                  onPostiveAction: () {
-                    ref.read(addUsersToContactNotifierProvider.notifier).addUsersToContactsMethod(
-                          docId: docId,
-                          map: ContactsModel(
-                            docId: docId,
-                            connectTo: widget.users?.docId,
-                            userId: ref.read(currentUUIDProvider),
-                          ).toJson(),
-                        );
-                    pop(context);
-                  },
-                ),
-              );
-            },
-          );
-        });
-      });
-    }
-
     super.initState();
+    showDialogOnFirstTime(users: widget.users);
   }
 
-  @override
-  // double offset = 0.0;
+  void showDialogOnFirstTime({required AuthUserModel? users}) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      var docId = const Uuid().v4();
+      Future.delayed(const Duration(seconds: 2), () {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AppCustomDialogWarning(
+              dialogModel: DialogModel(
+               
+                content: RichText(
+                  text: TextSpan(
+                    text: 'Add ',
+                    children: [
+                      TextSpan(
+                        text: users?.fullname,
+                        style: context.textTheme.titleSmall,
+                      ),
+                      const TextSpan(text: ' to contacts?')
+                    ],
+                    style: context.textTheme.titleMedium,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                postiveActionText: TextConstant.ok,
+                // negativeActionText: TextConstant.cancel,
+                onPostiveAction: () {
+                  ref.read(addUsersToContactNotifierProvider.notifier).addUsersToContactsMethod(
+                        docId: docId,
+                        map: ContactsModel(
+                          docId: docId,
+                          connectTo: users?.docId,
+                          userId: ref.read(currentUUIDProvider),
+                        ).toJson(),
+                      );
+                  pop(context);
+                },
+              ),
+            );
+          },
+        );
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,6 +79,7 @@ class _ProfileScreenOthersState extends ConsumerState<ProfileScreenOthers> {
     final workExperience = ref.watch(fetchWorkListProvider(widget.uuid)).valueOrNull;
     final educationExperience = ref.watch(fetchEducationListProvider(widget.uuid)).valueOrNull;
 
+    if (widget.fromScanScreen == true) {}
     var addInfo = users?.additionalDetails;
     return Scaffold(
       appBar: AppBar(
@@ -107,7 +98,7 @@ class _ProfileScreenOthersState extends ConsumerState<ProfileScreenOthers> {
               children: [
                 //! profile header
                 ProfileHeaderWidget(
-                  users: widget.uuid?.isEmpty == true ? widget.users! : users,
+                  users: widget.uuid?.isEmpty == true ? widget.users : users,
                 ),
 
 //! bio details

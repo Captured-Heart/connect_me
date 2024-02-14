@@ -10,8 +10,7 @@ class HomeScreen2 extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _HomeScreen2State();
 }
 
-class _HomeScreen2State extends ConsumerState<HomeScreen2>
-    with SingleTickerProviderStateMixin {
+class _HomeScreen2State extends ConsumerState<HomeScreen2> with SingleTickerProviderStateMixin {
   late TabController tabController;
   Timer? _timer;
 
@@ -53,11 +52,10 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2>
     super.dispose();
   }
 
-  ValueNotifier<Color> warningColor = ValueNotifier(AppThemeColorLight.orange);
+  ValueNotifier<Color> warningColor = ValueNotifier(AppThemeColorLight.yellow);
 
   List<Color> warningColorList = [
     AppThemeColorLight.orange,
-    AppThemeColorDark.warningColor,
     AppThemeColorDark.textError,
   ];
   Future<bool> onWillPop() async {
@@ -70,34 +68,60 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2>
     return false;
   }
 
+  // bool expression1 = true;
+  // bool expression2 = false;
+  // bool expression3 = true;
+  // bool expression4 = true;
+
+  // // Count the number of true expressions
+  // int trueCount = 0;
+  // if (expression1) trueCount++;
+  // if (expression2) trueCount++;
+  // if (expression3) trueCount++;
+  // if (expression4) trueCount++;
+
+  // // Calculate the percentage
+  // double percentage = (trueCount / 4) * 100;
+
+  int percentageRate({required List<bool> progressBoolList}) {
+    // Example list of boolean expressions
+    int trueCount = progressBoolList.where((element) => element == false).length;
+    double progressPercentage = (trueCount / progressBoolList.length) * 100;
+    return progressPercentage.round();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final AsyncValue<AuthUserModel> users =
-        ref.watch(fetchProfileProvider.select((_) => _));
-
-    // String percentage(){
-
-    // }
+    final AsyncValue<AuthUserModel> users = ref.watch(fetchProfileProvider.select((_) => _));
+    final educationList = ref.watch(fetchEducationListProvider('')).valueOrNull;
+    final workExpList = ref.watch(fetchWorkListProvider('')).valueOrNull;
+    var progress = percentageRate(
+      progressBoolList: [
+        users.valueOrNull?.isAdditionalDetailsEmpty == true,
+        users.valueOrNull?.isSocialMediaEmpty == true,
+        educationList?.isEmpty == true || educationList == null,
+        workExpList?.isEmpty == true || workExpList == null,
+      ],
+    );
+    log(progress.toString());
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-//       // if(!mounted) return;
       _timer = Timer(const Duration(milliseconds: 2000), () {
         if (!mounted) return;
-        // setState(() {
-        warningColor.value =
-            warningColorList[Random().nextInt(warningColorList.length)];
-        // });
+
+        warningColor.value = warningColorList[Random().nextInt(warningColorList.length)];
       });
     });
     return WillPopScope(
       onWillPop: () => onWillPop(),
       child: Scaffold(
+        floatingActionButton: FloatingActionButton(onPressed: () {}),
         appBar: AppBar(
           elevation: 0,
           toolbarHeight: kToolbarHeight * 1.5,
           backgroundColor: context.theme.scaffoldBackgroundColor,
           centerTitle: true,
-          title: users.valueOrNull?.completedSignUp != true
+          title: progress > 99
               ? const SizedBox.shrink()
               : ValueListenableBuilder(
                   valueListenable: warningColor,
@@ -117,7 +141,7 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2>
                           Flexible(
                             child: AutoSizeText(
                               //todo: do the calculation for percentage
-                              '${'Complete your profile'.hardCodedString} (95%)',
+                              '${'Complete your profile'.hardCodedString} ($progress%)',
                               style: context.textTheme.bodySmall,
                               maxLines: 1,
                             ),
@@ -126,9 +150,7 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2>
                       ).padAll(7),
                     ).onTapWidget(
                       onTap: () {
-                        ref
-                            .read(bottomNavBarIndexProvider.notifier)
-                            .update((state) => 3);
+                        ref.read(bottomNavBarIndexProvider.notifier).update((state) => 3);
                       },
                     );
                   }),
@@ -159,13 +181,6 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2>
             children: [
               CustomTabBar3(
                 tabController: tabController,
-                // onTap: (p0) {
-                //   if (p0 == 1) {
-                //     ref.read(hideBottomNavBarProvider.notifier).update((state) => true);
-                //   } else {
-                //     ref.invalidate(hideBottomNavBarProvider);
-                //   }
-                // },
                 tabs: const [
                   Text(TextConstant.home),
                   Text(TextConstant.scanQr),
@@ -194,7 +209,7 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2>
 
                                 //bio
                                 CustomListTileWidget(
-                                  title: data.username ?? '',
+                                  title: data.fullname,
                                   // showAtsign: true,
                                   subtitleMaxLines: 4,
                                   subtitle: data.bio,
@@ -207,31 +222,7 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2>
                                 authUserModel: data,
                                 isStaticTheme: false,
                                 isDense: false,
-                              )
-
-                                  // Container(
-                                  //   margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                                  //   padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 1),
-                                  //   decoration: BoxDecoration(
-                                  //       border: Border.all(
-                                  //           color: context.colorScheme.onBackground, width: 5)),
-                                  //   child: QrImageView(
-                                  //     data: data.docId ?? 'null',
-                                  //     backgroundColor: context.colorScheme.onSurface,
-                                  //     eyeStyle: QrEyeStyle(
-                                  //         color: context.colorScheme.surface,
-                                  //         eyeShape: QrEyeShape.square),
-                                  //     dataModuleStyle: QrDataModuleStyle(
-                                  //       color: context.colorScheme.surface,
-                                  //       dataModuleShape: QrDataModuleShape.circle,
-                                  //     ),
-                                  //     version: 5,
-                                  //     size: context.sizeHeight(0.3),
-                                  //     gapless: false,
-                                  //     // padding: const EdgeInsets.all(12),
-                                  .padSymmetric(horizontal: 5)
-                                  .padOnly(bottom: 0),
-                              // ),
+                              ).padSymmetric(horizontal: 5).padOnly(bottom: 0),
                             ),
                           ],
                         ).padOnly(top: 10);
@@ -245,6 +236,8 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2>
                       },
 
                       // SHIMMER LOADER
+
+                      //TODO: REDO THE LOADING SCREEN
                       loading: () => ShimmerWidget(
                         child: Center(
                           child: Column(

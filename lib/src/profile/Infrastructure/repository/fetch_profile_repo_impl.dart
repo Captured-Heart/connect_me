@@ -11,19 +11,21 @@ class FetchProfileRepoImpl implements ProfileRepository {
 //!  FETCH PROFILE
   @override
   Future<AuthUserModel> fetchProfile({required String uuid}) async {
-    try {
-      if (uuid.isEmpty) {
-        throw TextConstant.noUserFound;
-      }
-      var result = await _firebaseFirestore
-          .collection(FirebaseCollectionEnums.users.value)
-          .doc(uuid)
-          .get();
-
-      return AuthUserModel.fromJson(result.data()!);
-    } catch (e) {
-      throw e.toString();
+    // try {
+    if (uuid.isEmpty) {
+      throw TextConstant.noUserFound;
     }
+    log('whose uuid is this : $uuid');
+    var result =
+        await _firebaseFirestore.collection(FirebaseCollectionEnums.users.value).doc(uuid).get();
+    if (result.exists) {
+      return AuthUserModel.fromJson(result.data()!);
+    } else {
+      throw TextConstant.noUserFound;
+    }
+    // } catch (e) {
+    //   throw e.toString();
+    // }
   }
 
 //! fetch work is just for debugging
@@ -48,15 +50,15 @@ class FetchProfileRepoImpl implements ProfileRepository {
 
   //! FETCH EDUCATION LIST
   @override
-  Future<List<EducationModel>> fetchEducationList(
-      {required String uuid}) async {
+  Future<List<EducationModel>> fetchEducationList({required String uuid}) async {
     var result = _firebaseFirestore
         .collection(FirebaseCollectionEnums.users.value)
         .doc(uuid)
         .collection(FirebaseCollectionEnums.education.value);
 
-    return result.get().then((value) =>
-        value.docs.map((e) => EducationModel.fromJson(e.data())).toList());
+    return result
+        .get()
+        .then((value) => value.docs.map((e) => EducationModel.fromJson(e.data())).toList());
   }
 
   // // ! fetch the list of contacts profile

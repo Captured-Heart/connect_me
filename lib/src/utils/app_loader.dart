@@ -25,15 +25,14 @@ class FullScreenLoader extends StatelessWidget {
             filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
             child: Opacity(
               opacity: 0.2,
-              child: ModalBarrier(
-                  dismissible: false, color: Theme.of(context).primaryColor),
+              child: ModalBarrier(dismissible: false, color: Theme.of(context).primaryColor),
             ),
           ),
         ),
-        // Align(
-        //   alignment: Alignment.center,
-        //   child: CircularProgressIndicator.adaptive(),
-        // ),
+        const Align(
+          alignment: Alignment.center,
+          child: CircularProgressIndicator(),
+        ),
 
         //! add loader widget here
         // loaderStyleWidget

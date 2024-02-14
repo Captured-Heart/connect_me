@@ -46,7 +46,7 @@ class HomeScreen extends ConsumerWidget {
                 // color: context.theme.primaryColor.withOpacity(0.3),
                 child: Column(
                   children: [
-                    ListTile(
+                    const ListTile(
                       dense: true,
                       leading: const SizedBox(
                         height: 40,
@@ -57,12 +57,8 @@ class HomeScreen extends ConsumerWidget {
                           imgUrl: ImagesConstant.imgPlaceholderHttp,
                         ),
                       ),
-                      title: Text(
-                        faker.person.firstName(),
-                      ),
-                      subtitle: Text(
-                        faker.address.person.name(),
-                      ),
+                      title: Text('sd'),
+                      subtitle: Text('sdd'),
                     ),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(10),

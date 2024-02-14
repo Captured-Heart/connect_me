@@ -33,4 +33,6 @@ class AppThemeColorLight {
   static const Color scaffoldBackgroundColor = Color(0xFFF7F7F7);
   static const Color primaryColor = Color(0xff2DBE5B);
   static const Color orange = Color(0xffF28A3E);
+  static const Color yellow = Color(0xFFEBEB50);
+
 }

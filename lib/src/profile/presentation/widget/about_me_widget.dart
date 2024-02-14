@@ -9,8 +9,7 @@ class AboutMeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-        padding:
-            offset! > 300 ? const EdgeInsets.only(top: 170) : EdgeInsets.zero,
+        padding: offset! > 300 ? const EdgeInsets.only(top: 170) : EdgeInsets.zero,
         children: [
           Card(
             elevation: 3,
@@ -52,7 +51,7 @@ class AboutMeWidget extends StatelessWidget {
                   ),
                 ).padAll(10),
                 Text(
-                  faker.lorem.sentences(10).toString(),
+                  '  faker.lorem.sentences(10).toString(),',
                   textAlign: TextAlign.justify,
                   softWrap: true,
                 )
@@ -100,7 +99,7 @@ class AboutMeWidget extends StatelessWidget {
                   ),
                 ).padAll(10),
                 Text(
-                  faker.lorem.sentences(10).toString(),
+                  ' faker.lorem.sentences(10).toString(),',
                   textAlign: TextAlign.justify,
                   softWrap: true,
                 )

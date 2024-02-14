@@ -14,50 +14,51 @@ class QrCodeScanScreen extends ConsumerStatefulWidget {
 class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
   BarcodeCapture? barcode;
 
-  final MobileScannerController controller = MobileScannerController();
+  final MobileScannerController controller = MobileScannerController(
+    detectionSpeed: DetectionSpeed.normal,
+    detectionTimeoutMs: 500,
+    // formats: [BarcodeFormat.qrCode],
+  );
   bool isStarted = true;
-
-  void _startOrStop() {
-    try {
-      if (isStarted) {
-        controller.stop();
-      } else {
-        controller.start();
-      }
-      setState(() {
-        isStarted = !isStarted;
-      });
-    } on Exception catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Something went wrong! $e'),
-          backgroundColor: Colors.red,
-        ),
-      );
-    }
-  }
-
-  // @override
-  // void initState() {
-  //   controller.start();
-
-  //   log('init state');
-
-  //   // _startOrStop();
-  //   super.initState();
-  // }
-
-  // @override
-  // void dispose() {
-  //   controller.stop();
-  //   log('is just starting: ${controller.isStarting}');
-
-  //   super.dispose();
-  // }
-
+  String userUUid = '';
   int? numberOfCameras;
   @override
   Widget build(BuildContext context) {
+    var isLoading = ref.watch(qrCodeScanNotifierProvider);
+    ref.listen(qrCodeScanNotifierProvider, (previous, next) {
+      if (next.isCompleted == true && next.data != null) {
+        ref.read(addAccountInfoProvider.notifier).updateScanCount();
+
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) => Center(
+            child: Container(
+              width: context.sizeWidth(0.75),
+              decoration: const BoxDecoration(
+                color: AppThemeColorDark.textDark,
+                borderRadius: AppBorderRadius.c12,
+              ),
+              child: PortraitQrCodeWidget(
+                authUserModel: next.data as AuthUserModel,
+                isAfterScanDialog: true,
+                viewFullProfileBTN: () {
+                  pop(context);
+                  pushAsVoid(
+                    context,
+                    ProfileScreenOthers(
+                      uuid: userUUid,
+                      fromScanScreen: true,
+                      users: next.data as AuthUserModel,
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+        );
+      }
+    });
     var scanWindow = Rect.fromCenter(
       center: context.center(
         Offset(
@@ -70,194 +71,198 @@ class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
     );
 
     // log('is just starting: ${controller.isStarting}');
-    return Scaffold(
-      body: Builder(
-        builder: (context) {
-          return Stack(
-            fit: StackFit.expand,
-            children: [
-              MobileScanner(
-                onScannerStarted: (arguments) {
-                  if (mounted && arguments?.numberOfCameras != null) {
-                    numberOfCameras = arguments!.numberOfCameras;
-                    setState(() {});
-                  }
-                },
-                scanWindow: scanWindow,
-                controller: controller,
-                errorBuilder: (context, error, child) {
-                  inspect(error);
-                  return Center(
-                    child: Text(
-                      '''Check Camera Permissions! 
-                      or 
-      Restart scan process'''
-                          .hardCodedString,
-                    ),
-                  );
-                },
-                fit: BoxFit.cover,
-                onDetect: (barcode) {
-                  // _startOrStop();
-                  controller.stop();
+    return FullScreenLoader(
+      isLoading: isLoading.isLoading ?? false,
+      child: Scaffold(
+        body: Builder(
+          builder: (context) {
+            return Stack(
+              fit: StackFit.expand,
+              children: [
+                MobileScanner(
+                  onScannerStarted: (arguments) {
+                    if (mounted && arguments?.numberOfCameras != null) {
+                      numberOfCameras = arguments!.numberOfCameras;
+                      setState(() {});
+                    }
+                  },
+                  scanWindow: scanWindow,
+                  controller: controller,
+                  errorBuilder: (context, error, child) {
+                    return Center(
+                      child: Text(
+                        '''Check Camera Permissions! 
+                        or 
+        Restart scan process'''
+                            .hardCodedString,
+                      ),
+                    );
+                  },
+                  fit: BoxFit.cover,
+                  onDetect: (barcode) {
+                    //check if the qr_code contains connect_me symbol/TAg
+                    if (barcode.barcodes.first.rawValue?.startsWith(TextConstant.uuidPrefixTag) ==
+                        true) {
+                      var scannedRawUUID = barcode.barcodes.first.rawValue.toString();
 
-                  final uuid = barcode.barcodes.first.rawValue
-                      .toString()
-                      .replaceAll(TextConstant.uuidPrefixTag, '')
-                      .trim();
-                  ref.read(addAccountInfoProvider.notifier).updateScanCount();
-
-                  pushAsVoid(
-                    context,
-                    ProfileScreenOthers(
-                      uuid: uuid,
-                      onDispose: () {
-                        controller.start();
-                      },
-                    ),
-                  );
-                  log('this is the barcode scanned ${barcode.barcodes.first.rawValue}');
-                },
-              ),
-              Align(
-                alignment: Alignment.topCenter,
-                child: CustomPaint(
-                  size: Size(
-                    context.sizeWidth(1),
-                    context.sizeHeight(0.1),
-                  ),
-                  painter: ScannerOverlay(scanWindow),
-                ),
-              ),
-
-              // All the action buttons [Image], [Switch Camera], [Flash]
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  alignment: Alignment.center,
-                  height: 100,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      //! FLASH TORCH
-                      ValueListenableBuilder(
-                        valueListenable: controller.hasTorchState,
-                        builder: (context, state, child) {
-                          if (state != true) {
-                            return const SizedBox.shrink();
-                          }
-                          return IconButton(
-                            color: Colors.white,
-                            icon: ValueListenableBuilder<TorchState>(
-                              valueListenable: controller.torchState,
-                              builder: (context, state, child) {
-                                switch (state) {
-                                  case TorchState.off:
-                                    return const Icon(
-                                      Icons.flash_off,
-                                      color: Colors.grey,
-                                    );
-                                  case TorchState.on:
-                                    return const Icon(
-                                      Icons.flash_on,
-                                      color: Colors.yellow,
-                                    );
-                                }
+                      ref
+                          .read(qrCodeScanNotifierProvider.notifier)
+                          .scanQrCodeMethod(scannedRawUUID: scannedRawUUID, ref: ref);
+                    } else {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AppCustomSuccessDialog(
+                            dialogModel: DialogModel(
+                              title: 'Scan a Connect_Me\n QR Code instead',
+                              hasImage: true,
+                              postiveActionText: TextConstant.ok,
+                              onPostiveAction: () {
+                                pop(context);
                               },
                             ),
-                            iconSize: 32.0,
-                            onPressed: () => controller.toggleTorch(),
                           );
                         },
-                      ),
-                      // IconButton(
-                      //   color: Colors.white,
-                      //   icon: isStarted ? const Icon(Icons.stop) : const Icon(Icons.play_arrow),
-                      //   iconSize: 32.0,
-                      //   onPressed: _startOrStop,
-                      // ),
-                      // Center(
-                      //   child: SizedBox(
-                      //     width: MediaQuery.of(context).size.width - 200,
-                      //     height: 50,
-                      //     child: FittedBox(
-                      //       child: Text(
-                      //         barcode?.barcodes.first.rawValue ?? 'Scan something!',
-                      //         overflow: TextOverflow.fade,
-                      //         style: Theme.of(context)
-                      //             .textTheme
-                      //             .headlineMedium!
-                      //             .copyWith(color: Colors.white),
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
+                      );
+                    }
+                  },
+                ),
 
-                      //! CAMERA SWITCH
-                      IconButton(
-                        color: AppThemeColorDark.textDark,
-                        tooltip: 'Switch Camera'.hardCodedString,
-                        icon: ValueListenableBuilder<CameraFacing>(
-                          valueListenable: controller.cameraFacingState,
+                //!Overlay widget
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: CustomPaint(
+                    size: Size(
+                      context.sizeWidth(1),
+                      context.sizeHeight(0.1),
+                    ),
+                    painter: ScannerOverlay(scanWindow),
+                  ),
+                ),
+                // Align(
+                //   child: CircularProgressIndicator(
+                //     strokeWidth: 2.2,
+                //   ),
+                // ),
+                // All the action buttons [Image], [Switch Camera], [Flash]
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: 100,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        //! FLASH TORCH
+                        ValueListenableBuilder(
+                          valueListenable: controller.hasTorchState,
                           builder: (context, state, child) {
-                            switch (state) {
-                              case CameraFacing.front:
-                                return const Icon(Icons.camera_rear);
-                              case CameraFacing.back:
-                                return const Icon(Icons.cameraswitch_outlined);
+                            if (state != true) {
+                              return const SizedBox.shrink();
+                            }
+                            return IconButton(
+                              color: Colors.white,
+                              icon: ValueListenableBuilder<TorchState>(
+                                valueListenable: controller.torchState,
+                                builder: (context, state, child) {
+                                  switch (state) {
+                                    case TorchState.off:
+                                      return const Icon(
+                                        Icons.flash_off,
+                                        color: Colors.grey,
+                                      );
+                                    case TorchState.on:
+                                      return const Icon(
+                                        Icons.flash_on,
+                                        color: Colors.yellow,
+                                      );
+                                  }
+                                },
+                              ),
+                              iconSize: 32.0,
+                              onPressed: () => controller.toggleTorch(),
+                            );
+                          },
+                        ),
+                        // IconButton(
+                        //   color: Colors.white,
+                        //   icon: isStarted ? const Icon(Icons.stop) : const Icon(Icons.play_arrow),
+                        //   iconSize: 32.0,
+                        //   onPressed: _startOrStop,
+                        // ),
+                        // Center(
+                        //   child: SizedBox(
+                        //     width: MediaQuery.of(context).size.width - 200,
+                        //     height: 50,
+                        //     child: FittedBox(
+                        //       child: Text(
+                        //         barcode?.barcodes.first.rawValue ?? 'Scan something!',
+                        //         overflow: TextOverflow.fade,
+                        //         style: Theme.of(context)
+                        //             .textTheme
+                        //             .headlineMedium!
+                        //             .copyWith(color: Colors.white),
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
+
+                        //! CAMERA SWITCH
+                        IconButton(
+                          color: AppThemeColorDark.textDark,
+                          tooltip: 'Switch Camera'.hardCodedString,
+                          icon: ValueListenableBuilder<CameraFacing>(
+                            valueListenable: controller.cameraFacingState,
+                            builder: (context, state, child) {
+                              switch (state) {
+                                case CameraFacing.front:
+                                  return const Icon(Icons.camera_rear);
+                                case CameraFacing.back:
+                                  return const Icon(Icons.cameraswitch_outlined);
+                              }
+                            },
+                          ),
+                          iconSize: 32.0,
+                          onPressed:
+                              (numberOfCameras ?? 0) < 2 ? null : () => controller.switchCamera(),
+                        ),
+                        //! SELECT IMAGE
+                        IconButton(
+                          tooltip: 'Select image'.hardCodedString,
+                          color: AppThemeColorDark.textDark,
+                          icon: const Icon(Icons.image),
+                          iconSize: 32.0,
+                          onPressed: () async {
+                            final ImagePicker picker = ImagePicker();
+
+                            final XFile? image = await picker.pickImage(
+                              source: ImageSource.gallery,
+                            );
+                            if (image != null) {
+                              await controller.analyzeImage(image.path);
+                              if (await controller.analyzeImage(image.path)) {
+                                showScaffoldSnackBarMessage(
+                                  TextConstant.successful,
+                                );
+                              } else {
+                                if (!mounted) return;
+                                showScaffoldSnackBarMessage(
+                                  'QR Code could not be recognized'.hardCodedString,
+                                  isError: true,
+                                );
+                              }
                             }
                           },
                         ),
-                        iconSize: 32.0,
-                        onPressed:
-                            (numberOfCameras ?? 0) < 2 ? null : () => controller.switchCamera(),
-                      ),
-                      //! SELECT IMAGE
-                      IconButton(
-                        tooltip: 'Select image'.hardCodedString,
-                        color: AppThemeColorDark.textDark,
-                        icon: const Icon(Icons.image),
-                        iconSize: 32.0,
-                        onPressed: () async {
-                          final ImagePicker picker = ImagePicker();
-
-                          final XFile? image = await picker.pickImage(
-                            source: ImageSource.gallery,
-                          );
-                          if (image != null) {
-                            if (await controller.analyzeImage(image.path)) {
-                              if (!mounted) return;
-
-                              //TODO: WHAT HAPPENS WHEN A BARCODE IS SCANNED FROM IMAGE
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Barcode found!'),
-                                  backgroundColor: Colors.green,
-                                ),
-                              );
-                            } else {
-                              //TODO: WHAT HAPPENS IF THE BARCODE COULDNT BE ANALYZED
-                              if (!mounted) return;
-                              showScaffoldSnackBarMessage('');
-
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('No barcode found!'),
-                                  backgroundColor: Colors.red,
-                                ),
-                              );
-                            }
-                          }
-                        },
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
-          );
-        },
+              ],
+            );
+          },
+        ),
       ),
     );
   }

@@ -19,7 +19,7 @@ class LandscapeQrCodeWIdget extends StatelessWidget {
                 authUserModel: authUserModel,
               ),
               CustomListTileWidget(
-                title: authUserModel?.username ?? '',
+                title: authUserModel?.fullname ?? '',
                 subtitle: authUserModel?.bio,
                 subtitleTextAlign: TextAlign.start,
                 showAtsign: true,

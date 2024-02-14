@@ -31,10 +31,14 @@ class ContactRepositoryImpl extends ContactRepository {
           .where(FirebaseDocsFieldEnums.userId.name, isEqualTo: uuid)
           .get();
 
-      var uuidList = connects.docs.map((e) => AuthUserModel.fromJson(e.data()).connectTo).toList();
+      var uuidList =
+          connects.docs.map((e) => AuthUserModel.fromJson(e.data()).connectTo).toSet().toList();
+      uuidList.remove(null);
       if (uuidList.isEmpty) {
         throw TextConstant.noRecordFound;
       }
+
+      log('this is the uuidList for contacts: $uuidList');
       var result = await _firebaseFirestore
           .collection(FirebaseCollectionEnums.users.value)
           .where(

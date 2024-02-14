@@ -29,9 +29,7 @@ class _ContactScreenState extends ConsumerState<ContactScreen> with SingleTicker
   @override
   Widget build(BuildContext context) {
     final contacts = ref.watch(fetchContactsProvider.select((_) => _));
-    // if (contacts.hasError || contacts.error != null) {
-    //   showScaffoldSnackBarMessage(contacts.error.toString(), isError: true);
-    // }
+
     return ValueListenableBuilder(
       valueListenable: gridLayout,
       builder: (context, value, child) {
@@ -86,12 +84,11 @@ class _ContactScreenState extends ConsumerState<ContactScreen> with SingleTicker
                               ProfileScreenOthers(
                                 users: data[index],
                                 uuid: data[index].docId,
-                                onDispose: () {
-                                  log('disposed');
-                                },
                               ),
                             );
                           },
+
+                          // on call method
                           onCall: () {
                             if (data[index].phone?.isNotEmpty == true) {
                               UrlOptions.makePhoneCall(
@@ -104,6 +101,8 @@ class _ContactScreenState extends ConsumerState<ContactScreen> with SingleTicker
                               );
                             }
                           },
+
+                          //on show QR dialog
                           onViewQR: () {
                             showDialog(
                               context: context,
@@ -144,7 +143,6 @@ class _ContactScreenState extends ConsumerState<ContactScreen> with SingleTicker
                                 ProfileScreenOthers(
                                   users: contacts,
                                   uuid: contacts.docId,
-                                  onDispose: () {},
                                 ),
                               );
                             },
@@ -203,10 +201,13 @@ class ContactListTile extends StatelessWidget {
         leading: SizedBox(
           width: 45,
           height: 50,
-          child: CircleCacheNetworkImage(
-            height: 50,
-            width: 45,
-            imgUrl: contacts.imgUrl ?? ImagesConstant.noImagePlaceholderHttp,
+          child: Hero(
+            tag: contacts.imgUrl ?? 'imgUrl',
+            child: CircleCacheNetworkImage(
+              height: 50,
+              width: 45,
+              imgUrl: contacts.imgUrl ?? ImagesConstant.noImagePlaceholderHttp,
+            ),
           ),
         ),
         title: AutoSizeText(contacts.fullname),

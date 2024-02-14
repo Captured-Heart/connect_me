@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:connect_me/app.dart';
 import 'package:connect_me/src/utils/create_app_widet.dart';

@@ -42,23 +42,13 @@ class _MainAppState extends State<MainApp> {
 
   List<ShortcutItem> forIos = [
     const ShortcutItem(
-        type: 'action_one',
-        localizedTitle: TextConstant.viewQrCode,
-        icon: 'AppIcon'),
-    const ShortcutItem(
-        type: 'action_two',
-        localizedTitle: TextConstant.scanQr,
-        icon: 'AppIcon')
+        type: 'action_one', localizedTitle: TextConstant.viewQrCode, icon: 'AppIcon'),
+    const ShortcutItem(type: 'action_two', localizedTitle: TextConstant.scanQr, icon: 'AppIcon')
   ];
   List<ShortcutItem> forAndroid = [
     const ShortcutItem(
-        type: 'action_one',
-        localizedTitle: TextConstant.viewQrCode,
-        icon: 'ic_launcher'),
-    const ShortcutItem(
-        type: 'action_two',
-        localizedTitle: TextConstant.scanQr,
-        icon: 'ic_launcher')
+        type: 'action_one', localizedTitle: TextConstant.viewQrCode, icon: 'ic_launcher'),
+    const ShortcutItem(type: 'action_two', localizedTitle: TextConstant.scanQr, icon: 'ic_launcher')
   ];
   @override
   void initState() {
@@ -106,6 +96,7 @@ class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, _) {
+      ref.watch(currentUUIDProvider);
       final user = ref.watch(authStateChangesProvider);
       final analytics = ref.watch(analyticsProvider);
       return MaterialApp(

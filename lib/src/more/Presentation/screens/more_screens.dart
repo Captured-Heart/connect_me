@@ -114,7 +114,7 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                       icon: additionalDetailsIcon,
                       title: TextConstant.additionalDetails,
                       subtitle: TextConstant.addressCareerEtc,
-                      trailingWidget: authUserData?.additionalDetails == null
+                      trailingWidget: authUserData?.isAdditionalDetailsEmpty == true
                           ? Icon(
                               warningIcon,
                               color: context.colorScheme.tertiary,
@@ -261,7 +261,7 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                     MoreCustomListTileWidget(
                       icon: socialMediaIcon,
                       title: TextConstant.socialMediaHandles,
-                      trailingWidget: authUserData?.socialMediaHandles == null
+                      trailingWidget: authUserData?.isSocialMediaEmpty == true
                           ? Icon(
                               warningIcon,
                               color: context.colorScheme.tertiary,

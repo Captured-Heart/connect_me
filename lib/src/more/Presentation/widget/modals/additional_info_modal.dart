@@ -164,6 +164,7 @@ class _AdditionalInfoModalBodyState extends ConsumerState<AdditionalInfoModalBod
                 currentCountry: countryNotifier.value,
                 currentState: stateNotifier.value,
                 currentCity: cityNotifier.value,
+                flagState: CountryFlag.SHOW_IN_DROP_DOWN_ONLY,
                 disabledDropdownDecoration: BoxDecoration(
                   color: context.theme.scaffoldBackgroundColor,
                   border: Border.all(
@@ -249,7 +250,7 @@ class _AdditionalInfoModalBodyState extends ConsumerState<AdditionalInfoModalBod
                       controllersText: [
                         dateFormatted2(dobDateTimeNotifier.value),
                         placeOfBirthNotifier.value,
-                        countryNotifier.value ?? '',
+                        countryNotifier.value?.replaceAll(RegExp(r'\s(?=\w)'), '') ?? '',
                         stateNotifier.value ?? '',
                         cityNotifier.value ?? '',
                         streetNotifier.value,
@@ -276,7 +277,6 @@ class _AdditionalInfoModalBodyState extends ConsumerState<AdditionalInfoModalBod
                         .whenComplete(
                           () => ref.invalidate(fetchProfileProvider),
                         );
-                    // ref.invalidate(addAccountInfoProvider);
                   },
                   child: infoState.isLoading == true
                       ? SizedBox(

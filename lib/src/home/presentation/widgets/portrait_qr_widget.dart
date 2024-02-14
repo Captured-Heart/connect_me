@@ -5,9 +5,13 @@ class PortraitQrCodeWidget extends StatelessWidget {
     super.key,
     required this.authUserModel,
     this.isStaticTheme = true,
+    this.isAfterScanDialog = false,
+    this.viewFullProfileBTN,
   });
   final AuthUserModel? authUserModel;
   final bool isStaticTheme;
+  final bool isAfterScanDialog;
+  final VoidCallback? viewFullProfileBTN;
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -25,32 +29,37 @@ class PortraitQrCodeWidget extends StatelessWidget {
         ),
         Center(
           child: CustomListTileWidget(
-            title: authUserModel?.username ?? '',
+            title: authUserModel?.fullname ?? '',
             subtitle: authUserModel?.bio,
             subtitleTextAlign: TextAlign.center,
             showAtsign: true,
             isStaticTheme: isStaticTheme,
           ),
         ),
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            CustomQrCodeImageWidget(
-              authUserModel: authUserModel,
-              isStaticTheme: isStaticTheme,
-              isDense: true,
-            ),
-            AutoSizeText(
-              TextConstant.scanQrCodeToConnect,
-              style: context.textTheme.bodySmall?.copyWith(
-                color: isStaticTheme == true
-                    ? Colors.black
-                    : context.colorScheme.onSurface,
+        isAfterScanDialog == true
+            ? ElevatedButton(
+                onPressed: viewFullProfileBTN,
+                child: Text(
+                  'View full profile'.hardCodedString,
+                ),
+              )
+            : Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CustomQrCodeImageWidget(
+                    authUserModel: authUserModel,
+                    isStaticTheme: isStaticTheme,
+                    isDense: true,
+                  ),
+                  AutoSizeText(
+                    TextConstant.scanQrCodeToConnect,
+                    style: context.textTheme.bodySmall?.copyWith(
+                      color: isStaticTheme == true ? Colors.black : context.colorScheme.onSurface,
+                    ),
+                    textScaleFactor: 0.8,
+                  )
+                ],
               ),
-              textScaleFactor: 0.8,
-            )
-          ],
-        ),
       ],
     ).padAll(20);
   }
@@ -75,38 +84,29 @@ class CustomQrCodeImageWidget extends StatelessWidget {
           ? const EdgeInsets.only(top: 15, right: 10, left: 10, bottom: 3)
           : const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       padding: EdgeInsets.symmetric(
-          vertical: isDense == true ? 3 : 5,
-          horizontal: isDense == true ? 3 : 5),
+          vertical: isDense == true ? 3 : 5, horizontal: isDense == true ? 3 : 5),
       decoration: BoxDecoration(
         border: Border.all(
-          color: isStaticTheme == true
-              ? Colors.black
-              : context.colorScheme.onBackground,
+          color: isStaticTheme == true ? Colors.black : context.colorScheme.onBackground,
           width: isDense == true ? 3 : 7,
         ),
       ),
       child: QrImageView(
         data: '${TextConstant.uuidPrefixTag}${authUserModel?.docId}',
-        backgroundColor: isStaticTheme == true
-            ? Colors.black
-            : context.colorScheme.onSurface,
+        backgroundColor: isStaticTheme == true ? Colors.black : context.colorScheme.onSurface,
         eyeStyle: QrEyeStyle(
-          color: isStaticTheme == true
-              ? Colors.white
-              : context.colorScheme.surface,
+          color: isStaticTheme == true ? Colors.white : context.colorScheme.surface,
           eyeShape: QrEyeShape.square,
         ),
         dataModuleStyle: QrDataModuleStyle(
-          color: isStaticTheme == true
-              ? Colors.white
-              : context.colorScheme.surface,
+          color: isStaticTheme == true ? Colors.white : context.colorScheme.surface,
           dataModuleShape: QrDataModuleShape.circle,
         ),
         embeddedImage: const AssetImage(
           'assets/images/aboutMeLogo_brown.png',
         ),
         embeddedImageStyle: const QrEmbeddedImageStyle(size: Size(40, 40)),
-        version: 5,
+        version: 8,
         size: context.sizeHeight(isDense == true ? 0.2 : 0.3),
         gapless: !isDense,
         // padding: const EdgeInsets.all(12),
