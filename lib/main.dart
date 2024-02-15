@@ -15,9 +15,11 @@ void main() async {
 // firebase
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
+  
   );
 
   if (kDebugMode) {
+    //todo: change this to production
     log('built in debug');
     FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(true);
   }
@@ -53,6 +55,7 @@ class _MainAppState extends State<MainApp> {
   @override
   void initState() {
     initiateQuickActions();
+
     super.initState();
   }
 
@@ -98,6 +101,9 @@ class _MainAppState extends State<MainApp> {
     return Consumer(builder: (context, ref, _) {
       // final user = ref.watch(authStateChangesProvider);
       final analytics = ref.watch(analyticsProvider);
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        analytics.logAppOpen();
+      });
       return MaterialApp(
           restorationScopeId: 'connectMe',
           onGenerateTitle: (context) => TextConstant.appTitle,
@@ -111,7 +117,6 @@ class _MainAppState extends State<MainApp> {
           ),
           navigatorObservers: [
             FirebaseAnalyticsObserver(analytics: analytics),
-            NavigatorObserver(),
           ],
           home:
               // AccountInformationSignUpScreen()

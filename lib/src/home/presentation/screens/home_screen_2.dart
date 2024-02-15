@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:math' hide log;
 
 import 'package:connect_me/app.dart';
-import 'package:flutter/services.dart';
 
 class HomeScreen2 extends ConsumerStatefulWidget {
   const HomeScreen2({super.key});
@@ -111,9 +110,7 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> with SingleTickerProv
                   filterQuality: FilterQuality.high,
                 ),
                 // icon: Icon(Icons.qr),
-                onPressed: () {
-
-                  HapticFeedback.mediumImpact();
+                onPressed: ()  {
                   // if (users.valueOrNull != null) {
                   //   pushAsVoid(
                   //     context,
@@ -217,7 +214,6 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> with SingleTickerProv
                                 Center(
                                   child: ProfilePicWidget(
                                     authUserModel: data,
-                                    height: 70,
                                     onTap: () {},
                                   ),
                                 ),
@@ -277,7 +273,7 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> with SingleTickerProv
                       ),
                     ),
                     // QrCodeScreen()
-                    const QrCodeScanScreen(),
+                     QrCodeScanScreen(tabController: tabController,),
                   ],
                 ),
               ),

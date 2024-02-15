@@ -25,12 +25,10 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
 
     ref.listen(logOutNotifierProvider, (previous, next) {
       if (next.user == null) {
-        Future.delayed(const Duration(milliseconds: 400), () {
-          pushReplacement(
-            context,
-            const CheckAuthStateScreen(),
-          );
-        });
+        pushReplacement(
+          context,
+          const LoginScreen(),
+        );
       }
     });
 
@@ -54,6 +52,8 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                       iconData: logOutIcon,
                       tooltip: TextConstant.logOut,
                       iconSize: 18,
+                      iconColor: AppThemeColorDark.textError,
+                      isErrorGradient: true,
                       width: 35,
                       height: 35,
                       onTap: () {
@@ -444,11 +444,13 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
 
               const Text(TextConstant.logOut),
               Card(
+                color: AppThemeColorDark.textError,
                 elevation: 2,
                 child: MoreCustomListTileWidget(
                   icon: logOutIcon,
                   title: TextConstant.logOut,
-                  color: context.colorScheme.error,
+                  color: Colors.transparent,
+                  foregroundColor: AppThemeColorDark.textDark,
                   onTap: () {
                     warningDialogs(
                       context: context,

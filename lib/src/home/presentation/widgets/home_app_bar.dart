@@ -88,10 +88,10 @@ class HomeScreenAppBar extends ConsumerWidget implements PreferredSizeWidget {
         CircleChipButton(
           tooltip: 'Scan QR Code'.hardCodedString,
           onTap: () {
-            pushAsVoid(
-              context,
-              const QrCodeScanScreen(),
-            );
+            // pushAsVoid(
+            //   context,
+            //   const QrCodeScanScreen(),
+            // );
           },
           iconData: cameraIcon,
         ),

@@ -32,7 +32,7 @@ class QrCodeScanNotifier extends StateNotifier<QrCodeShareState> {
 }
 
 final qrCodeScanNotifierProvider =
-    StateNotifierProvider<QrCodeScanNotifier, QrCodeShareState>((ref) {
+    StateNotifierProvider.autoDispose<QrCodeScanNotifier, QrCodeShareState>((ref) {
   final qrCodeRepositoryImpl = ref.read(qrcodeRepositoryImplProvider);
   return QrCodeScanNotifier(qrCodeRepositoryImpl);
 });

@@ -5,8 +5,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 class QrCodeScanScreen extends ConsumerStatefulWidget {
-  const QrCodeScanScreen({super.key});
-
+  const QrCodeScanScreen({super.key, required this.tabController});
+  final TabController tabController;
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _QrCodeScanScreenState();
 }
@@ -15,19 +15,30 @@ class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
   BarcodeCapture? barcode;
 
   final MobileScannerController controller = MobileScannerController(
-    detectionSpeed: DetectionSpeed.normal,
+    detectionSpeed: DetectionSpeed.unrestricted,
     detectionTimeoutMs: 500,
     // formats: [BarcodeFormat.qrCode],
   );
+
   bool isStarted = true;
   String userUUid = '';
   int? numberOfCameras;
+
+  @override
+  void dispose() {
+    log('i was called on dispose: ${DateTime.timestamp()}');
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     var isLoading = ref.watch(qrCodeScanNotifierProvider);
     ref.listen(qrCodeScanNotifierProvider, (previous, next) {
       if (next.isCompleted == true && next.data != null) {
         ref.read(addAccountInfoProvider.notifier).updateScanCount();
+        Vibration.vibrate(duration: 200);
+
+        widget.tabController.animateTo(0);
 
         showDialog(
           context: context,
@@ -44,7 +55,7 @@ class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
                 isAfterScanDialog: true,
                 viewFullProfileBTN: () {
                   pop(context);
-                  pushAsVoid(
+                  push(
                     context,
                     ProfileScreenOthers(
                       uuid: userUUid,
@@ -71,6 +82,8 @@ class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
     );
 
     // log('is just starting: ${controller.isStarting}');
+    log('the number of camera in build: $numberOfCameras');
+
     return FullScreenLoader(
       isLoading: isLoading.isLoading ?? false,
       child: Scaffold(
@@ -81,8 +94,11 @@ class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
               children: [
                 MobileScanner(
                   onScannerStarted: (arguments) {
+                    inspect(arguments);
                     if (mounted && arguments?.numberOfCameras != null) {
+                      log('the number of argument camera = ${arguments?.numberOfCameras}');
                       numberOfCameras = arguments!.numberOfCameras;
+                      log('the number of camera: $numberOfCameras');
                       setState(() {});
                     }
                   },
@@ -100,6 +116,8 @@ class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
                   },
                   fit: BoxFit.cover,
                   onDetect: (barcode) {
+                    //vibrate when a qr_code is detected
+                    log(' i entered the onDetect mode');
                     //check if the qr_code contains connect_me symbol/TAg
                     if (barcode.barcodes.first.rawValue?.startsWith(TextConstant.uuidPrefixTag) ==
                         true) {

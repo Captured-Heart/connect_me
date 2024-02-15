@@ -14,12 +14,13 @@ class GradientShortBTN extends StatelessWidget {
     this.elevation,
     required this.tooltip,
     this.iconColor,
+    this.isErrorGradient = false,
   });
   final Widget? child;
   final double? height, width, iconSize;
   final IconData? iconData;
   final bool isWhiteGradient;
-  final bool isThinBorder;
+  final bool isThinBorder, isErrorGradient;
   final VoidCallback? onTap;
   final double? elevation;
   final String tooltip;
@@ -33,9 +34,11 @@ class GradientShortBTN extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.zero,
           decoration: BoxDecoration(
-            gradient: context.isDarkMode
-                ? whiteGradient(context: context)
-                : orangeGradient(isLongBTN: true, context: context),
+            gradient: isErrorGradient == true
+                ? errorGradient()
+                : context.isDarkMode
+                    ? whiteGradient(context: context)
+                    : orangeGradient(isLongBTN: true, context: context),
             borderRadius: AppBorderRadius.c12,
           ),
           child: child ??
@@ -44,9 +47,7 @@ class GradientShortBTN extends StatelessWidget {
                 width: width ?? 50,
                 child: Card(
                   elevation: elevation ?? 5,
-                  margin: isThinBorder == true
-                      ? AppEdgeInsets.eA1
-                      : AppEdgeInsets.eA2,
+                  margin: isThinBorder == true ? AppEdgeInsets.eA1 : AppEdgeInsets.eA2,
                   child: Icon(
                     iconData ?? notificationIcon,
                     size: iconSize ?? 25,

@@ -10,6 +10,7 @@ class MoreCustomListTileWidget extends StatelessWidget {
     this.iconSize,
     this.trailingWidget,
     this.color,
+    this.foregroundColor,
   });
 
   final String? subtitle;
@@ -19,7 +20,8 @@ class MoreCustomListTileWidget extends StatelessWidget {
   final VoidCallback? onTap;
   final double? iconSize;
   final Widget? trailingWidget;
-  final Color? color;
+  final Color? color, foregroundColor;
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -31,7 +33,8 @@ class MoreCustomListTileWidget extends StatelessWidget {
           ? null
           : CircleAvatar(
               radius: 18,
-              foregroundColor: color,
+              backgroundColor: color,
+              foregroundColor: foregroundColor,
               child: Icon(
                 icon,
                 size: iconSize ?? 20,
@@ -41,7 +44,7 @@ class MoreCustomListTileWidget extends StatelessWidget {
         title,
         style: context.textTheme.titleSmall?.copyWith(
           fontWeight: AppFontWeight.w100,
-          // color: color,
+          color: foregroundColor,
         ),
         textScaleFactor: 0.95,
         maxLines: 1,
@@ -61,7 +64,7 @@ class MoreCustomListTileWidget extends StatelessWidget {
           Icon(
             iosArrowForwardIcon,
             size: 17,
-            // color: color,
+            color: foregroundColor,
           ),
     );
   }

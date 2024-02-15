@@ -10,6 +10,7 @@ class ProfileScreenOthers extends ConsumerStatefulWidget {
   final AuthUserModel? users;
   final String? uuid;
   final bool fromScanScreen;
+  
 
   @override
   ConsumerState<ProfileScreenOthers> createState() => _ProfileScreenOthersState();
