@@ -45,72 +45,104 @@ class SignUpMainScreen extends ConsumerWidget {
                                 color: AppThemeColorDark.successColor,
                               )
                             : null,
-                        onTap: () {
-                          pushAsVoid(
-                              context, const AccountInformationSignUpScreen());
-                        },
+                        onTap: authUserData?.completedSignUp == true
+                            ? () {
+                                showScaffoldSnackBarMessage(
+                                  '"Account information" is completed and can only be edited when logged in'
+                                      .hardCodedString,
+                                  duration: 5,
+                                  isError: true,
+                                );
+                              }
+                            : () {
+                                pushAsVoid(context, const AccountInformationSignUpScreen());
+                              },
                       ),
                     ),
                     Card(
                       elevation: 2,
                       child: MoreCustomListTileWidget(
                         title: TextConstant.education,
-                        trailingWidget:
-                            education?.isEmpty == true || education == null
-                                ? null
-                                : const Icon(
-                                    checkCircleIcon,
-                                    color: AppThemeColorDark.successColor,
-                                  ),
-                        onTap: () {
-                          pushAsVoid(
-                              context, const EducationInfoSignUpScreen());
-                        },
+                        trailingWidget: education?.isEmpty == true || education == null
+                            ? null
+                            : const Icon(
+                                checkCircleIcon,
+                                color: AppThemeColorDark.successColor,
+                              ),
+                        onTap: education?.isEmpty == true || education == null
+                            ? () {
+                                pushAsVoid(context, const EducationInfoSignUpScreen());
+                              }
+                            : () {
+                                showScaffoldSnackBarMessage(
+                                  '"Education" is completed and can only be edited on logged in',
+                                  duration: 5,
+                                  isError: true,
+                                );
+                              },
                       ),
                     ),
                     Card(
                       elevation: 2,
                       child: MoreCustomListTileWidget(
                         title: TextConstant.workExperience,
-                        trailingWidget: workExperience?.isEmpty == true ||
-                                workExperience == null
+                        trailingWidget: workExperience?.isEmpty == true || workExperience == null
                             ? null
                             : const Icon(
                                 checkCircleIcon,
                                 color: AppThemeColorDark.successColor,
                               ),
-                        onTap: () {
-                          pushAsVoid(
-                            context,
-                            const WorkExperienceSignUpScreen(),
-                          );
-                        },
+                        onTap: workExperience?.isEmpty == true || workExperience == null
+                            ? () {
+                                pushAsVoid(
+                                  context,
+                                  const WorkExperienceSignUpScreen(),
+                                );
+                              }
+                            : () {
+                                showScaffoldSnackBarMessage(
+                                  '"Work experience" is completed and can only be edited when logged in'
+                                      .hardCodedString,
+                                  duration: 5,
+                                  isError: true,
+                                );
+                              },
                       ),
                     ),
                     Card(
                       elevation: 2,
                       child: MoreCustomListTileWidget(
-                        title: TextConstant.socialMediaHandles,
-                        trailingWidget:
-                            authUserData?.socialMediaHandles?.isEmpty == true ||
-                                    authUserData?.socialMediaHandles == null
-                                ? null
-                                : const Icon(
-                                    checkCircleIcon,
-                                    color: AppThemeColorDark.successColor,
-                                  ),
-                        onTap: () {
-                          pushAsVoid(
-                            context,
-                            const SocialMediaSignUpScreen(),
-                          );
-                        },
-                      ),
+                          title: TextConstant.socialMediaHandles,
+                          trailingWidget: authUserData?.socialMediaHandles?.isEmpty == true ||
+                                  authUserData?.socialMediaHandles == null
+                              ? null
+                              : const Icon(
+                                  checkCircleIcon,
+                                  color: AppThemeColorDark.successColor,
+                                ),
+                          onTap: authUserData?.socialMediaHandles?.isEmpty == true ||
+                                  authUserData?.socialMediaHandles == null
+                              ? () {
+                                  pushAsVoid(
+                                    context,
+                                    const SocialMediaSignUpScreen(),
+                                  );
+                                }
+                              : () {
+                                  showScaffoldSnackBarMessage(
+                                    '"Social Media handles" is completed and can only be edited when logged in'
+                                        .hardCodedString,
+                                    duration: 5,
+                                    isError: true,
+                                  );
+                                }),
                     ),
                   ].columnInPadding(10)),
                 ].columnInPadding(20),
               ).padAll(20),
             ),
+
+            //! THE BUTTONS
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -127,12 +159,9 @@ class SignUpMainScreen extends ConsumerWidget {
                 //complete button
                 ElevatedButton(
                   onPressed: authUserData?.completedSignUp == true &&
-                          (education?.isNotEmpty == true ||
-                              education != null) &&
-                          (workExperience?.isNotEmpty == true ||
-                              workExperience != null) &&
-                          (authUserData?.socialMediaHandles?.isNotEmpty ==
-                                  true ||
+                          (education?.isNotEmpty == true || education != null) &&
+                          (workExperience?.isNotEmpty == true || workExperience != null) &&
+                          (authUserData?.socialMediaHandles?.isNotEmpty == true ||
                               authUserData?.socialMediaHandles != null)
                       ? () {
                           pushReplacement(context, const MainScreen());

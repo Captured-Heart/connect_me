@@ -20,18 +20,16 @@ class SignInCardWidget extends ConsumerWidget {
     }
   }
 
+  final ValueNotifier<String> emailNotifier = ValueNotifier<String>('');
+  final ValueNotifier<String> passwordNotifier = ValueNotifier<String>('');
+
   final GlobalKey<FormState> signInformKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(textEditingControllerProvider);
-    final ValueNotifier<String> emailNotifier = ValueNotifier<String>('');
-    final ValueNotifier<String> passwordNotifier = ValueNotifier<String>('');
+
     final obscureText = ref.watch(obscureTextProvider);
     ref.listen(loginWithEmailNotifierProvider, (previous, next) {
-      if (next.user?.uid != null) {
-        controller.disposeControllers();
-        pushReplacement(context, MainScreen());
-      }
       if (next.errorMessage != null) {
         showScaffoldSnackBarMessageNoColor(
           next.errorMessage ?? '',
@@ -41,11 +39,15 @@ class SignInCardWidget extends ConsumerWidget {
       }
     });
 
+    ref.listen(authStateChangesProvider, (previous, next) {
+      if (next.valueOrNull != null) {
+        controller.disposeControllers();
+        pushReplacement(context, const CheckAuthStateScreen());
+      }
+    });
+
 // SIGN IN GOOGLE
     ref.listen(signInGoogleNotifierProvider, (previous, next) {
-      if (next.user?.uid != null) {
-        pushReplacement(context, MainScreen());
-      }
       if (next.errorMessage != null) {
         showScaffoldSnackBarMessageNoColor(
           next.errorMessage ?? '',
@@ -119,9 +121,7 @@ class SignInCardWidget extends ConsumerWidget {
                     onTap: () {
                       // if (Platform.isAndroid) {
 
-                      ref
-                          .read(signInGoogleNotifierProvider.notifier)
-                          .signinWithGoogle();
+                      ref.read(signInGoogleNotifierProvider.notifier).signinWithGoogle();
                       // } else {}
                     },
                   ),
@@ -130,8 +130,7 @@ class SignInCardWidget extends ConsumerWidget {
                   Row(
                     children: [
                       const Expanded(child: Divider()),
-                      const Text(TextConstant.orContinueWith)
-                          .padSymmetric(horizontal: 20),
+                      const Text(TextConstant.orContinueWith).padSymmetric(horizontal: 20),
                       const Expanded(child: Divider()),
                     ],
                   ),
@@ -231,13 +230,9 @@ class SignInCardWidget extends ConsumerWidget {
                         child: ElevatedButton(
                           onPressed: () {
                             if (isFormValidated() == true) {
-                              ref
-                                  .read(loginWithEmailNotifierProvider.notifier)
-                                  .loggingUser(
-                                    email:
-                                        controller.emailController.text.trim(),
-                                    password: controller.passWordController.text
-                                        .trim(),
+                              ref.read(loginWithEmailNotifierProvider.notifier).loggingUser(
+                                    email: controller.emailController.text.trim(),
+                                    password: controller.passWordController.text.trim(),
                                   );
                             } else {
                               controller.passwordFocusMode.requestFocus();

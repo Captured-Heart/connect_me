@@ -27,7 +27,7 @@ class _ProfileScreenOthersState extends ConsumerState<ProfileScreenOthers> {
   void showDialogOnFirstTime({required AuthUserModel? users}) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       var docId = const Uuid().v4();
-      Future.delayed(const Duration(seconds: 2), () {
+      Future.delayed(const Duration(milliseconds: 1400), () {
         showDialog(
           context: context,
           builder: (context) {

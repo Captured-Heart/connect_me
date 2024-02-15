@@ -96,28 +96,28 @@ class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, _) {
-      ref.watch(currentUUIDProvider);
-      final user = ref.watch(authStateChangesProvider);
+      // final user = ref.watch(authStateChangesProvider);
       final analytics = ref.watch(analyticsProvider);
       return MaterialApp(
-        restorationScopeId: 'connectMe',
-        onGenerateTitle: (context) => TextConstant.appTitle,
-        debugShowCheckedModeBanner: false,
-        scaffoldMessengerKey: rootScaffoldMessengerKey,
-        theme: themeBuilder(
-          defaultTheme: ThemeData.light(),
-        ),
-        darkTheme: themeBuilder(
-          defaultTheme: ThemeData.dark(),
-        ),
-        navigatorObservers: [
-          FirebaseAnalyticsObserver(analytics: analytics),
-        ],
-        home:
-            // AccountInformationSignUpScreen()
-            // const SplashScreen()
-            user.value?.uid != null ? const MainScreen() : const SplashScreen(),
-      );
+          restorationScopeId: 'connectMe',
+          onGenerateTitle: (context) => TextConstant.appTitle,
+          debugShowCheckedModeBanner: false,
+          scaffoldMessengerKey: rootScaffoldMessengerKey,
+          theme: themeBuilder(
+            defaultTheme: ThemeData.light(),
+          ),
+          darkTheme: themeBuilder(
+            defaultTheme: ThemeData.dark(),
+          ),
+          navigatorObservers: [
+            FirebaseAnalyticsObserver(analytics: analytics),
+            NavigatorObserver(),
+          ],
+          home:
+              // AccountInformationSignUpScreen()
+              const SplashScreen()
+          // user.value?.uid != null ? const MainScreen() : const SplashScreen(),
+          );
     });
   }
 }

@@ -13,8 +13,7 @@ export 'package:icons_plus/icons_plus.dart';
 export 'package:google_fonts/google_fonts.dart';
 export 'package:qr_flutter/qr_flutter.dart';
 export 'package:animate_do/animate_do.dart';
-export 'package:status_view/status_view.dart';
-export 'package:dartz/dartz.dart' hide State, Order;
+export 'package:dartz/dartz.dart' hide State, Order, Task;
 export 'package:lottie/lottie.dart';
 export 'package:cloud_firestore/cloud_firestore.dart';
 export 'package:share_plus/share_plus.dart';
@@ -27,6 +26,7 @@ export 'dart:developer' hide Flow;
 export 'package:uuid/uuid.dart';
 export 'package:firebase_analytics/firebase_analytics.dart';
 export 'package:firebase_core/firebase_core.dart';
+export 'package:firebase_storage/firebase_storage.dart';
 
 //FIREBASE SERVICES
 export 'package:firebase_auth/firebase_auth.dart';

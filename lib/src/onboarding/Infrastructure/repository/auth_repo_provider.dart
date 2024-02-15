@@ -1,7 +1,4 @@
 import 'package:connect_me/app.dart';
-import 'package:connect_me/src/onboarding/Domain/repository/analytics_repository.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 
 final firebaseProvider = Provider<FirebaseAuth>((ref) {
   return FirebaseAuth.instance;

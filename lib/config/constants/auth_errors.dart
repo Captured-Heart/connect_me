@@ -15,6 +15,7 @@ enum AuthErrors {
   invalidEmail('This email is invalid!'),
   userDisabled('This account is disabled!'),
   userNotFound('This account cannot be found'),
+  userIsLoggedOut('User is logged out'),
   tooManyRequests('try again later, too many requests'),
   networkRequestFailed('Network error, try again'),
   wrongPassword('The password is incorrect'),

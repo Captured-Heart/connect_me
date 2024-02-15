@@ -12,11 +12,9 @@ class SplashScreen extends ConsumerStatefulWidget {
 class _SplashScreenState extends ConsumerState<SplashScreen> {
   @override
   void initState() {
-    // navigateToNexToScreen().then((_) {
-    //   ref.read(authStateChangesProvider).value?.uid != null
-    //       ? pushReplacement(context, const MainScreen())
-    //       : pushReplacement(context, const LoginScreen());
-    // });
+    navigateToNexToScreen().then((_) {
+      pushReplacement(context, const CheckAuthStateScreen());
+    });
     super.initState();
   }
 
@@ -26,16 +24,17 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     return await Future.delayed(const Duration(milliseconds: 2000));
   }
 
-  @override
-  void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-    navigateToNexToScreen().then((_) {
-      ref.read(authStateChangesProvider).value?.uid != null
-          ? pushReplacement(context, const MainScreen())
-          : pushReplacement(context, const LoginScreen());
-    });
-    super.didChangeDependencies();
-  }
+  // @override
+  // void didChangeDependencies() {
+  //   // TODO: implement didChangeDependencies
+  //   navigateToNexToScreen().then((_) {
+  //     // ref.read(authStateChangesProvider).value?.uid != null
+  //     //     ? pushReplacement(context, const MainScreen())
+  //     //     : pushReplacement(context, const LoginScreen());
+
+  //   });
+  //   super.didChangeDependencies();
+  // }
 
   @override
   Widget build(BuildContext context) {

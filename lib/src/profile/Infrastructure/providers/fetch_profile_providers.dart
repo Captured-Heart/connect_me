@@ -8,7 +8,7 @@ final fetchProfileProvider = FutureProvider.autoDispose<AuthUserModel>((ref) asy
   if (uuid?.isNotEmpty == true || uuid != null) {
     return await fetchProfileRepoImpl.fetchProfile(uuid: uuid!);
   } else {
-    throw 'Users not found';
+    throw const AppException('Users not found');
   }
   // return await fetchProfileRepoImpl.fetchProfile(uuid: uuid);
 });

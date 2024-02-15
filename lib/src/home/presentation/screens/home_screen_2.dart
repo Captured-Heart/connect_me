@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math' hide log;
 
 import 'package:connect_me/app.dart';
+import 'package:flutter/services.dart';
 
 class HomeScreen2 extends ConsumerStatefulWidget {
   const HomeScreen2({super.key});
@@ -87,7 +88,6 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> with SingleTickerProv
         workExpList?.isEmpty == true || workExpList == null,
       ],
     );
-    log(progress.toString());
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _timer = Timer(const Duration(milliseconds: 2000), () {
@@ -99,32 +99,37 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> with SingleTickerProv
     return WillPopScope(
       onWillPop: () => onWillPop(),
       child: Scaffold(
-        floatingActionButton: FloatingActionButton.extended(
-          label: LottieBuilder.asset(
-            ImagesConstant.lottieQrCode,
-            frameRate: FrameRate.composition,
-            options: LottieOptions(enableApplyingOpacityToLayers: true),
-            fit: BoxFit.contain,
-            height: 30,
-            filterQuality: FilterQuality.high,
-          ),
-          // icon: Icon(Icons.qr),
-          onPressed: () {
-            if (users.valueOrNull != null) {
-              pushAsVoid(
-                context,
-                ShareQrCodeScreen(
-                  authUserModel: users.valueOrNull,
+        floatingActionButton: _activeTabIndex == 1
+            ? null
+            : FloatingActionButton(
+                child: LottieBuilder.asset(
+                  ImagesConstant.lottieQrCode,
+                  frameRate: FrameRate.composition,
+                  options: LottieOptions(enableApplyingOpacityToLayers: true),
+                  fit: BoxFit.contain,
+                  height: 30,
+                  filterQuality: FilterQuality.high,
                 ),
-              );
-            } else {
-              showScaffoldSnackBarMessageNoColor(
-                AuthErrors.networkFailure.errorMessage,
-                context: context,
-              );
-            }
-          },
-        ),
+                // icon: Icon(Icons.qr),
+                onPressed: () {
+
+                  HapticFeedback.mediumImpact();
+                  // if (users.valueOrNull != null) {
+                  //   pushAsVoid(
+                  //     context,
+                  //     ShareQrCodeScreen(
+                  //       authUserModel: users.valueOrNull,
+                  //     ),
+                  //   );
+                  // } else {
+                  //   ref.read(fetchProfileProvider);
+                  //   showScaffoldSnackBarMessageNoColor(
+                  //     AuthErrors.networkFailure.errorMessage,
+                  //     context: context,
+                  //   );
+                  // }
+                },
+              ),
         appBar: AppBar(
           elevation: 0,
           toolbarHeight: kToolbarHeight * 1.5,
@@ -212,6 +217,7 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> with SingleTickerProv
                                 Center(
                                   child: ProfilePicWidget(
                                     authUserModel: data,
+                                    height: 70,
                                     onTap: () {},
                                   ),
                                 ),

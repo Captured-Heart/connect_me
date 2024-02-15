@@ -36,12 +36,9 @@ dependencies:
   mobile_scanner: ^3.5.7
   qr_flutter: ^4.1.0
   quick_actions: ^1.0.6
-  rename: ^3.0.1
-  searchbar_animation: ^0.0.4
   share_plus: ^7.2.1
   shared_preferences: ^2.2.2
   shimmer: ^3.0.0
-  status_view: ^0.0.2
   timeago: ^3.6.0
   url_launcher: ^6.1.14
   uuid: ^4.2.2

@@ -616,14 +616,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
-  logger:
-    dependency: transitive
-    description:
-      name: logger
-      sha256: "6bbb9d6f7056729537a4309bda2e74e18e5d9f14302489cc1e93f33b3fe32cac"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.2+1"
   lottie:
     dependency: "direct main"
     description:
@@ -856,14 +848,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.6"
-  rename:
-    dependency: "direct main"
-    description:
-      name: rename
-      sha256: "4d08eafe78e0787167c2fcdd5e32bbb0a6b2d8a7d23b38280f590df2a051415c"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.1"
   riverpod:
     dependency: transitive
     description:
@@ -880,14 +864,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.27.7"
-  searchbar_animation:
-    dependency: "direct main"
-    description:
-      name: searchbar_animation
-      sha256: "8c9b82e666dae343f8ec34137da18f0de3f019da42691ec8b2c492ee434cc0ba"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.4"
   share_plus:
     dependency: "direct main"
     description:
@@ -1021,14 +997,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
-  status_view:
-    dependency: "direct main"
-    description:
-      name: status_view
-      sha256: aff3397295cf23d51c2206e56da320e8095ea0340f31ea2395c8807186dac1ba
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.2"
   stream_channel:
     dependency: transitive
     description:

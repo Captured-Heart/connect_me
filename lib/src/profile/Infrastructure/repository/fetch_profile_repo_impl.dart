@@ -15,7 +15,6 @@ class FetchProfileRepoImpl implements ProfileRepository {
     if (uuid.isEmpty) {
       throw TextConstant.noUserFound;
     }
-    log('whose uuid is this : $uuid');
     var result =
         await _firebaseFirestore.collection(FirebaseCollectionEnums.users.value).doc(uuid).get();
     if (result.exists) {
