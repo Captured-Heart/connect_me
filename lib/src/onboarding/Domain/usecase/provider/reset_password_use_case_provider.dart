@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:connect_me/app.dart';
 
 class ResetPasswordNotifier extends StateNotifier<AuthUseCaseState> {
   ResetPasswordNotifier(this.authUseCase) : super(AuthUseCaseState());
   final AuthUseCase authUseCase;
+  // final AnalyticsRepositoryImpl _analyticsImpl;
+
   Future sendResetPassowrd({required String email}) async {
     state = AuthUseCaseState(isLoading: true);
 
