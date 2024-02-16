@@ -10,6 +10,7 @@ class BioDetailsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var addInfo = users?.additionalDetails;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -24,26 +25,59 @@ class BioDetailsWidget extends StatelessWidget {
           elevation: 3,
           child: Column(
             children: [
-              Text(
-                users?.bio ?? '',
-                textScaleFactor: 0.9,
-                textAlign: TextAlign.start,
+              Column(
+                children: [
+                  AdditionalInfoListTileWidget(
+                    keys: TextConstant.country,
+                    values: addInfo?.country ?? '',
+                  ),
+                  AdditionalInfoListTileWidget(
+                    keys: TextConstant.state,
+                    values: addInfo?.state ?? '',
+                  ),
+                  AdditionalInfoListTileWidget(
+                    keys: TextConstant.city,
+                    values: addInfo?.city ?? '',
+                  ),
+                  AdditionalInfoListTileWidget(
+                    keys: TextConstant.street,
+                    values: addInfo?.street ?? '',
+                  ),
+                  AdditionalInfoListTileWidget(
+                    keys: TextConstant.placeOfBirth,
+                    values: addInfo?.placeOfBirth ?? '',
+                  ),
+                  AdditionalInfoListTileWidget(
+                    keys: TextConstant.postalCode,
+                    values: addInfo?.postalCode ?? '',
+                  ),
+                  AdditionalInfoListTileWidget(
+                    keys: TextConstant.driverLicenseNo,
+                    values: addInfo?.driverLicenseNo ?? '',
+                  ),
+                ].columnInPadding(5),
               ),
+
+              //! phone and email row
+              const Divider(),
+
               Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 // mainAxisSize: MainAxisSize.min,
+
                 children: [
                   users?.phone?.isEmpty == true || users?.phone == null
                       ? const SizedBox.shrink()
-                      : IconAndTextWidget(
-                          text: '${users?.phonePrefix}-${users?.phone}',
-                          iconData: Icons.call_outlined,
-                          color: AppThemeColorDark.textButton,
-                          onTap: () {
-                            UrlOptions.makePhoneCall(
-                                '${users?.phonePrefix}${users?.phone}');
-                          },
-                        ).padAll(10),
+                      : Expanded(
+                        child: IconAndTextWidget(
+                            text: '${users?.phonePrefix}-${users?.phone}',
+                            iconData: Icons.call_outlined,
+                            color: AppThemeColorDark.textButton,
+                            onTap: () {
+                              UrlOptions.makePhoneCall('${users?.phonePrefix}${users?.phone}');
+                            },
+                          ).padOnly(bottom: 10),
+                      ),
                   users?.email?.isEmpty == true || users?.email == null
                       ? const SizedBox.shrink()
                       : Expanded(
@@ -54,12 +88,12 @@ class BioDetailsWidget extends StatelessWidget {
                             onTap: () {
                               UrlOptions.sendEmail(users?.email ?? '');
                             },
-                          ).padAll(10),
+                          ).padOnly(bottom: 10),
                         ),
                 ],
               )
             ],
-          ).padOnly(left: 10, right: 10, top: 10),
+          ).padOnly(left: 12, right: 10, top: 10),
         ),
       ],
     );

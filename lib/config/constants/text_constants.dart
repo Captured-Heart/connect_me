@@ -78,7 +78,7 @@ abstract class TextConstant {
   static const scanQrCodeToConnect = 'Scan QR code to connect';
   // static const lorem = 'or';
   // static const lorem = 'or';
-  // static const lorem = 'or';
+  static const bulletList = '\u2022';
 
   /*----------------------------------------------------------------------
       PROFILE SCREEN
@@ -172,9 +172,9 @@ NB: This is diplayed in your Qr_Code card and is visible to all''';
   static const driverLicenseNo = 'Driver licenses no';
   static const postalCode = 'Postal code';
   static const addNew = 'Add new';
-  // static const lorem = 'or';
-  // static const lorem = 'or';
-  // static const lorem = 'or';
+  static const country = 'Country';
+  static const state = 'State';
+  static const city = 'City';
   // static const lorem = 'or';
 
   /*----------------------------------------------------------------------
@@ -193,7 +193,7 @@ NB: This is diplayed in your Qr_Code card and is visible to all''';
   static const activitiesHint = 'Ex: Football(sports), Religious socieites etc';
   static const schoolHint = 'Ex: Univeristy of Nigeria';
   static const degreeHint = 'Ex: Bachelor\'s, Phil of Doctor';
-  // static const lorem = 'or';
+  static const present = 'Present';
   // static const lorem = 'or'; // static const lorem = 'or';
   // static const lorem = 'or';
   // static const lorem = 'or';

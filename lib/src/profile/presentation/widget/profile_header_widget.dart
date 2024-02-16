@@ -63,9 +63,9 @@ class ProfileScreenHeaderWidget extends ConsumerWidget {
           ),
           CustomListTileWidget(
             title: users?.fullname ?? '',
-            showAtsign: true,
+            showAtsign: false,
             subtitleMaxLines: 3,
-            subtitle: users?.username,
+            subtitle: users?.bio,
             isSubtitleUrl: users?.website,
           ).padSymmetric(horizontal: 10, vertical: 5),
           socialIcons == null || socialIcons.isEmpty

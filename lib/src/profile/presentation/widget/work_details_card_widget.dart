@@ -22,138 +22,60 @@ class WorkDetailsCardWidget extends StatelessWidget {
           ),
         ),
         const Divider(),
-        // ...List.generate(
-        //   workExperienceModel!.length,
-        //   (index) {
-        //     var workExperience = workExperienceModel?[index];
-
-        //     return Card(
-        //       elevation: 3,
-        //       child: Column(
-        //         crossAxisAlignment: CrossAxisAlignment.start,
-        //         children: [
-        //           Column(
-        //             crossAxisAlignment: CrossAxisAlignment.start,
-        //             children: [
-        //               AdditionalInfoListTileWidget(
-        //                 keys: TextConstant.companyName.toTitleCase(),
-        //                 values: workExperience?.companyName ?? '',
-        //               ),
-        //               AdditionalInfoListTileWidget(
-        //                 keys: TextConstant.employmentType.toTitleCase(),
-        //                 values: workExperience?.employmentType ?? '',
-        //               ),
-        //               AdditionalInfoListTileWidget(
-        //                 keys: TextConstant.location.toTitleCase(),
-        //                 values: workExperience?.location ?? '',
-        //               ),
-        //             ].columnInPadding(3),
-        //           ).padOnly(top: 1),
-
-        //           //! additional details  [DOB, PLACE, POSTAL CODE]
-        //           Column(
-        //               children: [
-        //             AdditionalInfoListTileWidget(
-        //               keys: TextConstant.dateOfBirth,
-        //               values: workExperience?.formTitle ?? '',
-        //             ),
-        //             AdditionalInfoListTileWidget(
-        //               keys: TextConstant.placeOfBirth,
-        //               values: workExperience?.location ?? '',
-        //             ),
-        //             AdditionalInfoListTileWidget(
-        //               keys: TextConstant.postalCode,
-        //               values: workExperience?.locationType ?? '',
-        //             ),
-        //             AdditionalInfoListTileWidget(
-        //               keys: TextConstant.driverLicenseNo,
-        //               values: workExperience?.location ?? '',
-        //             ),
-        //           ].columnInPadding(3)),
-        //         ],
-        //       ).padAll(12),
-        //     ).padOnly(bottom: 5);
-        //   },
-        // ),
         SizedBox(
-          height: 180,
+          height: 120,
           // width: 5,
           child: ListView.builder(
               itemCount: workExperienceModel?.length,
               shrinkWrap: true,
-              physics: workExperienceModel!.length < 2
-                  ? const NeverScrollableScrollPhysics()
-                  : null,
+              physics:
+                  workExperienceModel!.length < 2 ? const NeverScrollableScrollPhysics() : null,
               // physics: const NeverScrollableScrollPhysics(),
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 var workExperience = workExperienceModel?[index];
                 return SizedBox(
-                  width: context
-                      .sizeWidth(workExperienceModel!.length < 2 ? 0.9 : 0.75),
+                  width: context.sizeWidth(workExperienceModel!.length < 2 ? 0.9 : 0.75),
                   child: Card(
                     elevation: 3,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            AdditionalInfoListTileWidget(
-                              keys: TextConstant.companyName.toTitleCase(),
-                              values: workExperience?.companyName ?? '',
+                            AutoSizeText(
+                              workExperience?.title ?? '',
+                              style: context.textTheme.bodyLarge,
+                              textScaleFactor: 0.9,
+                              maxLines: 1,
                             ),
-                            AdditionalInfoListTileWidget(
-                              keys: TextConstant.employmentType.toTitleCase(),
-                              values: workExperience?.employmentType ?? '',
+                            AutoSizeText(
+                              '${workExperience?.companyName} ${TextConstant.bulletList} ${workExperience?.employmentType}',
+                              style: context.textTheme.labelMedium
+                                  ?.copyWith(fontWeight: AppFontWeight.w600),
+                              maxLines: 1,
+                              textScaleFactor: 0.95,
                             ),
-                            AdditionalInfoListTileWidget(
-                              keys: TextConstant.location.toTitleCase(),
-                              values: workExperience?.location ?? '',
+
+                            AutoSizeText(
+                              '${workExperience?.location} - ${workExperience?.locationType}',
+                              style: context.textTheme.labelMedium
+                                  ?.copyWith(fontWeight: AppFontWeight.w300),
+                              maxLines: 1,
                             ),
-                            AdditionalInfoListTileWidget(
-                              keys: TextConstant.dateOfBirth,
-                              values: workExperience?.formTitle ?? '',
+                            AutoSizeText(
+                              '${workExperience?.startDate?.startMonthYearToString} - ${workExperience?.endDate?.endDateMonthYearToString}',
+                              style: context.textTheme.labelMedium
+                                  ?.copyWith(fontWeight: AppFontWeight.w300),
+                              textScaleFactor: 0.9,
                             ),
-                            AdditionalInfoListTileWidget(
-                              keys: TextConstant.placeOfBirth,
-                              values: workExperience?.location ?? '',
-                            ),
-                            AdditionalInfoListTileWidget(
-                              keys: TextConstant.postalCode,
-                              values: workExperience?.locationType ?? '',
-                            ),
-                            AdditionalInfoListTileWidget(
-                              keys: TextConstant.driverLicenseNo,
-                              values: workExperience?.location ?? '',
-                            ),
+                            // AdditionalInfoListTileWidget(
                           ].columnInPadding(5),
                         ).padOnly(top: 1),
-
-                        //! additional details  [DOB, PLACE, POSTAL CODE]
-                        // Column(
-                        //     mainAxisSize: MainAxisSize.min,
-                        //     children: [
-                        //       AdditionalInfoListTileWidget(
-                        //         keys: TextConstant.dateOfBirth,
-                        //         values: workExperience?.formTitle ?? '',
-                        //       ),
-                        //       AdditionalInfoListTileWidget(
-                        //         keys: TextConstant.placeOfBirth,
-                        //         values: workExperience?.location ?? '',
-                        //       ),
-                        //       AdditionalInfoListTileWidget(
-                        //         keys: TextConstant.postalCode,
-                        //         values: workExperience?.locationType ?? '',
-                        //       ),
-                        //       AdditionalInfoListTileWidget(
-                        //         keys: TextConstant.driverLicenseNo,
-                        //         values: workExperience?.location ?? '',
-                        //       ),
-                        //     ].columnInPadding(5)),
                       ],
                     ).padAll(8),
                   ).padOnly(right: 5),
@@ -187,74 +109,18 @@ class EdiucationDetailsCardWidget extends StatelessWidget {
           ),
         ),
         const Divider(),
-        // ...List.generate(
-        //   workExperienceModel!.length,
-        //   (index) {
-        //     var workExperience = workExperienceModel?[index];
-
-        //     return Card(
-        //       elevation: 3,
-        //       child: Column(
-        //         crossAxisAlignment: CrossAxisAlignment.start,
-        //         children: [
-        //           Column(
-        //             crossAxisAlignment: CrossAxisAlignment.start,
-        //             children: [
-        //               AdditionalInfoListTileWidget(
-        //                 keys: TextConstant.companyName.toTitleCase(),
-        //                 values: workExperience?.companyName ?? '',
-        //               ),
-        //               AdditionalInfoListTileWidget(
-        //                 keys: TextConstant.employmentType.toTitleCase(),
-        //                 values: workExperience?.employmentType ?? '',
-        //               ),
-        //               AdditionalInfoListTileWidget(
-        //                 keys: TextConstant.location.toTitleCase(),
-        //                 values: workExperience?.location ?? '',
-        //               ),
-        //             ].columnInPadding(3),
-        //           ).padOnly(top: 1),
-
-        //           //! additional details  [DOB, PLACE, POSTAL CODE]
-        //           Column(
-        //               children: [
-        //             AdditionalInfoListTileWidget(
-        //               keys: TextConstant.dateOfBirth,
-        //               values: workExperience?.formTitle ?? '',
-        //             ),
-        //             AdditionalInfoListTileWidget(
-        //               keys: TextConstant.placeOfBirth,
-        //               values: workExperience?.location ?? '',
-        //             ),
-        //             AdditionalInfoListTileWidget(
-        //               keys: TextConstant.postalCode,
-        //               values: workExperience?.locationType ?? '',
-        //             ),
-        //             AdditionalInfoListTileWidget(
-        //               keys: TextConstant.driverLicenseNo,
-        //               values: workExperience?.location ?? '',
-        //             ),
-        //           ].columnInPadding(3)),
-        //         ],
-        //       ).padAll(12),
-        //     ).padOnly(bottom: 5);
-        //   },
-        // ),
         SizedBox(
-          height: 180,
+          height: 110,
           // width: 5,
           child: ListView.builder(
               itemCount: educationModel?.length,
               shrinkWrap: true,
-              physics: educationModel!.length < 2
-                  ? const NeverScrollableScrollPhysics()
-                  : null,
+              physics: educationModel!.length < 2 ? const NeverScrollableScrollPhysics() : null,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 var education = educationModel?[index];
                 return SizedBox(
-                  width: context
-                      .sizeWidth(educationModel!.length < 2 ? 0.9 : 0.75),
+                  width: context.sizeWidth(educationModel!.length < 2 ? 0.9 : 0.75),
                   child: Card(
                     elevation: 3,
                     child: Column(
@@ -265,50 +131,37 @@ class EdiucationDetailsCardWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            AdditionalInfoListTileWidget(
-                              keys: TextConstant.school.toTitleCase(),
-                              values: education?.school?.toTitleCase() ?? '',
+                            //school
+                            AutoSizeText(
+                              education?.school ?? '',
+                              style: context.textTheme.bodyLarge,
+                              textScaleFactor: 0.9,
+                              maxLines: 1,
                             ),
-                            AdditionalInfoListTileWidget(
-                              keys: TextConstant.grade.toTitleCase(),
-                              values: education?.grade ?? '',
+                            //degree
+                            AutoSizeText(
+                              ' ${TextConstant.bulletList} ${education?.degree}',
+                              style: context.textTheme.labelMedium
+                                  ?.copyWith(fontWeight: AppFontWeight.w600),
+                              maxLines: 1,
+                              textScaleFactor: 0.95,
                             ),
-                            AdditionalInfoListTileWidget(
-                              keys: TextConstant.awardAndHonours,
-                              values: education?.award ?? '',
-                            ),
-                            AdditionalInfoListTileWidget(
-                              keys: TextConstant.activitiesAndOrg,
-                              values: education?.activities ?? '',
-                            ),
-                            AdditionalInfoListTileWidget(
-                              keys: TextConstant.degree,
-                              values: education?.degree ?? '',
-                            ),
-                          ].columnInPadding(3),
-                        ).padOnly(top: 1),
 
-                        //! additional details  [DOB, PLACE, POSTAL CODE].
-                        // Column(
-                        //     mainAxisSize: MainAxisSize.min,
-                        //     children: [
-                        //       AdditionalInfoListTileWidget(
-                        //         keys: TextConstant.awardAndHonours,
-                        //         values: education?.award ?? '',
-                        //       ),
-                        //       AdditionalInfoListTileWidget(
-                        //         keys: TextConstant.activitiesAndOrg,
-                        //         values: education?.activities ?? '',
-                        //       ),
-                        //       AdditionalInfoListTileWidget(
-                        //         keys: TextConstant.degree,
-                        //         values: education?.degree ?? '',
-                        //       ),
-                        //       AdditionalInfoListTileWidget(
-                        //         keys: TextConstant.awardAndHonours,
-                        //         values: education?.award ?? '',
-                        //       ),
-                        //     ].columnInPadding(3)),
+                            AutoSizeText(
+                              '${education?.startDate?.startMonthYearToString} - ${education?.endDate?.endDateMonthYearToString ?? ''}',
+                              style: context.textTheme.labelMedium
+                                  ?.copyWith(fontWeight: AppFontWeight.w300),
+                            ),
+                            // //
+                            // AutoSizeText(
+                            //   '${education?.startMonthYearToString} - ${workExperience?.endDateMonthYearToString}',
+                            //   style: context.textTheme.labelMedium
+                            //       ?.copyWith(fontWeight: AppFontWeight.w300),
+                            //   textScaleFactor: 0.9,
+                            // ),
+                            // AdditionalInfoListTileWidget(
+                          ].columnInPadding(5),
+                        ).padOnly(top: 1),
                       ],
                     ).padAll(12),
                   ).padOnly(right: 5),

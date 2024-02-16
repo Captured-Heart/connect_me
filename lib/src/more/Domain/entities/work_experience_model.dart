@@ -29,6 +29,9 @@ class WorkExperienceModel extends Equatable {
     this.formTitle,
   });
 
+  // String get startMonthYearToString => '${startDate?.month} ${startDate?.year}';
+  // String get endDateMonthYearToString => endDate?.endMonth?.isEmpty == true || endDate?.endMonth == null ? TextConstant.present : '${endDate?.endMonth} ${endDate?.endYear}';
+
   factory WorkExperienceModel.fromJson(Map<String, dynamic> json) {
     return WorkExperienceModel(
       title: json['title'] as String?,
@@ -38,12 +41,8 @@ class WorkExperienceModel extends Equatable {
       locationType: json['locationType'] as String?,
       docId: json['docId'] as String?,
       // userId: json['userId'] as String?,
-      startDate: json['startDate'] != null
-          ? StartDateModel.fromJson(json['startDate'])
-          : null,
-      endDate: json['endDate'] != null
-          ? EndDateModel.fromJson(json['endDate'])
-          : null,
+      startDate: json['startDate'] != null ? StartDateModel.fromJson(json['startDate']) : null,
+      endDate: json['endDate'] != null ? EndDateModel.fromJson(json['endDate']) : null,
       createdAt: json['createdAt'] as String?,
       formTitle: json['formTitle'] as String?,
     );

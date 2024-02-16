@@ -101,30 +101,28 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> with SingleTickerProv
         floatingActionButton: _activeTabIndex == 1
             ? null
             : FloatingActionButton(
-                child: LottieBuilder.asset(
-                  ImagesConstant.lottieQrCode,
-                  frameRate: FrameRate.composition,
-                  options: LottieOptions(enableApplyingOpacityToLayers: true),
-                  fit: BoxFit.contain,
-                  height: 30,
-                  filterQuality: FilterQuality.high,
+                shape: StadiumBorder(),
+                backgroundColor: context.colorScheme.primary,
+                foregroundColor: AppThemeColorDark.textDark,
+                child: const Icon(
+                  shareIcon,
+                  size: 30,
                 ),
-                // icon: Icon(Icons.qr),
-                onPressed: ()  {
-                  // if (users.valueOrNull != null) {
-                  //   pushAsVoid(
-                  //     context,
-                  //     ShareQrCodeScreen(
-                  //       authUserModel: users.valueOrNull,
-                  //     ),
-                  //   );
-                  // } else {
-                  //   ref.read(fetchProfileProvider);
-                  //   showScaffoldSnackBarMessageNoColor(
-                  //     AuthErrors.networkFailure.errorMessage,
-                  //     context: context,
-                  //   );
-                  // }
+                onPressed: () {
+                  if (users.valueOrNull != null) {
+                    pushAsVoid(
+                      context,
+                      ShareQrCodeScreen(
+                        authUserModel: users.valueOrNull,
+                      ),
+                    );
+                  } else {
+                    ref.read(fetchProfileProvider);
+                    showScaffoldSnackBarMessageNoColor(
+                      AuthErrors.networkFailure.errorMessage,
+                      context: context,
+                    );
+                  }
                 },
               ),
         appBar: AppBar(
@@ -132,7 +130,7 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> with SingleTickerProv
           toolbarHeight: kToolbarHeight * 1.5,
           backgroundColor: context.theme.scaffoldBackgroundColor,
           centerTitle: true,
-          title: progress > 99
+          title: progress > 99 ||  _activeTabIndex == 1
               ? const SizedBox.shrink()
               : ValueListenableBuilder(
                   valueListenable: warningColor,
@@ -273,7 +271,9 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> with SingleTickerProv
                       ),
                     ),
                     // QrCodeScreen()
-                     QrCodeScanScreen(tabController: tabController,),
+                    QrCodeScanScreen(
+                      tabController: tabController,
+                    ),
                   ],
                 ),
               ),

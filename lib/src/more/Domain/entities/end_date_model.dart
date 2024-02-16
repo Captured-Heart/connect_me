@@ -1,8 +1,11 @@
+import 'package:connect_me/app.dart';
 import 'package:equatable/equatable.dart';
 
 class EndDateModel extends Equatable {
   final String? endMonth;
   final String? endYear;
+  String? get endDateMonthYearToString =>
+      endMonth?.isEmpty == true || endMonth == null ? TextConstant.present : '$endMonth $endYear';
 
   const EndDateModel({this.endMonth, this.endYear});
 

@@ -20,12 +20,13 @@ class AdditionalInfoListTileWidget extends StatelessWidget {
             children: [
               Text(
                 '$keys: ',
-                textScaleFactor: 0.9,
+                textScaleFactor: 0.7,
+                style: context.textTheme.bodyLarge?.copyWith(fontWeight: AppFontWeight.w700),
               ),
               Expanded(
                 child: AutoSizeText(
                   values,
-                  style: context.textTheme.labelMedium,
+                  style: context.textTheme.bodySmall?.copyWith(fontWeight: AppFontWeight.w100),
                   textScaleFactor: 0.9,
                 ),
               ),

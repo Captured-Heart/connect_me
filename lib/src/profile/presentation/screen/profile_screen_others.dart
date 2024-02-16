@@ -6,11 +6,12 @@ class ProfileScreenOthers extends ConsumerStatefulWidget {
     this.users,
     this.uuid,
     this.fromScanScreen = false,
+    this.tabController,
   });
   final AuthUserModel? users;
   final String? uuid;
   final bool fromScanScreen;
-  
+  final TabController? tabController;
 
   @override
   ConsumerState<ProfileScreenOthers> createState() => _ProfileScreenOthersState();
@@ -27,6 +28,8 @@ class _ProfileScreenOthersState extends ConsumerState<ProfileScreenOthers> {
 
   void showDialogOnFirstTime({required AuthUserModel? users}) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      widget.tabController?.animateTo(0);
+
       var docId = const Uuid().v4();
       Future.delayed(const Duration(milliseconds: 1400), () {
         showDialog(
@@ -71,18 +74,11 @@ class _ProfileScreenOthersState extends ConsumerState<ProfileScreenOthers> {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(authStateChangesProvider, (previous, next) {
-      if (next.value?.uid == null) {
-        // log('i popped off screen');
-        pushReplacement(context, const LoginScreen());
-      }
-    });
     final users = ref.watch(fetchOthersProfileProvider(widget.uuid)).valueOrNull;
     final workExperience = ref.watch(fetchWorkListProvider(widget.uuid)).valueOrNull;
     final educationExperience = ref.watch(fetchEducationListProvider(widget.uuid)).valueOrNull;
 
-    if (widget.fromScanScreen == true) {}
-    var addInfo = users?.additionalDetails;
+    // var addInfo = users?.additionalDetails;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: context.theme.scaffoldBackgroundColor,
@@ -110,11 +106,11 @@ class _ProfileScreenOthersState extends ConsumerState<ProfileScreenOthers> {
                     ? const SizedBox.shrink()
                     : BioDetailsWidget(users: users),
 
-                (users.additionalDetails == null)
-                    ? const SizedBox.shrink()
-                    :
-                    // ! additional details card
-                    AdditionalDetailsCardWidget(addInfo: addInfo),
+                // (users.additionalDetails == null)
+                //     ? const SizedBox.shrink()
+                //     :
+                //     // ! additional details card
+                //     AdditionalDetailsCardWidget(addInfo: addInfo),
 
                 workExperience == null || workExperience.isEmpty
                     ? const SizedBox.shrink()

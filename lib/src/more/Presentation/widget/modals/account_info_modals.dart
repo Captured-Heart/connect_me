@@ -211,7 +211,6 @@ class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
                   initialValue: phoneNotifier.value,
                   onChanged: (value) {
                     phoneNotifier.value = value;
-                    log(phoneNotifier.value);
                   },
                 ),
                 AuthTextFieldWidget(

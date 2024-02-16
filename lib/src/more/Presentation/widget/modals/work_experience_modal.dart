@@ -15,8 +15,7 @@ SliverWoltModalSheetPage workExperienceListTile(
     topBar: Container(
       color: modalSheetContext.theme.cardColor,
       alignment: Alignment.center,
-      child: Text(TextConstant.workExperience,
-          style: modalSheetContext.textTheme.titleSmall),
+      child: Text(TextConstant.workExperience, style: modalSheetContext.textTheme.titleSmall),
     ),
     isTopBarLayerAlwaysVisible: true,
     trailingNavBarWidget: IconButton(
@@ -33,6 +32,7 @@ SliverWoltModalSheetPage workExperienceListTile(
           isLoading: workExperienceListAsync.isLoading,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.min,
             children: [
               TextButton.icon(
                 onPressed: () {
@@ -45,9 +45,7 @@ SliverWoltModalSheetPage workExperienceListTile(
                 workExperienceList?.length ?? 1,
                 (index) => GestureDetector(
                   onTap: () {
-                    ref
-                        .read(workExpIndexNotifier.notifier)
-                        .update((state) => index);
+                    ref.read(workExpIndexNotifier.notifier).update((state) => index);
                     pageIndexNotifier.value = pageIndexNotifier.value + 1;
                   },
                   child: Card(
@@ -55,38 +53,30 @@ SliverWoltModalSheetPage workExperienceListTile(
                     child: ListTile(
                       dense: true,
                       leading: CircleAvatar(
-                        backgroundColor:
-                            modalSheetContext.colorScheme.primaryContainer,
+                        backgroundColor: modalSheetContext.colorScheme.primaryContainer,
+                        radius: 15,
                         child: Text(
                           '${index + 1}',
                           style: modalSheetContext.textTheme.labelLarge,
                         ),
                       ),
-                      title: Text(
-                          workExperienceList?[index].title?.toTitleCase() ??
-                              ''),
-                      subtitle: Text(workExperienceList?[index]
-                              .companyName
-                              ?.toTitleCase() ??
-                          ''),
+                      title: Text(workExperienceList?[index].title?.toTitleCase() ?? ''),
+                      subtitle: Text(workExperienceList?[index].companyName?.toTitleCase() ?? ''),
                       trailing: Container(
                         padding: AppEdgeInsets.eA4,
                         decoration: BoxDecoration(
-                          border: Border.all(
-                              color: modalSheetContext.colorScheme.onSurface),
+                          border: Border.all(color: modalSheetContext.colorScheme.onSurface),
                           shape: BoxShape.circle,
                         ),
                         child: Icon(
                           deleteIcon,
                           color: modalSheetContext.colorScheme.error,
                           size: 17,
-                        ).tooltipWidget(TextConstant.delete).onTapWidget(
-                            onTap: () {
+                        ).tooltipWidget(TextConstant.delete).onTapWidget(onTap: () {
                           //Todo: add delete function for the work expeirence
                           ref
                               .read(addEducationInfoProvider.notifier)
-                              .deleteEducationMethod(
-                                  docId: workExperienceList?[index].docId ?? '')
+                              .deleteEducationMethod(docId: workExperienceList?[index].docId ?? '')
                               .whenComplete(
                             () {
                               ref.invalidate(
@@ -97,7 +87,7 @@ SliverWoltModalSheetPage workExperienceListTile(
                           Navigator.of(modalSheetContext).pop;
                         }),
                       ),
-                    ).padOnly(bottom: 10, top: 10),
+                    ).padSymmetric(vertical: 1),
                   ),
                 ),
               ),
@@ -142,13 +132,11 @@ SliverWoltModalSheetPage workExperienceModal(
     child: Consumer(
       builder: (context, ref, _) {
         final workIndex = ref.watch(workExpIndexNotifier);
-        final workExperienceList =
-            ref.watch(fetchWorkListProvider('')).valueOrNull;
+        final workExperienceList = ref.watch(fetchWorkListProvider('')).valueOrNull;
 
         return WorkExperienceBody(
           pageIndexNotifier: pageIndexNotifier,
-          workExpModel:
-              isEditMode == true ? null : workExperienceList?[workIndex],
+          workExpModel: isEditMode == true ? null : workExperienceList?[workIndex],
         ).padAll(15);
       },
     ),
@@ -200,10 +188,8 @@ class _WorkExperienceBodyState extends ConsumerState<WorkExperienceBody> {
 
   @override
   void initState() {
-    employmentTypeNotifier =
-        ValueNotifier(widget.workExpModel?.employmentType ?? '');
-    locationTypeNotifier =
-        ValueNotifier(widget.workExpModel?.locationType ?? '');
+    employmentTypeNotifier = ValueNotifier(widget.workExpModel?.employmentType ?? '');
+    locationTypeNotifier = ValueNotifier(widget.workExpModel?.locationType ?? '');
     titleNotifier = ValueNotifier(widget.workExpModel?.title ?? '');
     companyNameNotifier = ValueNotifier(widget.workExpModel?.companyName ?? '');
     locationNotifier = ValueNotifier(widget.workExpModel?.location ?? '');
@@ -289,7 +275,7 @@ class _WorkExperienceBodyState extends ConsumerState<WorkExperienceBody> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AutoSizeText(
-                      TextConstant.employmentType,
+                      '${TextConstant.employmentType}*',
                       style: context.textTheme.bodyMedium,
                       textScaleFactor: 0.9,
                     ),
@@ -298,6 +284,13 @@ class _WorkExperienceBodyState extends ConsumerState<WorkExperienceBody> {
                       initialItem: employmentTypeNotifier.value,
                       onChanged: (p0) {
                         employmentTypeNotifier.value = p0;
+                      },
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return TextConstant.required;
+                        } else {
+                          return null;
+                        }
                       },
                     ),
                   ].columnInPadding(8),
@@ -327,13 +320,21 @@ class _WorkExperienceBodyState extends ConsumerState<WorkExperienceBody> {
                   // controller: controller.locationController,
                   initialValue: locationNotifier.value,
                   hintText: TextConstant.exKadunaNigeria,
-                  label: TextConstant.location,
+                  label: '${TextConstant.location}*',
                   inputFormatters: const [],
                   onChanged: (value) {
                     locationNotifier.value = value;
                   },
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return TextConstant.required;
+                    } else {
+                      return null;
+                    }
+                  },
                 ),
 
+// location type
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -375,7 +376,7 @@ class _WorkExperienceBodyState extends ConsumerState<WorkExperienceBody> {
                   children: [
                     //start date
                     const AutoSizeText(
-                      TextConstant.startDate,
+                      '${TextConstant.startDate}*',
                       maxLines: 1,
                       textScaleFactor: 0.9,
                     ),
@@ -388,14 +389,19 @@ class _WorkExperienceBodyState extends ConsumerState<WorkExperienceBody> {
                             controller: monthNotifier.value,
                             hintText: TextConstant.month,
                             readOnly: true,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return TextConstant.required;
+                              } else {
+                                return null;
+                              }
+                            },
                             onTap: () {
                               showCupertinoDateWidget(
                                 context: context,
                                 onConfirm: (date) {
-                                  monthNotifier.value.text =
-                                      dateFormattedToMonth(date);
-                                  yearNotifier.value.text =
-                                      dateFormattedToYear(date);
+                                  monthNotifier.value.text = dateFormattedToMonth(date);
+                                  yearNotifier.value.text = dateFormattedToYear(date);
                                 },
                               );
                             },
@@ -408,14 +414,19 @@ class _WorkExperienceBodyState extends ConsumerState<WorkExperienceBody> {
                           child: AuthTextFieldWidget(
                             controller: yearNotifier.value,
                             hintText: TextConstant.year,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return TextConstant.required;
+                              } else {
+                                return null;
+                              }
+                            },
                             onTap: () {
                               showCupertinoDateWidget(
                                 context: context,
                                 onConfirm: (date) {
-                                  monthNotifier.value.text =
-                                      dateFormattedToMonth(date);
-                                  yearNotifier.value.text =
-                                      dateFormattedToYear(date);
+                                  monthNotifier.value.text = dateFormattedToMonth(date);
+                                  yearNotifier.value.text = dateFormattedToYear(date);
                                 },
                               );
                             },
@@ -445,14 +456,21 @@ class _WorkExperienceBodyState extends ConsumerState<WorkExperienceBody> {
                                   controller: endMonthNotifier.value,
                                   hintText: TextConstant.month,
                                   readOnly: true,
+                                  validator: isCurrentlyWorkingNotifier.value == true
+                                      ? null
+                                      : (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return TextConstant.required;
+                                          } else {
+                                            return null;
+                                          }
+                                        },
                                   onTap: () {
                                     showCupertinoDateWidget(
                                       context: context,
                                       onConfirm: (date) {
-                                        endMonthNotifier.value.text =
-                                            dateFormattedToMonth(date);
-                                        endYearNotifier.value.text =
-                                            dateFormattedToYear(date);
+                                        endMonthNotifier.value.text = dateFormattedToMonth(date);
+                                        endYearNotifier.value.text = dateFormattedToYear(date);
                                       },
                                     );
                                   },
@@ -466,14 +484,21 @@ class _WorkExperienceBodyState extends ConsumerState<WorkExperienceBody> {
                                   controller: endYearNotifier.value,
                                   hintText: TextConstant.year,
                                   readOnly: true,
+                                  validator: isCurrentlyWorkingNotifier.value == true
+                                      ? null
+                                      : (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return TextConstant.required;
+                                          } else {
+                                            return null;
+                                          }
+                                        },
                                   onTap: () {
                                     showCupertinoDateWidget(
                                       context: context,
                                       onConfirm: (date) {
-                                        endMonthNotifier.value.text =
-                                            dateFormattedToMonth(date);
-                                        endYearNotifier.value.text =
-                                            dateFormattedToYear(date);
+                                        endMonthNotifier.value.text = dateFormattedToMonth(date);
+                                        endYearNotifier.value.text = dateFormattedToYear(date);
                                       },
                                     );
                                   },
@@ -506,16 +531,12 @@ class _WorkExperienceBodyState extends ConsumerState<WorkExperienceBody> {
                         onPressed: () {
                           var docId = const Uuid().v4();
                           Map<String, dynamic> startdate = {
-                            FirebaseDocsFieldEnums.month.name:
-                                monthNotifier.value.text,
-                            FirebaseDocsFieldEnums.year.name:
-                                yearNotifier.value.text,
+                            FirebaseDocsFieldEnums.month.name: monthNotifier.value.text,
+                            FirebaseDocsFieldEnums.year.name: yearNotifier.value.text,
                           };
                           Map<String, dynamic> endDate = {
-                            FirebaseDocsFieldEnums.endMonth.name:
-                                endMonthNotifier.value.text,
-                            FirebaseDocsFieldEnums.endYear.name:
-                                endYearNotifier.value.text,
+                            FirebaseDocsFieldEnums.endMonth.name: endMonthNotifier.value.text,
+                            FirebaseDocsFieldEnums.endYear.name: endYearNotifier.value.text,
                           };
 
                           MapDynamicString map = CreateFormMap.createDataMap(
@@ -553,20 +574,16 @@ class _WorkExperienceBodyState extends ConsumerState<WorkExperienceBody> {
                             ref
                                 .read(addWorkExperienceProvider.notifier)
                                 .addWorkExperienceMethod(
-                                    map: map,
-                                    docId: widget.workExpModel?.docId ?? docId)
+                                    map: map, docId: widget.workExpModel?.docId ?? docId)
                                 .whenComplete(
                               () {
                                 ref.invalidate(fetchWorkListProvider(''));
                               },
                             );
-                            if (widget.workExpModel == null ||
-                                widget.workExpModel?.title == null) {
-                              widget.pageIndexNotifier.value =
-                                  widget.pageIndexNotifier.value - 2;
+                            if (widget.workExpModel == null || widget.workExpModel?.title == null) {
+                              widget.pageIndexNotifier.value = widget.pageIndexNotifier.value - 2;
                             } else {
-                              widget.pageIndexNotifier.value =
-                                  widget.pageIndexNotifier.value - 1;
+                              widget.pageIndexNotifier.value = widget.pageIndexNotifier.value - 1;
                             }
                           }
                         },

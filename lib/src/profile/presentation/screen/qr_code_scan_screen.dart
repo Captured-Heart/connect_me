@@ -25,20 +25,12 @@ class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
   int? numberOfCameras;
 
   @override
-  void dispose() {
-    log('i was called on dispose: ${DateTime.timestamp()}');
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     var isLoading = ref.watch(qrCodeScanNotifierProvider);
     ref.listen(qrCodeScanNotifierProvider, (previous, next) {
       if (next.isCompleted == true && next.data != null) {
         ref.read(addAccountInfoProvider.notifier).updateScanCount();
         Vibration.vibrate(duration: 200);
-
-        widget.tabController.animateTo(0);
 
         showDialog(
           context: context,
@@ -61,6 +53,7 @@ class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
                       uuid: userUUid,
                       fromScanScreen: true,
                       users: next.data as AuthUserModel,
+                      tabController: widget.tabController,
                     ),
                   );
                 },
@@ -82,7 +75,6 @@ class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
     );
 
     // log('is just starting: ${controller.isStarting}');
-    log('the number of camera in build: $numberOfCameras');
 
     return FullScreenLoader(
       isLoading: isLoading.isLoading ?? false,
@@ -96,9 +88,7 @@ class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
                   onScannerStarted: (arguments) {
                     inspect(arguments);
                     if (mounted && arguments?.numberOfCameras != null) {
-                      log('the number of argument camera = ${arguments?.numberOfCameras}');
                       numberOfCameras = arguments!.numberOfCameras;
-                      log('the number of camera: $numberOfCameras');
                       setState(() {});
                     }
                   },
@@ -116,8 +106,6 @@ class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
                   },
                   fit: BoxFit.cover,
                   onDetect: (barcode) {
-                    //vibrate when a qr_code is detected
-                    log(' i entered the onDetect mode');
                     //check if the qr_code contains connect_me symbol/TAg
                     if (barcode.barcodes.first.rawValue?.startsWith(TextConstant.uuidPrefixTag) ==
                         true) {

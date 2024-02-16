@@ -24,15 +24,14 @@ class IconAndTextWidget extends StatelessWidget {
           Icon(
             iconData,
             color: color ?? context.theme.iconTheme.color,
-            size: 17,
+            size: 12,
           ),
           Flexible(
             child: AutoSizeText(
               text,
               maxLines: 1,
-              style: context.textTheme.bodyMedium?.copyWith(
-                  color: color ?? context.colorScheme.onBackground,
-                  fontSize: 11),
+              style: context.textTheme.bodyMedium
+                  ?.copyWith(color: color ?? context.colorScheme.onBackground, fontSize: 11),
               minFontSize: 10,
               maxFontSize: 12,
               textScaleFactor: 0.9,
@@ -40,7 +39,7 @@ class IconAndTextWidget extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
           ),
-        ].rowInPadding(10),
+        ].rowInPadding(5),
       ),
     );
   }

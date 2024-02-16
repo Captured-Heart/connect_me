@@ -21,17 +21,10 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     });
     final users = ref.watch(fetchProfileProvider).valueOrNull;
     final workExperience = ref.watch(fetchWorkListProvider('')).valueOrNull;
-    final educationExperience =
-        ref.watch(fetchEducationListProvider('')).valueOrNull;
-    var addInfo = users?.additionalDetails;
+    final educationExperience = ref.watch(fetchEducationListProvider('')).valueOrNull;
+    // var addInfo = users?.additionalDetails;
 
-    // inspect(users);
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: context.theme.scaffoldBackgroundColor,
-      //   toolbarHeight: kToolbarHeight * 0.8,
-      // ),
-
       //! body
       body: users == null
           ? const Center(
@@ -49,27 +42,24 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
 
                   //! bio details
                   (users.bio?.isEmpty == true || users.bio == null) &&
-                          (users.email?.isEmpty == true ||
-                              users.email == null) &&
+                          (users.email?.isEmpty == true || users.email == null) &&
                           (users.phone?.isEmpty == true || users.phone == null)
                       ? const SizedBox.shrink()
                       : BioDetailsWidget(users: users),
 
-                  (users.additionalDetails == null)
-                      ? const SizedBox.shrink()
-                      :
-                      // ! additional details card
-                      AdditionalDetailsCardWidget(addInfo: addInfo),
+                  // (users.additionalDetails == null)
+                  //     ? const SizedBox.shrink()
+                  //     :
+                  //     // ! additional details card
+                  //     AdditionalDetailsCardWidget(addInfo: addInfo),
 
                   workExperience == null || workExperience.isEmpty
                       ? const SizedBox.shrink()
-                      : WorkDetailsCardWidget(
-                          workExperienceModel: workExperience),
+                      : WorkDetailsCardWidget(workExperienceModel: workExperience),
 
                   educationExperience == null || educationExperience.isEmpty
                       ? const SizedBox.shrink()
-                      : EdiucationDetailsCardWidget(
-                          educationModel: educationExperience),
+                      : EdiucationDetailsCardWidget(educationModel: educationExperience),
                 ],
               ).padSymmetric(horizontal: 20),
             ),
