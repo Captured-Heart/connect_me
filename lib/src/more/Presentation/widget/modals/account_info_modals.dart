@@ -69,33 +69,35 @@ class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
     bioNotifier = ValueNotifier<String>(widget.authUserModel?.bio ?? '');
 
     //
-    final authUserModel = ref.read(fetchProfileProvider).valueOrNull;
+    // final authUserModel = ref.read(fetchProfileProvider).valueOrNull;
 
     // I AM DOWNLOADING THE USER PREVIOUS IMAGE AND PASS AS FILE IMAGE
-    if (authUserModel?.imgUrl?.isNotEmpty == true) {
-      downloadAndSaveImage(authUserModel?.imgUrl ?? ImagesConstant.noImagePlaceholderHttp)
-          .then((value) => imgUrlFirebaseNotifier.value = value);
-    }
+    // if (authUserModel?.imgUrl?.isNotEmpty == true) {
+    //   downloadAndSaveImage(authUserModel?.imgUrl ?? ImagesConstant.noImagePlaceholderHttp)
+    //       .then((value) => imgUrlFirebaseNotifier.value = value);
+    // }
     super.initState();
   }
 
 //?  this is the method for download my network image to file image
-  Future<String> downloadAndSaveImage(String imageUrl) async {
-    final response = await http.get(Uri.parse(imageUrl));
+  // Future<String> downloadAndSaveImage(String imageUrl) async {
+  //   final response = await http.get(Uri.parse(imageUrl));
 
-    final documentDirectory = await getApplicationDocumentsDirectory();
-    final file = File('${documentDirectory.path}/your_image.jpg');
+  //   final documentDirectory = await getApplicationDocumentsDirectory();
+  //   final file = File('${documentDirectory.path}/your_image.jpg');
 
-    await file.writeAsBytes(Uint8List.fromList(response.bodyBytes));
+  //   await file.writeAsBytes(Uint8List.fromList(response.bodyBytes));
 
-    return file.path;
-  }
+  //   return file.path;
+  // }
 
   final ValueNotifier<String> imgUrlFirebaseNotifier = ValueNotifier<String>('');
+  final ValueNotifier<bool> deletedImageNotifier = ValueNotifier<bool>(false);
+
   @override
   Widget build(BuildContext context) {
     final infoState = ref.watch(addAccountInfoProvider);
-
+    log('image firbebase url : ${imgUrlFirebaseNotifier.value} ');
     return ListenableBuilder(
         listenable: Listenable.merge(
           [
@@ -107,6 +109,7 @@ class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
             webNotifier,
             bioNotifier,
             imgUrlFirebaseNotifier,
+            deletedImageNotifier,
           ],
         ),
         builder: (context, _) {
@@ -114,29 +117,6 @@ class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // widget.authUserModel?.imgUrl?.isNotEmpty == true && imgUrlFirebaseNotifier.value.isEmpty
-                //     ? const CircularProgressIndicator()
-                //     :
-
-                // imgUrlFirebaseNotifier.value.isEmpty
-                //     ? AddProfilePictureWidget(
-                //         onTapAddPhoto: () {
-                //           pickImageFunction(pickCamera: false).then((value) {
-                //             if (value != null) {
-                //               imgUrlFirebaseNotifier.value = value.path;
-                //             }
-                //           });
-                //         },
-                //         onTapCamera: () {
-                //           pickImageFunction(pickCamera: true).then((value) {
-                //             if (value != null) {
-                //               imgUrlFirebaseNotifier.value = value.path;
-                //             }
-                //           });
-                //         },
-                //       )
-                //     :
-
                 AddProfilePictureWidget(
                   onTapAddPhoto: () {
                     pickImageFunction(pickCamera: false).then((value) {
@@ -154,11 +134,12 @@ class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
                   },
                   onDeleteImage: () {
                     imgUrlFirebaseNotifier.value = '';
+                    deletedImageNotifier.value = true;
                   },
-                  isFromFirebase: imgUrlFirebaseNotifier.value.isNotEmpty,
-                  imgUrl: imgUrlFirebaseNotifier.value,
-                  imageIsLoading: widget.authUserModel?.imgUrl?.isNotEmpty == true &&
-                      imgUrlFirebaseNotifier.value.isEmpty,
+                  deletedImage: deletedImageNotifier.value,
+                  imgUrl: imgUrlFirebaseNotifier.value.isNotEmpty
+                      ? imgUrlFirebaseNotifier.value
+                      : widget.authUserModel?.imgUrl,
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.min,

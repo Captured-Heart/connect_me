@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:connect_me/app.dart';
 
 class AddProfilePictureWidget extends StatelessWidget {
@@ -9,36 +7,34 @@ class AddProfilePictureWidget extends StatelessWidget {
     this.imgUrl,
     this.onTapCamera,
     this.onDeleteImage,
-    this.isFromFirebase = false,
-    this.imageIsLoading = false,
+    this.deletedImage = false,
   });
 
   final VoidCallback? onTapAddPhoto, onTapCamera, onDeleteImage;
   final String? imgUrl;
-  final bool isFromFirebase, imageIsLoading;
+  final bool deletedImage;
 
   Widget imageChildWidet(BuildContext context) {
-    return imgUrl?.isNotEmpty == true
+    return deletedImage == false && (imgUrl?.isNotEmpty == true || imgUrl != null)
         ? ClipRRect(
             borderRadius: AppBorderRadius.c12,
-            child: Image.file(
-              File(imgUrl!),
+            child: CachedNetworkImage(
+              imageUrl: imgUrl!,
               fit: BoxFit.fill,
             ),
           )
         : CustomPaint(
             painter: DottedBorderPainter(context),
-            child: imageIsLoading == true
-                ? const Center(child: CircularProgressIndicator())
-                : const Icon(
-                    accountCircleIcon,
-                    size: 30,
-                  ),
+            child: const Icon(
+              accountCircleIcon,
+              size: 30,
+            ),
           );
   }
 
   @override
   Widget build(BuildContext context) {
+    // log(imgUrl.toString());
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -63,7 +59,7 @@ class AddProfilePictureWidget extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  imgUrl?.isEmpty == false
+                  deletedImage == false
                       ? const SizedBox.shrink()
                       : Row(
                           mainAxisSize: MainAxisSize.min,
@@ -82,7 +78,7 @@ class AddProfilePictureWidget extends StatelessWidget {
                             ),
                           ],
                         ),
-                  imgUrl?.isNotEmpty == true
+                  deletedImage != true
                       ? GradientShortBTN(
                           isThinBorder: true,
                           height: 30,
@@ -132,8 +128,7 @@ class DottedBorderPainter extends CustomPainter {
     // Draw horizontal dashed line at the bottom
     for (int i = 0; i < dotsInWidth; i++) {
       final double xPos = i * (dashWidth + dashSpace);
-      canvas.drawLine(Offset(xPos, size.height),
-          Offset(xPos + dashWidth, size.height), paint);
+      canvas.drawLine(Offset(xPos, size.height), Offset(xPos + dashWidth, size.height), paint);
     }
 
     // Draw vertical dashed line at the left
@@ -145,8 +140,7 @@ class DottedBorderPainter extends CustomPainter {
     // Draw vertical dashed line at the right
     for (int i = 0; i < dotsInHeight; i++) {
       final double yPos = i * (dashWidth + dashSpace);
-      canvas.drawLine(Offset(size.width, yPos),
-          Offset(size.width, yPos + dashWidth), paint);
+      canvas.drawLine(Offset(size.width, yPos), Offset(size.width, yPos + dashWidth), paint);
     }
   }
 
