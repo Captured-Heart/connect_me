@@ -23,7 +23,7 @@ class WorkDetailsCardWidget extends StatelessWidget {
         ),
         const Divider(),
         SizedBox(
-          height: 120,
+          height: 100,
           // width: 5,
           child: ListView.builder(
               itemCount: workExperienceModel?.length,
@@ -73,11 +73,12 @@ class WorkDetailsCardWidget extends StatelessWidget {
                                   ?.copyWith(fontWeight: AppFontWeight.w300),
                               textScaleFactor: 0.9,
                             ),
+
                             // AdditionalInfoListTileWidget(
-                          ].columnInPadding(5),
-                        ).padOnly(top: 1),
+                          ].columnInPadding(3),
+                        ).padOnly(top: 4),
                       ],
-                    ).padAll(8),
+                    ).padSymmetric(horizontal: 12),
                   ).padOnly(right: 5),
                 );
               }),
@@ -110,7 +111,7 @@ class EdiucationDetailsCardWidget extends StatelessWidget {
         ),
         const Divider(),
         SizedBox(
-          height: 106,
+          height: 115,
           // width: 5,
           child: ListView.builder(
               itemCount: educationModel?.length,
@@ -122,49 +123,132 @@ class EdiucationDetailsCardWidget extends StatelessWidget {
                 return SizedBox(
                   width: context.sizeWidth(educationModel!.length < 2 ? 0.9 : 0.75),
                   child: Card(
-                    elevation: 3,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            //school
-                            AutoSizeText(
-                              education?.school ?? '',
-                              style: context.textTheme.bodyLarge,
-                              textScaleFactor: 0.9,
-                              maxLines: 1,
-                            ),
-                            //degree
-                            AutoSizeText(
-                              ' ${TextConstant.bulletList} ${education?.degree}',
-                              style: context.textTheme.labelMedium
-                                  ?.copyWith(fontWeight: AppFontWeight.w600),
-                              maxLines: 1,
-                              textScaleFactor: 0.95,
-                            ),
+                          elevation: 3,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  //school
+                                  AutoSizeText(
+                                    education?.school ?? '',
+                                    style: context.textTheme.bodyLarge,
+                                    textScaleFactor: 0.9,
+                                    maxLines: 1,
+                                  ),
+                                  //degree
+                                  AutoSizeText(
+                                    ' ${TextConstant.bulletList} ${education?.degree}',
+                                    style: context.textTheme.labelMedium
+                                        ?.copyWith(fontWeight: AppFontWeight.w600),
+                                    maxLines: 1,
+                                    textScaleFactor: 0.95,
+                                  ),
 
-                            AutoSizeText(
-                              '${education?.startDate?.startMonthYearToString} - ${education?.endDate?.endDateMonthYearToString ?? ''}',
-                              style: context.textTheme.labelMedium
-                                  ?.copyWith(fontWeight: AppFontWeight.w300),
-                            ),
-                            // //
-                            // AutoSizeText(
-                            //   '${education?.startMonthYearToString} - ${workExperience?.endDateMonthYearToString}',
-                            //   style: context.textTheme.labelMedium
-                            //       ?.copyWith(fontWeight: AppFontWeight.w300),
-                            //   textScaleFactor: 0.9,
-                            // ),
-                            // AdditionalInfoListTileWidget(
-                          ].columnInPadding(5),
-                        ).padOnly(top: 3),
-                      ],
-                    ).padAll(10),
-                  ).padOnly(right: 5),
+                                  AutoSizeText(
+                                    '${education?.startDate?.startMonthYearToString} - ${education?.endDate?.endDateMonthYearToString ?? ''}',
+                                    style: context.textTheme.labelMedium
+                                        ?.copyWith(fontWeight: AppFontWeight.w300),
+                                    textScaleFactor: 0.9,
+                                  ),
+
+                                  Align(
+                                    alignment: Alignment.bottomRight,
+                                    child: TextButtonWithBorderAndArrowIcon(
+                                      title: 'See more'.hardCodedString,
+                                      padding: AppEdgeInsets.eA4,
+                                      isDense: true,
+                                      isArrowForward: true,
+                                      onTap: () {
+                                        WoltModalSheet.show(
+                                          context: context,
+                                          useSafeArea: true,
+                                          pageListBuilder: (context) {
+                                            return [
+                                              WoltModalSheetPage(
+                                                isTopBarLayerAlwaysVisible: false,
+                                                navBarHeight: 10,
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  children: [
+                                                    Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      mainAxisSize: MainAxisSize.min,
+                                                      children: [
+                                                        //school
+                                                        Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment.stretch,
+                                                          children: [
+                                                            AutoSizeText(
+                                                              education?.school ?? '',
+                                                              style: context.textTheme.bodyLarge,
+                                                              textScaleFactor: 0.9,
+                                                              maxLines: 1,
+                                                              textAlign: TextAlign.center,
+                                                            ),
+                                                            //degree
+                                                            AutoSizeText(
+                                                              ' ${TextConstant.bulletList} ${education?.degree}',
+                                                              style: context.textTheme.labelMedium
+                                                                  ?.copyWith(
+                                                                      fontWeight:
+                                                                          AppFontWeight.w600),
+                                                              maxLines: 1,
+                                                              textScaleFactor: 0.95,
+                                                              textAlign: TextAlign.center,
+                                                            ),
+
+                                                            AutoSizeText(
+                                                              '(${education?.startDate?.startMonthYearToString} - ${education?.endDate?.endDateMonthYearToString ?? ''})',
+                                                              style: context.textTheme.labelMedium
+                                                                  ?.copyWith(
+                                                                      fontWeight:
+                                                                          AppFontWeight.w300),
+                                                              textScaleFactor: 0.8,
+                                                              textAlign: TextAlign.center,
+                                                            ),
+                                                          ].columnInPadding(7),
+                                                        ),
+
+                                                        Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment.stretch,
+                                                          children: [
+                                                            AdditionalInfoListTileWidget(
+                                                              keys: TextConstant.grade,
+                                                              values: education?.grade ?? '',
+                                                            ),
+                                                            AdditionalInfoListTileWidget(
+                                                              keys: TextConstant.awardAndHonours,
+                                                              values: education?.award ?? '',
+                                                            ),
+                                                            AdditionalInfoListTileWidget(
+                                                              keys: TextConstant.activitiesAndOrg,
+                                                              values: education?.activities ?? '',
+                                                            ),
+                                                          ].columnInPadding(4),
+                                                        ).padOnly(left: 20),
+                                                      ].columnInPadding(5),
+                                                    ).padOnly(top: 3),
+                                                  ],
+                                                ),
+                                              ),
+                                            ];
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ].columnInPadding(5),
+                              ).padOnly(top: 3),
+                            ],
+                          ).padSymmetric(horizontal: 10))
+                      .padOnly(right: 5),
                 );
               }),
         ),

@@ -72,7 +72,7 @@ abstract class TextConstant {
   static const shareProfile = 'Share Profile';
   static const flipCamera = 'Switch camera';
   static const flash = 'Flash';
-  static const shareQrCode = 'Share QR Code';
+  static const shareQrCode = 'Share QrCode';
   static const switchToLandscap = 'Switch to landscape mode';
   static const switchToPortrait = 'Switch to portrait mode';
   static const scanQrCodeToConnect = 'Scan QR code to connect';

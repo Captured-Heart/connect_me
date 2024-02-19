@@ -14,23 +14,20 @@ class AdditionalInfoListTileWidget extends StatelessWidget {
     // ignore: unnecessary_null_comparison
     return values.isEmpty || values == null || keys.isEmpty
         ? const SizedBox.shrink()
-        : Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(
-                '$keys: ',
-                textScaleFactor: 0.7,
-                style: context.textTheme.bodyLarge?.copyWith(fontWeight: AppFontWeight.w700),
+        : RichText(
+            text: TextSpan(
+              text: '$keys: ',
+              style: context.textTheme.bodyLarge?.copyWith(
+                fontWeight: AppFontWeight.w700,
+                fontSize: 11,
               ),
-              Expanded(
-                child: AutoSizeText(
-                  values,
+              children: [
+                TextSpan(
+                  text: values,
                   style: context.textTheme.bodySmall?.copyWith(fontWeight: AppFontWeight.w100),
-                  textScaleFactor: 0.9,
                 ),
-              ),
-            ],
-          ).padOnly(bottom: 5);
+              ],
+            ),
+          ).padOnly(bottom: 3);
   }
 }

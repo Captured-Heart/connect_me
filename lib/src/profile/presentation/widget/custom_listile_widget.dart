@@ -50,47 +50,70 @@ class CustomListTileWidget extends StatelessWidget {
                 ),
               ),
         isSubtitleUrl != null || isSubtitleUrl?.isNotEmpty == true
-            ? GestureDetector(
+            ? TextButtonWithBorderAndArrowIcon(
+                title: isSubtitleUrl ?? '',
                 onTap: () {
                   subtitle != null
                       ? UrlOptions.launchWeb(isSubtitleUrl!, launchModeEXT: true)
                       : null;
                 },
-                child: Container(
-                  margin: const EdgeInsets.only(top: 5),
-                  padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
-                  decoration: BoxDecoration(
-                    borderRadius: AppBorderRadius.c12,
-                    border: Border.all(
-                      //   bottom: BorderSide(
-                      color: AppThemeColorDark.textButton,
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      AutoSizeText(
-                        '$isSubtitleUrl',
-                        maxLines: subtitleMaxLines ?? 1,
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: subtitleTextAlign ?? TextAlign.center,
-                        textScaleFactor: 0.95,
-                        style: context.textTheme.bodySmall?.copyWith(
-                          color: AppThemeColorDark.textButton,
-                          // decoration: TextDecoration.underline,
-                        ),
-                      ),
-                      const Icon(
-                        Icons.arrow_outward,
-                        color: AppThemeColorDark.textButton,
-                        size: 14,
-                      ).padOnly(left: 3),
-                    ],
-                  ),
-                ),
               )
             : const SizedBox.shrink()
       ].columnInPadding(2),
+    );
+  }
+}
+
+class TextButtonWithBorderAndArrowIcon extends StatelessWidget {
+  const TextButtonWithBorderAndArrowIcon({
+    super.key,
+    required this.title,
+    required this.onTap,
+    this.padding,
+    this.isDense = false,
+    this.isArrowForward = false,
+  });
+
+  final String title;
+  final VoidCallback? onTap;
+  final EdgeInsets? padding;
+  final bool isDense, isArrowForward;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: const EdgeInsets.only(top: 5),
+        padding: padding ?? const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
+        decoration: BoxDecoration(
+          borderRadius: AppBorderRadius.c12,
+          border: Border.all(
+            //   bottom: BorderSide(
+            color: AppThemeColorDark.textButton,
+          ),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            AutoSizeText(
+              title,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+              textScaleFactor: isDense == true ? 0.7 : 0.95,
+              style: context.textTheme.bodySmall?.copyWith(
+                color: AppThemeColorDark.textButton,
+                // decoration: TextDecoration.underline,
+              ),
+            ),
+            Icon(
+              isArrowForward == true ? Icons.arrow_forward_outlined : Icons.arrow_outward,
+              color: AppThemeColorDark.textButton,
+              size: isDense == true ? 10 : 14,
+            ).padOnly(left: 3),
+          ],
+        ),
+      ),
     );
   }
 }

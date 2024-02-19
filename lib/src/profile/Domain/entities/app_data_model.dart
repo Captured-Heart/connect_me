@@ -9,6 +9,8 @@ class AppDataModel extends Equatable {
   final String? devTwitter;
   final String? buyMeCoffee;
   final String? btcAddress;
+  final String? iosAppLink;
+  final String? androidAppLink;
 
   const AppDataModel({
     this.whatsappSupport,
@@ -19,6 +21,8 @@ class AppDataModel extends Equatable {
     this.devTwitter,
     this.buyMeCoffee,
     this.btcAddress,
+    this.androidAppLink,
+    this.iosAppLink,
   });
 
   factory AppDataModel.fromJson(Map<String, dynamic> json) => AppDataModel(
@@ -30,6 +34,8 @@ class AppDataModel extends Equatable {
         buyMeCoffee: json['buyMeCoffee'] as String?,
         btcAddress: json['btcAddress'] as String?,
         docId: json['docId'] as String?,
+        androidAppLink: json['androidAppLink'] as String?,
+        iosAppLink: json['iosAppLink'] as String?,
       );
 
   Map<String, dynamic> toJson() => {
@@ -41,6 +47,8 @@ class AppDataModel extends Equatable {
         'buyMeCoffee': buyMeCoffee,
         'btcAddress': btcAddress,
         'docId': docId,
+        'androidAppLink': androidAppLink,
+        'iosAppLink': iosAppLink,
       };
 
   AppDataModel copyWith({
@@ -52,6 +60,8 @@ class AppDataModel extends Equatable {
     String? buyMeCoffee,
     String? btcAddress,
     String? docId,
+    String? androidAppLink,
+    String? iosAppLink,
   }) {
     return AppDataModel(
       whatsappSupport: whatsappSupport ?? this.whatsappSupport,
@@ -62,6 +72,8 @@ class AppDataModel extends Equatable {
       buyMeCoffee: buyMeCoffee ?? this.buyMeCoffee,
       btcAddress: btcAddress ?? this.btcAddress,
       docId: docId ?? this.docId,
+      androidAppLink: androidAppLink ?? this.androidAppLink,
+      iosAppLink: iosAppLink ?? this.iosAppLink,
     );
   }
 
@@ -76,6 +88,8 @@ class AppDataModel extends Equatable {
       buyMeCoffee,
       btcAddress,
       docId,
+      androidAppLink,
+      iosAppLink,
     ];
   }
 }

@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 class ShareQrCodeScreen extends ConsumerStatefulWidget {
   const ShareQrCodeScreen({
     super.key,
-     this.authUserModel,
+    this.authUserModel,
   });
   final AuthUserModel? authUserModel;
   @override
@@ -38,7 +38,12 @@ class _ShareQrCodeScreenState extends ConsumerState<ShareQrCodeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final shareCode = ref.watch(qrcodeShareNotifierProvider);
+
     return Scaffold(
+      // extendBody: true,
+      // floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+      // floatingActionButton: flipWidgetBTN().padAll(10),
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
         child: ListenableBuilder(
@@ -95,7 +100,7 @@ class _ShareQrCodeScreenState extends ConsumerState<ShareQrCodeScreen> {
                   Positioned.directional(
                     textDirection: TextDirection.ltr,
                     bottom: 0,
-                    height: context.sizeHeight(0.2),
+                    height: context.sizeHeight(0.17),
                     width: context.sizeWidth(1),
                     child: Card(
                       margin: EdgeInsets.zero,
@@ -167,6 +172,7 @@ class _ShareQrCodeScreenState extends ConsumerState<ShareQrCodeScreen> {
                               }
                             },
                             iconData: shareIcon,
+                            isLoading: shareCode.isLoading ?? false,
                             textColor: Colors.white,
                             text: TextConstant.shareQrCode,
                             color: buttonColor(cardIndexNotifier.value),
@@ -176,45 +182,50 @@ class _ShareQrCodeScreenState extends ConsumerState<ShareQrCodeScreen> {
                     ),
                   ),
 
-                  // BACK BUTTON
-                  Positioned(
-                    top: context.sizeWidth(0.13),
-                    left: 10,
-                    child: const BackButton(
-                      color: Colors.white,
-                    ),
-                  ),
+                  //! BACK BUTTON
+                  // Positioned(
+                  //   top: context.sizeWidth(0.13),
+                  //   left: 10,
+                  //   child: const BackButton(
+                  //     color: Colors.white,
+                  //   ),
+                  // ),
 
                   // FLIP THE QR WIDGET TO LANDSCAPE AND PORTRAIT
                   Positioned(
-                    top: context.sizeWidth(0.13),
-                    right: 10,
-                    child: GestureDetector(
-                      onTap: () {
-                        cardisVertNotifier.value = !cardisVertNotifier.value;
-                      },
-                      child: Tooltip(
-                        message: cardisVertNotifier.value == true
-                            ? TextConstant.switchToLandscap
-                            : TextConstant.switchToPortrait,
-                        child: Container(
-                          padding: AppEdgeInsets.eA4,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: Colors.white,
-                              )),
-                          child: Icon(
-                            cardisVertNotifier.value == false ? Icons.swap_vert : Icons.swap_horiz,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
+                    top: context.sizeWidth(0.03),
+                    right: 20,
+                    child: flipWidgetBTN(),
                   ),
                 ],
               );
             }),
+      ),
+    );
+  }
+
+  GestureDetector flipWidgetBTN() {
+    return GestureDetector(
+      onTap: () {
+        cardisVertNotifier.value = !cardisVertNotifier.value;
+      },
+      child: Tooltip(
+        message: cardisVertNotifier.value == true
+            ? TextConstant.switchToLandscap
+            : TextConstant.switchToPortrait,
+        child: Container(
+          padding: AppEdgeInsets.eA8,
+          decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: Colors.white,
+              )),
+          child: Icon(
+            cardisVertNotifier.value == false ? Icons.swap_vert : Icons.swap_horiz,
+            color: Colors.white,
+            size: 25,
+          ),
+        ),
       ),
     );
   }

@@ -28,7 +28,7 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> with SingleTickerProv
   }
 
   void _hideNavBar() {
-    if (_activeTabIndex == 1) {
+    if (_activeTabIndex > 0) {
       ref.read(hideBottomNavBarProvider.notifier).update((state) => true);
     } else {
       ref.invalidate(hideBottomNavBarProvider);
@@ -37,7 +37,7 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> with SingleTickerProv
 
   @override
   void initState() {
-    tabController = TabController(length: 2, vsync: this);
+    tabController = TabController(length: 3, vsync: this);
     tabController.addListener(() {
       _setActiveTabIndex();
       _hideNavBar();
@@ -53,13 +53,12 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> with SingleTickerProv
   }
 
   ValueNotifier<Color> warningColor = ValueNotifier(AppThemeColorLight.yellow);
-
   List<Color> warningColorList = [
     AppThemeColorLight.orange,
     AppThemeColorDark.textError,
   ];
   Future<bool> onWillPop() async {
-    if (_activeTabIndex == 1) {
+    if (_activeTabIndex > 0) {
       setState(() {});
       _jumpToTab0();
 
@@ -98,191 +97,47 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> with SingleTickerProv
     return WillPopScope(
       onWillPop: () => onWillPop(),
       child: Scaffold(
-        extendBody: true,
-        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-        floatingActionButton: _activeTabIndex == 1
-            ? null
-            : FloatingActionButton(
-                tooltip: TextConstant.shareQrCode,
-                backgroundColor: context.colorScheme.primaryContainer,
-                child: const Icon(
-                  shareIcon,
-                  size: 25,
-                ),
-                onPressed: () {
-                  if (users.valueOrNull != null) {
-                    pushAsVoid(
-                      context,
-                      ShareQrCodeScreen(
-                        authUserModel: users.valueOrNull,
-                      ),
-                    );
-                  } else {
-                    ref.read(fetchProfileProvider);
-                    showScaffoldSnackBarMessageNoColor(
-                      AuthErrors.networkFailure.errorMessage,
-                      context: context,
-                    );
-                  }
-                },
-              ),
         appBar: AppBar(
           elevation: 0,
-          toolbarHeight: kToolbarHeight * 1.5,
+          // toolbarHeight: kToolbarHeight * 1.5,
           backgroundColor: context.theme.scaffoldBackgroundColor,
           centerTitle: true,
-          title: progress > 99 || _activeTabIndex == 1
+          title: progress > 99 || _activeTabIndex > 0
               ? const SizedBox.shrink()
-              : ValueListenableBuilder(
-                  valueListenable: warningColor,
-                  builder: (context, color, _) {
-                    return CustomPaint(
-                      painter: DottedBorderPainter(context),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Icon(
-                            warningIcon,
-                            color: color,
-                            size: 20,
-                          ),
-                          Flexible(
-                            child: AutoSizeText(
-                              //todo: do the calculation for percentage
-                              '${'Complete your profile'.hardCodedString} ($progress%)',
-                              style: context.textTheme.bodySmall,
-                              maxLines: 1,
-                            ),
-                          ),
-                        ].rowInPadding(5),
-                      ).padAll(7),
-                    ).onTapWidget(
-                      onTap: () {
-                        ref.read(bottomNavBarIndexProvider.notifier).update((state) => 3);
-                      },
-                    );
-                  }),
-          actions: [
-            Swing(
-              infinite: true,
-              duration: const Duration(seconds: 5),
-              child: CircleChipButton(
-                tooltip: 'Share QR code',
-                padding: AppEdgeInsets.eA8,
-                iconSize: 30,
-                onTap: () {
-                  if (users.valueOrNull != null) {
-                    pushAsVoid(
-                      context,
-                      ShareQrCodeScreen(
-                        authUserModel: users.valueOrNull,
-                      ),
-                    );
-                  } else {
-                    showScaffoldSnackBarMessageNoColor(
-                      AuthErrors.networkFailure.errorMessage,
-                      context: context,
-                    );
-                  }
-                },
-                iconData: shareIcon,
-              ),
-            ),
-          ].rowInPadding(10),
+              : completeYourProfileWidget(progress),
         ),
         body: SafeArea(
           child: Column(
             children: [
+              //! custom tab bar
               CustomTabBar3(
                 tabController: tabController,
                 tabs: const [
-                  Text(TextConstant.home),
-                  Text(TextConstant.scanQr),
+                  AutoSizeText(
+                    TextConstant.home,
+                    maxLines: 1,
+                  ),
+                  AutoSizeText(
+                    TextConstant.scanQr,
+                    maxLines: 1,
+                  ),
+                  AutoSizeText(
+                    TextConstant.shareQrCode,
+                    maxLines: 1,
+                  ),
                 ],
               ),
               Expanded(
                 child: TabBarView(
                   controller: tabController,
                   children: [
-                    users.when(
-                      data: (data) {
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Center(
-                                  child: ProfilePicWidget(
-                                    authUserModel: data,
-                                    onTap: () {},
-                                  ),
-                                ),
-
-                                //bio
-                                CustomListTileWidget(
-                                  title: data.fullname,
-                                  // showAtsign: true,
-                                  subtitleMaxLines: 4,
-                                  subtitle: data.bio,
-                                  isSubtitleUrl: data.website,
-                                ).padSymmetric(horizontal: 30),
-                              ].columnInPadding(5),
-                            ).padOnly(top: 10),
-                            Flexible(
-                              child: CustomQrCodeImageWidget(
-                                authUserModel: data,
-                                isStaticTheme: false,
-                                isDense: false,
-                              ).padSymmetric(horizontal: 5).padOnly(bottom: 0),
-                            ),
-                          ],
-                        ).padOnly(top: 10);
-                      },
-                      error: (error, _) {
-                        return Center(
-                          child: Text(
-                            error.toString(),
-                          ),
-                        );
-                      },
-
-                      // SHIMMER LOADER
-
-                      loading: () => ShimmerWidget(
-                        child: Center(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              const ProfilePicWidget(),
-                              const CustomListTileWidget(
-                                title: 'Username',
-                                showAtsign: true,
-                                subtitle: 'Mobile/Product designer',
-                              ),
-                              ShimmerWidget(
-                                child: Container(
-                                  margin: AppEdgeInsets.eA12,
-                                  height: context.sizeHeight(0.3),
-                                  width: context.sizeWidth(0.7),
-                                  color: context.colorScheme.outline,
-                                  // padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 1),
-                                ).padOnly(top: 15),
-                              )
-                            ],
-                          ).padOnly(top: 20),
-                        ),
-                      ),
-                    ),
-                    // QrCodeScreen()
+                    HomeScreenBodyWithQrCard(users: users),
                     QrCodeScanScreen(
                       tabController: tabController,
                     ),
+                    ShareQrCodeScreen(
+                      authUserModel: users.valueOrNull,
+                    )
                   ],
                 ),
               ),
@@ -291,5 +146,40 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> with SingleTickerProv
         ),
       ),
     );
+  }
+
+// complete your profile widget
+  ValueListenableBuilder<Color> completeYourProfileWidget(int progress) {
+    return ValueListenableBuilder(
+        valueListenable: warningColor,
+        builder: (context, color, _) {
+          return CustomPaint(
+            painter: DottedBorderPainter(context),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Icon(
+                  warningIcon,
+                  color: color,
+                  size: 20,
+                ),
+                Flexible(
+                  child: AutoSizeText(
+                    //todo: do the calculation for percentage
+                    '${'Complete your profile'.hardCodedString} ($progress%)',
+                    style: context.textTheme.bodySmall,
+                    maxLines: 1,
+                  ),
+                ),
+              ].rowInPadding(5),
+            ).padAll(7),
+          ).onTapWidget(
+            onTap: () {
+              ref.read(bottomNavBarIndexProvider.notifier).update((state) => 3);
+            },
+          );
+        });
   }
 }

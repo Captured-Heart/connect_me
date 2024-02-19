@@ -11,7 +11,9 @@ class QrCodeRepositoryImpl implements QrCodeRepository {
   // QrCodeRepositoryImpl({required this.ref});
   @override
   Future<Either<AppException, ShareResult>> shareQrCodes(
-      GlobalKey<State<StatefulWidget>> globalKey) async {
+    GlobalKey<State<StatefulWidget>> globalKey, {
+    required String sharedText,
+  }) async {
     try {
       RenderRepaintBoundary? boundary =
           globalKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
@@ -33,6 +35,7 @@ class QrCodeRepositoryImpl implements QrCodeRepository {
             mimeType: 'image/png',
           ),
         ],
+        text: sharedText,
       );
       inspect(finalShareResults);
       return Right(finalShareResults);
