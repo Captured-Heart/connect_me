@@ -5,7 +5,9 @@ abstract class AnalyticsRepository {
 
   Future<void> signUp({required String email, required String uid, required String signUpMethod});
   Future<void> shareQrCode(
-      {required String email, required String scannedUUID, required String signUpMethod});
+      {required AuthUserModel authUserModel, required String sharedDestination});
+  Future<void> scanQrCode({required AuthUserModel authUserModel});
+  Future<void> profileVisit({required AuthUserModel authUserModel});
 }
 
 class AnalyticsRepositoryImpl extends AnalyticsRepository {
@@ -34,13 +36,44 @@ class AnalyticsRepositoryImpl extends AnalyticsRepository {
 
   @override
   Future<void> shareQrCode(
-      {required String email, required String scannedUUID, required String signUpMethod}) {
+      {required AuthUserModel authUserModel, required String sharedDestination}) {
     return _analytics.logShare(
-        contentType: "email of scanner: $email\n ", itemId: scannedUUID, method: 'QR-code_share');
+      contentType: "sender: ${authUserModel.email} \n receiver: $sharedDestination ",
+      itemId: 'userId: ${authUserModel.docId},',
+      method: 'QR-code_share',
+      parameters: {
+        'receiver': sharedDestination,
+        'sender_country': authUserModel.additionalDetails?.country,
+        'sender_state': authUserModel.additionalDetails?.state
+      },
+    );
+  }
+
+  @override
+  Future<void> scanQrCode({required AuthUserModel authUserModel}) {
+    return _analytics.logEvent(
+      name: 'Scanned Qr-Code',
+      parameters: {
+        'Scanned email': authUserModel.email,
+        'country code': authUserModel.phonePrefix,
+        'full-name': authUserModel.fullname,
+        'country': authUserModel.additionalDetails?.country,
+        'state': authUserModel.additionalDetails?.state
+      },
+    );
+  }
+
+  @override
+  Future<void> profileVisit({required AuthUserModel authUserModel}) {
+    return _analytics.logEvent(
+      name: 'profile-Visit',
+      parameters: {
+        'visited_user': authUserModel.email,
+        'country code': authUserModel.phonePrefix,
+        'full-name': authUserModel.fullname,
+        'country': authUserModel.additionalDetails?.country,
+        'state': authUserModel.additionalDetails?.state
+      },
+    );
   }
 }
-
-// final analyticsRepositoryImplProvider = Provider<AnalyticsRepositoryImpl>((ref) {
-//   final analytics = ref.read(analyticsProvider);
-//   return AnalyticsRepositoryImpl(analytics);
-// });

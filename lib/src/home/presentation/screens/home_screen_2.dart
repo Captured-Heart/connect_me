@@ -98,15 +98,16 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> with SingleTickerProv
     return WillPopScope(
       onWillPop: () => onWillPop(),
       child: Scaffold(
+        extendBody: true,
+        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
         floatingActionButton: _activeTabIndex == 1
             ? null
             : FloatingActionButton(
-                shape: StadiumBorder(),
-                backgroundColor: context.colorScheme.primary,
-                foregroundColor: AppThemeColorDark.textDark,
+                tooltip: TextConstant.shareQrCode,
+                backgroundColor: context.colorScheme.primaryContainer,
                 child: const Icon(
                   shareIcon,
-                  size: 30,
+                  size: 25,
                 ),
                 onPressed: () {
                   if (users.valueOrNull != null) {
@@ -130,7 +131,7 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> with SingleTickerProv
           toolbarHeight: kToolbarHeight * 1.5,
           backgroundColor: context.theme.scaffoldBackgroundColor,
           centerTitle: true,
-          title: progress > 99 ||  _activeTabIndex == 1
+          title: progress > 99 || _activeTabIndex == 1
               ? const SizedBox.shrink()
               : ValueListenableBuilder(
                   valueListenable: warningColor,
@@ -164,24 +165,30 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> with SingleTickerProv
                     );
                   }),
           actions: [
-            CircleChipButton(
-              tooltip: 'Share QR code',
-              onTap: () {
-                if (users.valueOrNull != null) {
-                  pushAsVoid(
-                    context,
-                    ShareQrCodeScreen(
-                      authUserModel: users.valueOrNull,
-                    ),
-                  );
-                } else {
-                  showScaffoldSnackBarMessageNoColor(
-                    AuthErrors.networkFailure.errorMessage,
-                    context: context,
-                  );
-                }
-              },
-              iconData: shareIcon,
+            Swing(
+              infinite: true,
+              duration: const Duration(seconds: 5),
+              child: CircleChipButton(
+                tooltip: 'Share QR code',
+                padding: AppEdgeInsets.eA8,
+                iconSize: 30,
+                onTap: () {
+                  if (users.valueOrNull != null) {
+                    pushAsVoid(
+                      context,
+                      ShareQrCodeScreen(
+                        authUserModel: users.valueOrNull,
+                      ),
+                    );
+                  } else {
+                    showScaffoldSnackBarMessageNoColor(
+                      AuthErrors.networkFailure.errorMessage,
+                      context: context,
+                    );
+                  }
+                },
+                iconData: shareIcon,
+              ),
             ),
           ].rowInPadding(10),
         ),
@@ -224,7 +231,7 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> with SingleTickerProv
                                   subtitle: data.bio,
                                   isSubtitleUrl: data.website,
                                 ).padSymmetric(horizontal: 30),
-                              ].columnInPadding(10),
+                              ].columnInPadding(5),
                             ).padOnly(top: 10),
                             Flexible(
                               child: CustomQrCodeImageWidget(

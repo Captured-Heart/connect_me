@@ -133,7 +133,7 @@ SliverWoltModalSheetPage educationModal(
       final educationList = ref.watch(fetchEducationListProvider('')).valueOrNull;
 
       return EducationModalBody(
-        educationModel: isEditMode == true ? null : educationList?[educationIndex],
+        educationModel: isEditMode == true || educationList?.isEmpty == true ? null : educationList?[educationIndex],
         pageIndexNotifier: pageIndexNotifier,
       ).padAll(15);
     }),

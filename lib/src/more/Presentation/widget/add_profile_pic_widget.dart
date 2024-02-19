@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:connect_me/app.dart';
 
 class AddProfilePictureWidget extends StatelessWidget {
@@ -8,10 +10,11 @@ class AddProfilePictureWidget extends StatelessWidget {
     this.onTapCamera,
     this.onDeleteImage,
     this.deletedImage = false,
+    this.fileImage,
   });
 
   final VoidCallback? onTapAddPhoto, onTapCamera, onDeleteImage;
-  final String? imgUrl;
+  final String? imgUrl, fileImage;
   final bool deletedImage;
 
   Widget imageChildWidet(BuildContext context) {
@@ -49,7 +52,15 @@ class AddProfilePictureWidget extends StatelessWidget {
           ),
           height: 80,
           width: 100,
-          child: imageChildWidet(context),
+          child: fileImage?.isNotEmpty == true
+              ? ClipRRect(
+                  borderRadius: AppBorderRadius.c12,
+                  child: Image.file(
+                    File(fileImage!),
+                    fit: BoxFit.fill,
+                  ),
+                )
+              : imageChildWidet(context),
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -5,7 +5,6 @@ class StartDateModel extends Equatable {
   final String? year;
 
   const StartDateModel({this.month, this.year});
-  String get startMonthYearToString => '$month $year';
 
   factory StartDateModel.fromJson(Map<String, dynamic> json) {
     return StartDateModel(
@@ -29,6 +28,7 @@ class StartDateModel extends Equatable {
     );
   }
 
+  String get startMonthYearToString => '$month $year';
   @override
   List<Object?> get props => [month, year];
 }

@@ -253,6 +253,22 @@ class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
                                 );
                               } else {
                                 if (!mounted) return;
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AppCustomSuccessDialog(
+                                      dialogModel: DialogModel(
+                                        title: 'Scan a Connect_Me\n QR Code instead',
+                                        hasImage: true,
+                                        postiveActionText: TextConstant.ok,
+                                        onPostiveAction: () {
+                                          pop(context);
+                                          widget.tabController.animateTo(0);
+                                        },
+                                      ),
+                                    );
+                                  },
+                                );
                                 showScaffoldSnackBarMessage(
                                   'QR Code could not be recognized'.hardCodedString,
                                   isError: true,

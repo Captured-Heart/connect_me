@@ -110,7 +110,7 @@ class EdiucationDetailsCardWidget extends StatelessWidget {
         ),
         const Divider(),
         SizedBox(
-          height: 110,
+          height: 106,
           // width: 5,
           child: ListView.builder(
               itemCount: educationModel?.length,
@@ -161,9 +161,9 @@ class EdiucationDetailsCardWidget extends StatelessWidget {
                             // ),
                             // AdditionalInfoListTileWidget(
                           ].columnInPadding(5),
-                        ).padOnly(top: 1),
+                        ).padOnly(top: 3),
                       ],
-                    ).padAll(12),
+                    ).padAll(10),
                   ).padOnly(right: 5),
                 );
               }),

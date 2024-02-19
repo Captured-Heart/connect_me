@@ -137,9 +137,8 @@ class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
                     deletedImageNotifier.value = true;
                   },
                   deletedImage: deletedImageNotifier.value,
-                  imgUrl: imgUrlFirebaseNotifier.value.isNotEmpty
-                      ? imgUrlFirebaseNotifier.value
-                      : widget.authUserModel?.imgUrl,
+                  imgUrl: widget.authUserModel?.imgUrl,
+                  fileImage: imgUrlFirebaseNotifier.value,
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.min,
@@ -258,7 +257,8 @@ class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
                       );
                       // );
 
-                      if (imgUrlFirebaseNotifier.value.isNotEmpty) {
+                      if (imgUrlFirebaseNotifier.value.isNotEmpty ||
+                          widget.authUserModel?.imgUrl?.isNotEmpty == true) {
                         ref
                             .read(addAccountInfoProvider.notifier)
                             .addAccountInfo(
@@ -269,6 +269,9 @@ class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
                           ref.invalidate(fetchProfileProvider);
                         });
                       } else {
+                        log(''' imgFirebase: ${imgUrlFirebaseNotifier.value}
+                        
+                        imgUrl: ${widget.authUserModel?.imgUrl}''');
                         showScaffoldSnackBarMessage(
                           TextConstant.profilePhotoRequired,
                           isError: true,

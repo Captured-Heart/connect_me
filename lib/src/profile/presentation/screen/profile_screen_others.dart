@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:connect_me/app.dart';
 
 class ProfileScreenOthers extends ConsumerStatefulWidget {
@@ -26,10 +28,59 @@ class _ProfileScreenOthersState extends ConsumerState<ProfileScreenOthers> {
     }
   }
 
+  @override
+  Widget build(BuildContext context) {
+    final users = ref.watch(fetchOthersProfileProvider(widget.uuid)).valueOrNull;
+    final workExperience = ref.watch(fetchWorkListProvider(widget.uuid)).valueOrNull;
+    final educationExperience = ref.watch(fetchEducationListProvider(widget.uuid)).valueOrNull;
+
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: context.theme.scaffoldBackgroundColor,
+        toolbarHeight: kToolbarHeight * 0.8,
+      ),
+
+      //! body
+      body: users == null
+          ? const Center(
+              child: CircularProgressIndicator.adaptive(),
+            )
+          : ListView(
+              shrinkWrap: true,
+              padding: AppEdgeInsets.eV12,
+              children: [
+                //! profile header
+                ProfileHeaderWidget(
+                  users: widget.uuid?.isEmpty == true ? widget.users : users,
+                ),
+
+//! bio details
+                (users.bio?.isEmpty == true || users.bio == null) &&
+                        (users.email?.isEmpty == true || users.email == null) &&
+                        (users.phone?.isEmpty == true || users.phone == null)
+                    ? const SizedBox.shrink()
+                    : BioDetailsWidget(users: users),
+//! work experience
+                workExperience == null || workExperience.isEmpty
+                    ? const SizedBox.shrink()
+                    : WorkDetailsCardWidget(workExperienceModel: workExperience),
+//! education experience
+                educationExperience == null || educationExperience.isEmpty
+                    ? const SizedBox.shrink()
+                    : EdiucationDetailsCardWidget(educationModel: educationExperience),
+              ],
+            ).padSymmetric(horizontal: 20),
+    );
+  }
+
   void showDialogOnFirstTime({required AuthUserModel? users}) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       widget.tabController?.animateTo(0);
 
+      //analytics for profile visits
+      unawaited(ref
+          .read(analyticsImplProvider)
+          .profileVisit(authUserModel: widget.users ?? const AuthUserModel()));
       var docId = const Uuid().v4();
       Future.delayed(const Duration(milliseconds: 1400), () {
         showDialog(
@@ -71,78 +122,4 @@ class _ProfileScreenOthersState extends ConsumerState<ProfileScreenOthers> {
       });
     });
   }
-
-  @override
-  Widget build(BuildContext context) {
-    final users = ref.watch(fetchOthersProfileProvider(widget.uuid)).valueOrNull;
-    final workExperience = ref.watch(fetchWorkListProvider(widget.uuid)).valueOrNull;
-    final educationExperience = ref.watch(fetchEducationListProvider(widget.uuid)).valueOrNull;
-
-    // var addInfo = users?.additionalDetails;
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: context.theme.scaffoldBackgroundColor,
-        toolbarHeight: kToolbarHeight * 0.8,
-      ),
-
-      //! body
-      body: users == null
-          ? const Center(
-              child: CircularProgressIndicator.adaptive(),
-            )
-          : ListView(
-              shrinkWrap: true,
-              padding: AppEdgeInsets.eV12,
-              children: [
-                //! profile header
-                ProfileHeaderWidget(
-                  users: widget.uuid?.isEmpty == true ? widget.users : users,
-                ),
-
-//! bio details
-                (users.bio?.isEmpty == true || users.bio == null) &&
-                        (users.email?.isEmpty == true || users.email == null) &&
-                        (users.phone?.isEmpty == true || users.phone == null)
-                    ? const SizedBox.shrink()
-                    : BioDetailsWidget(users: users),
-
-                // (users.additionalDetails == null)
-                //     ? const SizedBox.shrink()
-                //     :
-                //     // ! additional details card
-                //     AdditionalDetailsCardWidget(addInfo: addInfo),
-
-                workExperience == null || workExperience.isEmpty
-                    ? const SizedBox.shrink()
-                    : WorkDetailsCardWidget(workExperienceModel: workExperience),
-
-                educationExperience == null || educationExperience.isEmpty
-                    ? const SizedBox.shrink()
-                    : EdiucationDetailsCardWidget(educationModel: educationExperience),
-              ],
-            ).padSymmetric(horizontal: 20),
-    );
-  }
 }
-
-// class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
-//   final PreferredSizeWidget _tabBar;
-
-//   _SliverAppBarDelegate(this._tabBar);
-
-//   @override
-//   double get minExtent => _tabBar.preferredSize.height * 1.5;
-
-//   @override
-//   double get maxExtent => _tabBar.preferredSize.height * 1.5;
-
-//   @override
-//   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
-//     return _tabBar;
-//   }
-
-//   @override
-//   bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
-//     return false;
-//   }
-// }

@@ -1,9 +1,13 @@
+import 'dart:async';
+
 import 'package:connect_me/app.dart';
 
 class QrCodeScanNotifier extends StateNotifier<QrCodeShareState> {
-  QrCodeScanNotifier(this.qrCodeRepositoryImpl) : super(QrCodeShareState(isLoading: false));
+  QrCodeScanNotifier(this.qrCodeRepositoryImpl, this._analyticsRepositoryImpl)
+      : super(QrCodeShareState(isLoading: false));
 
   final QrCodeRepositoryImpl qrCodeRepositoryImpl;
+  final AnalyticsRepositoryImpl _analyticsRepositoryImpl;
 
   Future scanQrCodeMethod({
     required String scannedRawUUID,
@@ -21,12 +25,19 @@ class QrCodeScanNotifier extends StateNotifier<QrCodeShareState> {
         isLoading: false,
         isCompleted: false,
       ),
-      (contactProfile) => QrCodeShareState(
-        isCompleted: true,
-        isLoading: false,
-        data: contactProfile,
-        successMessage: TextConstant.successful,
-      ),
+      (contactProfile) {
+        unawaited(
+          _analyticsRepositoryImpl.scanQrCode(
+            authUserModel: contactProfile ?? const AuthUserModel(),
+          ),
+        );
+        return QrCodeShareState(
+          isCompleted: true,
+          isLoading: false,
+          data: contactProfile,
+          successMessage: TextConstant.successful,
+        );
+      },
     );
   }
 }
@@ -34,5 +45,6 @@ class QrCodeScanNotifier extends StateNotifier<QrCodeShareState> {
 final qrCodeScanNotifierProvider =
     StateNotifierProvider.autoDispose<QrCodeScanNotifier, QrCodeShareState>((ref) {
   final qrCodeRepositoryImpl = ref.read(qrcodeRepositoryImplProvider);
-  return QrCodeScanNotifier(qrCodeRepositoryImpl);
+  final analyticsImpl = ref.read(analyticsImplProvider);
+  return QrCodeScanNotifier(qrCodeRepositoryImpl, analyticsImpl);
 });

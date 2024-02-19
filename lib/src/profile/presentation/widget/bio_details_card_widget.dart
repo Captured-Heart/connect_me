@@ -55,7 +55,7 @@ class BioDetailsWidget extends StatelessWidget {
                     keys: TextConstant.driverLicenseNo,
                     values: addInfo?.driverLicenseNo ?? '',
                   ),
-                ].columnInPadding(5),
+                ],
               ),
 
               //! phone and email row

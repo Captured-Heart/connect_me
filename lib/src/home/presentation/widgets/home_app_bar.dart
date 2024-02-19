@@ -109,11 +109,15 @@ class CircleChipButton extends StatelessWidget {
     this.onTap,
     required this.iconData,
     required this.tooltip,
+    this.padding,
+    this.iconSize,
   });
 
   final VoidCallback? onTap;
   final IconData iconData;
   final String tooltip;
+  final EdgeInsets? padding;
+  final double? iconSize;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -127,10 +131,10 @@ class CircleChipButton extends StatelessWidget {
           label: Icon(
             iconData,
             semanticLabel: tooltip,
-            size: 20,
+            size: iconSize ?? 20,
           ),
           labelPadding: AppEdgeInsets.eA2,
-          padding: AppEdgeInsets.eA2,
+          padding: padding ?? AppEdgeInsets.eA6,
           shape: const CircleBorder(),
           side: BorderSide(width: 0.5, color: context.colorScheme.onSurface),
         ),

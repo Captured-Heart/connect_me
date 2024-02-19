@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 class ShareQrCodeScreen extends ConsumerStatefulWidget {
   const ShareQrCodeScreen({
     super.key,
-    required this.authUserModel,
+     this.authUserModel,
   });
   final AuthUserModel? authUserModel;
   @override
@@ -159,9 +159,12 @@ class _ShareQrCodeScreenState extends ConsumerState<ShareQrCodeScreen> {
                           //share button
                           SocialButtons(
                             onTap: () {
-                              ref
-                                  .read(qrcodeShareNotifierProvider.notifier)
-                                  .shareQrToOtherApps(_globalKey);
+                              if (widget.authUserModel != null) {
+                                ref.read(qrcodeShareNotifierProvider.notifier).shareQrToOtherApps(
+                                      _globalKey,
+                                      authUserModel: widget.authUserModel!,
+                                    );
+                              }
                             },
                             iconData: shareIcon,
                             textColor: Colors.white,

@@ -12,7 +12,7 @@ class AdditionalInfoListTileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // ignore: unnecessary_null_comparison
-    return values.isEmpty || values == null
+    return values.isEmpty || values == null || keys.isEmpty
         ? const SizedBox.shrink()
         : Row(
             mainAxisSize: MainAxisSize.min,
@@ -31,6 +31,6 @@ class AdditionalInfoListTileWidget extends StatelessWidget {
                 ),
               ),
             ],
-          );
+          ).padOnly(bottom: 5);
   }
 }

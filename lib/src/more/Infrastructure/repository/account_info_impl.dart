@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:connect_me/app.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 
 class AccountInfoImpl extends AccountInfoRepository {
   final FirebaseFirestore firebaseFirestore;
@@ -19,11 +18,14 @@ class AccountInfoImpl extends AccountInfoRepository {
     required String imgUrl,
   }) async {
     try {
-      var imgUrlLink =
-          await addImgToStorage(filePath: imgUrl, childPath: uuid).onError((error, stackTrace) {
-        throw Left(AppException(error.toString()));
-      });
-      map.putIfAbsent(FirebaseDocsFieldEnums.imgUrl.name, () => imgUrlLink);
+      if (imgUrl.isNotEmpty) {
+        var imgUrlLink =
+            await addImgToStorage(filePath: imgUrl, childPath: uuid).onError((error, stackTrace) {
+          throw Left(AppException(error.toString()));
+        });
+        map.putIfAbsent(FirebaseDocsFieldEnums.imgUrl.name, () => imgUrlLink);
+      }
+
       map.putIfAbsent(FirebaseDocsFieldEnums.completedSignUp.name, () => true);
       var addAccount = firebaseFirestore.collection(FirebaseCollectionEnums.users.value).doc(uuid);
       return Right(addAccount.set(map, SetOptions(merge: true)));
