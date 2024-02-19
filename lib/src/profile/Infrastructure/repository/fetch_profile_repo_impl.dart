@@ -2,7 +2,7 @@
 
 import 'package:connect_me/app.dart';
 
-//TODO: ADD EITHER TO THE FUNCTIONS HERE, TO SEPERATE ERROR CONDITONS
+//TODO: USE RECORDS HERE, ADD EITHER TO THE FUNCTIONS HERE, TO SEPERATE ERROR CONDITONS,
 class FetchProfileRepoImpl implements ProfileRepository {
   final FirebaseFirestore _firebaseFirestore;
 
@@ -27,7 +27,7 @@ class FetchProfileRepoImpl implements ProfileRepository {
     // }
   }
 
-//! fetch work is just for debugging
+//! fetch work experience
   @override
   Future<List<WorkExperienceModel>> fetchWorkList({
     required String uuid,

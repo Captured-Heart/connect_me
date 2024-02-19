@@ -4,3 +4,8 @@ export './social_media_modal.dart';
 export './work_experience_modal.dart';
 export './additional_info_modal.dart';
 export './support_modal.dart';
+export './work_experience_body.dart';
+export './account_info_body.dart';
+export './additional_info_body.dart';
+export './education_body.dart';
+export './social_media_body.dart';

@@ -93,6 +93,7 @@ class MainScreen extends ConsumerWidget {
                             NavBarItems.values[index].icon,
                             fit: BoxFit.fill,
                             height: 30,
+                            // ignore: deprecated_member_use
                             color: index == currentIndex
                                 ? context.colorScheme.primary
                                 : context.colorScheme.outline,

@@ -253,7 +253,6 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> with SingleTickerProv
 
                       // SHIMMER LOADER
 
-                      //TODO: REDO THE LOADING SCREEN
                       loading: () => ShimmerWidget(
                         child: Center(
                           child: Column(
@@ -266,12 +265,15 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> with SingleTickerProv
                                 showAtsign: true,
                                 subtitle: 'Mobile/Product designer',
                               ),
-                              Container(
-                                margin: AppEdgeInsets.eA12,
-                                height: context.sizeHeight(0.3),
-                                width: context.sizeWidth(0.7),
-                                // padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 1),
-                              ).padOnly(top: 15)
+                              ShimmerWidget(
+                                child: Container(
+                                  margin: AppEdgeInsets.eA12,
+                                  height: context.sizeHeight(0.3),
+                                  width: context.sizeWidth(0.7),
+                                  color: context.colorScheme.outline,
+                                  // padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 1),
+                                ).padOnly(top: 15),
+                              )
                             ],
                           ).padOnly(top: 20),
                         ),
