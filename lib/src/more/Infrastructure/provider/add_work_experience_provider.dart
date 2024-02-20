@@ -37,11 +37,32 @@ class AddWorkExperienceNotifier extends StateNotifier<AsyncValue> {
       },
     );
   }
+
+  Future deleteWorkExperienceMethod({
+    required String docId,
+  }) async {
+    state = const AsyncValue.loading();
+//
+    var deleteInfo = await workExperienceImpl.deleteWorkExperience(
+      uuid: uuid,
+      docId: docId,
+    );
+
+    state = deleteInfo.fold(
+      (failure) {
+        return AsyncValue.error(failure, StackTrace.current);
+      },
+      (success) {
+        return const AsyncValue.data(
+          TextConstant.successful,
+        );
+      },
+    );
+  }
 }
 
 final addWorkExperienceProvider =
-    StateNotifierProvider.autoDispose<AddWorkExperienceNotifier, AsyncValue>(
-        (ref) {
+    StateNotifierProvider.autoDispose<AddWorkExperienceNotifier, AsyncValue>((ref) {
   final workExperienceImpl = ref.read(workExperienceImplProvider);
   final uuid = ref.read(currentUUIDProvider);
 

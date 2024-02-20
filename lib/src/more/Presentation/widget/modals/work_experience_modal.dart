@@ -62,30 +62,31 @@ SliverWoltModalSheetPage workExperienceListTile(
                       ),
                       title: Text(workExperienceList?[index].title?.toTitleCase() ?? ''),
                       subtitle: Text(workExperienceList?[index].companyName?.toTitleCase() ?? ''),
-                      trailing: Container(
-                        padding: AppEdgeInsets.eA4,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: modalSheetContext.colorScheme.onSurface),
-                          shape: BoxShape.circle,
+                      trailing: GestureDetector(
+                        onTap: () {},
+                        child: Container(
+                          padding: AppEdgeInsets.eA4,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: modalSheetContext.colorScheme.onSurface),
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            deleteIcon,
+                            color: modalSheetContext.colorScheme.error,
+                            size: 17,
+                          ).onTapWidget(onTap: () {
+                            ref
+                                .read(addWorkExperienceProvider.notifier)
+                                .deleteWorkExperienceMethod(
+                                    docId: workExperienceList?[index].docId ?? '')
+                                .whenComplete(
+                              () {
+                                ref.invalidate(fetchWorkListProvider(''));
+                              },
+                            );
+                            Navigator.of(modalSheetContext).pop;
+                          }).tooltipWidget(TextConstant.delete),
                         ),
-                        child: Icon(
-                          deleteIcon,
-                          color: modalSheetContext.colorScheme.error,
-                          size: 17,
-                        ).tooltipWidget(TextConstant.delete).onTapWidget(onTap: () {
-                          //Todo: add delete function for the work expeirence
-                          ref
-                              .read(addEducationInfoProvider.notifier)
-                              .deleteEducationMethod(docId: workExperienceList?[index].docId ?? '')
-                              .whenComplete(
-                            () {
-                              ref.invalidate(
-                                fetchWorkListProvider(''),
-                              );
-                            },
-                          );
-                          Navigator.of(modalSheetContext).pop;
-                        }),
                       ),
                     ).padSymmetric(vertical: 1),
                   ),
@@ -136,7 +137,9 @@ SliverWoltModalSheetPage workExperienceModal(
 
         return WorkExperienceBody(
           pageIndexNotifier: pageIndexNotifier,
-          workExpModel: isEditMode == true || workExperienceList?.isEmpty == true ? null : workExperienceList?[workIndex],
+          workExpModel: isEditMode == true || workExperienceList?.isEmpty == true
+              ? null
+              : workExperienceList?[workIndex],
         ).padAll(15);
       },
     ),

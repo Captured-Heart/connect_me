@@ -25,8 +25,21 @@ class WorkExperienceImpl implements WorkExperienceRepository {
   }
 
   @override
-  Future<Either<AppException, void>> deleteWorkExperience() {
-    throw UnimplementedError();
+  Future<Either<AppException, void>> deleteWorkExperience({
+    required String uuid,
+    required String docId,
+  }) async {
+    try {
+      var deleteWorkDetails = _firebaseFirestore
+          .collection(FirebaseCollectionEnums.users.value)
+          .doc(uuid)
+          .collection(FirebaseCollectionEnums.workExperience.value)
+          .doc(docId);
+
+      return Right(deleteWorkDetails.delete());
+    } catch (e) {
+      return Left(AppException(e.toString()));
+    }
   }
 
   @override

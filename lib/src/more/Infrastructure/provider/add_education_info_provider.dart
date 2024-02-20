@@ -50,6 +50,7 @@ class AddEducationInfoNotifier extends StateNotifier<AsyncValue> {
         return AsyncValue.error(failure, StackTrace.current);
       },
       (success) {
+       
         return const AsyncValue.data(
           TextConstant.successful,
         );
@@ -59,8 +60,7 @@ class AddEducationInfoNotifier extends StateNotifier<AsyncValue> {
 }
 
 final addEducationInfoProvider =
-    StateNotifierProvider.autoDispose<AddEducationInfoNotifier, AsyncValue>(
-        (ref) {
+    StateNotifierProvider.autoDispose<AddEducationInfoNotifier, AsyncValue>((ref) {
   final educationImpl = ref.read(educationImplProvider);
   final uuid = ref.read(currentUUIDProvider);
 

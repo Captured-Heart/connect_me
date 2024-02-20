@@ -6,6 +6,9 @@ abstract class WorkExperienceRepository {
     required String docId,
     required MapDynamicString map,
   });
-  Future<Either<AppException, void>> deleteWorkExperience();
+  Future<Either<AppException, void>> deleteWorkExperience({
+    required String uuid,
+    required String docId,
+  });
   Future<Either<AppException, void>> editWorkExperience();
 }
