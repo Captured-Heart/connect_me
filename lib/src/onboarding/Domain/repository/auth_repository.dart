@@ -11,6 +11,7 @@ abstract class AuthRepository {
   Future<void> signOut();
   Future resetPassWord({required String email});
   Future<Either<AppException, User?>> signInWithGoogle();
+  
 }
 
 typedef MapDynamicString = Map<String, dynamic>;
