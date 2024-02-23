@@ -21,7 +21,6 @@ class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
   );
 
   bool isStarted = true;
-  String userUUid = '';
   int? numberOfCameras;
 
   @override
@@ -31,7 +30,7 @@ class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
       if (next.isCompleted == true && next.data != null) {
         ref.read(addAccountInfoProvider.notifier).updateScanCount();
         Vibration.vibrate(duration: 200);
-
+        log((next.data as AuthUserModel).docId!);
         showDialog(
           context: context,
           barrierDismissible: false,
@@ -50,7 +49,7 @@ class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
                   push(
                     context,
                     ProfileScreenOthers(
-                      uuid: userUUid,
+                      uuid: (next.data as AuthUserModel).docId,
                       fromScanScreen: true,
                       users: next.data as AuthUserModel,
                       tabController: widget.tabController,
@@ -191,28 +190,7 @@ class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
                             );
                           },
                         ),
-                        // IconButton(
-                        //   color: Colors.white,
-                        //   icon: isStarted ? const Icon(Icons.stop) : const Icon(Icons.play_arrow),
-                        //   iconSize: 32.0,
-                        //   onPressed: _startOrStop,
-                        // ),
-                        // Center(
-                        //   child: SizedBox(
-                        //     width: MediaQuery.of(context).size.width - 200,
-                        //     height: 50,
-                        //     child: FittedBox(
-                        //       child: Text(
-                        //         barcode?.barcodes.first.rawValue ?? 'Scan something!',
-                        //         overflow: TextOverflow.fade,
-                        //         style: Theme.of(context)
-                        //             .textTheme
-                        //             .headlineMedium!
-                        //             .copyWith(color: Colors.white),
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
+                       
 
                         //! CAMERA SWITCH
                         IconButton(

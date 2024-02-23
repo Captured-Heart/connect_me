@@ -4,7 +4,11 @@ import 'dart:math' hide log;
 import 'package:connect_me/app.dart';
 
 class HomeScreen2 extends ConsumerStatefulWidget {
-  const HomeScreen2({super.key});
+  const HomeScreen2({
+    super.key,
+    this.initialIndex,
+  });
+  final int? initialIndex;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _HomeScreen2State();
@@ -37,7 +41,7 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> with SingleTickerProv
 
   @override
   void initState() {
-    tabController = TabController(length: 3, vsync: this);
+    tabController = TabController(length: 3, vsync: this, initialIndex: widget.initialIndex ?? 0);
     tabController.addListener(() {
       _setActiveTabIndex();
       _hideNavBar();

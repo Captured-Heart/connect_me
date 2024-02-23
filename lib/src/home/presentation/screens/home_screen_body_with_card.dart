@@ -1,4 +1,3 @@
-
 import 'package:connect_me/app.dart';
 
 class HomeScreenBodyWithQrCard extends StatelessWidget {
@@ -41,7 +40,7 @@ class HomeScreenBodyWithQrCard extends StatelessWidget {
                 authUserModel: data,
                 isStaticTheme: false,
                 isDense: false,
-              ).padSymmetric(horizontal: 5).padOnly(bottom: 0),
+              ).padSymmetric(horizontal: 5),
             ),
           ],
         ).padOnly(top: 10);
@@ -63,11 +62,16 @@ class HomeScreenBodyWithQrCard extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             children: [
               const ProfilePicWidget(),
-              const CustomListTileWidget(
-                title: 'Username',
-                showAtsign: true,
-                subtitle: 'Mobile/Product designer',
-              ),
+              SizedBox(
+                width: context.sizeWidth(0.5),
+                height: 12,
+                child: const LinearProgressIndicator(),
+              ).padSymmetric(vertical: 5),
+              SizedBox(
+                width: context.sizeWidth(0.7),
+                height: 15,
+                child: const LinearProgressIndicator(),
+              ).padSymmetric(vertical: 5),
               ShimmerWidget(
                 child: Container(
                   margin: AppEdgeInsets.eA12,
