@@ -1,4 +1,3 @@
-
 import 'package:connect_me/app.dart';
 
 class AdditionalInfoModalBody extends ConsumerStatefulWidget {
@@ -74,7 +73,20 @@ class _AdditionalInfoModalBodyState extends ConsumerState<AdditionalInfoModalBod
               //! DATE OF BIRTH
               AuthTextFieldWidget(
                 controller: dobNotifier.value,
-                labelMaterial: TextConstant.dateOfBirth,
+                labelMaterial: '${TextConstant.dateOfBirth} (*Visible to only you)',
+                labelWidget: Text.rich(
+                  TextSpan(
+                    text: TextConstant.dateOfBirth,
+                    children: [
+                      TextSpan(
+                        text: ' (Visible to only you)'.hardCodedString,
+                        style: context.textTheme.bodySmall?.copyWith(
+                          color: context.colorScheme.error,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 readOnly: true,
                 onTap: () {
                   showCupertinoDateWidget(
