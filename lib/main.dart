@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:connect_me/app.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 
 import 'package:quick_actions/quick_actions.dart';
 
@@ -15,19 +16,22 @@ void main() async {
 // firebase
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-  
   );
 
   if (kDebugMode) {
     //todo: change this to production
-    log('built in debug');
+    log('built analytics in debug');
     FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(true);
   }
-
-  runApp(
-    UncontrolledProviderScope(
-      container: container,
-      child: const MainApp(),
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]).then(
+    (_) => runApp(
+      UncontrolledProviderScope(
+        container: container,
+        child: const MainApp(),
+      ),
     ),
   );
 }
@@ -63,16 +67,6 @@ class _MainAppState extends State<MainApp> {
     QuickActions quickActions = const QuickActions();
 
     quickActions.initialize((type) {
-      // TODO: INITIALIZE THE HOME ACTION WIDGET TO NAVIGATE TO SCREEN
-      log('type is: $type');
-
-      if (type == 'action_one') {
-        push(context, const ProfileScreen());
-        push(context, const ProfileScreen());
-      } else if (type == 'action_two') {
-        // push(context, const QrCodeScreen());
-        // push(context, const QrCodeScreen());
-      }
       setState(() {
         shortcut = type;
       });
@@ -85,13 +79,12 @@ class _MainAppState extends State<MainApp> {
         .then((_) {
       setState(() {
         if (shortcut == 'action_one') {
-          pushAsVoid(context, const HomeScreen2());
+          // push(context, const HomeScreen2(initialIndex: 0));
+          push(context, const HomeScreen2(initialIndex: 1));
         } else if (shortcut == 'action_two') {
-          // pushAsVoid(context, const QrCodeScreen());
+          // push(context, const HomeScreen2(initialIndex: 1));
+          push(context, const HomeScreen2(initialIndex: 0));
         }
-        // if (shortcut == 'no actions') {
-        //   shortcut = 'actions ready';
-        // }
       });
     });
   }

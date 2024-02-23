@@ -78,7 +78,15 @@ class _WorkExperienceBodyState extends ConsumerState<WorkExperienceBody> {
   @override
   Widget build(BuildContext context) {
     final infoState = ref.watch(addWorkExperienceProvider);
-
+    ref.listen(addWorkExperienceProvider, (previous, next) {
+      if (next.value != null && next.error == null) {
+        pop(context);
+        showScaffoldSnackBarMessage(
+          TextConstant.successful,
+          duration: 4,
+        );
+      }
+    });
     return ListenableBuilder(
         listenable: Listenable.merge(
           [

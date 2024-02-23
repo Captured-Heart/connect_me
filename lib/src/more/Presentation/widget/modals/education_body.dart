@@ -62,6 +62,15 @@ class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
   @override
   Widget build(BuildContext context) {
     final infoState = ref.watch(addEducationInfoProvider);
+    ref.listen(addEducationInfoProvider, (previous, next) {
+      if (next.value != null && next.error == null) {
+        pop(context);
+        showScaffoldSnackBarMessage(
+          TextConstant.successful,
+          duration: 4,
+        );
+      }
+    });
 
     return ListenableBuilder(
         listenable: Listenable.merge(
@@ -334,7 +343,6 @@ class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
                           FirebaseDocsFieldEnums.createdAt.name,
                         ],
                       );
-
                       inspect(map);
                       if (educationFormKey.currentState!.validate()) {
                         ref

@@ -49,8 +49,7 @@ class CustomListTileWidget extends StatelessWidget {
                       : context.colorScheme.onSurface.withOpacity(0.85),
                 ),
               ),
-        isSubtitleUrl != null || isSubtitleUrl?.isNotEmpty == true
-            ? TextButtonWithBorderAndArrowIcon(
+      TextButtonWithBorderAndArrowIcon(
                 title: isSubtitleUrl ?? '',
                 onTap: () {
                   subtitle != null
@@ -58,7 +57,7 @@ class CustomListTileWidget extends StatelessWidget {
                       : null;
                 },
               )
-            : const SizedBox.shrink()
+           ,
       ].columnInPadding(2),
     );
   }
@@ -80,40 +79,42 @@ class TextButtonWithBorderAndArrowIcon extends StatelessWidget {
   final bool isDense, isArrowForward;
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        margin: const EdgeInsets.only(top: 5),
-        padding: padding ?? const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
-        decoration: BoxDecoration(
-          borderRadius: AppBorderRadius.c12,
-          border: Border.all(
-            //   bottom: BorderSide(
-            color: AppThemeColorDark.textButton,
-          ),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            AutoSizeText(
-              title,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-              textScaleFactor: isDense == true ? 0.7 : 0.95,
-              style: context.textTheme.bodySmall?.copyWith(
-                color: AppThemeColorDark.textButton,
-                // decoration: TextDecoration.underline,
+    return title.isEmpty || title == null
+        ? const SizedBox.shrink()
+        : GestureDetector(
+            onTap: onTap,
+            child: Container(
+              margin: const EdgeInsets.only(top: 5),
+              padding: padding ?? const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
+              decoration: BoxDecoration(
+                borderRadius: AppBorderRadius.c12,
+                border: Border.all(
+                  //   bottom: BorderSide(
+                  color: AppThemeColorDark.textButton,
+                ),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  AutoSizeText(
+                    title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                    textScaleFactor: isDense == true ? 0.7 : 0.95,
+                    style: context.textTheme.bodySmall?.copyWith(
+                      color: AppThemeColorDark.textButton,
+                      // decoration: TextDecoration.underline,
+                    ),
+                  ),
+                  Icon(
+                    isArrowForward == true ? Icons.arrow_forward_outlined : Icons.arrow_outward,
+                    color: AppThemeColorDark.textButton,
+                    size: isDense == true ? 10 : 14,
+                  ).padOnly(left: 3),
+                ],
               ),
             ),
-            Icon(
-              isArrowForward == true ? Icons.arrow_forward_outlined : Icons.arrow_outward,
-              color: AppThemeColorDark.textButton,
-              size: isDense == true ? 10 : 14,
-            ).padOnly(left: 3),
-          ],
-        ),
-      ),
-    );
+          );
   }
 }

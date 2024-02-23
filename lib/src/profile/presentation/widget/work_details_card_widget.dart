@@ -165,7 +165,7 @@ class EdiucationDetailsCardWidget extends StatelessWidget {
                                       onTap: () {
                                         WoltModalSheet.show(
                                           context: context,
-                                          useSafeArea: true,
+                                          useSafeArea: false,
                                           pageListBuilder: (context) {
                                             return [
                                               WoltModalSheetPage(
@@ -236,7 +236,7 @@ class EdiucationDetailsCardWidget extends StatelessWidget {
                                                       ].columnInPadding(5),
                                                     ).padOnly(top: 3),
                                                   ],
-                                                ),
+                                                ).padOnly(bottom: 10)
                                               ),
                                             ];
                                           },

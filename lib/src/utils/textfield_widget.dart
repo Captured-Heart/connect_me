@@ -30,6 +30,7 @@ class AuthTextFieldWidget extends StatelessWidget {
     this.labelMaterial,
     this.contentPadding,
     this.maxLines,
+    this.labelWidget,
   });
   final TextEditingController? controller;
 
@@ -52,6 +53,8 @@ class AuthTextFieldWidget extends StatelessWidget {
   final int? maxLines;
 
   final String? label;
+  final Widget? labelWidget;
+
   final String? labelMaterial;
   final EdgeInsets? contentPadding;
 
@@ -64,8 +67,7 @@ class AuthTextFieldWidget extends StatelessWidget {
   //         borderRadius: BorderRadius.circular(8),
   //         borderSide: BorderSide(width: 0.3, color: context.theme.textTheme.bodyMedium!.color!),
   //       );
-  InputBorder borderDesign(BuildContext context,
-      {bool isFocused = false, bool isError = false}) {
+  InputBorder borderDesign(BuildContext context, {bool isFocused = false, bool isError = false}) {
     if (noBorders == true) {
       return InputBorder.none;
     } else {
@@ -116,8 +118,7 @@ class AuthTextFieldWidget extends StatelessWidget {
             //  AppTextStyle.bodySmall,
             inputFormatters:
                 // ignore: prefer_single_quotes
-                inputFormatters ??
-                    [FilteringTextInputFormatter.deny(RegExp(r"\s\b|\b\s"))],
+                inputFormatters ?? [FilteringTextInputFormatter.deny(RegExp(r"\s\b|\b\s"))],
             decoration: InputDecoration(
               hintText: hintText,
               contentPadding: contentPadding ?? const EdgeInsets.all(12),
@@ -126,18 +127,12 @@ class AuthTextFieldWidget extends StatelessWidget {
                 color: context.colorScheme.onSurface.withOpacity(0.5),
               ),
 
-              // label: labelMaterial != null
-              //     ? AutoSizeText(
-              //         labelMaterial ?? '',
-              //         maxLines: 1,
-              //         textAlign: TextAlign.start,
-              //       )
-              //     : null,
+              label: labelWidget,
               labelStyle: context.textTheme.bodyMedium?.copyWith(
                 fontWeight: AppFontWeight.w100,
                 color: context.colorScheme.onSurface.withOpacity(0.5),
               ),
-              labelText: labelMaterial,
+              labelText: labelWidget == null ? labelMaterial : null,
               prefixIcon: prefixIcon,
               suffixIcon: suffixIcon,
               fillColor: fillColor ?? context.theme.scaffoldBackgroundColor,

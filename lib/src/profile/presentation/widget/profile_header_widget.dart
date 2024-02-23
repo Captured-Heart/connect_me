@@ -1,38 +1,38 @@
 import 'package:connect_me/app.dart';
 
-class ProfileHeaderWidget extends StatelessWidget {
-  const ProfileHeaderWidget({
-    super.key,
-    required this.users,
-  });
+// class ProfileHeaderWidget extends StatelessWidget {
+//   const ProfileHeaderWidget({
+//     super.key,
+//     required this.users,
+//   });
 
-  final AuthUserModel? users;
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ProfilePicWidget(
-                authUserModel: users,
-              ),
-              CustomListTileWidget(
-                title: users?.fullname ?? '',
-                // showAtsign: true,
-                subtitleMaxLines: 3,
-                subtitle: users?.bio,
-                isSubtitleUrl: users?.website,
-              ).padSymmetric(horizontal: 10),
-            ].columnInPadding(5),
-          ),
-        ),
-      ],
-    );
-  }
-}
+//   final AuthUserModel? users;
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       children: [
+//         Center(
+//           child: Column(
+//             crossAxisAlignment: CrossAxisAlignment.center,
+//             mainAxisSize: MainAxisSize.min,
+//             children: [
+//               ProfilePicWidget(
+//                 authUserModel: users,
+//               ),
+//               CustomListTileWidget(
+//                 title: users?.fullname ?? '',
+//                 // showAtsign: true,
+//                 subtitleMaxLines: 3,
+//                 subtitle: users?.bio,
+//                 isSubtitleUrl: users?.website,
+//               ).padSymmetric(horizontal: 10),
+//             ].columnInPadding(5),
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }
 
 class ProfileScreenHeaderWidget extends ConsumerWidget {
   const ProfileScreenHeaderWidget({
@@ -55,6 +55,7 @@ class ProfileScreenHeaderWidget extends ConsumerWidget {
             .firstWhere((elemen) => elemen.message == element.key)
             .message))
         .toList();
+
     return Center(
       child: Column(
         children: [

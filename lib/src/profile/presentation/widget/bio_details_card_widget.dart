@@ -24,8 +24,10 @@ class BioDetailsWidget extends StatelessWidget {
         Card(
           elevation: 3,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   AdditionalInfoListTileWidget(
                     keys: TextConstant.country,
@@ -69,7 +71,7 @@ class BioDetailsWidget extends StatelessWidget {
                   users?.phone?.isEmpty == true || users?.phone == null
                       ? const SizedBox.shrink()
                       : Expanded(
-                        child: IconAndTextWidget(
+                          child: IconAndTextWidget(
                             text: '${users?.phonePrefix}-${users?.phone}',
                             iconData: Icons.call_outlined,
                             color: AppThemeColorDark.textButton,
@@ -77,7 +79,7 @@ class BioDetailsWidget extends StatelessWidget {
                               UrlOptions.makePhoneCall('${users?.phonePrefix}${users?.phone}');
                             },
                           ).padOnly(bottom: 10),
-                      ),
+                        ),
                   users?.email?.isEmpty == true || users?.email == null
                       ? const SizedBox.shrink()
                       : Expanded(

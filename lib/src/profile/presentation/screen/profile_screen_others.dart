@@ -50,7 +50,7 @@ class _ProfileScreenOthersState extends ConsumerState<ProfileScreenOthers> {
               padding: AppEdgeInsets.eV12,
               children: [
                 //! profile header
-                ProfileHeaderWidget(
+                ProfileScreenHeaderWidget(
                   users: widget.uuid?.isEmpty == true ? widget.users : users,
                 ),
 

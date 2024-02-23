@@ -29,20 +29,23 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
       body: Stack(
         children: [
           Positioned(
-            bottom: context.sizeHeight(0.3),
+            bottom: context.sizeHeight(0.43),
             right: context.sizeWidth(0.0001),
             left: context.sizeWidth(0.0001),
             child: FadeInRightBig(
-                child: Hero(
-              tag: 'logo',
-              child: Image.asset(
-                ImagesConstant.appLogoBrown,
-                fit: BoxFit.contain,
+              child: Hero(
+                tag: 'logo',
+                child: Image.asset(
+                  ImagesConstant.appLogoBrown,
+                  fit: BoxFit.contain,
+                  height: 200,
+                  width: 200,
+                ),
               ),
-            )),
+            ),
           ),
           Positioned(
-            bottom: context.sizeHeight(0.33),
+            bottom: context.sizeHeight(0.4),
             left: context.sizeWidth(0.2),
             child: FadeInLeft(
               child: Text(
