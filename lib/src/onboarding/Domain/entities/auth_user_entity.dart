@@ -23,6 +23,7 @@ class AuthUserModel extends Equatable {
   final AdditionalDetailsModel? additionalDetails;
   final String? connectTo;
   final int? scanCount;
+  final int? qrVersion;
   final bool? completedSignUp;
 
   // final String? placeOfBirth;
@@ -37,33 +38,35 @@ class AuthUserModel extends Equatable {
       additionalDetails == null || additionalDetails?.country?.isEmpty == true;
   bool get isSocialMediaEmpty => socialMediaHandles == null || socialMediaHandles?.isEmpty == true;
 
-  const AuthUserModel(
-      {this.username,
-      this.email,
-      this.website,
-      this.phone,
-      this.docId,
-      this.imgUrl,
-      this.isGoogleSigned,
-      this.date,
-      this.connects,
-      this.posts,
-      this.socialMediaHandles,
-      this.bio,
-      this.fname,
-      this.lname,
-      this.phonePrefix,
-      this.connectTo,
-      this.scanCount,
-      // this.placeOfBirth,
-      // this.country,
-      // this.state,
-      // this.city,
-      // this.street,
-      // this.driverLicenseNo,
-      // this.postalCode,
-      this.additionalDetails,
-      this.completedSignUp});
+  const AuthUserModel({
+    this.username,
+    this.email,
+    this.website,
+    this.phone,
+    this.docId,
+    this.imgUrl,
+    this.isGoogleSigned,
+    this.date,
+    this.connects,
+    this.posts,
+    this.socialMediaHandles,
+    this.bio,
+    this.fname,
+    this.lname,
+    this.phonePrefix,
+    this.connectTo,
+    this.scanCount,
+    this.qrVersion,
+    // this.placeOfBirth,
+    // this.country,
+    // this.state,
+    // this.city,
+    // this.street,
+    // this.driverLicenseNo,
+    // this.postalCode,
+    this.additionalDetails,
+    this.completedSignUp,
+  });
 
   factory AuthUserModel.fromJson(Map<String, dynamic> json) => AuthUserModel(
         username: json['username'] as String?,
@@ -83,7 +86,7 @@ class AuthUserModel extends Equatable {
         socialMediaHandles: json['socialMediaHandles'] as Map<String, dynamic>?,
         connectTo: json['connectTo'] as String?,
         scanCount: json['scanCount'] as int?,
-
+        qrVersion: json['qrVersion'] as int?,
         // placeOfBirth: json['placeOfBirth'] as String?,
         // country: json['country'] as String?,
         // state: json['state'] as String?,
@@ -115,6 +118,7 @@ class AuthUserModel extends Equatable {
         'phonePrefix': phonePrefix,
         'connectTo': connectTo,
         'scanCount': scanCount,
+        'qrVersion': qrVersion,
         // 'placeOfBirth': placeOfBirth,
         // 'country': country,
         // 'state': state,
@@ -142,6 +146,7 @@ class AuthUserModel extends Equatable {
     List<dynamic>? posts,
     List<dynamic>? connects,
     Map<String, dynamic>? socialMediaHandles,
+    int? qrVersion,
     // String? placeOfBirth,
     // String? country,
     // String? state,
@@ -170,6 +175,7 @@ class AuthUserModel extends Equatable {
       lname: lname ?? this.lname,
       website: website ?? this.website,
       phonePrefix: phonePrefix ?? this.phonePrefix,
+      qrVersion: qrVersion ?? this.qrVersion,
       // placeOfBirth: placeOfBirth ?? this.placeOfBirth,
       // country: country ?? this.country,
       // state: state ?? this.state,
@@ -211,6 +217,7 @@ class AuthUserModel extends Equatable {
         additionalDetails,
         connectTo,
         scanCount,
+        qrVersion,
         completedSignUp,
       ];
 }
