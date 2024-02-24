@@ -1,5 +1,5 @@
 import 'package:connect_me/app.dart';
-import 'package:connect_me/config/theme/theme_mode.dart';
+// import 'package:connect_me/config/theme/theme_mode.dart';
 
 final educationIndexNotifier = StateProvider<int>((ref) {
   return 0;

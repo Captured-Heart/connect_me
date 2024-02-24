@@ -27,7 +27,7 @@ dependencies:
   flutter_datetime_picker_plus: ^2.1.0
   flutter_riverpod: ^2.4.5
   flutter_svg: ^2.0.9
-  google_fonts: ^6.1.0
+  # google_fonts: ^6.1.0
   google_sign_in: ^6.1.6
   icons_plus: ^4.0.0
   image_picker: ^1.0.5
@@ -57,3 +57,16 @@ flutter:
   assets:
     - assets/images/
     - assets/Icon_SVG_Unselected/
+  fonts:
+    #kenia
+    - family: Kenia
+      fonts:
+        - asset: font/Kenia/Kenia-Regular.ttf
+        #Solway
+    - family: Solway
+      fonts:
+        - asset: font/Solway/Solway-Bold.ttf
+        - asset: font/Solway/Solway-ExtraBold.ttf
+        - asset: font/Solway/Solway-Light.ttf
+        - asset: font/Solway/Solway-Medium.ttf
+        - asset: font/Solway/Solway-Regular.ttf

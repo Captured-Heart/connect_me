@@ -48,13 +48,15 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
             bottom: context.sizeHeight(0.4),
             left: context.sizeWidth(0.2),
             child: FadeInLeft(
-              child: Text(
+              child: const AutoSizeText(
                 'Connect Me',
-                style: GoogleFonts.kenia(
+                style: TextStyle(
+                  fontFamily: 'Kenia',
                   fontWeight: AppFontWeight.w600,
                   fontSize: 25,
                 ),
                 textScaleFactor: 2.3,
+                maxLines: 1,
               ),
             ),
           )

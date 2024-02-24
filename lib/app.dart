@@ -10,7 +10,7 @@ export 'package:flip_card/flip_card.dart';
 export 'package:flip_card/flip_card_controller.dart';
 export 'package:shared_preferences/shared_preferences.dart';
 export 'package:icons_plus/icons_plus.dart';
-export 'package:google_fonts/google_fonts.dart';
+// export 'package:google_fonts/google_fonts.dart';
 export 'package:qr_flutter/qr_flutter.dart';
 export 'package:animate_do/animate_do.dart';
 export 'package:dartz/dartz.dart' hide State, Order, Task;

@@ -1,39 +1,49 @@
 import 'package:connect_me/app.dart';
 
+String solwayFamily = 'Solway';
+
 class AppTextStyle {
   AppTextStyle._();
 
-  static TextStyle headlineLarge = GoogleFonts.solway(
+  static TextStyle headlineLarge = TextStyle(
+    fontFamily: solwayFamily,
     fontWeight: AppFontWeight.w700,
     fontSize: 25,
   );
 
-  static TextStyle headlineMedium = GoogleFonts.solway(
+  static TextStyle headlineMedium = TextStyle(
+    fontFamily: solwayFamily,
     fontWeight: AppFontWeight.w600,
     fontSize: 20,
   );
 
-  static TextStyle listTileTitle = GoogleFonts.solway(
+  static TextStyle listTileTitle = TextStyle(
+    fontFamily: solwayFamily,
     fontWeight: AppFontWeight.w600,
     fontSize: 15,
   );
-  static TextStyle listTileSubTitle = GoogleFonts.solway(
+  static TextStyle listTileSubTitle = TextStyle(
+    fontFamily: solwayFamily,
     fontWeight: AppFontWeight.w400,
     fontSize: 12,
   );
-  static TextStyle bodySmall = GoogleFonts.solway(
+  static TextStyle bodySmall = TextStyle(
+    fontFamily: solwayFamily,
     fontWeight: AppFontWeight.w600,
     fontSize: 13,
   );
-  static TextStyle bodyMedium = GoogleFonts.solway(
+  static TextStyle bodyMedium = TextStyle(
+    fontFamily: solwayFamily,
     fontWeight: AppFontWeight.w500,
     fontSize: 15,
   );
-  static TextStyle bodyLarge = GoogleFonts.solway(
+  static TextStyle bodyLarge = TextStyle(
+    fontFamily: solwayFamily,
     fontWeight: AppFontWeight.w600,
     fontSize: 16,
   );
-  static TextStyle errorTextstyle = GoogleFonts.solway(
+  static TextStyle errorTextstyle = TextStyle(
+    fontFamily: solwayFamily,
     fontWeight: FontWeight.w400,
     fontSize: 10,
   );
