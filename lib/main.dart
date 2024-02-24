@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:connect_me/app.dart';
+import 'package:connect_me/config/theme/theme_mode.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
@@ -12,6 +13,7 @@ void main() async {
   final container = ProviderContainer(
     observers: <ProviderObserver>[AppProviderObserver()],
   );
+  container.read(themeProvider.notifier).loadCurrentThemeMode();
   SharedPreferencesHelper.initSharedPref();
 // firebase
   await Firebase.initializeApp(
@@ -92,6 +94,8 @@ class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, _) {
+      final themeMode = ref.watch(themeProvider);
+
       // final user = ref.watch(authStateChangesProvider);
       final analytics = ref.watch(analyticsProvider);
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -102,6 +106,7 @@ class _MainAppState extends State<MainApp> {
           onGenerateTitle: (context) => TextConstant.appTitle,
           debugShowCheckedModeBanner: false,
           scaffoldMessengerKey: rootScaffoldMessengerKey,
+          themeMode: themeMode,
           theme: themeBuilder(
             defaultTheme: ThemeData.light(),
           ),

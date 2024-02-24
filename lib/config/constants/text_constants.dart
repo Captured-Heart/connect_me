@@ -95,6 +95,8 @@ abstract class TextConstant {
   static const telegram = 'Telegram';
   static const message = 'Message';
   static const support = 'Support';
+  static const theme = 'Theme';
+
   static const social = 'Social';
   static const bioHint = '''
 Ex: I am an experienced tailor and social worker.

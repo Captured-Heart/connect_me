@@ -3,4 +3,5 @@ enum SharedPrefKeys {
   loggedIn,
   dialogCheck,
   launchMode,
+  themeMode,
 }

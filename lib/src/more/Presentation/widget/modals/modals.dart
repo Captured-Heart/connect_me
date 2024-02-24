@@ -9,3 +9,4 @@ export './account_info_body.dart';
 export './additional_info_body.dart';
 export './education_body.dart';
 export './social_media_body.dart';
+export './themes_modal.dart';

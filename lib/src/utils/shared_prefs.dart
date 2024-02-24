@@ -21,8 +21,8 @@ class SharedPreferencesHelper {
     debugPrint({'setStringkey': key, 'setStringValue': value}.toString());
   }
 
-  static String getStringPref(String key) {
-    final getStringPref = prefs?.getString(key) ?? '';
+  static String? getStringPref(String key) {
+    final getStringPref = prefs?.getString(key);
     debugPrint(
       {'getStringKey': key, 'getStringValue': getStringPref}.toString(),
     );

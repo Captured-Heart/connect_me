@@ -1,4 +1,3 @@
-
 import 'package:connect_me/app.dart';
 
 class CustomQrCodeImageWidget extends StatelessWidget {
@@ -15,7 +14,6 @@ class CustomQrCodeImageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log('qrVersion: ${authUserModel?.qrVersion }');
     return Container(
       margin: isDense == true
           ? const EdgeInsets.only(top: 15, right: 10, left: 10, bottom: 3)

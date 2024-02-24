@@ -1,4 +1,5 @@
 import 'package:connect_me/app.dart';
+import 'package:connect_me/config/theme/theme_mode.dart';
 
 final educationIndexNotifier = StateProvider<int>((ref) {
   return 0;
@@ -435,6 +436,24 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                             ImagesConstant.appLogoBrown,
                             height: 50,
                           ),
+                        );
+                      },
+                    ),
+                    MoreCustomListTileWidget(
+                      icon: Icons.sunny,
+                      title: TextConstant.theme,
+                      onTap: () {
+                        // ref.read(themeProvider(context).notifier).setThemeMode(ThemeMode.dark);
+                        WoltModalSheet.show(
+                          context: context,
+                          pageListBuilder: (context) {
+                            return [
+                              themesModal(
+                                modalSheetContext: context,
+                                appDataModel: appdata.valueOrNull,
+                              ),
+                            ];
+                          },
                         );
                       },
                     ),
