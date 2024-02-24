@@ -29,30 +29,25 @@ class ProfilePicWidget extends StatelessWidget {
               ? null
               : BoxDecoration(
                   gradient: orangeGradient(isLongBTN: true, context: context),
-                  borderRadius: height != null
-                      ? AppBorderRadius.c16
-                      : AppBorderRadius.c32,
+                  borderRadius: height != null ? AppBorderRadius.c16 : AppBorderRadius.c32,
                   // border: Border.all(color: Colors.red)
                 ),
           child: SizedBox(
             height: height ?? 90,
             width: width ?? 90,
             // width: double.minPositive,
-            child: authUserModel?.imgUrl == null ||
-                    authUserModel?.imgUrl?.isEmpty == true
+            child: authUserModel?.imgUrl == null || authUserModel?.imgUrl?.isEmpty == true
                 ? Card(
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: AppBorderRadius.c32),
-                    child: Text(
-                      //TODO: ADD AVATAR TO THE IMG SECTION
-
-                      authUserModel?.username?.isNotEmpty == true
-                          ? authUserModel?.username
-                                  ?.substring(0, 1)
-                                  .toString() ??
-                              '?'
-                          : '',
-                      // style: AppTextStyle.bodyLarge.copyWith(color: Colors.black),
+                    shape: const RoundedRectangleBorder(borderRadius: AppBorderRadius.c32),
+                    margin: AppEdgeInsets.eA05,
+                    child: Center(
+                      child: AutoSizeText(
+                        authUserModel?.username?.isNotEmpty == true
+                            ? authUserModel?.username?.substring(0, 1).toString() ?? '?'
+                            : '',
+                        style: context.textTheme.displayMedium,
+                        maxLines: 1,
+                      ),
                     ),
                   )
                 : Card(
@@ -60,18 +55,14 @@ class ProfilePicWidget extends StatelessWidget {
                     color: isStaticTheme == true ? Colors.white : null,
                     margin: EdgeInsets.zero,
                     shape: RoundedRectangleBorder(
-                      borderRadius: height != null
-                          ? AppBorderRadius.c16
-                          : AppBorderRadius.c32,
+                      borderRadius: height != null ? AppBorderRadius.c16 : AppBorderRadius.c32,
                     ),
                     child: CircleCacheNetworkImage(
                       imgUrl: authUserModel?.imgUrl ?? '',
                       height: 100,
                       width: context.sizeWidth(0.2),
                       isNotCircle: true,
-                      borderRadius: height != null
-                          ? AppBorderRadius.c16
-                          : AppBorderRadius.c28,
+                      borderRadius: height != null ? AppBorderRadius.c16 : AppBorderRadius.c28,
                     ).padAll(height != null ? 3 : 6),
                   ),
           ),

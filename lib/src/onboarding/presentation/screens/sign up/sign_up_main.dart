@@ -1,10 +1,15 @@
 import 'package:connect_me/app.dart';
 
-class SignUpMainScreen extends ConsumerWidget {
+class SignUpMainScreen extends ConsumerStatefulWidget {
   const SignUpMainScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<SignUpMainScreen> createState() => _SignUpMainScreenState();
+}
+
+class _SignUpMainScreenState extends ConsumerState<SignUpMainScreen> {
+  @override
+  Widget build(BuildContext context) {
     final authUserData = ref.watch(fetchProfileProvider).valueOrNull;
     final education = ref.watch(fetchEducationListProvider('')).valueOrNull;
     final workExperience = ref.watch(fetchWorkListProvider('')).valueOrNull;
@@ -55,7 +60,10 @@ class SignUpMainScreen extends ConsumerWidget {
                                 );
                               }
                             : () {
-                                pushAsVoid(context, const AccountInformationSignUpScreen());
+                                push(
+                                  context,
+                                  const AccountInformationSignUpScreen(),
+                                );
                               },
                       ),
                     ),
@@ -94,7 +102,7 @@ class SignUpMainScreen extends ConsumerWidget {
                               ),
                         onTap: workExperience?.isEmpty == true || workExperience == null
                             ? () {
-                                pushAsVoid(
+                                push(
                                   context,
                                   const WorkExperienceSignUpScreen(),
                                 );

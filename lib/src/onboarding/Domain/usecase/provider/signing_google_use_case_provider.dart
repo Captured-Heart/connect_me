@@ -7,10 +7,10 @@ class SignInGoogleNotifier extends StateNotifier<AuthUseCaseState> {
   final AuthUseCase authUseCase;
   final AnalyticsRepositoryImpl _analyticsImpl;
   // LOGIN IN USER WITH GOOGLE
-  Future signinWithGoogle() async {
+  Future signinWithGoogle({required bool isSignUp}) async {
     state = AuthUseCaseState(isLoading: true);
 
-    var user = await authUseCase.loginWithGoogle();
+    var user = await authUseCase.loginWithGoogle(isSignUp: isSignUp);
     state = AuthUseCaseState(isLoading: false);
 
     state = user.fold(

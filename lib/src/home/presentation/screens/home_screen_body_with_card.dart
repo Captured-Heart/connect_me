@@ -48,7 +48,7 @@ class HomeScreenBodyWithQrCard extends StatelessWidget {
       error: (error, _) {
         return Center(
           child: Text(
-            error.toString(),
+            (error as AppException).message,
           ),
         );
       },

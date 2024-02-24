@@ -31,15 +31,12 @@ class CustomTabBar extends StatelessWidget implements PreferredSizeWidget {
         indicatorSize: TabBarIndicatorSize.label,
 
         indicator: UnderlineTabIndicator(
-          borderSide:
-              BorderSide(color: context.colorScheme.onBackground, width: 2),
+          borderSide: BorderSide(color: context.colorScheme.onBackground, width: 2),
         ),
         splashBorderRadius: BorderRadius.circular(40),
         splashFactory: NoSplash.splashFactory,
         overlayColor: MaterialStateProperty.resolveWith<Color?>(
-          (states) => states.contains(MaterialState.selected)
-              ? null
-              : Colors.transparent,
+          (states) => states.contains(MaterialState.selected) ? null : Colors.transparent,
         ),
         // onTap: (value) {
         //   log(value.toString());
@@ -65,16 +62,8 @@ class CustomTabBar2 extends StatelessWidget implements PreferredSizeWidget {
       elevation: 2,
       // margin: EdgeInsets.only(top: 14),
       margin: EdgeInsets.zero,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-      // padding: const EdgeInsets.only(bottom: 5, top: 5, left: 10),
-      // padding: EdgeInsets.zero,
-      // decoration: BoxDecoration(
-      //   color: context.colorScheme.surface,
-      //   // border: Border(
-      //   //   top: BorderSide(width: 0.15, color: context.colorScheme.onSurface),
-      //   //   bottom: BorderSide(width: 0.1, color: context.colorScheme.onSurface),
-      //   // ),
-      // ),
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+
       child: TabBar(
         isScrollable: false,
         labelStyle: context.textTheme.labelLarge?.copyWith(
@@ -83,8 +72,8 @@ class CustomTabBar2 extends StatelessWidget implements PreferredSizeWidget {
           color: context.colorScheme.onBackground,
         ),
         labelPadding: AppEdgeInsets.eA12,
-        unselectedLabelStyle: context.textTheme.labelLarge
-            ?.copyWith(color: context.colorScheme.onSurface),
+        unselectedLabelStyle:
+            context.textTheme.labelLarge?.copyWith(color: context.colorScheme.onSurface),
 
         labelColor: context.colorScheme.onBackground,
         dividerColor: Colors.transparent,
@@ -103,9 +92,7 @@ class CustomTabBar2 extends StatelessWidget implements PreferredSizeWidget {
         splashBorderRadius: BorderRadius.circular(40),
         splashFactory: NoSplash.splashFactory,
         overlayColor: MaterialStateProperty.resolveWith<Color?>(
-          (states) => states.contains(MaterialState.selected)
-              ? null
-              : Colors.transparent,
+          (states) => states.contains(MaterialState.selected) ? null : Colors.transparent,
         ),
 
         tabs: tabs,
@@ -133,7 +120,6 @@ class CustomTabBar3 extends StatelessWidget implements PreferredSizeWidget {
       isScrollable: false,
       onTap: onTap,
       enableFeedback: true,
-
       controller: tabController,
       labelStyle: context.textTheme.labelLarge?.copyWith(
         fontWeight: AppFontWeight.w500,
@@ -144,28 +130,12 @@ class CustomTabBar3 extends StatelessWidget implements PreferredSizeWidget {
       unselectedLabelStyle: context.textTheme.labelLarge?.copyWith(
         color: context.colorScheme.onSurface.withOpacity(0.3),
       ),
-
-      // labelColor: context.colorScheme.onBackground,
-      // dividerColor: Colors.transparent,
-      // indicatorWeight: 2,
-      // automaticIndicatorColorAdjustment: true,
       indicatorSize: TabBarIndicatorSize.tab,
-      // indicator: BoxDecoration(
-      //   color: context.colorScheme.primaryContainer,
-      //   // borderRadius: AppBorderRadius.c12
-      // ),
-
-      // UnderlineTabIndicator(
-      //   borderSide:
-      //       BorderSide(color: context.colorScheme.onBackground, width: 2),
-      // ),
       splashBorderRadius: BorderRadius.circular(40),
       splashFactory: NoSplash.splashFactory,
       overlayColor: MaterialStateProperty.resolveWith<Color?>(
-        (states) =>
-            states.contains(MaterialState.selected) ? null : Colors.transparent,
+        (states) => states.contains(MaterialState.selected) ? null : Colors.transparent,
       ),
-
       tabs: tabs,
     );
   }

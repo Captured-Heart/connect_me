@@ -79,9 +79,7 @@ class _SignUpCardWidgetState extends ConsumerState<SignUpCardWidget> {
             var passwordFocus = controller.passwordFocusMode.hasFocus;
             var emailFocus = controller.emailFocusMode.hasFocus;
             var usernameFocus = controller.userNameFocusMode.hasFocus;
-            if (passwordFocus == true ||
-                emailFocus == true ||
-                usernameFocus == true) {
+            if (passwordFocus == true || emailFocus == true || usernameFocus == true) {
               if (emailNotifier.value.isNotEmpty &&
                   userNameNotifier.value.isNotEmpty &&
                   passwordNotifier.value.isNotEmpty) {
@@ -210,8 +208,8 @@ class _SignUpCardWidgetState extends ConsumerState<SignUpCardWidget> {
                               child: Text(
                                 AuthErrors.allFieldsAreRequired.errorMessage,
                                 textAlign: TextAlign.start,
-                                style: AppTextStyle.errorTextstyle.copyWith(
-                                    color: AppThemeColorDark.textError),
+                                style: AppTextStyle.errorTextstyle
+                                    .copyWith(color: AppThemeColorDark.textError),
                               ).padAll(5),
                             ),
                           ],
@@ -225,17 +223,10 @@ class _SignUpCardWidgetState extends ConsumerState<SignUpCardWidget> {
                               onPressed: () {
                                 if (isFormValidated() == true) {
                                   log('is validated');
-                                  ref
-                                      .read(signUpNotifierProvider.notifier)
-                                      .createAccount(
-                                        email: controller.emailController.text
-                                            .trim(),
-                                        password: controller
-                                            .passWordController.text
-                                            .trim(),
-                                        username: controller
-                                            .usernameController.text
-                                            .trim(),
+                                  ref.read(signUpNotifierProvider.notifier).createAccount(
+                                        email: controller.emailController.text.trim(),
+                                        password: controller.passWordController.text.trim(),
+                                        username: controller.usernameController.text.trim(),
                                       );
                                 } else {
                                   log('is not validated');
@@ -258,7 +249,7 @@ class _SignUpCardWidgetState extends ConsumerState<SignUpCardWidget> {
                             // if (Platform.isAndroid) {
                             ref
                                 .read(signInGoogleNotifierProvider.notifier)
-                                .signinWithGoogle();
+                                .signinWithGoogle(isSignUp: true);
                             // } else {}
                           },
                         ),

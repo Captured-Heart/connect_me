@@ -48,7 +48,7 @@ class WorkDetailsCardWidget extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             AutoSizeText(
-                              workExperience?.title ?? '',
+                              workExperience?.title?.toTitleCase() ?? '',
                               style: context.textTheme.bodyLarge,
                               textScaleFactor: 0.9,
                               maxLines: 1,
@@ -134,7 +134,7 @@ class EdiucationDetailsCardWidget extends StatelessWidget {
                                 children: [
                                   //school
                                   AutoSizeText(
-                                    education?.school ?? '',
+                                    education?.school?.toTitleCase() ?? '',
                                     style: context.textTheme.bodyLarge,
                                     textScaleFactor: 0.9,
                                     maxLines: 1,

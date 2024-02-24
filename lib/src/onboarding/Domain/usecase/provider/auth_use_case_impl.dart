@@ -41,9 +41,10 @@ class AuthUseCaseImpl implements AuthUseCase {
   }
 
   @override
-  Future<Either<AppException, User?>> loginWithGoogle() async {
+  Future<Either<AppException, User?>> loginWithGoogle({required bool isSignUp}) async {
     try {
-      return await _authRepository.signInWithGoogle();
+      
+      return await _authRepository.signInWithGoogle(isSignUp: isSignUp);
     } on AppException catch (e) {
       return Left(AppException(e.message));
       // Error.throwWithStackTrace(e, stackTrace);

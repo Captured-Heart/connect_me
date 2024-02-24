@@ -15,11 +15,21 @@ class CheckAuthStateScreen extends ConsumerWidget {
           duration: 5,
         );
       } else {
-        showScaffoldSnackBarMessage(
-          'signed in successfully as ${next.value?.email}',
-          isError: false,
-          duration: 4,
-        );
+        final authUserData = ref.watch(fetchProfileProvider);
+
+        if (authUserData.valueOrNull?.completedSignUp == false) {
+          showScaffoldSnackBarMessage(
+            'Complete your registration'.hardCodedString,
+            isError: true,
+            duration: 10,
+          );
+        } else if (authUserData.valueOrNull?.completedSignUp == true) {
+          showScaffoldSnackBarMessage(
+            'signed in successfully as ${next.value?.email}',
+            isError: false,
+            duration: 3,
+          );
+        }
       }
     });
 

@@ -38,14 +38,6 @@ class SignInCardWidget extends ConsumerWidget {
         );
       }
     });
-
-    ref.listen(authStateChangesProvider, (previous, next) {
-      if (next.valueOrNull != null) {
-        controller.disposeControllers();
-        pushReplacement(context, const CheckAuthStateScreen());
-      }
-    });
-
 // SIGN IN GOOGLE
     ref.listen(signInGoogleNotifierProvider, (previous, next) {
       if (next.errorMessage != null) {
@@ -56,6 +48,13 @@ class SignInCardWidget extends ConsumerWidget {
         );
       }
     });
+    ref.listen(authStateChangesProvider, (previous, next) {
+      if (next.valueOrNull != null) {
+        controller.disposeControllers();
+        pushReplacement(context, const CheckAuthStateScreen());
+      }
+    });
+
     return ListenableBuilder(
         listenable: Listenable.merge([
           emailNotifier,
@@ -121,7 +120,9 @@ class SignInCardWidget extends ConsumerWidget {
                     onTap: () {
                       // if (Platform.isAndroid) {
 
-                      ref.read(signInGoogleNotifierProvider.notifier).signinWithGoogle();
+                      ref
+                          .read(signInGoogleNotifierProvider.notifier)
+                          .signinWithGoogle(isSignUp: false);
                       // } else {}
                     },
                   ),

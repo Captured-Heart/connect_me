@@ -4,12 +4,10 @@ class WorkExperienceSignUpScreen extends ConsumerStatefulWidget {
   const WorkExperienceSignUpScreen({super.key});
 
   @override
-  ConsumerState<WorkExperienceSignUpScreen> createState() =>
-      _WorkExperienceSignUpScreenState();
+  ConsumerState<WorkExperienceSignUpScreen> createState() => _WorkExperienceSignUpScreenState();
 }
 
-class _WorkExperienceSignUpScreenState
-    extends ConsumerState<WorkExperienceSignUpScreen> {
+class _WorkExperienceSignUpScreenState extends ConsumerState<WorkExperienceSignUpScreen> {
   final GlobalKey<FormState> workExperienceFormKey = GlobalKey<FormState>();
 
   final List<String> employmentType = [
@@ -43,10 +41,28 @@ class _WorkExperienceSignUpScreenState
       ValueNotifier<TextEditingController>(TextEditingController());
   final ValueNotifier<TextEditingController> endYearNotifier =
       ValueNotifier<TextEditingController>(TextEditingController());
+
+  String? Function(String?)? validator() {
+    return (value) {
+      if (value == null || value.isEmpty) {
+        return TextConstant.required;
+      } else {
+        return null;
+      }
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
     final infoState = ref.watch(addWorkExperienceProvider);
-
+    ref.listen(addWorkExperienceProvider, (previous, next) {
+      if (next.valueOrNull == TextConstant.successful) {
+        final refresh = ref.refresh(fetchWorkListProvider(''));
+        if (refresh.hasValue) {
+          pushReplacement(context, const SignUpMainScreen());
+        }
+      }
+    });
     return Scaffold(
       appBar: AppBar(
         title: const Text(TextConstant.workExperience),
@@ -86,13 +102,7 @@ class _WorkExperienceSignUpScreenState
                         onChanged: (value) {
                           titleNotifier.value = value;
                         },
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return TextConstant.required;
-                          } else {
-                            return null;
-                          }
-                        },
+                        validator: validator(),
                       ),
 
                       //! employment name
@@ -100,7 +110,7 @@ class _WorkExperienceSignUpScreenState
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           AutoSizeText(
-                            TextConstant.employmentType,
+                            '${TextConstant.employmentType}*',
                             style: context.textTheme.bodyMedium,
                             textScaleFactor: 0.9,
                           ),
@@ -109,6 +119,7 @@ class _WorkExperienceSignUpScreenState
                             onChanged: (p0) {
                               employmentTypeNotifier.value = p0;
                             },
+                            validator: validator(),
                           ),
                         ].columnInPadding(8),
                       ),
@@ -117,12 +128,14 @@ class _WorkExperienceSignUpScreenState
                       AuthTextFieldWidget(
                         // controller: controller.companyNameController,
                         initialValue: companyNameNotifier.value,
+                        label: '${TextConstant.companyName}*',
+
                         hintText: TextConstant.exGoogle,
-                        label: TextConstant.companyName,
                         inputFormatters: const [],
                         onChanged: (value) {
                           companyNameNotifier.value = value;
                         },
+                        validator: validator(),
                       ),
 
                       //! location
@@ -130,11 +143,13 @@ class _WorkExperienceSignUpScreenState
                         // controller: controller.locationController,
                         initialValue: locationNotifier.value,
                         hintText: TextConstant.exKadunaNigeria,
-                        label: TextConstant.location,
+                        label: '${TextConstant.location}*',
+
                         inputFormatters: const [],
                         onChanged: (value) {
                           locationNotifier.value = value;
                         },
+                        validator: validator(),
                       ),
 
                       Column(
@@ -177,27 +192,27 @@ class _WorkExperienceSignUpScreenState
                         children: [
                           //start date
                           const AutoSizeText(
-                            TextConstant.startDate,
+                            '${TextConstant.startDate}*',
                             maxLines: 1,
                             textScaleFactor: 0.9,
                           ),
 
                           Row(
                             mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Expanded(
                                 child: AuthTextFieldWidget(
                                   controller: monthNotifier.value,
                                   hintText: TextConstant.month,
                                   readOnly: true,
+                                  validator: validator(),
                                   onTap: () {
                                     showCupertinoDateWidget(
                                       context: context,
                                       onConfirm: (date) {
-                                        monthNotifier.value.text =
-                                            dateFormattedToMonth(date);
-                                        yearNotifier.value.text =
-                                            dateFormattedToYear(date);
+                                        monthNotifier.value.text = dateFormattedToMonth(date);
+                                        yearNotifier.value.text = dateFormattedToYear(date);
                                       },
                                     );
                                   },
@@ -210,14 +225,13 @@ class _WorkExperienceSignUpScreenState
                                 child: AuthTextFieldWidget(
                                   controller: yearNotifier.value,
                                   hintText: TextConstant.year,
+                                  validator: validator(),
                                   onTap: () {
                                     showCupertinoDateWidget(
                                       context: context,
                                       onConfirm: (date) {
-                                        monthNotifier.value.text =
-                                            dateFormattedToMonth(date);
-                                        yearNotifier.value.text =
-                                            dateFormattedToYear(date);
+                                        monthNotifier.value.text = dateFormattedToMonth(date);
+                                        yearNotifier.value.text = dateFormattedToYear(date);
                                       },
                                     );
                                   },
@@ -296,20 +310,15 @@ class _WorkExperienceSignUpScreenState
                             onPressed: () {
                               var docId = const Uuid().v4();
                               Map<String, dynamic> startdate = {
-                                FirebaseDocsFieldEnums.month.name:
-                                    monthNotifier.value.text,
-                                FirebaseDocsFieldEnums.year.name:
-                                    yearNotifier.value.text,
+                                FirebaseDocsFieldEnums.month.name: monthNotifier.value.text,
+                                FirebaseDocsFieldEnums.year.name: yearNotifier.value.text,
                               };
                               Map<String, dynamic> endDate = {
-                                FirebaseDocsFieldEnums.endMonth.name:
-                                    endMonthNotifier.value.text,
-                                FirebaseDocsFieldEnums.endYear.name:
-                                    endYearNotifier.value.text,
+                                FirebaseDocsFieldEnums.endMonth.name: endMonthNotifier.value.text,
+                                FirebaseDocsFieldEnums.endYear.name: endYearNotifier.value.text,
                               };
 
-                              MapDynamicString map =
-                                  CreateFormMap.createDataMap(
+                              MapDynamicString map = CreateFormMap.createDataMap(
                                 controllersText: [
                                   titleNotifier.value,
                                   employmentTypeNotifier.value,
@@ -340,16 +349,10 @@ class _WorkExperienceSignUpScreenState
                                   FirebaseDocsFieldEnums.createdAt.name,
                                 ],
                               );
-                              if (workExperienceFormKey.currentState!
-                                  .validate()) {
+                              if (workExperienceFormKey.currentState!.validate()) {
                                 ref
                                     .read(addWorkExperienceProvider.notifier)
-                                    .addWorkExperienceMethod(
-                                        map: map, docId: docId)
-                                    .whenComplete(() {
-                                  ref.invalidate(fetchWorkListProvider);
-                                  pop(context);
-                                });
+                                    .addWorkExperienceMethod(map: map, docId: docId);
                               }
                             },
                             child: const Text(TextConstant.save),

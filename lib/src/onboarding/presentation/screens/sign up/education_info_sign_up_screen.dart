@@ -4,12 +4,10 @@ class EducationInfoSignUpScreen extends ConsumerStatefulWidget {
   const EducationInfoSignUpScreen({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _EducationInfoSignUpScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _EducationInfoSignUpScreenState();
 }
 
-class _EducationInfoSignUpScreenState
-    extends ConsumerState<EducationInfoSignUpScreen> {
+class _EducationInfoSignUpScreenState extends ConsumerState<EducationInfoSignUpScreen> {
   //
   final GlobalKey<FormState> educationFormKey = GlobalKey<FormState>();
 //
@@ -29,7 +27,14 @@ class _EducationInfoSignUpScreenState
   @override
   Widget build(BuildContext context) {
     final infoState = ref.watch(addEducationInfoProvider);
-
+    ref.listen(addEducationInfoProvider, (previous, next) {
+      if (next.valueOrNull == TextConstant.successful) {
+        final refresh = ref.refresh(fetchEducationListProvider(''));
+        if (refresh.hasValue) {
+          pushReplacement(context, const SignUpMainScreen());
+        }
+      }
+    });
     return Scaffold(
       appBar: AppBar(
         title: const Text(TextConstant.education),
@@ -93,7 +98,7 @@ class _EducationInfoSignUpScreenState
 
                     //! start date
                     const AutoSizeText(
-                      TextConstant.startDate,
+                      '${TextConstant.startDate}*',
                       maxLines: 1,
                       textScaleFactor: 0.9,
                     ),
@@ -104,18 +109,20 @@ class _EducationInfoSignUpScreenState
                           child: AuthTextFieldWidget(
                             hintText: TextConstant.month,
                             controller: monthNotifier.value,
-                            // onChanged: (value) {
-                            //   monthNotifier.value = value;
-                            // },
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return TextConstant.required;
+                              } else {
+                                return null;
+                              }
+                            },
                             readOnly: true,
                             onTap: () {
                               showCupertinoDateWidget(
                                 context: context,
                                 onConfirm: (date) {
-                                  monthNotifier.value.text =
-                                      dateFormattedToMonth(date);
-                                  yearNotifier.value.text =
-                                      dateFormattedToYear(date);
+                                  monthNotifier.value.text = dateFormattedToMonth(date);
+                                  yearNotifier.value.text = dateFormattedToYear(date);
                                 },
                               );
                             },
@@ -126,9 +133,13 @@ class _EducationInfoSignUpScreenState
                         ),
                         Expanded(
                           child: AuthTextFieldWidget(
-                            // onChanged: (value) {
-                            //   yearNotifier.value = value;
-                            // },
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return TextConstant.required;
+                              } else {
+                                return null;
+                              }
+                            },
                             controller: yearNotifier.value,
                             hintText: TextConstant.year,
                             readOnly: true,
@@ -136,10 +147,8 @@ class _EducationInfoSignUpScreenState
                               showCupertinoDateWidget(
                                 context: context,
                                 onConfirm: (date) {
-                                  monthNotifier.value.text =
-                                      dateFormattedToMonth(date);
-                                  yearNotifier.value.text =
-                                      dateFormattedToYear(date);
+                                  monthNotifier.value.text = dateFormattedToMonth(date);
+                                  yearNotifier.value.text = dateFormattedToYear(date);
                                 },
                               );
                             },
@@ -150,7 +159,7 @@ class _EducationInfoSignUpScreenState
 
                     //! end date
                     const AutoSizeText(
-                      '${TextConstant.endDate} (${TextConstant.or} ${TextConstant.expected})',
+                      '${TextConstant.endDate} (${TextConstant.or} ${TextConstant.expected})*',
                       maxLines: 1,
                       textScaleFactor: 0.9,
                     ),
@@ -159,9 +168,13 @@ class _EducationInfoSignUpScreenState
                       children: [
                         Expanded(
                           child: AuthTextFieldWidget(
-                            // onChanged: (value) {
-                            //   endMonthNotifier.value = value;
-                            // },
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return TextConstant.required;
+                              } else {
+                                return null;
+                              }
+                            },
                             controller: endMonthNotifier.value,
                             hintText: TextConstant.month,
                             readOnly: true,
@@ -169,10 +182,8 @@ class _EducationInfoSignUpScreenState
                               showCupertinoDateWidget(
                                 context: context,
                                 onConfirm: (date) {
-                                  endMonthNotifier.value.text =
-                                      dateFormattedToMonth(date);
-                                  endYearNotifier.value.text =
-                                      dateFormattedToYear(date);
+                                  endMonthNotifier.value.text = dateFormattedToMonth(date);
+                                  endYearNotifier.value.text = dateFormattedToYear(date);
                                 },
                               );
                             },
@@ -183,9 +194,6 @@ class _EducationInfoSignUpScreenState
                         ),
                         Expanded(
                           child: AuthTextFieldWidget(
-                            // onChanged: (value) {
-                            //   endMonthNotifier.value = value;
-                            // },
                             controller: endYearNotifier.value,
                             hintText: TextConstant.year,
                             readOnly: true,
@@ -193,10 +201,8 @@ class _EducationInfoSignUpScreenState
                               showCupertinoDateWidget(
                                 context: context,
                                 onConfirm: (date) {
-                                  endMonthNotifier.value.text =
-                                      dateFormattedToMonth(date);
-                                  endYearNotifier.value.text =
-                                      dateFormattedToYear(date);
+                                  endMonthNotifier.value.text = dateFormattedToMonth(date);
+                                  endYearNotifier.value.text = dateFormattedToYear(date);
                                 },
                               );
                             },
@@ -245,15 +251,24 @@ class _EducationInfoSignUpScreenState
                     ElevatedButton(
                       onPressed: () {
                         var docId = const Uuid().v4();
-
+                        Map<String, dynamic> startdate = {
+                          FirebaseDocsFieldEnums.month.name: monthNotifier.value.text,
+                          FirebaseDocsFieldEnums.year.name: yearNotifier.value.text,
+                        };
+                        Map<String, dynamic> endDate = {
+                          FirebaseDocsFieldEnums.endMonth.name: endMonthNotifier.value.text,
+                          FirebaseDocsFieldEnums.endYear.name: endYearNotifier.value.text,
+                        };
                         MapDynamicString map = CreateFormMap.createDataMap(
                           controllersText: [
                             schoolNotifier.value,
                             degreeNotifier.value,
-                            monthNotifier.value.text,
-                            yearNotifier.value.text,
-                            endMonthNotifier.value.text,
-                            endYearNotifier.value.text,
+                            // monthNotifier.value.text,
+                            // yearNotifier.value.text,
+                            startdate,
+                            // endMonthNotifier.value.text,
+                            // endYearNotifier.value.text,
+                            endDate,
                             gradeNotifier.value,
                             awardNotifier.value,
                             activitiesNotifier.value,
@@ -264,10 +279,12 @@ class _EducationInfoSignUpScreenState
                               [
                             FirebaseDocsFieldEnums.school.name,
                             FirebaseDocsFieldEnums.degree.name,
-                            FirebaseDocsFieldEnums.month.name,
-                            FirebaseDocsFieldEnums.year.name,
-                            FirebaseDocsFieldEnums.endMonth.name,
-                            FirebaseDocsFieldEnums.endYear.name,
+                            // FirebaseDocsFieldEnums.month.name,
+                            // FirebaseDocsFieldEnums.year.name,
+                            FirebaseDocsFieldEnums.startDate.name,
+                            // FirebaseDocsFieldEnums.endMonth.name,
+                            // FirebaseDocsFieldEnums.endYear.name,
+                            FirebaseDocsFieldEnums.endDate.name,
                             FirebaseDocsFieldEnums.grade.name,
                             FirebaseDocsFieldEnums.award.name,
                             FirebaseDocsFieldEnums.activities.name,
@@ -276,17 +293,13 @@ class _EducationInfoSignUpScreenState
                           ],
                         );
 
-                        inspect(map);
-
-                        log('''map : $map''');
                         if (educationFormKey.currentState!.validate()) {
                           ref
                               .read(addEducationInfoProvider.notifier)
-                              .addEducationInfoMethod(map: map, docId: docId)
-                              .whenComplete(
-                                () =>
-                                    ref.invalidate(fetchEducationListProvider),
-                              );
+                              .addEducationInfoMethod(map: map, docId: docId);
+                          // .whenComplete(
+                          //   () => ref.invalidate(fetchEducationListProvider),
+                          // );
                         }
                       },
                       child: const Text(TextConstant.save),

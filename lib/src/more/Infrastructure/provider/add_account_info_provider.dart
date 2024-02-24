@@ -49,7 +49,7 @@ class AddAccountInfoNotifier extends StateNotifier<AsyncValue> {
 }
 
 final addAccountInfoProvider =
-    StateNotifierProvider.autoDispose<AddAccountInfoNotifier, AsyncValue>((ref) {
+    StateNotifierProvider<AddAccountInfoNotifier, AsyncValue>((ref) {
   final accountInfoImpl = ref.read(accountInfoImplProvider);
   final uuid = ref.read(currentUUIDProvider);
 

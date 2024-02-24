@@ -79,6 +79,7 @@ class TextButtonWithBorderAndArrowIcon extends StatelessWidget {
   final bool isDense, isArrowForward;
   @override
   Widget build(BuildContext context) {
+    // ignore: unnecessary_null_comparison
     return title.isEmpty || title == null
         ? const SizedBox.shrink()
         : GestureDetector(

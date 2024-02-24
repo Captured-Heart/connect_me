@@ -24,7 +24,15 @@ class _AccountInformationSignUpScreenState extends ConsumerState<AccountInformat
   @override
   Widget build(BuildContext context) {
     final authUserData = ref.watch(fetchProfileProvider).valueOrNull;
-
+    final infoState = ref.watch(addAccountInfoProvider);
+    ref.listen(addAccountInfoProvider, (previous, next) {
+      if (next.valueOrNull == TextConstant.successful) {
+        final refresh = ref.refresh(fetchProfileProvider);
+        if (refresh.hasValue) {
+          pushReplacement(context, const SignUpMainScreen());
+        }
+      }
+    });
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
@@ -253,16 +261,10 @@ class _AccountInformationSignUpScreenState extends ConsumerState<AccountInformat
 //
                                 if (accountKey.currentState!.validate()) {
                                   if (imgUrl.value.isNotEmpty) {
-                                    ref
-                                        .read(addAccountInfoProvider.notifier)
-                                        .addAccountInfo(
+                                    ref.read(addAccountInfoProvider.notifier).addAccountInfo(
                                           map: map,
                                           imgUrl: imgUrl.value,
-                                        )
-                                        .whenComplete(() {
-                                      ref.invalidate(fetchProfileProvider);
-                                      if (mounted) pop(context);
-                                    });
+                                        );
                                   } else {
                                     showScaffoldSnackBarMessage(
                                       TextConstant.profilePhotoRequired,
@@ -273,7 +275,16 @@ class _AccountInformationSignUpScreenState extends ConsumerState<AccountInformat
 
                                 // );
                               },
-                              child: const Text(TextConstant.submit),
+                              child: infoState.isLoading
+                                  ? SizedBox(
+                                      height: 25,
+                                      child: Center(
+                                        child: CircularProgressIndicator(
+                                          color: context.colorScheme.primary,
+                                        ),
+                                      ),
+                                    )
+                                  : const Text(TextConstant.submit),
                             ),
                           ].columnInPadding(20),
                         ),

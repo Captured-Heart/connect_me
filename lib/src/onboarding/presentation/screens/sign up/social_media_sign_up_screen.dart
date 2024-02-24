@@ -4,15 +4,11 @@ class SocialMediaSignUpScreen extends ConsumerStatefulWidget {
   const SocialMediaSignUpScreen({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _SocialMediaSignUpScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _SocialMediaSignUpScreenState();
 }
 
-class _SocialMediaSignUpScreenState
-    extends ConsumerState<SocialMediaSignUpScreen> {
-  final List<SocialClass> textEditingControllerList = [
-    SocialClass(title: '', link: '')
-  ];
+class _SocialMediaSignUpScreenState extends ConsumerState<SocialMediaSignUpScreen> {
+  final List<SocialClass> textEditingControllerList = [SocialClass(title: '', link: '')];
   final GlobalKey<FormState> socialKey = GlobalKey<FormState>();
 
   final List<String> items = [
@@ -34,6 +30,14 @@ class _SocialMediaSignUpScreenState
   @override
   Widget build(BuildContext context) {
     final infoState = ref.watch(addSocialMediaProvider);
+    ref.listen(addSocialMediaProvider, (previous, next) {
+      if (next.valueOrNull == TextConstant.successful) {
+        final refresh = ref.refresh(fetchProfileProvider);
+        if (refresh.hasValue) {
+          pushReplacement(context, const SignUpMainScreen());
+        }
+      }
+    });
 
     return Scaffold(
       appBar: AppBar(
@@ -81,8 +85,7 @@ class _SocialMediaSignUpScreenState
                         flex: 5,
                         child: AuthTextFieldWidget(
                           contentPadding: AppEdgeInsets.eA18,
-                          controller:
-                              TextEditingController(text: controller.link),
+                          controller: TextEditingController(text: controller.link),
                           onChanged: (link) {
                             controller.link = link;
                           },
@@ -109,9 +112,7 @@ class _SocialMediaSignUpScreenState
                     },
                     style: TextButton.styleFrom(
                         shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                                color: context.colorScheme.onSurface,
-                                width: 0.3),
+                            side: BorderSide(color: context.colorScheme.onSurface, width: 0.3),
                             borderRadius: AppBorderRadius.c10),
                         padding: AppEdgeInsets.eA16),
                     icon: const Icon(addIcon),
@@ -127,16 +128,11 @@ class _SocialMediaSignUpScreenState
                     }
                     if (socialKey.currentState!.validate()) {
                       inspect(result);
-                      ref
-                          .read(addSocialMediaProvider.notifier)
-                          .addSocialMediaMethod(map: result)
-                          .whenComplete(
-                            () => ref.invalidate(fetchProfileProvider),
-                          );
+                      ref.read(addSocialMediaProvider.notifier).addSocialMediaMethod(map: result);
                     }
                   },
                   child: const Text(TextConstant.save),
-                ),
+                ).padSymmetric(vertical: 20),
               ].columnInPadding(15),
             ),
           ),

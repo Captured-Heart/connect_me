@@ -138,7 +138,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<AppException, User>> signInWithGoogle() async {
+  Future<Either<AppException, User>> signInWithGoogle({required bool isSignUp}) async {
     var isConnected = await status;
 
     if (!isConnected) {
@@ -163,18 +163,20 @@ class AuthRepositoryImpl implements AuthRepository {
 
           final UserCredential response = await _firebaseAuth.signInWithCredential(credential);
 
-          //TODO: CHECK IF THE USER HAS ALREADY BEEN SAVED TO DB
+          var docId = response.user?.uid;
+          // if (isSignUp == true) {
           await _firebaseFirestore
               .collection(FirebaseCollectionEnums.users.value)
-              .doc(currentUser.id)
+              .doc(docId)
               .set(
                 AuthUserModel(
                   email: currentUser.email,
-                  docId: currentUser.id,
+                  docId: docId,
                   imgUrl: currentUser.photoUrl ?? '',
                   username: currentUser.displayName,
                   fname: currentUser.displayName,
                   isGoogleSigned: true,
+                  completedSignUp: false,
                 ).toJson(),
               )
               .onError(
@@ -184,6 +186,8 @@ class AuthRepositoryImpl implements AuthRepository {
                   ),
                 ),
               );
+          // }\
+
           return Right(response.user!);
         } else {
           return Left(AppException('failed'));

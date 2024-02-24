@@ -10,5 +10,5 @@ abstract class AuthUseCase {
   });
   Future<void> logOutOfApp();
   Future resetPassWord({required String email});
-  Future<Either<AppException, User?>> loginWithGoogle();
+  Future<Either<AppException, User?>> loginWithGoogle({required bool isSignUp});
 }
