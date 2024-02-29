@@ -15,7 +15,7 @@ class ThemeNotifier extends StateNotifier<ThemeMode> {
     String themeSaved = SharedPreferencesHelper.getStringPref(SharedPrefKeys.themeMode.name) ??
         ThemeMode.system.name;
 
-    state = ThemeMode.values.where((element) => element.name == themeSaved).single;
+    state = ThemeMode.values.where((element) => element.name == themeSaved).firstOrNull ?? ThemeMode.system;
   }
   //
 }

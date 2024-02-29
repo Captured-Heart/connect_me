@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:connect_me/app.dart';
 
 class SharedPreferencesHelper {
   static SharedPreferences? prefs;
@@ -24,13 +24,16 @@ class SharedPreferencesHelper {
   }
 
 //! GET STRING
-  static String getStringPref(String key) {
+  static String ?getStringPref(String key) {
     final getStringPref = prefs?.getString(key) ?? 'null';
-    // log(
-    //   {'getStringKey': key, 'getStringValue': getStringPref}.toString(),
-    // );
 
     return getStringPref;
+  }
+
+  static Future<bool>? deletePref(String key) {
+    final deletePref = prefs?.remove(key);
+
+    return deletePref;
   }
 
 //! REMOVE PREF

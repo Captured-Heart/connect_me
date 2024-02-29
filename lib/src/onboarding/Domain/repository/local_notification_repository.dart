@@ -27,8 +27,8 @@ class LocalNotificationRepositoryImpl implements LocalNotificationRepository {
 
 //  Initialize Android Channel
     channel = const AndroidNotificationChannel(
-      'high_importance_channel', // id
-      'High Importance Notifications', // title
+      'connect_channel', // id
+      'Connect_Me Notifications', // title
       description: 'This channel is used for important notifications.', // description
       importance: Importance.high,
     );

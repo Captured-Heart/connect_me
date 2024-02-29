@@ -4,7 +4,6 @@ export './connectivity.dart';
 export './date_formatter.dart';
 export 'snack_bar.dart';
 export './navigation.dart';
-export './shared_prefs.dart';
 export './url_launch_methods.dart';
 export './cache_network_image_widget.dart';
 export './shimmer_widget.dart';

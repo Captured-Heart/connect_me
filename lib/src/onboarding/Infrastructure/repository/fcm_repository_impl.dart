@@ -1,4 +1,7 @@
+import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
+import 'package:http/http.dart' as http;
 
 import 'package:connect_me/app.dart';
 
@@ -96,6 +99,41 @@ class FirebaseMessagingRepositoryImpl implements FirebaseMessagingRepository {
     requestPermissionAndSubscribe().then((value) => getTokenAndSaveToken(uuid: uuid));
     onListenToMessages();
   }
+
+  @override
+  void sendMessageToTopic({required PushNotificationModel pushNotificationModel}) async {
+    // Firebase Cloud Messaging server key
+    String serverKey = EnvHelper.getEnv(EnvKeys.fcmServerKeys);
+    String fcmURL = EnvHelper.getEnv(EnvKeys.fcmPostUrl);
+
+    // Define the message payload
+    final Map<String, dynamic> message = {
+      'notification': {
+        'title': pushNotificationModel.title,
+        'body': pushNotificationModel.body,
+      },
+      'topic': pushNotificationModel.topic,
+      //  FcmSubscriptionTopics.allAndroid.name,
+      "to": "/topics/${pushNotificationModel.topic}"
+    };
+
+    // Send the message to the specified topic using FCM REST API
+    try {
+      final url = Uri.parse(fcmURL);
+      await http.post(
+        url,
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization': 'key=$serverKey',
+        },
+        body: jsonEncode(message),
+      );
+
+      // return response.body;
+    } catch (e) {
+      log('this is the catch ${e.toString()}');
+    }
+  }
 }
 
 final fcmRepositoryImplProvider = Provider<FirebaseMessagingRepositoryImpl>((ref) {
@@ -119,4 +157,19 @@ void _handleNotification({required RemoteMessage? message, required AppState app
 
       break;
   }
+}
+
+class PushNotificationModel extends Equatable {
+  final String title;
+  final String body;
+  final String topic;
+
+  const PushNotificationModel({
+    required this.title,
+    required this.body,
+    required this.topic,
+  });
+
+  @override
+  List<Object?> get props => [title, body, topic];
 }

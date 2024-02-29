@@ -5,3 +5,4 @@ export './navigations.dart';
 export './text_constants.dart';
 export './auth_errors.dart';
 export './env_helper.dart';
+export './shared_prefs.dart';

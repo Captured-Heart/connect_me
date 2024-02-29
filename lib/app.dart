@@ -31,6 +31,7 @@ export 'package:vibration/vibration.dart';
 export 'package:firebase_messaging/firebase_messaging.dart';
 export 'package:flutter_local_notifications/flutter_local_notifications.dart';
 export 'package:flutter_dotenv/flutter_dotenv.dart';
+export 'package:equatable/equatable.dart';
 
 
 //FIREBASE SERVICES
