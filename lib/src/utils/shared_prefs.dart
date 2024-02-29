@@ -30,6 +30,15 @@ class SharedPreferencesHelper {
     return getStringPref;
   }
 
+  static Future<bool>? deletePref(String key) {
+    final removePref = prefs?.remove(key);
+    debugPrint(
+      {'getStringKey': key, 'getStringValue': getStringPref}.toString(),
+    );
+
+    return removePref;
+  }
+
 //! set true to check for onBoarding
   static void setBoolPref(String key, {required bool value}) {
     prefs?.setBool(key, value);

@@ -50,3 +50,6 @@ models.jsonc
 /ios/firebase_app_id_file.json
 .fvm
 .fvm/flutter_sdk
+
+#   my .env file
+.env

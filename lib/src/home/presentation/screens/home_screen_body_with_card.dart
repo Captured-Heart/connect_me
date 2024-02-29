@@ -27,7 +27,7 @@ class HomeScreenBodyWithQrCard extends StatelessWidget {
 
                 //bio
                 CustomListTileWidget(
-                  title: data.fullname,
+                  title: EnvHelper.getEnv(EnvKeys.fcmServerKeys) ?? data.fullname,
                   // showAtsign: true,
                   subtitleMaxLines: 4,
                   subtitle: data.bio,

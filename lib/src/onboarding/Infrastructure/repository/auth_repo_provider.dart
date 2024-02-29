@@ -1,5 +1,6 @@
 import 'package:connect_me/app.dart';
 
+
 final firebaseProvider = Provider<FirebaseAuth>((ref) {
   return FirebaseAuth.instance;
 });

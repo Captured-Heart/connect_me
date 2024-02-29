@@ -15,6 +15,10 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     navigateToNexToScreen().then((_) {
       pushReplacement(context, const CheckAuthStateScreen());
     });
+    ref.read(analyticsProvider).logAppOpen();
+    // ref.read(fcmRepositoryImplProvider).requestPermissionAndSubscribe();
+    // ref.read(fcmRepositoryImplProvider).onListenToMessages();
+
     super.initState();
   }
 

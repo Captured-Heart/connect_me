@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:connect_me/app.dart';
-import 'package:connect_me/config/theme/theme_mode.dart';
+import 'package:connect_me/src/onboarding/Domain/repository/local_notification_repository.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
@@ -13,18 +13,34 @@ void main() async {
   final container = ProviderContainer(
     observers: <ProviderObserver>[AppProviderObserver()],
   );
+
+  //load theme on startup
   container.read(themeProvider.notifier).loadCurrentThemeMode();
+
+  // load the env variables
+  await dotenv.load(fileName: ".env");
+
+  /// initialize local storage [SharedPreferences]
   SharedPreferencesHelper.initSharedPref();
-// firebase
+// initialize firebase in project
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  //request permission fro firebase messaging
+  container.read(fcmRepositoryImplProvider).requestPermissionAndSubscribe();
+  // firebase messgaing listening to messages
+  container.read(fcmRepositoryImplProvider).onListenToMessages();
+  // initalizes local_notification to display message from cloud
+  container.read(localNotificationsProvider).initializeLocalNotifications();
 
   if (kDebugMode) {
     //todo: change this to production
     log('built analytics in debug');
     FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(true);
   }
+
+  // forcing the orientation of the app to be portrait
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -46,6 +62,7 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
+  // TODO: REFACTOR HOE WIDGET INTO A CLASS
   String shortcut = 'no actions';
 
   List<ShortcutItem> forIos = [
@@ -96,31 +113,25 @@ class _MainAppState extends State<MainApp> {
     return Consumer(builder: (context, ref, _) {
       final themeMode = ref.watch(themeProvider);
 
-      // final user = ref.watch(authStateChangesProvider);
       final analytics = ref.watch(analyticsProvider);
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        analytics.logAppOpen();
-      });
+
       return MaterialApp(
-          restorationScopeId: 'connectMe',
-          onGenerateTitle: (context) => TextConstant.appTitle,
-          debugShowCheckedModeBanner: false,
-          scaffoldMessengerKey: rootScaffoldMessengerKey,
-          themeMode: themeMode,
-          theme: themeBuilder(
-            defaultTheme: ThemeData.light(),
-          ),
-          darkTheme: themeBuilder(
-            defaultTheme: ThemeData.dark(),
-          ),
-          navigatorObservers: [
-            FirebaseAnalyticsObserver(analytics: analytics),
-          ],
-          home:
-              // AccountInformationSignUpScreen()
-              const SplashScreen()
-          // user.value?.uid != null ? const MainScreen() : const SplashScreen(),
-          );
+        restorationScopeId: 'connectMe',
+        onGenerateTitle: (context) => TextConstant.appTitle,
+        debugShowCheckedModeBanner: false,
+        scaffoldMessengerKey: rootScaffoldMessengerKey,
+        themeMode: themeMode,
+        theme: themeBuilder(
+          defaultTheme: ThemeData.light(),
+        ),
+        darkTheme: themeBuilder(
+          defaultTheme: ThemeData.dark(),
+        ),
+        navigatorObservers: [
+          FirebaseAnalyticsObserver(analytics: analytics),
+        ],
+        home: const SplashScreen(),
+      );
     });
   }
 }

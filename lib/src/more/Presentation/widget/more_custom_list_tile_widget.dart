@@ -43,7 +43,7 @@ class MoreCustomListTileWidget extends StatelessWidget {
       title: AutoSizeText(
         title,
         style: context.textTheme.titleSmall?.copyWith(
-          fontWeight: AppFontWeight.w100,
+          fontWeight: AppFontWeight.w300,
           color: foregroundColor,
         ),
         textScaleFactor: 0.95,
@@ -58,6 +58,7 @@ class MoreCustomListTileWidget extends StatelessWidget {
               // style: context.textTheme.bodySmall,
               overflow: TextOverflow.ellipsis,
               textScaleFactor: 0.85,
+              style: context.textTheme.bodySmall?.copyWith(fontWeight: AppFontWeight.w500),
             )
           : null,
       trailing: trailingWidget ??

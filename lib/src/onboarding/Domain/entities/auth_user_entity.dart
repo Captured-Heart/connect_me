@@ -25,11 +25,11 @@ class AuthUserModel extends Equatable {
   final int? scanCount;
   final int? qrVersion;
   final bool? completedSignUp;
+  final String? token;
 
   // final String? placeOfBirth;
   // final String? country;
   // final String? state;
-  // final String? city;
   // final String? street;
   // final String? driverLicenseNo;
   // final String? postalCode;
@@ -57,6 +57,7 @@ class AuthUserModel extends Equatable {
     this.connectTo,
     this.scanCount,
     this.qrVersion,
+    this.token,
     // this.placeOfBirth,
     // this.country,
     // this.state,
@@ -85,6 +86,8 @@ class AuthUserModel extends Equatable {
         posts: json['posts'] as List<dynamic>?,
         socialMediaHandles: json['socialMediaHandles'] as Map<String, dynamic>?,
         connectTo: json['connectTo'] as String?,
+        token: json['token'] as String?,
+
         scanCount: json['scanCount'] as int?,
         qrVersion: json['qrVersion'] as int?,
         // placeOfBirth: json['placeOfBirth'] as String?,
@@ -126,6 +129,7 @@ class AuthUserModel extends Equatable {
         // 'street': street,
         // 'driverLicenseNo': driverLicenseNo,
         // 'postalCode': postalCode,
+        'token': token,
         'additionalDetails': additionalDetails,
         'completedSignUp': completedSignUp,
       };
@@ -147,6 +151,7 @@ class AuthUserModel extends Equatable {
     List<dynamic>? connects,
     Map<String, dynamic>? socialMediaHandles,
     int? qrVersion,
+    String? token,
     // String? placeOfBirth,
     // String? country,
     // String? state,
@@ -176,6 +181,7 @@ class AuthUserModel extends Equatable {
       website: website ?? this.website,
       phonePrefix: phonePrefix ?? this.phonePrefix,
       qrVersion: qrVersion ?? this.qrVersion,
+      token: token ?? this.token,
       // placeOfBirth: placeOfBirth ?? this.placeOfBirth,
       // country: country ?? this.country,
       // state: state ?? this.state,
@@ -207,6 +213,7 @@ class AuthUserModel extends Equatable {
         fname,
         website,
         phonePrefix,
+        token,
         // placeOfBirth,
         // country,
         // state,

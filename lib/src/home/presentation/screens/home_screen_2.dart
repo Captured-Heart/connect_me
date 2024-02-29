@@ -41,11 +41,15 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> with SingleTickerProv
 
   @override
   void initState() {
+    ref.read(fcmRepositoryImplProvider).getTokenAndSaveToken(
+        uuid: SharedPreferencesHelper.getStringPref(SharedKeys.userUID.name) ?? '');
+
     tabController = TabController(length: 3, vsync: this, initialIndex: widget.initialIndex ?? 0);
     tabController.addListener(() {
       _setActiveTabIndex();
       _hideNavBar();
     });
+
     super.initState();
   }
 
@@ -101,6 +105,9 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> with SingleTickerProv
     return WillPopScope(
       onWillPop: () => onWillPop(),
       child: Scaffold(
+        floatingActionButton: FloatingActionButton(onPressed: () {
+          sendMessageToTopic();
+        }),
         appBar: AppBar(
           elevation: 0,
           // toolbarHeight: kToolbarHeight * 1.5,

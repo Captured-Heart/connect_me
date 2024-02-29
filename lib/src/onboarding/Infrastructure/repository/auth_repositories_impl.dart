@@ -31,7 +31,9 @@ class AuthRepositoryImpl implements AuthRepository {
           email: email,
           password: password,
         );
-
+        if (result.user?.uid != null && result.user?.uid.isNotEmpty == true) {
+          SharedPreferencesHelper.setStringPref(SharedKeys.userUID.name, result.user!.uid);
+        }
         return Right(result.user);
       } on FirebaseAuthException catch (e) {
         switch (e.code) {
@@ -77,6 +79,8 @@ class AuthRepositoryImpl implements AuthRepository {
         // await user.user!.sendEmailVerification();
 
         if (user.user?.uid != null) {
+          SharedPreferencesHelper.setStringPref(SharedKeys.userUID.name, user.user!.uid);
+
           await _firebaseFirestore
               .collection(FirebaseCollectionEnums.users.value)
               .doc(user.user?.uid)
@@ -97,7 +101,6 @@ class AuthRepositoryImpl implements AuthRepository {
                 ),
               );
         }
-
         return Right(user.user);
       } on FirebaseAuthException catch (e) {
         return firebaseAuthExceptionSwitch(e);
@@ -131,6 +134,8 @@ class AuthRepositoryImpl implements AuthRepository {
     } else {
       try {
         _firebaseAuth.sendPasswordResetEmail(email: email);
+        SharedPreferencesHelper.deletePref(SharedKeys.userUID.name);
+        SharedPreferencesHelper.deletePref(SharedKeys.token.name);
       } catch (e) {
         return e;
       }
@@ -164,29 +169,31 @@ class AuthRepositoryImpl implements AuthRepository {
           final UserCredential response = await _firebaseAuth.signInWithCredential(credential);
 
           var docId = response.user?.uid;
-          // if (isSignUp == true) {
-          await _firebaseFirestore
-              .collection(FirebaseCollectionEnums.users.value)
-              .doc(docId)
-              .set(
-                AuthUserModel(
-                  email: currentUser.email,
-                  docId: docId,
-                  imgUrl: currentUser.photoUrl ?? '',
-                  username: currentUser.displayName,
-                  fname: currentUser.displayName,
-                  isGoogleSigned: true,
-                  completedSignUp: false,
-                ).toJson(),
-              )
-              .onError(
-                (error, stackTrace) => throw Left(
-                  AppException(
-                    error.toString(),
+          if (docId != null && docId.isNotEmpty == true) {
+            SharedPreferencesHelper.setStringPref(SharedKeys.userUID.name, docId);
+
+            await _firebaseFirestore
+                .collection(FirebaseCollectionEnums.users.value)
+                .doc(docId)
+                .set(
+                  AuthUserModel(
+                    email: currentUser.email,
+                    docId: docId,
+                    imgUrl: currentUser.photoUrl ?? '',
+                    username: currentUser.displayName,
+                    fname: currentUser.displayName,
+                    isGoogleSigned: true,
+                    completedSignUp: false,
+                  ).toJson(),
+                )
+                .onError(
+                  (error, stackTrace) => throw Left(
+                    AppException(
+                      error.toString(),
+                    ),
                   ),
-                ),
-              );
-          // }\
+                );
+          }
 
           return Right(response.user!);
         } else {
