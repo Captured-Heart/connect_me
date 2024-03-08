@@ -1,6 +1,5 @@
 import 'package:connect_me/app.dart';
 
-
 final firebaseProvider = Provider<FirebaseAuth>((ref) {
   return FirebaseAuth.instance;
 });
@@ -22,10 +21,8 @@ final analyticsProvider = Provider<FirebaseAnalytics>((ref) {
 final currentUUIDProvider = Provider<String>((ref) {
   final googleSign = ref.read(googleSignInProvider);
   final firestore = ref.read(cloudFirestoreProvider);
-  // final analytics = ref.read(analyticsProvider);
 
-  return AuthRepositoryImpl(ref.read(firebaseProvider), googleSign, firestore)
-      .currentUUIDProvider!;
+  return AuthRepositoryImpl(ref.read(firebaseProvider), googleSign, firestore).currentUUIDProvider!;
 });
 
 /// this is the auth provider [with_signIn_signout_google_signin]

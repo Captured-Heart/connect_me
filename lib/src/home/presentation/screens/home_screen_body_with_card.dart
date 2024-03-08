@@ -21,7 +21,9 @@ class HomeScreenBodyWithQrCard extends StatelessWidget {
                 Center(
                   child: ProfilePicWidget(
                     authUserModel: data,
-                    onTap: () {},
+                    onTap: () {
+                     
+                    },
                   ),
                 ),
 

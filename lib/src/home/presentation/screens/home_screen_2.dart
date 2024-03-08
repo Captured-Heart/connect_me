@@ -104,6 +104,7 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> with SingleTickerProv
       onWillPop: () => onWillPop(),
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           elevation: 0,
           // toolbarHeight: kToolbarHeight * 1.5,
           backgroundColor: context.theme.scaffoldBackgroundColor,

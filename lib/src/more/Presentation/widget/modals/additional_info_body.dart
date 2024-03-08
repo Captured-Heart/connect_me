@@ -51,7 +51,15 @@ class _AdditionalInfoModalBodyState extends ConsumerState<AdditionalInfoModalBod
   @override
   Widget build(BuildContext context) {
     final infoState = ref.watch(addAdditionalDetailsProvider);
-
+    ref.listen(addAdditionalDetailsProvider, (previous, next) {
+      if (next.value != null && next.error == null) {
+        pop(context);
+        showScaffoldSnackBarMessage(
+          TextConstant.successful,
+          duration: 4,
+        );
+      }
+    });
     return ListenableBuilder(
         listenable: Listenable.merge(
           [
@@ -135,9 +143,11 @@ class _AdditionalInfoModalBodyState extends ConsumerState<AdditionalInfoModalBod
                   borderRadius: BorderRadius.circular(10),
                 ),
                 dropdownDecoration: BoxDecoration(
-                  color:  context.theme.scaffoldBackgroundColor,
+                  color: context.theme.scaffoldBackgroundColor,
                   border: Border.all(
-                    color: countryNotifier.value?.isEmpty == true || countryNotifier.value == null? context.colorScheme.error: context.colorScheme.onBackground,
+                    color: countryNotifier.value?.isEmpty == true || countryNotifier.value == null
+                        ? context.colorScheme.error
+                        : context.colorScheme.onBackground,
                     width: 0.2,
                   ),
                   borderRadius: BorderRadius.circular(10),

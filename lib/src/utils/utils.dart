@@ -1,6 +1,5 @@
 export './app_loader.dart';
 export './app_provider_observer.dart';
-export './connectivity.dart';
 export './date_formatter.dart';
 export 'snack_bar.dart';
 export './navigation.dart';

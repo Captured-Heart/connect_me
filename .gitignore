@@ -53,3 +53,5 @@ models.jsonc
 
 #   my .env file
 .env
+android/app/upload-keystore.jks
+android/key.properties

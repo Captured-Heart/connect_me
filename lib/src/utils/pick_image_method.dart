@@ -1,3 +1,5 @@
+import 'package:connect_me/app.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 Future<XFile?> pickImageFunction({
@@ -8,8 +10,7 @@ Future<XFile?> pickImageFunction({
 
   final selected = await picker.pickImage(
     source: pickCamera == true ? ImageSource.camera : ImageSource.gallery,
-    preferredCameraDevice:
-        cameraRear == true ? CameraDevice.rear : CameraDevice.front,
+    preferredCameraDevice: cameraRear == true ? CameraDevice.rear : CameraDevice.front,
     imageQuality: 95,
     maxHeight: 400,
   );
@@ -17,18 +18,30 @@ Future<XFile?> pickImageFunction({
   return selected;
 }
 
-// Future<void> requestPhotoPermission() async {
-//   PermissionStatus status = await Permission.photos.request();
-
-//   if (status.isGranted) {
-//     // Permission is granted, you can access photos
-//     // Place your code to access photos here
-//   } else {
-//     // Permission denied
-//     print("Permission denied");
-//     // You may want to show a dialog or message to inform the user
-//   }
-// }
+Future<CroppedFile?> cropImageFunction({
+  required XFile pickedFile,
+  required BuildContext context,
+}) async {
+  final croppedFile = await ImageCropper().cropImage(
+    sourcePath: pickedFile.path,
+    compressFormat: ImageCompressFormat.jpg,
+    compressQuality: 100,
+    uiSettings: [
+      AndroidUiSettings(
+        toolbarTitle: 'Edit Image'.hardCodedString,
+        toolbarColor: context.colorScheme.primary,
+        toolbarWidgetColor: Colors.white,
+        initAspectRatio: CropAspectRatioPreset.original,
+        lockAspectRatio: false,
+      ),
+      IOSUiSettings(
+        title: 'Edit Image'.hardCodedString,
+        showCancelConfirmationDialog: true,
+      ),
+    ],
+  );
+  return croppedFile;
+}
 
 Future<XFile?> pickFromGalleryFunctionNew({
   bool? pickCamera,
@@ -40,8 +53,7 @@ Future<XFile?> pickFromGalleryFunctionNew({
   if (isImage == true) {
     final selectedImage = await picker.pickImage(
       source: pickCamera == true ? ImageSource.camera : ImageSource.gallery,
-      preferredCameraDevice:
-          cameraRear == true ? CameraDevice.rear : CameraDevice.front,
+      preferredCameraDevice: cameraRear == true ? CameraDevice.rear : CameraDevice.front,
       imageQuality: 95,
       maxHeight: 400,
     );
@@ -49,8 +61,7 @@ Future<XFile?> pickFromGalleryFunctionNew({
   } else {
     final selectedVideo = await picker.pickVideo(
         source: pickCamera == true ? ImageSource.camera : ImageSource.gallery,
-        preferredCameraDevice:
-            cameraRear == true ? CameraDevice.rear : CameraDevice.front,
+        preferredCameraDevice: cameraRear == true ? CameraDevice.rear : CameraDevice.front,
         maxDuration: const Duration(seconds: 100));
     return selectedVideo;
   }

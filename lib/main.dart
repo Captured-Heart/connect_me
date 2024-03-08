@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:connect_me/app.dart';
 import 'package:connect_me/src/onboarding/Domain/repository/local_notification_repository.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 import 'package:quick_actions/quick_actions.dart';
@@ -34,11 +33,8 @@ void main() async {
   // initalizes local_notification to display message from cloud
   container.read(localNotificationsProvider).initializeLocalNotifications();
 
-  if (kDebugMode) {
-    //todo: change this to production
-    log('built analytics in debug');
-    FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(true);
-  }
+// enable analytics
+  FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(true);
 
   // forcing the orientation of the app to be portrait
   SystemChrome.setPreferredOrientations([

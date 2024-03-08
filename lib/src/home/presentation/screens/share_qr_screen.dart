@@ -74,10 +74,10 @@ class _ShareQrCodeScreenState extends ConsumerState<ShareQrCodeScreen> {
                             duration: const Duration(milliseconds: 400),
                             transformAlignment: Alignment.bottomLeft,
                             height: cardisVertNotifier.value == true
-                                ? context.sizeHeight(0.45)
+                                ? context.sizeHeight(0.42)
                                 : context.sizeHeight(0.28),
                             width: cardisVertNotifier.value == true
-                                ? context.sizeWidth(0.65)
+                                ? context.sizeWidth(0.62)
                                 : context.sizeWidth(0.9),
                             child: cardisVertNotifier.value == true
                                 ? PortraitQrCodeWidget(
@@ -92,7 +92,7 @@ class _ShareQrCodeScreenState extends ConsumerState<ShareQrCodeScreen> {
                           left: 10,
                           right: 10,
                         ),
-                      ),
+                      ).padOnly(bottom: 30),
                     ),
                   ),
 
@@ -100,7 +100,7 @@ class _ShareQrCodeScreenState extends ConsumerState<ShareQrCodeScreen> {
                   Positioned.directional(
                     textDirection: TextDirection.ltr,
                     bottom: 0,
-                    height: context.sizeHeight(0.17),
+                    height: context.sizeHeight(0.18),
                     width: context.sizeWidth(1),
                     child: Card(
                       margin: EdgeInsets.zero,
@@ -176,7 +176,9 @@ class _ShareQrCodeScreenState extends ConsumerState<ShareQrCodeScreen> {
                             textColor: Colors.white,
                             text: TextConstant.shareQrCode,
                             color: buttonColor(cardIndexNotifier.value),
-                          ).padSymmetric(horizontal: context.sizeWidth(0.08), vertical: 5)
+                          )
+                              .padSymmetric(horizontal: context.sizeWidth(0.08), vertical: 5)
+                              .padOnly(bottom: 10)
                         ].columnInPadding(10),
                       ),
                     ),
@@ -193,7 +195,7 @@ class _ShareQrCodeScreenState extends ConsumerState<ShareQrCodeScreen> {
 
                   // FLIP THE QR WIDGET TO LANDSCAPE AND PORTRAIT
                   Positioned(
-                    top: context.sizeWidth(0.03),
+                    top: context.sizeWidth(0.04),
                     right: 20,
                     child: flipWidgetBTN(),
                   ),
@@ -214,7 +216,7 @@ class _ShareQrCodeScreenState extends ConsumerState<ShareQrCodeScreen> {
             ? TextConstant.switchToLandscap
             : TextConstant.switchToPortrait,
         child: Container(
-          padding: AppEdgeInsets.eA8,
+          padding: AppEdgeInsets.eA4,
           decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(

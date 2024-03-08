@@ -39,7 +39,7 @@ class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
       TextEditingController(text: widget.educationModel?.endDate?.endYear),
     );
 
-    activitiesNotifier = ValueNotifier<String>('');
+    activitiesNotifier = ValueNotifier<String>( widget.educationModel?.activities ?? '');
     gradeNotifier = ValueNotifier<String>(widget.educationModel?.grade ?? '');
     awardNotifier = ValueNotifier<String>(widget.educationModel?.award ?? '');
     super.initState();

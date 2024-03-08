@@ -16,7 +16,7 @@ class CustomQrCodeImageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: isDense == true
-          ? const EdgeInsets.only(top: 15, right: 10, left: 10, bottom: 3)
+          ? const EdgeInsets.only(top: 7, right: 7, left: 7, bottom: 3)
           : const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       padding: EdgeInsets.symmetric(
           vertical: isDense == true ? 3 : 5, horizontal: isDense == true ? 3 : 5),
@@ -40,7 +40,8 @@ class CustomQrCodeImageWidget extends StatelessWidget {
         embeddedImage: const AssetImage(
           'assets/images/aboutMeLogo_brown.png',
         ),
-        embeddedImageStyle: const QrEmbeddedImageStyle(size: Size(40, 40)),
+        embeddedImageStyle:
+            QrEmbeddedImageStyle(size: isDense == true ? const Size(30, 30) : const Size(40, 40)),
         version: authUserModel?.qrVersion ?? 8,
         size: context.sizeHeight(isDense == true ? 0.2 : 0.3),
         gapless: !isDense,

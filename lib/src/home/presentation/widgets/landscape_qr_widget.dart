@@ -22,7 +22,7 @@ class LandscapeQrCodeWIdget extends StatelessWidget {
                 title: authUserModel?.fullname ?? '',
                 subtitle: authUserModel?.bio,
                 subtitleTextAlign: TextAlign.start,
-                showAtsign: true,
+                showAtsign: false,
                 isStaticTheme: true,
                 subtitleMaxLines: 3,
               ),

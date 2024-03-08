@@ -67,10 +67,14 @@ class _AccountInformationSignUpScreenState extends ConsumerState<AccountInformat
                         if (imgUrl.value.isEmpty) {
                           pickImageFunction(pickCamera: false).then((value) {
                             if (value != null) {
-                              imgUrl.value = value.path;
+                              cropImageFunction(pickedFile: value, context: context).then((value) {
+                                if (value != null) {
+                                  imgUrl.value = value.path;
+                                }
+                              }).onError((error, stackTrace) {
+                                showScaffoldSnackBarMessage(error.toString(), isError: true);
+                              });
                             }
-                          }).onError((error, stackTrace) {
-                            showScaffoldSnackBarMessage(error.toString(), isError: true);
                           });
                         }
                       },
@@ -128,6 +132,7 @@ class _AccountInformationSignUpScreenState extends ConsumerState<AccountInformat
                       ? const SizedBox.shrink()
                       : const CustomListTileWidget(
                           title: "Tap to add a profile picture",
+                          subtitle: '(Headshots are preferred)',
                         ),
                   imgUrl.value.isEmpty
                       ? const SizedBox.shrink()

@@ -1,4 +1,3 @@
-
 import 'package:connect_me/app.dart';
 
 class AccountInfoModalBody extends ConsumerStatefulWidget {
@@ -61,7 +60,15 @@ class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
   @override
   Widget build(BuildContext context) {
     final infoState = ref.watch(addAccountInfoProvider);
-    log('image firbebase url : ${imgUrlFirebaseNotifier.value} ');
+    ref.listen(addAccountInfoProvider, (previous, next) {
+      if (next.value != null && next.error == null) {
+        pop(context);
+        showScaffoldSnackBarMessage(
+          TextConstant.successful,
+          duration: 4,
+        );
+      }
+    });
     return ListenableBuilder(
         listenable: Listenable.merge(
           [
@@ -85,14 +92,22 @@ class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
                   onTapAddPhoto: () {
                     pickImageFunction(pickCamera: false).then((value) {
                       if (value != null) {
-                        imgUrlFirebaseNotifier.value = value.path;
+                        cropImageFunction(pickedFile: value, context: context).then((value) {
+                          if (value != null) {
+                            imgUrlFirebaseNotifier.value = value.path;
+                          }
+                        });
                       }
                     });
                   },
                   onTapCamera: () {
-                    pickImageFunction(pickCamera: true).then((value) {
+                    pickImageFunction(pickCamera: false).then((value) {
                       if (value != null) {
-                        imgUrlFirebaseNotifier.value = value.path;
+                        cropImageFunction(pickedFile: value, context: context).then((value) {
+                          if (value != null) {
+                            imgUrlFirebaseNotifier.value = value.path;
+                          }
+                        });
                       }
                     });
                   },

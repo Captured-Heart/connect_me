@@ -136,8 +136,6 @@ class _ContactScreenState extends ConsumerState<ContactScreen> with SingleTicker
 
                           return GestureDetector(
                             onTap: () async {
-                              // log(contacts.toString());
-                              // inspect(contacts);
                               pushAsVoid(
                                 context,
                                 ProfileScreenOthers(
@@ -152,6 +150,7 @@ class _ContactScreenState extends ConsumerState<ContactScreen> with SingleTicker
                                   ProfilePicWidget(
                                     withoutBorder: true,
                                     authUserModel: data[index],
+                                    enlargeDP: false,
                                   ),
                                   AutoSizeText(
                                     contacts.fullname,

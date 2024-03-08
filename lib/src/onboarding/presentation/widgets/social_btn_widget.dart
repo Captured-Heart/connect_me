@@ -40,9 +40,13 @@ class SocialButtons extends StatelessWidget {
         elevation: elevation ?? 3,
         child: isLoading == true
             ? const Center(
-                child: CircularProgressIndicator(
-                color: AppThemeColorDark.textDark,
-              )).padAll(10)
+                child: SizedBox(
+                  height: 20,
+                  child: CircularProgressIndicator(
+                    color: AppThemeColorDark.textDark,
+                  ),
+                ),
+              ).padAll(10)
             : Row(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,

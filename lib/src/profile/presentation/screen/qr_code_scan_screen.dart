@@ -322,3 +322,8 @@ class ScannerOverlay extends CustomPainter {
     return false;
   }
 }
+
+
+
+
+//Connect Me: QR code Digital ID

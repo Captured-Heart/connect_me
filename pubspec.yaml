@@ -1,7 +1,7 @@
 name: connect_me
 description: A new Flutter project.
 publish_to: "none"
-version: 0.1.0
+version: 0.1.0+5
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -32,12 +32,14 @@ dependencies:
   flutter_svg: ^2.0.9
   google_sign_in: ^6.1.6
   icons_plus: ^4.0.0
+  image_cropper: ^5.0.1
   image_picker: ^1.0.5
   intl: ^0.18.1
   lottie: ^2.6.0
   mobile_scanner: ^3.5.7
   qr_flutter: ^4.1.0
   quick_actions: ^1.0.6
+  recaptcha_enterprise_flutter: ^18.4.2
   share_plus: ^7.2.1
   shared_preferences: ^2.2.2
   shimmer: ^3.0.0

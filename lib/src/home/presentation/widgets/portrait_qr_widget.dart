@@ -32,7 +32,7 @@ class PortraitQrCodeWidget extends StatelessWidget {
             title: authUserModel?.fullname ?? '',
             subtitle: authUserModel?.bio,
             subtitleTextAlign: TextAlign.center,
-            showAtsign: true,
+            showAtsign: false,
             isStaticTheme: isStaticTheme,
           ),
         ),
