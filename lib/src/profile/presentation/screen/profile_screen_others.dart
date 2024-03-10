@@ -81,6 +81,7 @@ class _ProfileScreenOthersState extends ConsumerState<ProfileScreenOthers> {
       unawaited(ref
           .read(analyticsImplProvider)
           .profileVisit(authUserModel: widget.users ?? const AuthUserModel()));
+
       var docId = const Uuid().v4();
       Future.delayed(const Duration(milliseconds: 1400), () {
         showDialog(

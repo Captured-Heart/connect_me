@@ -1,5 +1,4 @@
 import 'package:connect_me/app.dart';
-import 'package:equatable/equatable.dart';
 
 class WorkExperienceModel extends Equatable {
   final String? title;

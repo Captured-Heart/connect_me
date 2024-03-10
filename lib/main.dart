@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:connect_me/app.dart';
-import 'package:connect_me/src/onboarding/Domain/repository/local_notification_repository.dart';
 import 'package:flutter/services.dart';
 
 import 'package:quick_actions/quick_actions.dart';

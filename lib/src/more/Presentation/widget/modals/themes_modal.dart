@@ -1,5 +1,4 @@
 import 'package:connect_me/app.dart';
-import 'package:connect_me/config/theme/theme_mode.dart';
 
 SliverWoltModalSheetPage themesModal({
   required BuildContext modalSheetContext,

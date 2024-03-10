@@ -1,5 +1,4 @@
 import 'package:connect_me/app.dart';
-import 'package:equatable/equatable.dart';
 
 class AuthUserModel extends Equatable {
   final String? username;

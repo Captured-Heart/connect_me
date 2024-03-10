@@ -2,6 +2,8 @@ import 'package:connect_me/app.dart';
 
 enum EnvKeys {
   fcmServerKeys('FCM_SERVER_KEYS'),
+  fcmPostUrlV2('FCM_POST_URL_V2'),
+  googleCredentials('GOOGLE_APPLICATION_CREDENTIALS'),
   fcmPostUrl('FCM_POST_URL');
 
   const EnvKeys(this.key);

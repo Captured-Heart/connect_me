@@ -2,10 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-
 import 'package:connect_me/app.dart';
 
-import '../../Domain/repository/local_notification_repository.dart';
 
 final _fcmInstance = FirebaseMessaging.instance;
 
@@ -113,7 +111,6 @@ class FirebaseMessagingRepositoryImpl implements FirebaseMessagingRepository {
         'body': pushNotificationModel.body,
       },
       'topic': pushNotificationModel.topic,
-      //  FcmSubscriptionTopics.allAndroid.name,
       "to": "/topics/${pushNotificationModel.topic}"
     };
 
@@ -163,13 +160,78 @@ class PushNotificationModel extends Equatable {
   final String title;
   final String body;
   final String topic;
+  final String token;
 
   const PushNotificationModel({
     required this.title,
     required this.body,
     required this.topic,
+    required this.token,
   });
 
   @override
-  List<Object?> get props => [title, body, topic];
+  List<Object?> get props => [
+        title,
+        body,
+        topic,
+        token,
+      ];
 }
+
+
+
+
+
+
+  // @override
+  // void sendMessageToToken({required PushNotificationModel pushNotificationModel}) async {
+  //   // Firebase Cloud Messaging server key
+  //   // String serverKey = EnvHelper.getEnv(EnvKeys.fcmServerKeys);
+  //   String fcmURL = EnvHelper.getEnv(EnvKeys.fcmPostUrlV2);
+  //   String accesTokenEnv = EnvHelper.getEnv(EnvKeys.googleCredentials);
+  //   // Read the service account key file
+  //   String serviceAccountJson = await File(accesTokenEnv).readAsString();
+  //   final credentials = ServiceAccountCredentials.fromJson(json.decode(serviceAccountJson));
+  //   // Parse the JSON content
+  //   final client = await clientViaServiceAccount(
+  //       credentials, ['https://www.googleapis.com/auth/firebase.messaging']);
+  //   Map<String, dynamic> serviceAccountMap = json.decode(serviceAccountJson);
+
+  //   // Extract the access token
+  //   String accessToken = client.credentials.accessToken.data;
+  //   // SharedPreferencesHelper.getStringPref(SharedKeys.accessToken.name) ?? 'dvsd';
+  //   // serviceAccountMap['token'];
+
+  //   log('\n\n this is the accessToken: $accessToken');
+  //   // Define the message payload
+  //   final Map<String, dynamic> message = {
+  //     "message": {
+  //       "token": pushNotificationModel.token,
+  //       "notification": {
+  //         "body": pushNotificationModel.body,
+  //         "title": pushNotificationModel.title,
+  //       }
+  //     }
+  //   };
+
+  //   // Send the message to the specified topic using FCM REST API
+  //   try {
+  //     log('trying to send fcm to token: ${pushNotificationModel.token}');
+  //     final url = Uri.parse(fcmURL);
+  //     await http
+  //         .post(
+  //           url,
+  //           headers: <String, String>{
+  //             'Content-Type': 'application/json',
+  //             'Authorization': 'Bearer $accessToken',
+  //           },
+  //           body: jsonEncode(message),
+  //         )
+  //         .then((value) =>
+  //             log('this is the status code: ${value.statusCode}, thi sis the body: ${value.body}'));
+
+  //     // return response.body;
+  //   } catch (e) {
+  //     log('this is the catch ${e.toString()}');
+  //   }
+  // }

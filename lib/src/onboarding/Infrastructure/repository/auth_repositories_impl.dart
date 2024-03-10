@@ -166,6 +166,11 @@ class AuthRepositoryImpl implements AuthRepository {
           accessToken: auth.accessToken,
           idToken: auth.idToken,
         );
+//
+
+        //
+        SharedPreferencesHelper.setStringPref(
+            SharedKeys.accessToken.name, auth.accessToken ?? 'df');
 
         final UserCredential response = await _firebaseAuth.signInWithCredential(credential);
 
@@ -175,7 +180,6 @@ class AuthRepositoryImpl implements AuthRepository {
         final bool isDocIdNull = docId != null && docId.isNotEmpty == true;
         log('the user exists: $doesUserExists, do is null : $isDocIdNull');
         if (isDocIdNull && !doesUserExists) {
-
           SharedPreferencesHelper.setStringPref(SharedKeys.userUID.name, docId);
 
           await _firebaseFirestore

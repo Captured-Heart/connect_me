@@ -28,7 +28,7 @@ class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
       if (next.isCompleted == true && next.data != null) {
         ref.read(addAccountInfoProvider.notifier).updateScanCount();
         Vibration.vibrate(duration: 200);
-        log((next.data as AuthUserModel).docId!);
+      
         showDialog(
           context: context,
           barrierDismissible: false,
@@ -43,6 +43,7 @@ class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
                 authUserModel: next.data as AuthUserModel,
                 isAfterScanDialog: true,
                 viewFullProfileBTN: () {
+                  
                   pop(context);
                   push(
                     context,
