@@ -1,4 +1,5 @@
 import 'package:connect_me/app.dart';
+import 'package:flutter/services.dart';
 
 class AccountInfoModalBody extends ConsumerStatefulWidget {
   const AccountInfoModalBody({
@@ -56,7 +57,7 @@ class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
 
   final ValueNotifier<String> imgUrlFirebaseNotifier = ValueNotifier<String>('');
   final ValueNotifier<bool> deletedImageNotifier = ValueNotifier<bool>(false);
-
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     final infoState = ref.watch(addAccountInfoProvider);
@@ -85,6 +86,7 @@ class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
         ),
         builder: (context, _) {
           return Form(
+            key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -178,7 +180,15 @@ class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
                   hintText: 'https://connectme.com',
                   initialValue: webNotifier.value,
                   onChanged: (value) {
-                    webNotifier.value = value;
+                    setState(() {
+                      webNotifier.value = value;
+                    });
+                  },
+                  validator: (p0) {
+                    if (p0!.startsWith('https') == false) {
+                      return TextConstant.linkMustStartWithHttps;
+                    }
+                    return null;
                   },
                 ),
                 AuthTextFieldWidget(
@@ -209,52 +219,54 @@ class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
                   alignment: Alignment.topRight,
                   child: ElevatedButton(
                     onPressed: () {
-                      // inspect(
-                      MapDynamicString map = CreateFormMap.createDataMap(
-                        controllersText: [
-                          // controller.firstNameController.text,
-                          // controller.lastNameController.text,
-                          // controller.phoneNoController.text,
-                          // controller.websiteController.text,
-                          // controller.bioController.text,
-                          fnameNotifier.value,
-                          lnameNotifier.value,
-                          phonePrefixNotifier.value,
-                          phoneNotifier.value,
-                          webNotifier.value,
-                          bioNotifier.value,
-                        ],
-                        customKeys: // initiate my custom keys
-                            [
-                          FirebaseDocsFieldEnums.fname.name,
-                          FirebaseDocsFieldEnums.lname.name,
-                          FirebaseDocsFieldEnums.phonePrefix.name,
-                          FirebaseDocsFieldEnums.phone.name,
-                          FirebaseDocsFieldEnums.website.name,
-                          FirebaseDocsFieldEnums.bio.name,
-                        ],
-                      );
-                      // );
+                      if (_formKey.currentState!.validate()) {
+                        // inspect(
+                        MapDynamicString map = CreateFormMap.createDataMap(
+                          controllersText: [
+                            // controller.firstNameController.text,
+                            // controller.lastNameController.text,
+                            // controller.phoneNoController.text,
+                            // controller.websiteController.text,
+                            // controller.bioController.text,
+                            fnameNotifier.value,
+                            lnameNotifier.value,
+                            phonePrefixNotifier.value,
+                            phoneNotifier.value,
+                            webNotifier.value,
+                            bioNotifier.value,
+                          ],
+                          customKeys: // initiate my custom keys
+                              [
+                            FirebaseDocsFieldEnums.fname.name,
+                            FirebaseDocsFieldEnums.lname.name,
+                            FirebaseDocsFieldEnums.phonePrefix.name,
+                            FirebaseDocsFieldEnums.phone.name,
+                            FirebaseDocsFieldEnums.website.name,
+                            FirebaseDocsFieldEnums.bio.name,
+                          ],
+                        );
+                        // );
 
-                      if (imgUrlFirebaseNotifier.value.isNotEmpty ||
-                          widget.authUserModel?.imgUrl?.isNotEmpty == true) {
-                        ref
-                            .read(addAccountInfoProvider.notifier)
-                            .addAccountInfo(
-                              map: map,
-                              imgUrl: imgUrlFirebaseNotifier.value,
-                            )
-                            .whenComplete(() {
-                          ref.invalidate(fetchProfileProvider);
-                        });
-                      } else {
-                        log(''' imgFirebase: ${imgUrlFirebaseNotifier.value}
+                        if (imgUrlFirebaseNotifier.value.isNotEmpty ||
+                            widget.authUserModel?.imgUrl?.isNotEmpty == true) {
+                          ref
+                              .read(addAccountInfoProvider.notifier)
+                              .addAccountInfo(
+                                map: map,
+                                imgUrl: imgUrlFirebaseNotifier.value,
+                              )
+                              .whenComplete(() {
+                            ref.invalidate(fetchProfileProvider);
+                          });
+                        } else {
+                          log(''' imgFirebase: ${imgUrlFirebaseNotifier.value}
                         
                         imgUrl: ${widget.authUserModel?.imgUrl}''');
-                        showScaffoldSnackBarMessage(
-                          TextConstant.profilePhotoRequired,
-                          isError: true,
-                        );
+                          showScaffoldSnackBarMessage(
+                            TextConstant.profilePhotoRequired,
+                            isError: true,
+                          );
+                        }
                       }
                     },
                     child: infoState.isLoading == true

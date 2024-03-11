@@ -403,9 +403,22 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const MoreCustomListTileWidget(
+                    MoreCustomListTileWidget(
                       icon: privacyIcon,
                       title: 'Account Privacy',
+                      onTap: () {
+                        ref
+                            .read(helpCenterImplProvider)
+                            .viewPrivacyPolicy(appdata.valueOrNull?.privacyPolicyLink ?? '')
+                            .onError((error, stackTrace) {
+                          showScaffoldSnackBarMessageNoColor(
+                            TextConstant.currentlyUnavailable,
+                            context: context,
+                            isError: true,
+                            appearsBottom: false,
+                          );
+                        });
+                      },
                     ),
                     //
                     MoreCustomListTileWidget(

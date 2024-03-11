@@ -111,7 +111,7 @@ NB: This is diplayed in your Qr_Code card and is visible to all''';
   static const noRecordFound = 'No records found';
   static const noUserFound = 'No User found';
   static const noContactsFound = 'No contacts found';
-  // static const lorem = 'or';
+  static const linkMustStartWithHttps = 'Link must start with https';
   // static const lorem = 'or'; // static const lorem = 'or';
   // static const lorem = 'or';
 

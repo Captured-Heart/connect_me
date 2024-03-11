@@ -45,6 +45,15 @@ class HelpCenterImpl extends HelpCenterRepository {
       throw AppException(e.toString());
     }
   }
+
+  @override
+  Future<void> viewPrivacyPolicy(String policyURL) async {
+    try {
+      return await UrlOptions.launchWeb(policyURL, launchModeEXT: true);
+    } catch (e) {
+      throw AppException(e.toString());
+    }
+  }
 }
 
 final helpCenterImplProvider = Provider<HelpCenterImpl>((ref) {

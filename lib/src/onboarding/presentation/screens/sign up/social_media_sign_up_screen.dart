@@ -89,13 +89,23 @@ class _SocialMediaSignUpScreenState extends ConsumerState<SocialMediaSignUpScree
                           onChanged: (link) {
                             controller.link = link;
                           },
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
+                          validator: (p0) {
+                            if (p0 == null || p0.isEmpty) {
                               return TextConstant.required;
-                            } else {
-                              return null;
                             }
+                            if (p0.startsWith('https') == false) {
+                              return TextConstant.linkMustStartWithHttps;
+                            }
+
+                            return null;
                           },
+                          // validator: (value) {
+                          //   if (value == null || value.isEmpty) {
+                          //     return TextConstant.required;
+                          //   } else {
+                          //     return null;
+                          //   }
+                          // },
                           hintText: 'Link',
                         ),
                       ),
