@@ -33,7 +33,7 @@ class _SignUpMainScreenState extends ConsumerState<SignUpMainScreen> {
                   CustomListTileWidget(
                     title: 'To complete your sign up: '.hardCodedString,
                     subtitle:
-                        'The following sections needs to be filled up, \n*Account information is compulsory to complete registration while others are mandatory.'
+                        'The following sections needs to be filled up, \n*Account information is compulsory to complete registration while others are optional.'
                             .hardCodedString,
                     subtitleTextAlign: TextAlign.start,
                     subtitleMaxLines: 4,

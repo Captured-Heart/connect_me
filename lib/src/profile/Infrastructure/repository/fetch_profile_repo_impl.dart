@@ -41,7 +41,9 @@ class FetchProfileRepoImpl implements ProfileRepository {
 
     return result.then((value) {
       return value.docs.map((e) {
-        return WorkExperienceModel.fromJson(e.data());
+        return WorkExperienceModel.fromJson(
+          e.data(),
+        );
       }).toList();
     });
     // docs.map((e) => WorkExperienceModel.fromJson(e.data())).toList();

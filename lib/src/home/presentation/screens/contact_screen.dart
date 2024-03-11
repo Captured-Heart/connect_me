@@ -208,7 +208,7 @@ class ContactListTile extends StatelessWidget {
             ),
           ),
         ),
-        title: AutoSizeText(contacts.fullname),
+        title: AutoSizeText(contacts.fullname.toTitleCase()),
         subtitle: AutoSizeText(
           contacts.bio ?? '',
           maxLines: 2,

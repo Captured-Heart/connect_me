@@ -7,8 +7,7 @@ class ProfileScreen1 extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final profile = ref.watch(fetchProfileProvider);
     var socialIcons = profile.valueOrNull?.socialMediaHandles?.keys
-        .map((e) => SocialDropdownEnum.values
-            .firstWhere((element) => element.message == e))
+        .map((e) => SocialDropdownEnum.values.firstWhere((element) => element.message == e))
         .toList();
 
     var socialIconMap = profile.valueOrNull?.socialMediaHandles?.entries
@@ -17,8 +16,9 @@ class ProfileScreen1 extends ConsumerWidget {
             .message))
         .toList();
     final workExperience = ref.watch(fetchWorkListProvider('')).valueOrNull;
-    final educationExperience =
-        ref.watch(fetchEducationListProvider('')).valueOrNull;
+
+    workExperience?.sort((a, b) => b.startDate!.year!.compareTo(a.startDate!.year!));
+    final educationExperience = ref.watch(fetchEducationListProvider('')).valueOrNull;
 
     return Scaffold(
       body: Stack(
@@ -26,9 +26,8 @@ class ProfileScreen1 extends ConsumerWidget {
         children: [
           Container(
             decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage(ImagesConstant.qrCodeBG2),
-                  fit: BoxFit.cover),
+              image:
+                  DecorationImage(image: AssetImage(ImagesConstant.qrCodeBG2), fit: BoxFit.cover),
             ),
           ),
           //
@@ -51,12 +50,10 @@ class ProfileScreen1 extends ConsumerWidget {
                 GestureDetector(
                   onTap: () {},
                   child: Chip(
-                    backgroundColor:
-                        context.colorScheme.inversePrimary.withOpacity(0.4),
+                    backgroundColor: context.colorScheme.inversePrimary.withOpacity(0.4),
                     label: const Icon(shareIcon),
                     shape: const CircleBorder(),
-                    side: BorderSide(
-                        width: 0.5, color: context.colorScheme.onSurface),
+                    side: BorderSide(width: 0.5, color: context.colorScheme.onSurface),
                   ),
                 ),
               ],
@@ -81,12 +78,10 @@ class ProfileScreen1 extends ConsumerWidget {
                     var addInfo = data.additionalDetails;
                     return ListView(
                       shrinkWrap: true,
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 55, horizontal: 20),
+                      padding: const EdgeInsets.symmetric(vertical: 55, horizontal: 20),
                       children: [
                         CustomListTileWidget(
-                          title:
-                              '${data.fname?.toTitleCase()} ${data.lname?.toTitleCase()}',
+                          title: '${data.fname?.toTitleCase()} ${data.lname?.toTitleCase()}',
                           // subtitle: data.website,
                           subtitle: data.username,
                           showAtsign: true,
@@ -101,38 +96,36 @@ class ProfileScreen1 extends ConsumerWidget {
                         //   ),
                         // ),
                         //? SOCIAL MEDIA LINKS
-                        socialIcons?.isEmpty == true  ? const SizedBox.shrink():
-                        SizedBox(
-                          height: 60,
-                          // width: context.sizeWidth(1),
-                          child: Center(
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: socialIcons?.length,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) {
-                                var icons =
-                                    socialIconsSwitch(socialIcons?[index]);
-                                var link = socialIconMap?[index].value;
+                        socialIcons?.isEmpty == true
+                            ? const SizedBox.shrink()
+                            : SizedBox(
+                                height: 60,
+                                // width: context.sizeWidth(1),
+                                child: Center(
+                                  child: ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: socialIcons?.length,
+                                    scrollDirection: Axis.horizontal,
+                                    itemBuilder: (context, index) {
+                                      var icons = socialIconsSwitch(socialIcons?[index]);
+                                      var link = socialIconMap?[index].value;
 
-                                return CircleChipButton(
-                                  iconData: icons,
-                                  tooltip: socialIcons?[index].message ?? '',
-                                  onTap: () {
-                                    log('the link clicked is $link');
-                                    UrlOptions.launchWeb(link,
-                                            launchModeEXT: true)
-                                        .onError((error, stackTrace) {
-                                      showScaffoldSnackBarMessage(
-                                          error.toString(),
-                                          isError: true);
-                                    });
-                                  },
-                                );
-                              },
-                            ),
-                          ),
-                        ),
+                                      return CircleChipButton(
+                                        iconData: icons,
+                                        tooltip: socialIcons?[index].message ?? '',
+                                        onTap: () {
+                                          log('the link clicked is $link');
+                                          UrlOptions.launchWeb(link, launchModeEXT: true)
+                                              .onError((error, stackTrace) {
+                                            showScaffoldSnackBarMessage(error.toString(),
+                                                isError: true);
+                                          });
+                                        },
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
 
                         //! Bio details widget
                         BioDetailsWidget(users: profile.valueOrNull),
@@ -145,13 +138,10 @@ class ProfileScreen1 extends ConsumerWidget {
 
                         workExperience == null
                             ? const SizedBox.shrink()
-                            : WorkDetailsCardWidget(
-                                workExperienceModel: workExperience),
-                        educationExperience == null ||
-                                educationExperience.isEmpty
+                            : WorkDetailsCardWidget(workExperienceModel: workExperience),
+                        educationExperience == null || educationExperience.isEmpty
                             ? const SizedBox.shrink()
-                            : EdiucationDetailsCardWidget(
-                                educationModel: educationExperience),
+                            : EdiucationDetailsCardWidget(educationModel: educationExperience),
                       ],
                     );
                   },
@@ -188,9 +178,8 @@ class ProfileScreen1 extends ConsumerWidget {
                                     ImagesConstant.noImagePlaceholderHttp,
                               ),
                             ),
-                            border: Border.all(
-                                color: context.colorScheme.primaryContainer,
-                                width: 3),
+                            border:
+                                Border.all(color: context.colorScheme.primaryContainer, width: 3),
                           ),
                           child: profile.valueOrNull?.imgUrl?.isEmpty == true ||
                                   profile.valueOrNull?.imgUrl == null
