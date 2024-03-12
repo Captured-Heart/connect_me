@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:connect_me/app.dart';
 
-
 final _fcmInstance = FirebaseMessaging.instance;
 
 enum AppState { onInitialMessage, inBackground, openFromNotification }
@@ -25,7 +24,7 @@ class FirebaseMessagingRepositoryImpl implements FirebaseMessagingRepository {
   @override
   Future<void> getTokenAndSaveToken({required String uuid}) async {
     String? token = await _fcmInstance.getToken();
-    log('this is the token: $token and this is the uuid: $uuid');
+    // log('this is the token: $token and this is the uuid: $uuid');
     if (token?.isNotEmpty == true && token != null) {
       //saved to local
       SharedPreferencesHelper.setStringPref(SharedKeys.token.name, token);

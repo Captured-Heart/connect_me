@@ -54,63 +54,39 @@ class _SocialMediaSignUpScreenState extends ConsumerState<SocialMediaSignUpScree
               shrinkWrap: true,
               padding: AppEdgeInsets.eA20,
               children: [
-                //start date
-                for (var controller in textEditingControllerList)
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
+                ...List.generate(
+                  textEditingControllerList.length,
+                  (index) => Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Expanded(
-                          flex: 3,
-                          child: SizedBox(
-                            child: MyCustomDropWidgetWithStrings(
-                              items: items,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return TextConstant.required;
-                                } else {
-                                  return null;
-                                }
-                              },
-                              onChanged: (title) {
-                                controller.title = title;
-                                items.remove(title);
-                              },
-                            ),
-                            // DropDownWithLabelWidget(),
-                          )),
-                      const SizedBox(
-                        width: 15,
-                      ),
-                      Expanded(
-                        flex: 5,
-                        child: AuthTextFieldWidget(
-                          contentPadding: AppEdgeInsets.eA18,
-                          controller: TextEditingController(text: controller.link),
-                          onChanged: (link) {
-                            controller.link = link;
-                          },
-                          validator: (p0) {
-                            if (p0 == null || p0.isEmpty) {
-                              return TextConstant.required;
-                            }
-                            if (p0.startsWith('https') == false) {
-                              return TextConstant.linkMustStartWithHttps;
-                            }
-
-                            return null;
-                          },
-                          // validator: (value) {
-                          //   if (value == null || value.isEmpty) {
-                          //     return TextConstant.required;
-                          //   } else {
-                          //     return null;
-                          //   }
-                          // },
-                          hintText: 'Link',
+                        child: LinkAndSocialMediaRowTextField(
+                          items: items,
+                          controller: textEditingControllerList[index],
                         ),
                       ),
+                      IconButton(
+                        onPressed: () {
+                          setState(() {
+                            index > 0 ? textEditingControllerList.removeAt(index) : null;
+                          });
+                          // textEditingControllerList.removeWhere((item) => item.link.isEmpty && index > 0);
+                        },
+                        icon: const Icon(Icons.remove_circle),
+                      )
                     ],
                   ),
+                ),
+                //start date
+                // for (var controller in textEditingControllerList)
+                //   LinkAndSocialMediaRowTextField(items: items, controller: controller),
+
+                //  IconButton(
+                //       onPressed: () {
+                //         textEditingControllerList.removeWhere((item) => item.link.isEmpty);
+                //       },
+                //       icon: Icon(Icons.remove_circle),
+                //     )
                 Center(
                   child: TextButton.icon(
                     onPressed: () {
@@ -148,6 +124,77 @@ class _SocialMediaSignUpScreenState extends ConsumerState<SocialMediaSignUpScree
           ),
         ),
       ),
+    );
+  }
+}
+
+class LinkAndSocialMediaRowTextField extends StatelessWidget {
+  const LinkAndSocialMediaRowTextField({
+    super.key,
+    required this.items,
+    required this.controller,
+  });
+
+  final List<String> items;
+  final SocialClass controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+            flex: 3,
+            child: SizedBox(
+              child: MyCustomDropWidgetWithStrings(
+                items: items,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return TextConstant.required;
+                  } else {
+                    return null;
+                  }
+                },
+                onChanged: (title) {
+                  controller.title = title;
+                  items.remove(title);
+                },
+              ),
+              // DropDownWithLabelWidget(),
+            )),
+        const SizedBox(
+          width: 15,
+        ),
+        Expanded(
+          flex: 5,
+          child: AuthTextFieldWidget(
+            contentPadding: AppEdgeInsets.eA18,
+            controller: TextEditingController(text: controller.link),
+            onChanged: (link) {
+              controller.link = link;
+            },
+            validator: (p0) {
+              if (p0 == null || p0.isEmpty) {
+                return TextConstant.required;
+              }
+              if (p0.startsWith('http') == false) {
+                return TextConstant.linkMustStartWithHttps;
+              }
+
+              return null;
+            },
+            // validator: (value) {
+            //   if (value == null || value.isEmpty) {
+            //     return TextConstant.required;
+            //   } else {
+            //     return null;
+            //   }
+            // },
+            hintText: 'Link',
+          ),
+        ),
+      ],
     );
   }
 }

@@ -95,6 +95,8 @@ abstract class TextConstant {
   static const telegram = 'Telegram';
   static const message = 'Message';
   static const support = 'Support';
+  static const donate = 'Donate';
+
   static const theme = 'Theme';
 
   static const social = 'Social';

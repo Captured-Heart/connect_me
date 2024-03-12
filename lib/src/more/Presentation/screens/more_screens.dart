@@ -423,7 +423,7 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                     //
                     MoreCustomListTileWidget(
                       icon: supportMoneyIcon,
-                      title: TextConstant.support,
+                      title: TextConstant.donate,
                       onTap: () {
                         WoltModalSheet.show(
                           context: context,

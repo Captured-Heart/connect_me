@@ -179,7 +179,7 @@ class _AppCustomSuccessDialogState extends State<AppCustomSuccessDialog> {
         content: widget.dialogModel.content ??
             (widget.dialogModel.hasImage == true
                 ? Image.asset(
-                    widget.dialogModel.imgUrl?.startsWith('https:') == false
+                    widget.dialogModel.imgUrl?.startsWith('http') == false
                         ? widget.dialogModel.imgUrl ?? ImagesConstant.qrCodeImage
                         : ImagesConstant.qrCodeImage,
                     height: 170,
@@ -214,7 +214,7 @@ class _AppCustomSuccessDialogState extends State<AppCustomSuccessDialog> {
         content: widget.dialogModel.content ??
             (widget.dialogModel.hasImage == true
                 ? Image.asset(
-                    widget.dialogModel.imgUrl?.startsWith('https:') == false
+                    widget.dialogModel.imgUrl?.startsWith('http') == false
                         ? widget.dialogModel.imgUrl ?? ImagesConstant.qrCodeImage
                         : ImagesConstant.qrCodeImage,
                     height: 170,

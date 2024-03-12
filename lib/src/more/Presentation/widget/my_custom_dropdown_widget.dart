@@ -83,6 +83,8 @@ class MyCustomDropWidgetWithStrings extends StatelessWidget {
           style: context.textTheme.bodySmall?.copyWith(
             color: context.colorScheme.onBackground.withOpacity(0.6),
           ),
+          minFontSize: 9,
+          maxLines: 1,
         );
       },
       closedBorder: Border.all(

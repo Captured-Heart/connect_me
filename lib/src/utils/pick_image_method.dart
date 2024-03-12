@@ -24,8 +24,8 @@ Future<CroppedFile?> cropImageFunction({
 }) async {
   final croppedFile = await ImageCropper().cropImage(
     sourcePath: pickedFile.path,
-    compressFormat: ImageCompressFormat.jpg,
-    compressQuality: 100,
+    // compressFormat: ImageCompressFormat.jpg,
+    // compressQuality: 100,
     uiSettings: [
       AndroidUiSettings(
         toolbarTitle: 'Edit Image'.hardCodedString,

@@ -108,7 +108,7 @@ class _SocialMediaBodyState extends ConsumerState<SocialMediaBody> {
                               if (p0 == null || p0.isEmpty) {
                                 return TextConstant.required;
                               }
-                              if (p0.startsWith('https') == false) {
+                              if (p0.startsWith('http') == false) {
                                 return TextConstant.linkMustStartWithHttps;
                               }
 
@@ -202,7 +202,7 @@ class _SocialMediaBodyState extends ConsumerState<SocialMediaBody> {
                             if (p0 == null || p0.isEmpty) {
                               return TextConstant.required;
                             }
-                            if (p0.startsWith('https') == false) {
+                            if (p0.startsWith('http') == false) {
                               return TextConstant.linkMustStartWithHttps;
                             }
 
