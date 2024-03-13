@@ -68,30 +68,53 @@ class _ShareQrCodeScreenState extends ConsumerState<ShareQrCodeScreen> {
                       ),
                       child: Center(
                         //QR CODE WIDGET WITH A CARD
-                        child: Card(
-                          color: Colors.white,
-                          child: AnimatedContainer(
-                            duration: const Duration(milliseconds: 400),
-                            transformAlignment: Alignment.bottomLeft,
-                            height: cardisVertNotifier.value == true
-                                ? context.sizeHeight(0.42)
-                                : context.sizeHeight(0.28),
-                            width: cardisVertNotifier.value == true
-                                ? context.sizeWidth(0.62)
-                                : context.sizeWidth(0.9),
-                            child: cardisVertNotifier.value == true
-                                ? PortraitQrCodeWidget(
-                                    authUserModel: widget.authUserModel,
-                                  )
-                                : LandscapeQrCodeWIdget(
-                                    authUserModel: widget.authUserModel,
+                        child: widget.authUserModel == null
+                            ? Container(
+                                height: context.sizeHeight(0.4),
+                                width: context.sizeWidth(0.6),
+                                margin: const EdgeInsets.only(bottom: 80),
+                                decoration: const BoxDecoration(
+                                  borderRadius: AppBorderRadius.c24,
+                                  color: Colors.white,
+                                ),
+                                child: ShimmerWidget(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const ProfilePicWidget(),
+                                      ProfilePicWidget(
+                                        height: context.sizeHeight(0.22),
+                                        width: context.sizeWidth(0.45),
+                                      )
+                                    ].columnInPadding(15),
                                   ),
-                          ),
-                        ).padOnly(
-                          bottom: context.sizeHeight(0.1),
-                          left: 10,
-                          right: 10,
-                        ),
+                                ),
+                              )
+                            : Card(
+                                color: Colors.white,
+                                child: AnimatedContainer(
+                                  duration: const Duration(milliseconds: 400),
+                                  transformAlignment: Alignment.bottomLeft,
+                                  height: cardisVertNotifier.value == true
+                                      ? context.sizeHeight(0.42)
+                                      : context.sizeHeight(0.28),
+                                  width: cardisVertNotifier.value == true
+                                      ? context.sizeWidth(0.62)
+                                      : context.sizeWidth(0.9),
+                                  child: cardisVertNotifier.value == true
+                                      ? PortraitQrCodeWidget(
+                                          authUserModel: widget.authUserModel,
+                                        )
+                                      : LandscapeQrCodeWIdget(
+                                          authUserModel: widget.authUserModel,
+                                        ),
+                                ),
+                              ).padOnly(
+                                bottom: context.sizeHeight(0.1),
+                                left: 10,
+                                right: 10,
+                              ),
                       ).padOnly(bottom: 30),
                     ),
                   ),
@@ -163,14 +186,22 @@ class _ShareQrCodeScreenState extends ConsumerState<ShareQrCodeScreen> {
 
                           //share button
                           SocialButtons(
-                            onTap: () {
-                              if (widget.authUserModel != null) {
-                                ref.read(qrcodeShareNotifierProvider.notifier).shareQrToOtherApps(
-                                      _globalKey,
-                                      authUserModel: widget.authUserModel!,
-                                    );
-                              }
-                            },
+                            onTap: widget.authUserModel == null
+                                ? () => showScaffoldSnackBarMessageNoColor(
+                                      TextConstant.noUserFound,
+                                      context: context,
+                                      isError: true,
+                                    )
+                                : () {
+                                    if (widget.authUserModel != null) {
+                                      ref
+                                          .read(qrcodeShareNotifierProvider.notifier)
+                                          .shareQrToOtherApps(
+                                            _globalKey,
+                                            authUserModel: widget.authUserModel!,
+                                          );
+                                    }
+                                  },
                             iconData: shareIcon,
                             isLoading: shareCode.isLoading ?? false,
                             textColor: Colors.white,
