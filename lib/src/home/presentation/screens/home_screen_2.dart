@@ -74,9 +74,14 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> with SingleTickerProv
   }
 
   int percentageRate({required List<bool> progressBoolList}) {
-    int trueCount = progressBoolList.where((element) => element == false).length;
-    double progressPercentage = (trueCount / progressBoolList.length) * 100;
-    return progressPercentage.round();
+    if (progressBoolList.contains(null) == true) {
+      log('yes it contains null');
+      return 400;
+    } else {
+      int trueCount = progressBoolList.where((element) => element == false).length;
+      double progressPercentage = (trueCount / progressBoolList.length) * 100;
+      return progressPercentage.round();
+    }
   }
 
   @override
@@ -84,14 +89,23 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> with SingleTickerProv
     final AsyncValue<AuthUserModel> users = ref.watch(fetchProfileProvider.select((_) => _));
     final educationList = ref.watch(fetchEducationListProvider('')).valueOrNull;
     final workExpList = ref.watch(fetchWorkListProvider('')).valueOrNull;
+
     var progress = percentageRate(
       progressBoolList: [
-        users.valueOrNull?.isAdditionalDetailsEmpty == true,
-        users.valueOrNull?.isSocialMediaEmpty == true,
-        educationList?.isEmpty == true || educationList == null,
-        workExpList?.isEmpty == true || workExpList == null,
+        users.valueOrNull?.isAdditionalDetailsEmpty == null
+            ? false
+            : users.valueOrNull?.isAdditionalDetailsEmpty == true,
+        users.valueOrNull?.isSocialMediaEmpty == null
+            ? false
+            : users.valueOrNull?.isSocialMediaEmpty == true,
+        educationList?.isEmpty == null
+            ? false
+            : educationList?.isEmpty == true || educationList == null,
+        workExpList?.isEmpty == null ? false : workExpList?.isEmpty == true || workExpList == null,
       ],
     );
+
+    log('what is the isAdditional: ${users.valueOrNull?.isAdditionalDetailsEmpty}\n isSocialMediaEmpty: ${users.valueOrNull?.isSocialMediaEmpty}, \n educationList: ${educationList?.isEmpty}, \n workList: ${workExpList?.isEmpty}');
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _timer = Timer(const Duration(milliseconds: 2000), () {
@@ -174,7 +188,6 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> with SingleTickerProv
                 ),
                 Flexible(
                   child: AutoSizeText(
-                    //todo: do the calculation for percentage
                     '${'Complete your profile'.hardCodedString} ($progress%)',
                     style: context.textTheme.bodySmall,
                     maxLines: 1,

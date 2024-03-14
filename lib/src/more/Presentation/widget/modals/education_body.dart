@@ -39,7 +39,7 @@ class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
       TextEditingController(text: widget.educationModel?.endDate?.endYear),
     );
 
-    activitiesNotifier = ValueNotifier<String>( widget.educationModel?.activities ?? '');
+    activitiesNotifier = ValueNotifier<String>(widget.educationModel?.activities ?? '');
     gradeNotifier = ValueNotifier<String>(widget.educationModel?.grade ?? '');
     awardNotifier = ValueNotifier<String>(widget.educationModel?.award ?? '');
     super.initState();
@@ -213,6 +213,7 @@ class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
                       onTap: () {
                         showCupertinoDateWidget(
                           context: context,
+                          maxTime: DateTime(2050),
                           onConfirm: (date) {
                             endMonthNotifier.value.text = dateFormattedToMonth(date);
                             endYearNotifier.value.text = dateFormattedToYear(date);

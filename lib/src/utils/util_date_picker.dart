@@ -36,20 +36,20 @@ void datePicker(
       }).then((selectedDate) {
     if (selectedDate != null) {
       setState(() {
-        textController.dobController.text =
-            dateFormatted3(selectedDate).toString();
-        ref.read(dateTimeProvider.notifier).update((state) =>
-            DateTime.fromMicrosecondsSinceEpoch(
-                selectedDate.microsecondsSinceEpoch));
+        textController.dobController.text = dateFormatted3(selectedDate).toString();
+        ref.read(dateTimeProvider.notifier).update(
+            (state) => DateTime.fromMicrosecondsSinceEpoch(selectedDate.microsecondsSinceEpoch));
       });
     }
   });
 }
 
-Future<DateTime?> showCupertinoDateWidget(
-    {required BuildContext context,
-    required dynamic Function(DateTime)? onConfirm,
-    DateTime? currentTime}) async {
+Future<DateTime?> showCupertinoDateWidget({
+  required BuildContext context,
+  required dynamic Function(DateTime)? onConfirm,
+  DateTime? currentTime,
+  DateTime? maxTime,
+}) async {
   return DatePicker.showDatePicker(
     context,
     theme: DatePickerTheme(
@@ -61,7 +61,7 @@ Future<DateTime?> showCupertinoDateWidget(
     ),
     showTitleActions: true,
     minTime: DateTime(1960, 1, 20),
-    maxTime: DateTime.now(),
+    maxTime: maxTime ?? DateTime.now(),
     currentTime: currentTime ?? DateTime.now(),
     onConfirm: onConfirm,
   );

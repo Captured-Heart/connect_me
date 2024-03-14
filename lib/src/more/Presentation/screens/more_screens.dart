@@ -40,38 +40,40 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
             children: [
               // MY ACCOUNT
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: Text(TextConstant.yourAccount),
                   ),
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: GradientShortBTN(
-                      iconData: logOutIcon,
-                      tooltip: TextConstant.logOut,
-                      iconSize: 18,
-                      iconColor: AppThemeColorDark.textError,
-                      isErrorGradient: true,
-                      width: 35,
-                      height: 35,
-                      onTap: () {
-                        warningDialogs(
-                          context: context,
-                          dialogModel: DialogModel(
-                            title: 'Are you sure you want to log out?'.hardCodedString,
-                            content: null,
-                            onPostiveAction: () {
-                              pop(context);
-                              ref.read(logOutNotifierProvider.notifier).signOutUsers();
-                            },
-                          ),
-                        );
-                      },
-                    ).padSymmetric(horizontal: 20),
-                  ),
+
+                  //! remove the log out icon
+                  //  Align(
+                  //   alignment: Alignment.topRight,
+                  //   child: GradientShortBTN(
+                  //     iconData: logOutIcon,
+                  //     tooltip: TextConstant.logOut,
+                  //     iconSize: 18,
+                  //     iconColor: AppThemeColorDark.textError,
+                  //     isErrorGradient: true,
+                  //     width: 35,
+                  //     height: 35,
+                  //     onTap: () {
+                  //       warningDialogs(
+                  //         context: context,
+                  //         dialogModel: DialogModel(
+                  //           title: 'Are you sure you want to log out?'.hardCodedString,
+                  //           content: null,
+                  //           onPostiveAction: () {
+                  //             pop(context);
+                  //             ref.read(logOutNotifierProvider.notifier).signOutUsers();
+                  //           },
+                  //         ),
+                  //       );
+                  //     },
+                  //   ).padSymmetric(horizontal: 20),
+                  // ),
                 ],
               ),
               Card(

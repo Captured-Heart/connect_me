@@ -181,6 +181,7 @@ class _EducationInfoSignUpScreenState extends ConsumerState<EducationInfoSignUpS
                             onTap: () {
                               showCupertinoDateWidget(
                                 context: context,
+                                maxTime: DateTime(2050),
                                 onConfirm: (date) {
                                   endMonthNotifier.value.text = dateFormattedToMonth(date);
                                   endYearNotifier.value.text = dateFormattedToYear(date);

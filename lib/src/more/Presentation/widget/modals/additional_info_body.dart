@@ -99,6 +99,7 @@ class _AdditionalInfoModalBodyState extends ConsumerState<AdditionalInfoModalBod
                 onTap: () {
                   showCupertinoDateWidget(
                     context: context,
+                    maxTime: DateTime(2017),
                     currentTime: widget.authUserModel.date?.toDate(),
                     onConfirm: (date) {
                       dobNotifier.value.text = dateFormatted2(date);
