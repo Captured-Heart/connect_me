@@ -105,8 +105,6 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> with SingleTickerProv
       ],
     );
 
-    log('what is the isAdditional: ${users.valueOrNull?.isAdditionalDetailsEmpty}\n isSocialMediaEmpty: ${users.valueOrNull?.isSocialMediaEmpty}, \n educationList: ${educationList?.isEmpty}, \n workList: ${workExpList?.isEmpty}');
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _timer = Timer(const Duration(milliseconds: 2000), () {
         if (!mounted) return;
