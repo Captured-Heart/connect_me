@@ -41,6 +41,8 @@ Install local `flutter` version.
 ```bash
 fvm install
 ```
+---
+
 ### Firebase setup
 This project contains firebase analytics, cloud firestore, firebase storage, and firebase Auth files.
 
