@@ -55,3 +55,6 @@ models.jsonc
 .env
 android/app/upload-keystore.jks
 android/key.properties
+android/app/google-services.json
+ios/firebase_app_id_file.json
+ios/Runner/GoogleService-Info.plist
