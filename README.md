@@ -1,9 +1,10 @@
 <div align="center">
    <img src="./assets/images/aboutMeLogo_brown.png" width="100" color="0xFF2676FC"/>
-  <h1>Connect Me</h1>
+
+  ## Connect Me
   <strong> Connect_Me is a user-friendly mobile application that empowers users to streamline their communication, networking, and information-sharing processes with the power of QR codes. Whether you're a professional seeking to exchange business details, a social media enthusiast connecting with new friends, or a tech-savvy individual looking for a convenient way to share information, Connect_Me is the ultimate solution for all your QR code needs. </strong>
 
-<br />
+<br/>
 <a href='https://apps.apple.com/app/ovavue/id6449617480'><img alt='Download on the App Store' src='./screenshots/app_store.png' height='36px'/></a>
 <a href='https://play.google.com/store/apps/details?id=io.github.jogboms.ovavue'><img alt='Get it on Google Play' src='./screenshots/google_play.png' height='36px'/></a>
 
@@ -11,6 +12,7 @@
 <br />
 
 ## AN INTRO VIDEO OF THE APP
+
 https://github.com/Captured-Heart/connect_me/assets/69226443/63c2abe0-4c5f-4151-9f9a-77beb289a4b7
 
 <!-- <i><h3 style="color: green">You can download the apk directly from my firebase distribution console <a href="https://appdistribution.firebase.dev/i/e5a7b73fefe2dd61">LearnGual Assessment</a></h3></i> -->
