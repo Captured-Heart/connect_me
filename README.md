@@ -12,8 +12,7 @@
 <br />
 
 ## AN INTRO VIDEO OF THE APP
-
-<img src="./screenshots/Connect_me_intro.gif" width="800", height = "1200", />
+https://github.com/Captured-Heart/connect_me/assets/69226443/63c2abe0-4c5f-4151-9f9a-77beb289a4b7
 
 <!-- <i><h3 style="color: green">You can download the apk directly from my firebase distribution console <a href="https://appdistribution.firebase.dev/i/e5a7b73fefe2dd61">LearnGual Assessment</a></h3></i> -->
 
