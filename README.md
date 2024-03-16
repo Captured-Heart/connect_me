@@ -5,6 +5,9 @@
   <strong> Connect_Me is a user-friendly mobile application that empowers users to streamline their communication, networking, and information-sharing processes with the power of QR codes. Whether you're a professional seeking to exchange business details, a social media enthusiast connecting with new friends, or a tech-savvy individual looking for a convenient way to share information, Connect_Me is the ultimate solution for all your QR code needs. </strong>
   <br />
 
+<a href='https://apps.apple.com/app/ovavue/id6449617480'><img alt='Download on the App Store' src='./screenshots/app_store.png' height='36px'/></a>
+<a href='https://play.google.com/store/apps/details?id=io.github.jogboms.ovavue'><img alt='Get it on Google Play' src='./screenshots/google_play.png' height='36px'/></a>
+
 <sub>Built by <a href="https://twitter.com/_Captured_Heart">Nkpozi Marcel Kelechi</a></sub>
 <br />
 
@@ -15,6 +18,28 @@
 <!-- <i><h3 style="color: green">You can download the apk directly from my firebase distribution console <a href="https://appdistribution.firebase.dev/i/e5a7b73fefe2dd61">LearnGual Assessment</a></h3></i> -->
 
 </div>
+
+---
+
+## Getting Started
+
+After cloning,
+
+### FVM setup
+
+it runs on flutter version: flutter: ">=3.10.0", dart: ">=3.0.0 <4.0.0".
+
+Install `fvm` if not already installed.
+
+```bash
+dart pub global activate fvm
+```
+
+Install local `flutter` version.
+
+```bash
+fvm install
+```
 
 # Key Features
 
