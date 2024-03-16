@@ -1,10 +1,9 @@
 <div align="center">
    <img src="./assets/images/aboutMeLogo_brown.png" width="100" color="0xFF2676FC"/>
-  <br />
   <h1>Connect Me</h1>
   <strong> Connect_Me is a user-friendly mobile application that empowers users to streamline their communication, networking, and information-sharing processes with the power of QR codes. Whether you're a professional seeking to exchange business details, a social media enthusiast connecting with new friends, or a tech-savvy individual looking for a convenient way to share information, Connect_Me is the ultimate solution for all your QR code needs. </strong>
-  <br />
 
+<br />
 <a href='https://apps.apple.com/app/ovavue/id6449617480'><img alt='Download on the App Store' src='./screenshots/app_store.png' height='36px'/></a>
 <a href='https://play.google.com/store/apps/details?id=io.github.jogboms.ovavue'><img alt='Get it on Google Play' src='./screenshots/google_play.png' height='36px'/></a>
 
@@ -70,54 +69,54 @@ fvm install
   <table>
     <tr>
       <td style="text-align: center">
-        <img src="./screenshots/home.PNG" width="200" />
+        <img src="./screenshots/home.PNG" width="400" />
       </td>
       <td style="text-align: center">
-        <img src="./screenshots/profile.PNG" width="200" />
+        <img src="./screenshots/profile.PNG" width="400" />
       </td>
       <td style="text-align: center">
-        <img src="./screenshots/connect_dark.PNG" width="200" />
+        <img src="./screenshots/connect_dark.PNG" width="400" />
       </td>
        <td style="text-align: center">
-        <img src="./screenshots/connect_dark2.PNG" width="200" />
+        <img src="./screenshots/connect_dark2.PNG" width="400" />
       </td>
       <td style="text-align: center">
-        <img src="./screenshots/share.PNG" width="200" />
+        <img src="./screenshots/share.PNG" width="400" />
       </td>
       <td style="text-align: center">
-        <img src="./screenshots/share1.PNG" width="200" />
+        <img src="./screenshots/share1.PNG" width="400" />
       </td>
        <td style="text-align: center">
-        <img src="./screenshots/share3.PNG" width="200" />
+        <img src="./screenshots/share3.PNG" width="400" />
       </td>
        <td style="text-align: center">
-        <img src="./screenshots/themes.PNG" width="200" />
+        <img src="./screenshots/themes.PNG" width="400" />
       </td>
     </tr>
     <tr>
        <td style="text-align: center">
-        <img src="./screenshots/home_light.PNG" width="200" />
+        <img src="./screenshots/home_light.PNG" width="400" />
       </td>
       <td style="text-align: center">
-        <img src="./screenshots/profile2.PNG" width="200" />
+        <img src="./screenshots/profile2.PNG" width="400" />
       </td>
       <td style="text-align: center">
-        <img src="./screenshots/connect_light.PNG" width="200" />
+        <img src="./screenshots/connect_light.PNG" width="400" />
       </td>
        <td style="text-align: center">
-        <img src="./screenshots/connect_light_list.PNG" width="200" />
+        <img src="./screenshots/connect_light_list.PNG" width="400" />
       </td>
       <td style="text-align: center">
-        <img src="./screenshots/share_light.PNG" width="200" />
+        <img src="./screenshots/share_light.PNG" width="400" />
       </td>
       <td style="text-align: center">
-        <img src="./screenshots/share_light2.PNG" width="200" />
+        <img src="./screenshots/share_light2.PNG" width="400" />
       </td>
        <td style="text-align: center">
-        <img src="./screenshots/share_light3.PNG" width="200" />
+        <img src="./screenshots/share_light3.PNG" width="400" />
       </td>
        <td style="text-align: center">
-        <img src="./screenshots/themes2.PNG" width="200" />
+        <img src="./screenshots/themes2.PNG" width="400" />
       </td>
     </tr> 
   </table>
