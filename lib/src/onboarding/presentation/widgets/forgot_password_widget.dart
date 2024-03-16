@@ -6,7 +6,7 @@ class ForgotPasswordCard extends ConsumerWidget {
     required this.pageController,
   });
   final PageController pageController;
-  final GlobalKey<FormState> forgotPassformKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _forgotPassformKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -30,7 +30,7 @@ class ForgotPasswordCard extends ConsumerWidget {
       }
     });
     return Form(
-      key: forgotPassformKey,
+      key: _forgotPassformKey,
       child: Card(
         elevation: 3,
         child: Column(
@@ -66,7 +66,13 @@ class ForgotPasswordCard extends ConsumerWidget {
                   fillColor: Colors.transparent,
                   controller: controller.emailController,
                   // validator: RequiredValidator(errorText: AuthErrors.requiredValue.errorMessage),
-
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return TextConstant.required;
+                    } else {
+                      return null;
+                    }
+                  },
                   noBorders: false,
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
@@ -85,7 +91,7 @@ class ForgotPasswordCard extends ConsumerWidget {
                 //   ),
                 //   isSuccessDialog: true,
                 // );
-                if (forgotPassformKey.currentState!.validate()) {
+                if (_forgotPassformKey.currentState!.validate()) {
                   ref
                       .read(resetPasswordNotifierProvider.notifier)
                       .sendResetPassowrd(email: controller.emailController.text.trim());

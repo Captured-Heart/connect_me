@@ -8,7 +8,7 @@ class SignUpCardWidget extends ConsumerStatefulWidget {
 }
 
 class _SignUpCardWidgetState extends ConsumerState<SignUpCardWidget> {
-  final GlobalKey<FormState> signUpformKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _signUpformKey = GlobalKey<FormState>();
   final ValueNotifier<String> emailNotifier = ValueNotifier<String>('');
   final ValueNotifier<String> userNameNotifier = ValueNotifier<String>('');
   final ValueNotifier<String> passwordNotifier = ValueNotifier<String>('');
@@ -65,37 +65,10 @@ class _SignUpCardWidgetState extends ConsumerState<SignUpCardWidget> {
           ],
         ),
         builder: (context, child) {
-          bool isFormValidated() {
-            if (controller.emailController.text.isNotEmpty &&
-                controller.usernameController.text.isNotEmpty &&
-                controller.passWordController.text.isNotEmpty) {
-              return true;
-            } else {
-              return false;
-            }
-          }
-
-          bool fieldIsEmpty(TextEditingControllerClass controller) {
-            var passwordFocus = controller.passwordFocusMode.hasFocus;
-            var emailFocus = controller.emailFocusMode.hasFocus;
-            var usernameFocus = controller.userNameFocusMode.hasFocus;
-            if (passwordFocus == true || emailFocus == true || usernameFocus == true) {
-              if (emailNotifier.value.isNotEmpty &&
-                  userNameNotifier.value.isNotEmpty &&
-                  passwordNotifier.value.isNotEmpty) {
-                return false;
-              } else {
-                return true;
-              }
-            } else {
-              return false;
-            }
-          }
-
           return FullScreenLoader(
             isLoading: isLoading,
             child: Form(
-              key: signUpformKey,
+              key: _signUpformKey,
               child: GestureDetector(
                 onTap: () {
                   controller.emailFocusMode.unfocus();
@@ -103,7 +76,7 @@ class _SignUpCardWidgetState extends ConsumerState<SignUpCardWidget> {
                   controller.userNameFocusMode.unfocus();
                 },
                 child: Card(
-                    elevation: 3,
+                    elevation: 5,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -112,17 +85,17 @@ class _SignUpCardWidgetState extends ConsumerState<SignUpCardWidget> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Ink(
-                              decoration: BoxDecoration(
-                                borderRadius: AppBorderRadius.c12,
-                                color: context.colorScheme.onSurface,
-                              ),
-                              child: Image.asset(
-                                ImagesConstant.appLogoBrown,
-                                height: context.sizeWidth(0.22),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
+                            // Ink(
+                            //   decoration: BoxDecoration(
+                            //     borderRadius: AppBorderRadius.c12,
+                            //     color: context.colorScheme.onSurface,
+                            //   ),
+                            //   child: Image.asset(
+                            //     ImagesConstant.appLogoBrown,
+                            //     height: context.sizeWidth(0.13),
+                            //     fit: BoxFit.cover,
+                            //   ),
+                            // ),
                             AutoSizeText(
                               TextConstant.createYourAcct,
                               style: context.textTheme.bodyLarge?.copyWith(
@@ -140,78 +113,67 @@ class _SignUpCardWidgetState extends ConsumerState<SignUpCardWidget> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: AppBorderRadius.c12,
-                                border: Border.all(
-                                  width: 0.4,
-                                  color: fieldIsEmpty(controller)
-                                      ? AppThemeColorDark.textError
-                                      : context.colorScheme.onBackground,
-                                ),
-                              ),
-                              child: Column(
+                            Column(
                                 children: [
-                                  // username textfield
-                                  AuthTextFieldWidget(
-                                    focusNode: controller.userNameFocusMode,
-                                    hintText: TextConstant.username,
-                                    fillColor: Colors.transparent,
-                                    controller: controller.usernameController,
-                                    noBorders: true,
-                                    onChanged: (value) {
-                                      userNameNotifier.value = value;
-                                    },
-                                  ).padSymmetric(horizontal: 8, vertical: 2),
-                                  Divider(
-                                    thickness: 0.5,
-                                    color: fieldIsEmpty(controller)
-                                        ? AppThemeColorDark.textError
-                                        : context.colorScheme.onBackground,
-                                  ),
+                              // username textfield
+                              AuthTextFieldWidget(
+                                focusNode: controller.userNameFocusMode,
+                                hintText: TextConstant.username,
+                                fillColor: Colors.transparent,
+                                controller: controller.usernameController,
+                                noBorders: false,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return TextConstant.required;
+                                  } else {
+                                    return null;
+                                  }
+                                },
+                                onChanged: (value) {
+                                  userNameNotifier.value = value;
+                                },
+                              ).padSymmetric(horizontal: 8, vertical: 2),
 
-                                  //email textfields
-                                  AuthTextFieldWidget(
-                                    focusNode: controller.emailFocusMode,
-                                    hintText: TextConstant.emailAddress,
-                                    fillColor: Colors.transparent,
-                                    controller: controller.emailController,
-                                    noBorders: true,
-                                    onChanged: (value) {
-                                      emailNotifier.value = value;
-                                    },
-                                  ).padSymmetric(horizontal: 8, vertical: 2),
-                                  Divider(
-                                    thickness: 0.5,
-                                    color: fieldIsEmpty(controller)
-                                        ? AppThemeColorDark.textError
-                                        : context.colorScheme.onBackground,
-                                  ),
+                              //email textfields
+                              AuthTextFieldWidget(
+                                focusNode: controller.emailFocusMode,
+                                hintText: TextConstant.emailAddress,
+                                fillColor: Colors.transparent,
+                                controller: controller.emailController,
+                                noBorders: false,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return TextConstant.required;
+                                  } else {
+                                    return null;
+                                  }
+                                },
+                                onChanged: (value) {
+                                  emailNotifier.value = value;
+                                },
+                              ).padSymmetric(horizontal: 8, vertical: 2),
 
-                                  //password textfields
-                                  AuthTextFieldWidget(
-                                    hintText: TextConstant.password,
-                                    focusNode: controller.passwordFocusMode,
-                                    fillColor: Colors.transparent,
-                                    controller: controller.passWordController,
-                                    noBorders: true,
-                                    onChanged: (value) {
-                                      passwordNotifier.value = value;
-                                    },
-                                  ).padSymmetric(horizontal: 8, vertical: 2),
-                                ],
-                              ),
-                            ),
+                              //password textfields
+                              AuthTextFieldWidget(
+                                hintText: TextConstant.password,
+                                focusNode: controller.passwordFocusMode,
+                                fillColor: Colors.transparent,
+                                controller: controller.passWordController,
+                                noBorders: false,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return TextConstant.required;
+                                  } else {
+                                    return null;
+                                  }
+                                },
+                                onChanged: (value) {
+                                  passwordNotifier.value = value;
+                                },
+                              ).padSymmetric(horizontal: 8, vertical: 2),
+                            ].columnInPadding(10)),
                             //validator text in red
-                            Visibility(
-                              visible: fieldIsEmpty(controller),
-                              child: Text(
-                                AuthErrors.allFieldsAreRequired.errorMessage,
-                                textAlign: TextAlign.start,
-                                style: AppTextStyle.errorTextstyle
-                                    .copyWith(color: AppThemeColorDark.textError),
-                              ).padAll(5),
-                            ),
+                           
                           ],
                         ),
 
@@ -221,7 +183,7 @@ class _SignUpCardWidgetState extends ConsumerState<SignUpCardWidget> {
                           children: [
                             ElevatedButton(
                               onPressed: () {
-                                if (isFormValidated() == true) {
+                                if (_signUpformKey.currentState!.validate()) {
                                   log('is validated');
                                   ref.read(signUpNotifierProvider.notifier).createAccount(
                                         email: controller.emailController.text.trim(),
