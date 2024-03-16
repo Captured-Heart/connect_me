@@ -10,20 +10,11 @@ class SignInCardWidget extends ConsumerWidget {
     required this.pageController,
   });
   final PageController pageController;
-  bool fieldIsEmpty(TextEditingControllerClass controller) {
-    var passwordFocus = controller.passwordFocusMode.hasFocus;
-    var emailFocus = controller.emailFocusMode.hasFocus;
-    if (passwordFocus == true || emailFocus == true) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 
   final ValueNotifier<String> emailNotifier = ValueNotifier<String>('');
   final ValueNotifier<String> passwordNotifier = ValueNotifier<String>('');
 
-  final GlobalKey<FormState> signInformKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _signInformKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(textEditingControllerProvider);
@@ -50,10 +41,19 @@ class SignInCardWidget extends ConsumerWidget {
     });
     ref.listen(authStateChangesProvider, (previous, next) {
       if (next.valueOrNull != null) {
-        controller.disposeControllers();
+        // controller.disposeControllers();
         pushReplacement(context, const CheckAuthStateScreen());
       }
     });
+    // bool fieldIsEmpty(TextEditingControllerClass controller) {
+    //   var passwordFocus = controller.passwordFocusMode.hasFocus;
+    //   var emailFocus = controller.emailFocusMode.hasFocus;
+    //   if (passwordFocus == true || emailFocus == true) {
+    //     return true;
+    //   } else {
+    //     return false;
+    //   }
+    // }
 
     return ListenableBuilder(
         listenable: Listenable.merge([
@@ -63,22 +63,13 @@ class SignInCardWidget extends ConsumerWidget {
           controller.passwordFocusMode,
         ]),
         builder: (context, child) {
-          bool isFormValidated() {
-            if (controller.emailController.text.isNotEmpty &&
-                controller.passWordController.text.isNotEmpty) {
-              return true;
-            } else {
-              return false;
-            }
-          }
-
           return GestureDetector(
             onTap: () {
               controller.passwordFocusMode.unfocus();
               controller.emailFocusMode.unfocus();
             },
             child: Card(
-              elevation: 3,
+              elevation: 5,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -88,13 +79,13 @@ class SignInCardWidget extends ConsumerWidget {
                       Ink(
                         decoration: BoxDecoration(
                           borderRadius: AppBorderRadius.c12,
-                          color: context.colorScheme.onSurface,
+                          color: context.colorScheme.onSurface, 
                         ),
                         child: Hero(
                           tag: 'logo',
                           child: Image.asset(
                             ImagesConstant.appLogoBrown,
-                            height: context.sizeWidth(0.18),
+                            height: context.sizeWidth(0.13),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -142,70 +133,68 @@ class SignInCardWidget extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Form(
-                        key: signInformKey,
+                        key: _signInformKey,
                         autovalidateMode: AutovalidateMode.disabled,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: AppBorderRadius.c12,
-                            border: Border.all(
-                                width: 0.4,
-                                color: fieldIsEmpty(controller)
-                                    ? AppThemeColorDark.textError
-                                    : context.colorScheme.onBackground),
-                          ),
-                          child: Column(
-                            children: [
-                              //
-                              //  EMAIL textfields
-                              AuthTextFieldWidget(
-                                hintText: TextConstant.emailAddress,
-                                fillColor: Colors.transparent,
-                                controller: controller.emailController,
-                                focusNode: controller.emailFocusMode,
-                                // validator: RequiredValidator(errorText: AuthErrors.requiredValue.errorMessage),
-                                onChanged: (value) {
-                                  emailNotifier.value = value;
+                        child: Column(
+                          children: [
+                            //
+                            //  EMAIL textfields
+                            AuthTextFieldWidget(
+                              hintText: TextConstant.emailAddress,
+                              fillColor: Colors.transparent,
+                              controller: controller.emailController,
+                              focusNode: controller.emailFocusMode,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return TextConstant.required;
+                                } else {
+                                  return null;
+                                }
+                              },
+                              // validator: RequiredValidator(errorText: AuthErrors.requiredValue.errorMessage),
+                              onChanged: (value) {
+                                emailNotifier.value = value;
+                              },
+                              noBorders: false,
+                              keyboardType: TextInputType.emailAddress,
+                              textInputAction: TextInputAction.next,
+                            ).padSymmetric(horizontal: 8, vertical: 2),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            //PASSWORD textfields
+                            AuthTextFieldWidget(
+                              hintText: TextConstant.password,
+                              fillColor: Colors.transparent,
+                              focusNode: controller.passwordFocusMode,
+                              controller: controller.passWordController,
+                              obscureText: obscureText,
+                              maxLines: 1,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return TextConstant.required;
+                                } else {
+                                  return null;
+                                }
+                              },
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  ref.read(obscureTextProvider.notifier).update((state) => !state);
                                 },
-                                noBorders: true,
-                                keyboardType: TextInputType.emailAddress,
-                                textInputAction: TextInputAction.next,
-                              ).padSymmetric(horizontal: 8, vertical: 2),
-                              Divider(
-                                thickness: 0.5,
-                                color: fieldIsEmpty(controller)
-                                    ? AppThemeColorDark.textError
-                                    : context.colorScheme.onBackground,
+                                icon: obscureText == true
+                                    ? const Icon(showPasswordIcon)
+                                    : const Icon(hidePasswordIcon),
                               ),
-
-                              //PASSWORD textfields
-                              AuthTextFieldWidget(
-                                hintText: TextConstant.password,
-                                fillColor: Colors.transparent,
-                                focusNode: controller.passwordFocusMode,
-                                controller: controller.passWordController,
-                                obscureText: obscureText,
-                                maxLines: 1,
-                                suffixIcon: IconButton(
-                                  onPressed: () {
-                                    ref
-                                        .read(obscureTextProvider.notifier)
-                                        .update((state) => !state);
-                                  },
-                                  icon: obscureText == true
-                                      ? const Icon(showPasswordIcon)
-                                      : const Icon(hidePasswordIcon),
-                                ),
-                                onChanged: (value) {
-                                  passwordNotifier.value = value;
-                                },
-                                noBorders: true,
-                              ).padSymmetric(horizontal: 8, vertical: 2),
-                            ],
-                          ),
+                              onChanged: (value) {
+                                passwordNotifier.value = value;
+                              },
+                              noBorders: false,
+                            ).padSymmetric(horizontal: 8, vertical: 2),
+                          ],
                         ),
                       ),
                       Visibility(
-                        visible: fieldIsEmpty(controller),
+                        visible: _signInformKey.currentState?.validate() ?? false,
                         child: Text(
                           AuthErrors.allFieldsAreRequired.errorMessage,
                           textAlign: TextAlign.start,
@@ -230,7 +219,7 @@ class SignInCardWidget extends ConsumerWidget {
                         width: context.sizeWidth(1),
                         child: ElevatedButton(
                           onPressed: () {
-                            if (isFormValidated() == true) {
+                            if (_signInformKey.currentState!.validate()) {
                               ref.read(loginWithEmailNotifierProvider.notifier).loggingUser(
                                     email: controller.emailController.text.trim(),
                                     password: controller.passWordController.text.trim(),
