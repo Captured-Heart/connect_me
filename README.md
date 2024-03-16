@@ -1,8 +1,9 @@
 <div align="center">
    <img src="./assets/play_store_512.png" width="200" height="200" color="0xFF2676FC"/>
 
-  ## Connect Me
-  <strong> Connect_Me is a user-friendly mobile application that empowers users to streamline their communication, networking, and information-sharing processes with the power of QR codes. Whether you're a professional seeking to exchange business details, a social media enthusiast connecting with new friends, or a tech-savvy individual looking for a convenient way to share information, Connect_Me is the ultimate solution for all your QR code needs. </strong>
+## Connect Me
+
+<strong> Connect_Me is a user-friendly mobile application that empowers users to streamline their communication, networking, and information-sharing processes with the power of QR codes. Whether you're a professional seeking to exchange business details, a social media enthusiast connecting with new friends, or a tech-savvy individual looking for a convenient way to share information, Connect_Me is the ultimate solution for all your QR code needs. </strong>
 
 <br/>
 <a href='https://apps.apple.com/app/ovavue/id6449617480'><img alt='Download on the App Store' src='./screenshots/app_store.png' height='36px'/></a>
@@ -71,54 +72,54 @@ fvm install
   <table>
     <tr>
       <td style="text-align: center">
-        <img src="./screenshots/home.PNG" width="400" />
+        <img src="./screenshots/home.PNG" width="800" />
       </td>
       <td style="text-align: center">
-        <img src="./screenshots/profile.PNG" width="400" />
+        <img src="./screenshots/profile.PNG" width="800" />
       </td>
       <td style="text-align: center">
-        <img src="./screenshots/connect_dark.PNG" width="400" />
+        <img src="./screenshots/connect_dark.PNG" width="800" />
       </td>
        <td style="text-align: center">
-        <img src="./screenshots/connect_dark2.PNG" width="400" />
+        <img src="./screenshots/connect_dark2.PNG" width="800" />
       </td>
       <td style="text-align: center">
-        <img src="./screenshots/share.PNG" width="400" />
+        <img src="./screenshots/share.PNG" width="800" />
       </td>
       <td style="text-align: center">
-        <img src="./screenshots/share1.PNG" width="400" />
+        <img src="./screenshots/share1.PNG" width="800" />
       </td>
        <td style="text-align: center">
-        <img src="./screenshots/share3.PNG" width="400" />
+        <img src="./screenshots/share3.PNG" width="800" />
       </td>
        <td style="text-align: center">
-        <img src="./screenshots/themes.PNG" width="400" />
+        <img src="./screenshots/themes.PNG" width="800" />
       </td>
     </tr>
     <tr>
        <td style="text-align: center">
-        <img src="./screenshots/home_light.PNG" width="400" />
+        <img src="./screenshots/home_light.PNG" width="800" />
       </td>
       <td style="text-align: center">
-        <img src="./screenshots/profile2.PNG" width="400" />
+        <img src="./screenshots/profile2.PNG" width="800" />
       </td>
       <td style="text-align: center">
-        <img src="./screenshots/connect_light.PNG" width="400" />
+        <img src="./screenshots/connect_light.PNG" width="800" />
       </td>
        <td style="text-align: center">
-        <img src="./screenshots/connect_light_list.PNG" width="400" />
+        <img src="./screenshots/connect_light_list.PNG" width="800" />
       </td>
       <td style="text-align: center">
-        <img src="./screenshots/share_light.PNG" width="400" />
+        <img src="./screenshots/share_light.PNG" width="800" />
       </td>
       <td style="text-align: center">
-        <img src="./screenshots/share_light2.PNG" width="400" />
+        <img src="./screenshots/share_light2.PNG" width="800" />
       </td>
        <td style="text-align: center">
-        <img src="./screenshots/share_light3.PNG" width="400" />
+        <img src="./screenshots/share_light3.PNG" width="800" />
       </td>
        <td style="text-align: center">
-        <img src="./screenshots/themes2.PNG" width="400" />
+        <img src="./screenshots/themes2.PNG" width="800" />
       </td>
     </tr> 
   </table>
