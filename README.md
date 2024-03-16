@@ -1,4 +1,4 @@
-<div text-align="center">
+<div align="center">
    <img src="./assets/play_store_512.png" width="200" height="200" color="0xFF2676FC"/>
 
   ## Connect Me
