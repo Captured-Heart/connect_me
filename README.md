@@ -1,7 +1,6 @@
 <div text-align="center">
-   <img src="./assets/images/aboutMeLogo_brown.png" width="200" height="200" color="0xFF2676FC"/>
-   
-  ## Connect Me
+   <img src="./assets/images/aboutMeLogo_brown.png" width="200" height="50" color="0xFF2676FC"/>
+ Connect Me
   <strong> Connect_Me is a user-friendly mobile application that empowers users to streamline their communication, networking, and information-sharing processes with the power of QR codes. Whether you're a professional seeking to exchange business details, a social media enthusiast connecting with new friends, or a tech-savvy individual looking for a convenient way to share information, Connect_Me is the ultimate solution for all your QR code needs. </strong>
 
 <br/>
