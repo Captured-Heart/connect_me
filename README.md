@@ -1,7 +1,7 @@
 <div align="center">
    <img src="./assets/play_store_512.png" width="200" height="200" color="0xFF2676FC"/>
 
-## Connect Me
+## Connect Me: QR code Digital ID
 
 <strong> Connect_Me is a user-friendly mobile application that empowers users to streamline their communication, networking, and information-sharing processes with the power of QR codes. Whether you're a professional seeking to exchange business details, a social media enthusiast connecting with new friends, or a tech-savvy individual looking for a convenient way to share information, Connect_Me is the ultimate solution for all your QR code needs. </strong>
 
