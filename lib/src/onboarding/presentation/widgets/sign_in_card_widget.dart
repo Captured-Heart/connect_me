@@ -79,7 +79,7 @@ class SignInCardWidget extends ConsumerWidget {
                       Ink(
                         decoration: BoxDecoration(
                           borderRadius: AppBorderRadius.c12,
-                          color: context.colorScheme.onSurface, 
+                          color: context.colorScheme.onSurface,
                         ),
                         child: Hero(
                           tag: 'logo',
@@ -193,15 +193,6 @@ class SignInCardWidget extends ConsumerWidget {
                           ],
                         ),
                       ),
-                      Visibility(
-                        visible: _signInformKey.currentState?.validate() ?? false,
-                        child: Text(
-                          AuthErrors.allFieldsAreRequired.errorMessage,
-                          textAlign: TextAlign.start,
-                          style: AppTextStyle.errorTextstyle
-                              .copyWith(color: AppThemeColorDark.textError),
-                        ).padAll(5),
-                      )
                     ],
                   ),
 

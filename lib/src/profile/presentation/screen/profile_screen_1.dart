@@ -117,8 +117,13 @@ class ProfileScreen1 extends ConsumerWidget {
                                           log('the link clicked is $link');
                                           UrlOptions.launchWeb(link, launchModeEXT: true)
                                               .onError((error, stackTrace) {
-                                            showScaffoldSnackBarMessage(error.toString(),
-                                                isError: true);
+                                            if (error is AppException) {
+                                              showScaffoldSnackBarMessage(error.message,
+                                                  isError: true);
+                                            } else {
+                                              showScaffoldSnackBarMessage(error.toString(),
+                                                  isError: true);
+                                            }
                                           });
                                         },
                                       );

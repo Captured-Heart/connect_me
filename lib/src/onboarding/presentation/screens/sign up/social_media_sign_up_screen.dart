@@ -113,7 +113,7 @@ class _SocialMediaSignUpScreenState extends ConsumerState<SocialMediaSignUpScree
                       result[value.title] = value.link;
                     }
                     if (socialKey.currentState!.validate()) {
-                      inspect(result);
+                      // inspect(result);
                       ref.read(addSocialMediaProvider.notifier).addSocialMediaMethod(map: result);
                     }
                   },
@@ -174,23 +174,10 @@ class LinkAndSocialMediaRowTextField extends StatelessWidget {
             onChanged: (link) {
               controller.link = link;
             },
-            validator: (p0) {
-              if (p0 == null || p0.isEmpty) {
-                return TextConstant.required;
-              }
-              if (p0.startsWith('http') == false) {
-                return TextConstant.linkMustStartWithHttps;
-              }
-
-              return null;
-            },
-            // validator: (value) {
-            //   if (value == null || value.isEmpty) {
-            //     return TextConstant.required;
-            //   } else {
-            //     return null;
-            //   }
-            // },
+            inputFormatters: [
+              TextFieldFormattersHelper.lowerCaseTextFormatter(),
+            ],
+            validator: TextFieldFormattersHelper.websiteValidator(),
             hintText: 'Link',
           ),
         ),
