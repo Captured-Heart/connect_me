@@ -42,7 +42,12 @@ class SignInCardWidget extends ConsumerWidget {
     ref.listen(authStateChangesProvider, (previous, next) {
       if (next.valueOrNull != null) {
         // controller.disposeControllers();
-        pushReplacement(context, const CheckAuthStateScreen());
+        pushReplacement(
+          context,
+          const CheckAuthStateScreen(),
+          ref: ref,
+          routeName: ScreenName.checkAuthStateScreen,
+        );
       }
     });
     // bool fieldIsEmpty(TextEditingControllerClass controller) {

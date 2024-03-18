@@ -1,0 +1,29 @@
+class ScreenName {
+  static const String contactsScreen = 'contacts_screen';
+  static const String profileScreen = 'profile_screen';
+  static const String profileOthersScreen = 'profile_others_screen';
+  static const String shareQRCodeScreen = 'share_QR_code_screen';
+  static const String loginScreen = 'login_screen';
+  static const String completeYourProfileScreen = 'complete_your_profile_screen';
+  static const String accountInformationSignUpScreen = 'account_info_sign_up_screen';
+  static const String educationInfoSignUpScreen = 'education_info_signup_screen';
+  static const String workExperienceSignUpScreen = 'work_experience_signup_screen';
+  static const String socialMediaSignUpScreen = 'social_media_signup_screen';
+  static const String mainScreen = 'main_screen';
+  static const String signUpMainScreen = 'sign_up_main_screen';
+  static const String checkAuthStateScreen = 'check_authstate_screen';
+  static const String homeScreen = 'home_screen';
+  // static const String contactsScreen = 'contacts_screen';
+  // static const String contactsScreen = 'contacts_screen';
+  // static const String contactsScreen = 'contacts_screen';
+  // static const String contactsScreen = 'contacts_screen';
+  // static const String contactsScreen = 'contacts_screen';
+  // static const String contactsScreen = 'contacts_screen';
+  // static const String contactsScreen = 'contacts_screen';
+  // static const String contactsScreen = 'contacts_screen';
+  // static const String contactsScreen = 'contacts_screen';
+  // static const String contactsScreen = 'contacts_screen';
+  // static const String contactsScreen = 'contacts_screen';
+  // static const String contactsScreen = 'contacts_screen';
+  // static const String contactsScreen = 'contacts_screen';
+}

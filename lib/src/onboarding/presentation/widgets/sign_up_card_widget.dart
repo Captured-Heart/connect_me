@@ -29,7 +29,12 @@ class _SignUpCardWidgetState extends ConsumerState<SignUpCardWidget> {
     ref.listen(signUpNotifierProvider, (previous, next) {
       if (next.user?.uid != null) {
         controller.disposeControllers();
-        pushReplacement(context, const SignUpMainScreen());
+        pushReplacement(
+          context,
+          const SignUpMainScreen(),
+          ref: ref,
+          routeName: ScreenName.signUpMainScreen,
+        );
       }
 
       if (next.errorMessage != null) {
@@ -42,7 +47,12 @@ class _SignUpCardWidgetState extends ConsumerState<SignUpCardWidget> {
     });
     ref.listen(signInGoogleNotifierProvider, (previous, next) {
       if (next.user?.uid != null) {
-        pushReplacement(context, const SignUpMainScreen());
+        pushReplacement(
+          context,
+          const SignUpMainScreen(),
+          ref: ref,
+          routeName: ScreenName.signUpMainScreen,
+        );
       }
       if (next.errorMessage != null) {
         showScaffoldSnackBarMessageNoColor(
@@ -173,7 +183,6 @@ class _SignUpCardWidgetState extends ConsumerState<SignUpCardWidget> {
                               ).padSymmetric(horizontal: 8, vertical: 2),
                             ].columnInPadding(10)),
                             //validator text in red
-                           
                           ],
                         ),
 

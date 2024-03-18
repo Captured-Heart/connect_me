@@ -12,7 +12,7 @@ class AppDataModel extends Equatable {
   final String? iosAppLink;
   final String? androidAppLink;
   final String? privacyPolicyLink;
-
+  final bool? allowDonate;
 
   const AppDataModel({
     this.whatsappSupport,
@@ -26,6 +26,7 @@ class AppDataModel extends Equatable {
     this.androidAppLink,
     this.iosAppLink,
     this.privacyPolicyLink,
+    this.allowDonate,
   });
 
   factory AppDataModel.fromJson(Map<String, dynamic> json) => AppDataModel(
@@ -39,6 +40,7 @@ class AppDataModel extends Equatable {
         docId: json['docId'] as String?,
         androidAppLink: json['androidAppLink'] as String?,
         iosAppLink: json['iosAppLink'] as String?,
+        allowDonate: json['allowDonate'] as bool?,
         privacyPolicyLink: json['privacyPolicyLink'] as String?,
       );
 
@@ -54,6 +56,7 @@ class AppDataModel extends Equatable {
         'androidAppLink': androidAppLink,
         'iosAppLink': iosAppLink,
         'privacyPolicyLink': privacyPolicyLink,
+        'allowDonate': allowDonate,
       };
 
   AppDataModel copyWith({
@@ -67,7 +70,8 @@ class AppDataModel extends Equatable {
     String? docId,
     String? androidAppLink,
     String? iosAppLink,
-    String ? privacyPolicyLink,
+    String? privacyPolicyLink,
+    bool? allowDonate,
   }) {
     return AppDataModel(
       whatsappSupport: whatsappSupport ?? this.whatsappSupport,
@@ -81,6 +85,7 @@ class AppDataModel extends Equatable {
       androidAppLink: androidAppLink ?? this.androidAppLink,
       iosAppLink: iosAppLink ?? this.iosAppLink,
       privacyPolicyLink: privacyPolicyLink ?? this.privacyPolicyLink,
+      allowDonate: allowDonate ?? this.allowDonate,
     );
   }
 
@@ -98,6 +103,7 @@ class AppDataModel extends Equatable {
       androidAppLink,
       iosAppLink,
       privacyPolicyLink,
+      allowDonate,
     ];
   }
 }

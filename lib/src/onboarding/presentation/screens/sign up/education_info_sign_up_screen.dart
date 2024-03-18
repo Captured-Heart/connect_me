@@ -31,7 +31,12 @@ class _EducationInfoSignUpScreenState extends ConsumerState<EducationInfoSignUpS
       if (next.valueOrNull == TextConstant.successful) {
         final refresh = ref.refresh(fetchEducationListProvider(''));
         if (refresh.hasValue) {
-          pushReplacement(context, const SignUpMainScreen());
+          pushReplacement(
+            context,
+            const SignUpMainScreen(),
+            ref: ref,
+            routeName: ScreenName.signUpMainScreen,
+          );
         }
       }
     });

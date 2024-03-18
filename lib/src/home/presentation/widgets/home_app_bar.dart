@@ -71,6 +71,8 @@ class HomeScreenAppBar extends ConsumerWidget implements PreferredSizeWidget {
             if (authUserModel != null) {
               pushAsVoid(
                 context,
+                ref: ref,
+                routeName: ScreenName.shareQRCodeScreen,
                 ShareQrCodeScreen(
                   authUserModel: authUserModel!,
                 ),

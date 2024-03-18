@@ -29,7 +29,12 @@ class _AccountInformationSignUpScreenState extends ConsumerState<AccountInformat
       if (next.valueOrNull == TextConstant.successful) {
         final refresh = ref.refresh(fetchProfileProvider);
         if (refresh.hasValue) {
-          pushReplacement(context, const SignUpMainScreen());
+          pushReplacement(
+            context,
+            const SignUpMainScreen(),
+            ref: ref,
+            routeName: ScreenName.completeYourProfileScreen,
+          );
         }
       }
     });

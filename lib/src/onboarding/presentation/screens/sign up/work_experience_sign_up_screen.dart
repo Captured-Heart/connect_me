@@ -59,7 +59,12 @@ class _WorkExperienceSignUpScreenState extends ConsumerState<WorkExperienceSignU
       if (next.valueOrNull == TextConstant.successful) {
         final refresh = ref.refresh(fetchWorkListProvider(''));
         if (refresh.hasValue) {
-          pushReplacement(context, const SignUpMainScreen());
+          pushReplacement(
+            context,
+            const SignUpMainScreen(),
+            ref: ref,
+            routeName: ScreenName.signUpMainScreen,
+          );
         }
       }
     });

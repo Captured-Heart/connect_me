@@ -1,55 +1,88 @@
 // ignore_for_file: inference_failure_on_instance_creation, inference_failure_on_function_invocationx, lines_longer_than_80_chars
 
+import 'dart:async';
 import 'dart:ui';
 
-import 'package:flutter/material.dart';
+import 'package:connect_me/app.dart';
 
 //pushNamed
-void pushNamed(BuildContext context, String routeName, {Object? args}) =>
-    Navigator.pushNamed(context, routeName, arguments: args);
+Future<void> pushNamed(BuildContext context, String routeName,
+    {Object? args, required WidgetRef ref}) {
+  unawaited(ref.read(analyticsImplProvider).setScreenName(screenName: routeName));
+  return Navigator.pushNamed(context, routeName, arguments: args);
+}
 
 //push
-Future<T?> push<T>(BuildContext context, Widget child) =>
-    Navigator.of(context).push<T>(MaterialPageRoute(builder: (_) => child));
+Future<T?> push<T>(BuildContext context, Widget child,
+    {required WidgetRef ref, required String routeName}) async {
+  unawaited(ref.read(analyticsImplProvider).setScreenName(screenName: routeName));
+  return Navigator.of(context).push<T>(MaterialPageRoute(builder: (_) => child));
+}
 
 //push_as_void
-void pushAsVoid(BuildContext context, Widget child) =>
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => child));
+void pushAsVoid(BuildContext context, Widget child,
+    {required WidgetRef ref, required String routeName}) {
+  unawaited(ref.read(analyticsImplProvider).setScreenName(screenName: routeName));
+
+  Navigator.of(context).push(MaterialPageRoute(builder: (context) => child));
+}
 
 //pop and push
-void popAndPushNamed(BuildContext context, String routeName) =>
-    Navigator.of(context).popAndPushNamed(routeName);
+void popAndPushNamed(BuildContext context, String routeName, {required WidgetRef ref}) {
+  unawaited(ref.read(analyticsImplProvider).setScreenName(screenName: routeName));
+  Navigator.of(context).popAndPushNamed(routeName);
+}
 
 //
-void popAndPush(BuildContext context, Widget child) {
+void popAndPush(BuildContext context, Widget child,
+    {required WidgetRef ref, required String routeName}) {
+  unawaited(ref.read(analyticsImplProvider).setScreenName(screenName: routeName));
+
   pop(context);
   Navigator.of(context).push(MaterialPageRoute(builder: (context) => child));
 }
 
 //push_replacement
-void pushReplacement(BuildContext context, Widget child) =>
-    Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (context) => child));
+void pushReplacement(BuildContext context, Widget child,
+    {required WidgetRef ref, required String routeName}) {
+  unawaited(ref.read(analyticsImplProvider).setScreenName(screenName: routeName));
+
+  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => child));
+}
 
 //push_replacement_named
-void pushReplaceNamed(BuildContext context, String routeName, {Object? args}) =>
-    Navigator.pushReplacementNamed(context, routeName);
+void pushReplaceNamed(
+  BuildContext context,
+  String routeName, {
+  Object? args,
+  required WidgetRef ref,
+}) {
+  unawaited(ref.read(analyticsImplProvider).setScreenName(screenName: routeName));
+
+  Navigator.pushReplacementNamed(context, routeName);
+}
 
 //pop until main
-void popToMain(BuildContext context) =>
-    Navigator.of(context).popUntil((route) => route.isFirst);
+void popToMain(BuildContext context, {required WidgetRef ref, required String routeName}) {
+  unawaited(ref.read(analyticsImplProvider).setScreenName(screenName: routeName));
+
+  Navigator.of(context).popUntil((route) => route.isFirst);
+}
 
 //.ofContext POP
 void pop(BuildContext context) => Navigator.of(context).pop();
 //.oFContext with rootNavigator POP
 
-void popRootNavigatorTrue(BuildContext context) =>
-    Navigator.of(context, rootNavigator: true).pop();
+void popRootNavigatorTrue(BuildContext context) => Navigator.of(context, rootNavigator: true).pop();
 
 //.ofContext PUSH with root navigator == true
-void pushReplacementOnRootNav(BuildContext context, Widget child) =>
-    Navigator.of(context, rootNavigator: true)
-        .pushReplacement(MaterialPageRoute(builder: (context) => child));
+void pushReplacementOnRootNav(BuildContext context, Widget child,
+    {required WidgetRef ref, required String routeName}) {
+  unawaited(ref.read(analyticsImplProvider).setScreenName(screenName: routeName));
+
+  Navigator.of(context, rootNavigator: true)
+      .pushReplacement(MaterialPageRoute(builder: (context) => child));
+}
 
 // void navBarPush({
 //   required BuildContext context,
@@ -63,7 +96,6 @@ void pushReplacementOnRootNav(BuildContext context, Widget child) =>
 //       withNavBar: withNavBar,
 //       pageTransitionAnimation: PageTransitionAnimation.cupertino,
 // );
-
 
 class HeroDialogRoute<T> extends PageRoute<T> {
   HeroDialogRoute({

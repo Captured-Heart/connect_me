@@ -28,7 +28,7 @@ class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
       if (next.isCompleted == true && next.data != null) {
         ref.read(addAccountInfoProvider.notifier).updateScanCount();
         Vibration.vibrate(duration: 200);
-      
+
         showDialog(
           context: context,
           barrierDismissible: false,
@@ -43,10 +43,11 @@ class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
                 authUserModel: next.data as AuthUserModel,
                 isAfterScanDialog: true,
                 viewFullProfileBTN: () {
-                  
                   pop(context);
                   push(
                     context,
+                    ref: ref,
+                    routeName: ScreenName.profileOthersScreen,
                     ProfileScreenOthers(
                       uuid: (next.data as AuthUserModel).docId,
                       fromScanScreen: true,
@@ -224,6 +225,7 @@ class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
                             if (image != null) {
                               await controller.analyzeImage(image.path);
                               if (await controller.analyzeImage(image.path)) {
+                                //TODO: ADD ANALYTICS TO SHOW SCAN METHOD
                                 showScaffoldSnackBarMessage(
                                   TextConstant.successful,
                                 );

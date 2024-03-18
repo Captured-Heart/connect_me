@@ -16,7 +16,12 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   Widget build(BuildContext context) {
     ref.listen(authStateChangesProvider, (previous, next) {
       if (next.value?.uid == null) {
-        pushReplacement(context, const LoginScreen());
+        pushReplacement(
+          context,
+          const LoginScreen(),
+          ref: ref,
+          routeName: ScreenName.loginScreen,
+        );
       }
     });
     final users = ref.watch(fetchProfileProvider).valueOrNull;

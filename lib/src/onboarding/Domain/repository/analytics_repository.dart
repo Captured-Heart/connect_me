@@ -8,6 +8,7 @@ abstract class AnalyticsRepository {
       {required AuthUserModel authUserModel, required String sharedDestination});
   Future<void> scanQrCode({required AuthUserModel authUserModel});
   Future<void> profileVisit({required AuthUserModel authUserModel});
+  Future<void> setScreenName({required String screenName});
 }
 
 class AnalyticsRepositoryImpl extends AnalyticsRepository {
@@ -36,7 +37,7 @@ class AnalyticsRepositoryImpl extends AnalyticsRepository {
 
   @override
   Future<void> shareQrCode(
-      {required AuthUserModel authUserModel, required String ? sharedDestination}) {
+      {required AuthUserModel authUserModel, required String? sharedDestination}) {
     return _analytics.logShare(
       contentType: "sender: ${authUserModel.email} \n receiver: $sharedDestination ",
       itemId: 'userId: ${authUserModel.docId},',
@@ -70,10 +71,15 @@ class AnalyticsRepositoryImpl extends AnalyticsRepository {
       parameters: {
         'visited_user': authUserModel.email,
         'country code': authUserModel.phonePrefix ?? '',
-        'full-name': authUserModel.fullname ,
+        'full-name': authUserModel.fullname,
         'country': authUserModel.additionalDetails?.country ?? '',
         'state': authUserModel.additionalDetails?.state ?? '',
       },
     );
+  }
+
+  @override
+  Future<void> setScreenName({required String screenName}) {
+    return _analytics.setCurrentScreen(screenName: screenName);
   }
 }

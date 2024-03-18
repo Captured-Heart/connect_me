@@ -80,6 +80,8 @@ class _ContactScreenState extends ConsumerState<ContactScreen> with SingleTicker
                           onTap: () {
                             pushAsVoid(
                               context,
+                              ref: ref,
+                              routeName: ScreenName.profileOthersScreen,
                               ProfileScreenOthers(
                                 users: data[index],
                                 uuid: data[index].docId,
@@ -137,6 +139,8 @@ class _ContactScreenState extends ConsumerState<ContactScreen> with SingleTicker
                             onTap: () async {
                               pushAsVoid(
                                 context,
+                                ref: ref,
+                                routeName: ScreenName.profileOthersScreen,
                                 ProfileScreenOthers(
                                   users: contacts,
                                   uuid: contacts.docId,

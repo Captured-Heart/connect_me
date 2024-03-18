@@ -49,14 +49,14 @@ void main() async {
   );
 }
 
-class MainApp extends StatefulWidget {
+class MainApp extends ConsumerStatefulWidget {
   const MainApp({super.key});
 
   @override
-  State<MainApp> createState() => _MainAppState();
+  ConsumerState<MainApp> createState() => _MainAppState();
 }
 
-class _MainAppState extends State<MainApp> {
+class _MainAppState extends ConsumerState<MainApp> {
   // TODO: REFACTOR HOE WIDGET INTO A CLASS
   String shortcut = 'no actions';
 
@@ -94,10 +94,20 @@ class _MainAppState extends State<MainApp> {
       setState(() {
         if (shortcut == 'action_one') {
           // push(context, const HomeScreen2(initialIndex: 0));
-          push(context, const HomeScreen2(initialIndex: 1));
+          push(
+            context,
+            const HomeScreen2(initialIndex: 1),
+            ref: ref,
+            routeName: ScreenName.homeScreen,
+          );
         } else if (shortcut == 'action_two') {
           // push(context, const HomeScreen2(initialIndex: 1));
-          push(context, const HomeScreen2(initialIndex: 0));
+          push(
+            context,
+            const HomeScreen2(initialIndex: 0),
+            ref: ref,
+            routeName: ScreenName.homeScreen,
+          );
         }
       });
     });

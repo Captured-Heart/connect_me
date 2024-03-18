@@ -28,6 +28,8 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
       if (next.user == null) {
         pushReplacement(
           context,
+          ref: ref,
+          routeName: ScreenName.loginScreen,
           const LoginScreen(),
         );
       }
@@ -47,33 +49,6 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                   Expanded(
                     child: Text(TextConstant.yourAccount),
                   ),
-
-                  //! remove the log out icon
-                  //  Align(
-                  //   alignment: Alignment.topRight,
-                  //   child: GradientShortBTN(
-                  //     iconData: logOutIcon,
-                  //     tooltip: TextConstant.logOut,
-                  //     iconSize: 18,
-                  //     iconColor: AppThemeColorDark.textError,
-                  //     isErrorGradient: true,
-                  //     width: 35,
-                  //     height: 35,
-                  //     onTap: () {
-                  //       warningDialogs(
-                  //         context: context,
-                  //         dialogModel: DialogModel(
-                  //           title: 'Are you sure you want to log out?'.hardCodedString,
-                  //           content: null,
-                  //           onPostiveAction: () {
-                  //             pop(context);
-                  //             ref.read(logOutNotifierProvider.notifier).signOutUsers();
-                  //           },
-                  //         ),
-                  //       );
-                  //     },
-                  //   ).padSymmetric(horizontal: 20),
-                  // ),
                 ],
               ),
               Card(
@@ -130,13 +105,7 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                         );
                       },
                     ),
-                    // Card(
-                    //   child: ListTile(
-                    //     dense: true,
-                    //     title: Text('School'),
-                    //     subtitle: Text('degree'),
-                    //   ),
-                    // ),
+
                     // EDUCATION
                     MoreCustomListTileWidget(
                       icon: educationCapIcon,
@@ -423,23 +392,26 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                       },
                     ),
                     //
-                    MoreCustomListTileWidget(
-                      icon: supportMoneyIcon,
-                      title: TextConstant.donate,
-                      onTap: () {
-                        WoltModalSheet.show(
-                          context: context,
-                          pageListBuilder: (context) {
-                            return [
-                              supportModal(
-                                modalSheetContext: context,
-                                appDataModel: appdata.valueOrNull,
-                              ),
-                            ];
-                          },
-                        );
-                      },
-                    ),
+
+                    appdata.value?.allowDonate == false
+                        ? const SizedBox.shrink()
+                        : MoreCustomListTileWidget(
+                            icon: supportMoneyIcon,
+                            title: TextConstant.donate,
+                            onTap: () {
+                              WoltModalSheet.show(
+                                context: context,
+                                pageListBuilder: (context) {
+                                  return [
+                                    supportModal(
+                                      modalSheetContext: context,
+                                      appDataModel: appdata.valueOrNull,
+                                    ),
+                                  ];
+                                },
+                              );
+                            },
+                          ),
                     MoreCustomListTileWidget(
                       icon: licensesIcon,
                       title: 'Licenses'.hardCodedString,

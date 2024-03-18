@@ -63,6 +63,8 @@ class _SignUpMainScreenState extends ConsumerState<SignUpMainScreen> {
                                 push(
                                   context,
                                   const AccountInformationSignUpScreen(),
+                                  ref: ref,
+                                  routeName: ScreenName.accountInformationSignUpScreen,
                                 );
                               },
                       ),
@@ -79,7 +81,12 @@ class _SignUpMainScreenState extends ConsumerState<SignUpMainScreen> {
                               ),
                         onTap: education?.isEmpty == true || education == null
                             ? () {
-                                pushAsVoid(context, const EducationInfoSignUpScreen());
+                                pushAsVoid(
+                                  context,
+                                  const EducationInfoSignUpScreen(),
+                                  ref: ref,
+                                  routeName: ScreenName.educationInfoSignUpScreen,
+                                );
                               }
                             : () {
                                 showScaffoldSnackBarMessage(
@@ -105,6 +112,8 @@ class _SignUpMainScreenState extends ConsumerState<SignUpMainScreen> {
                                 push(
                                   context,
                                   const WorkExperienceSignUpScreen(),
+                                  ref: ref,
+                                  routeName: ScreenName.workExperienceSignUpScreen,
                                 );
                               }
                             : () {
@@ -134,6 +143,8 @@ class _SignUpMainScreenState extends ConsumerState<SignUpMainScreen> {
                                   pushAsVoid(
                                     context,
                                     const SocialMediaSignUpScreen(),
+                                    ref: ref,
+                                    routeName: ScreenName.socialMediaSignUpScreen,
                                   );
                                 }
                               : () {
@@ -159,7 +170,12 @@ class _SignUpMainScreenState extends ConsumerState<SignUpMainScreen> {
                     ? const SizedBox.shrink()
                     : ElevatedButton(
                         onPressed: () {
-                          pushReplacement(context, const MainScreen());
+                          pushReplacement(
+                            context,
+                            const MainScreen(),
+                            ref: ref,
+                            routeName: ScreenName.mainScreen,
+                          );
                         },
                         child: Text('Skip'.hardCodedString),
                       ),
@@ -172,7 +188,12 @@ class _SignUpMainScreenState extends ConsumerState<SignUpMainScreen> {
                           (authUserData?.socialMediaHandles?.isNotEmpty == true ||
                               authUserData?.socialMediaHandles != null)
                       ? () {
-                          pushReplacement(context, const MainScreen());
+                          pushReplacement(
+                            context,
+                            const MainScreen(),
+                            ref: ref,
+                            routeName: ScreenName.mainScreen,
+                          );
                         }
                       : null,
                   style: ElevatedButton.styleFrom(
