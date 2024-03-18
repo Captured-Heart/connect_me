@@ -152,7 +152,7 @@ class _ContactScreenState extends ConsumerState<ContactScreen> with SingleTicker
                                     enlargeDP: false,
                                   ),
                                   AutoSizeText(
-                                    contacts.fullname,
+                                    contacts.fullname.toTitleCase(),
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 1,
                                     textScaleFactor: 0.9,
