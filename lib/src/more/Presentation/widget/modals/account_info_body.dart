@@ -89,6 +89,7 @@ class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
         builder: (context, _) {
           return Form(
             key: _formKey,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -188,6 +189,9 @@ class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
                       webNotifier.value = value;
                     });
                   },
+                  inputFormatters: [
+                    TextFieldFormattersHelper.lowerCaseTextFormatter(),
+                  ],
                   // validator: (p0) {
                   //   if (p0!.startsWith('https') == false) {
                   //     return TextConstant.linkMustStartWithHttps;
@@ -212,11 +216,17 @@ class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
                   alignment: Alignment.topRight,
                   child: ElevatedButton(
                     onPressed: () {
+                      RegExp validURL = RegExp(
+                          r'^((http(s)||http):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$');
                       if (_formKey.currentState!.validate()) {
-                        if (webNotifier.value.isNotEmpty &&
-                            webNotifier.value.startsWith('http') == false) {
-                          showScaffoldSnackBarMessageNoColor(TextConstant.linkMustStartWithHttps,
-                              context: context, isError: true, appearsBottom: true);
+                        if (webNotifier.value.isNotEmpty && !validURL.hasMatch(webNotifier.value)) {
+                          showScaffoldSnackBarMessageNoColor(
+                              webNotifier.value.startsWith('http') == false
+                                  ? TextConstant.linkMustStartWithHttps
+                                  : TextConstant.provideAValidUrl,
+                              context: context,
+                              isError: true,
+                              appearsBottom: true);
                         } else {
                           // inspect(
                           MapDynamicString map = CreateFormMap.createDataMap(
