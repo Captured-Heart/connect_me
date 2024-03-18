@@ -1,17 +1,15 @@
 import 'package:connect_me/app.dart';
 
 class UrlOptions {
-  static Future<void> launchWeb(String url,
-      {bool? launchModeEXT = false}) async {
+  static Future<void> launchWeb(String url, {bool? launchModeEXT = false}) async {
     final launchUri = Uri.parse(url);
     try {
       await launchUrl(
         launchUri,
-        mode: launchModeEXT == false
-            ? LaunchMode.inAppWebView
-            : LaunchMode.platformDefault,
+        mode: launchModeEXT == false ? LaunchMode.inAppWebView : LaunchMode.platformDefault,
       );
     } catch (e) {
+      log('this is the error from launchWeb $e');
       if (e is ArgumentError) {
         throw e.message;
       } else {

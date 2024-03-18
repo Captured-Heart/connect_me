@@ -13,6 +13,7 @@ class AuthTextFieldWidget extends StatelessWidget {
     this.errorText,
     this.initialValue,
     this.onChanged,
+    this.onSaved,
     this.keyboardType,
     this.suffixIcon,
     this.obscureText = false,
@@ -40,6 +41,7 @@ class AuthTextFieldWidget extends StatelessWidget {
   final String? errorText;
   final String? initialValue;
   final Function(String)? onChanged;
+  final Function(String?)? onSaved;
   final Widget? suffixIcon;
   final bool obscureText;
   final TextInputType? keyboardType;
@@ -107,6 +109,7 @@ class AuthTextFieldWidget extends StatelessWidget {
             obscureText: obscureText,
             keyboardType: keyboardType,
             onChanged: onChanged,
+            onSaved: onSaved,
             maxLength: maxLength,
             maxLines: maxLines,
             textInputAction: textInputAction ?? TextInputAction.next,

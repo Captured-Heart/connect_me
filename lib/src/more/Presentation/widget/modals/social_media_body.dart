@@ -1,4 +1,5 @@
 import 'package:connect_me/app.dart';
+import 'package:flutter/services.dart';
 
 class SocialMediaBody extends ConsumerStatefulWidget {
   const SocialMediaBody({
@@ -14,7 +15,7 @@ class SocialMediaBody extends ConsumerStatefulWidget {
 }
 
 class _SocialMediaBodyState extends ConsumerState<SocialMediaBody> {
-  final List<SocialClass> textEditingControllerList = [SocialClass(title: '', link: '')];
+  final List<SocialClass> textEditingControllerList = [];
   final GlobalKey<FormState> socialKey = GlobalKey<FormState>();
 
   final List<String> items = [
@@ -48,6 +49,8 @@ class _SocialMediaBodyState extends ConsumerState<SocialMediaBody> {
     SocialDropdownEnum.discord.message,
     SocialDropdownEnum.gmail.message,
   ];
+  // final SocialClass controller = SocialClass(link: '', title: '');
+  List<Map<String, dynamic>> fetchedResultList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -61,9 +64,8 @@ class _SocialMediaBodyState extends ConsumerState<SocialMediaBody> {
         );
       }
     });
-
+    fetchedResultList.add(widget.socialMediaModel ?? {});
     items.removeWhere((element) => widget.socialMediaModel?.keys.contains(element) ?? false);
-    // log(items.toString());
 
     return Form(
       key: socialKey,
@@ -75,11 +77,13 @@ class _SocialMediaBodyState extends ConsumerState<SocialMediaBody> {
           widget.socialMediaModel != null
               ? ListView.builder(
                   shrinkWrap: true,
-                  itemCount: widget.socialMediaModel?.length,
+                  itemCount: fetchedResultList[0].entries.length,
+                  // widget.socialMediaModel?.length,
                   physics: const NeverScrollableScrollPhysics(),
                   padding: EdgeInsets.zero,
                   itemBuilder: (context, index) {
                     var socialType = widget.socialMediaModel?.entries.map((e) => e).toList()[index];
+                    // var fetchResultType = fetchedResult.entries.map((e) => e).toList()[index];
                     return Row(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -102,25 +106,14 @@ class _SocialMediaBodyState extends ConsumerState<SocialMediaBody> {
                             controller: TextEditingController(text: socialType?.value),
                             maxLines: 1,
                             onChanged: (link) {
-                              // controller.link = link;
+                              // log('this is the fetched result list: ${fetchedResultList[0][socialType?.key]}');
+                              fetchedResultList[0][socialType!.key] = link;
+                              // fetchedResultList[0][index][socialType?.value] = link;
                             },
-                            validator: (p0) {
-                              if (p0 == null || p0.isEmpty) {
-                                return TextConstant.required;
-                              }
-                              if (p0.startsWith('http') == false) {
-                                return TextConstant.linkMustStartWithHttps;
-                              }
-
-                              return null;
-                            },
-                            // validator: (value) {
-                            //   if (value == null || value.isEmpty) {
-                            //     return TextConstant.required;
-                            //   } else {
-                            //     return null;
-                            //   }
-                            // },
+                            inputFormatters: [
+                              TextFieldFormattersHelper.lowerCaseTextFormatter(),
+                            ],
+                            validator: TextFieldFormattersHelper.websiteValidator(),
                             hintText: 'Link',
                           ),
                         ),
@@ -160,66 +153,42 @@ class _SocialMediaBodyState extends ConsumerState<SocialMediaBody> {
                 )
               : const SizedBox.shrink(),
 
-          ///! this is the [add new text controller section]
-          for (var controller in textEditingControllerList)
-            items.isEmpty
-                ? const SizedBox.shrink()
-                : Row(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        flex: 3,
-                        child: MyCustomDropWidgetWithStrings(
-                          items: items,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return TextConstant.required;
-                            } else {
-                              return null;
-                            }
-                          },
-                          onChanged: (title) {
-                            controller.title = title;
-
-                            items.remove(title);
-                          },
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 15,
-                      ),
-                      Expanded(
-                        flex: 5,
-                        child: AuthTextFieldWidget(
-                          contentPadding: AppEdgeInsets.eA18,
-                          controller: TextEditingController(text: controller.link),
-                          maxLines: 1,
-                          onChanged: (link) {
-                            controller.link = link;
-                          },
-                          validator: (p0) {
-                            if (p0 == null || p0.isEmpty) {
-                              return TextConstant.required;
-                            }
-                            if (p0.startsWith('http') == false) {
-                              return TextConstant.linkMustStartWithHttps;
-                            }
-
-                            return null;
-                          },
-                          // validator: (value) {
-                          //   if (value == null || value.isEmpty) {
-                          //     return TextConstant.required;
-                          //   } else {
-                          //     return null;
-                          //   }
-                          // },
-                          hintText: 'Link',
-                        ),
-                      ),
-                    ],
+//! the added new text field
+          ...List.generate(
+            textEditingControllerList.length,
+            (index) => Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: LinkAndSocialMediaRowTextField(
+                    items: items,
+                    controller: textEditingControllerList[index],
                   ),
+                ),
+
+                //delete
+                Container(
+                  padding: AppEdgeInsets.eA4,
+                  margin: const EdgeInsets.only(left: 15),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: context.colorScheme.onSurface),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    deleteIcon,
+                    color: context.colorScheme.error,
+                    size: 17,
+                  ).tooltipWidget(TextConstant.delete).onTapWidget(
+                    onTap: () {
+                      setState(() {
+                        index >= 0 ? textEditingControllerList.removeAt(index) : null;
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
           items.isEmpty
               ? const SizedBox.shrink()
               : TextButton.icon(
@@ -240,13 +209,23 @@ class _SocialMediaBodyState extends ConsumerState<SocialMediaBody> {
               onPressed: () {
                 // if (widget.socialMediaModel?.isEmpty != true) {
                 Map<String, String> result = {};
+                Map<String, String> resultTwo = {};
+
                 for (var value in textEditingControllerList) {
                   result[value.title] = value.link;
                 }
+
+                for (var value in fetchedResultList[0].entries.toList()) {
+                  resultTwo[value.key] = value.value;
+                }
+
+                Map<String, dynamic> combinedMap = {...result, ...resultTwo};
+
+                log('this is the result: $result \n\n this is the result two: $combinedMap');
                 if (socialKey.currentState!.validate()) {
                   ref
                       .read(addSocialMediaProvider.notifier)
-                      .addSocialMediaMethod(map: result)
+                      .addSocialMediaMethod(map: combinedMap)
                       .whenComplete(
                     () {
                       widget.onSubmitSuccessful();

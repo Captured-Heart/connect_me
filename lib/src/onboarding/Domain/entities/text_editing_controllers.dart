@@ -1,7 +1,7 @@
 import 'package:connect_me/app.dart';
+import 'package:flutter/services.dart';
 
-final textEditingControllerProvider =
-    Provider<TextEditingControllerClass>((ref) {
+final textEditingControllerProvider = Provider<TextEditingControllerClass>((ref) {
   return TextEditingControllerClass();
 });
 
@@ -80,4 +80,37 @@ class TextEditingControllerClass {
     emailController.clear();
     usernameController.clear();
   }
+}
+
+class TextFieldFormattersHelper {
+  static lowerCaseTextFormatter() => LowerCaseTextFormatter();
+  static websiteValidator() => websiteValidatorMethod();
+}
+
+class LowerCaseTextFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+    return TextEditingValue(
+      text: newValue.text.toLowerCase(),
+      selection: newValue.selection,
+    );
+  }
+}
+
+String? Function(String?)? websiteValidatorMethod() {
+  return (p0) {
+    RegExp validURL = RegExp(
+        r'^((http(s)||http):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$');
+    if (p0 == null || p0.isEmpty) {
+      return TextConstant.required;
+    }
+    if (p0.startsWith('http') == false) {
+      return TextConstant.linkMustStartWithHttps;
+    }
+    if (!validURL.hasMatch(p0)) {
+      return TextConstant.provideAValidUrl;
+    }
+
+    return null;
+  };
 }
