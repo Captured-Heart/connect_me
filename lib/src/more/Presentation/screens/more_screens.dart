@@ -35,6 +35,19 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
       }
     });
 
+    ref.listen(deleteAccountInfoProvider, (previous, next) {
+      if (next.value != null) {
+        popAndPush(
+          context,
+          ref: ref,
+          routeName: ScreenName.loginScreen,
+          const LoginScreen(),
+        );
+
+        showScaffoldSnackBarMessage(next.value, isError: true);
+      }
+    });
+
     return Scaffold(
       // appBar: AppBar(),
       body: SafeArea(
@@ -418,7 +431,7 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                       onTap: () {
                         showLicensePage(
                           context: context,
-                          applicationVersion: 'v1.0.0',
+                          applicationVersion: 'v${appdata.valueOrNull?.appVersionNumber}',
                           applicationIcon: Image.asset(
                             ImagesConstant.appLogoBrown,
                             height: 50,
@@ -450,13 +463,13 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
 
               const Text(TextConstant.logOut),
               Card(
-                color: AppThemeColorDark.textError,
+                // color: context.colorScheme.primaryContainer,
                 elevation: 2,
                 child: MoreCustomListTileWidget(
                   icon: logOutIcon,
                   title: TextConstant.logOut,
                   color: Colors.transparent,
-                  foregroundColor: AppThemeColorDark.textDark,
+                  // foregroundColor: AppThemeColorDark.textDark,
                   onTap: () {
                     warningDialogs(
                       context: context,
@@ -472,6 +485,34 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                   },
                 ),
               ),
+// delete account
+              Card(
+                color: AppThemeColorDark.textError,
+                elevation: 2,
+                child: MoreCustomListTileWidget(
+                  icon: deleteIcon,
+                  title: TextConstant.deleteAccount,
+                  color: Colors.transparent,
+                  foregroundColor: AppThemeColorDark.textDark,
+                  onTap: () {
+                    WoltModalSheet.show(
+                      context: context,
+                      pageListBuilder: (context) {
+                        return [
+                          deleteAccountModal(
+                            modalSheetContext: context,
+                            authUserModel: authUserData,
+                          //   onDeleteBTN: () {
+                          // ref.read(deleteAccountInfoProvider.notifier).deleteAccountPermanently(email: authUserData.email , uuid: uuid)
+                          //   },
+                          ),
+                        ];
+                      },
+                    );
+                  },
+                ),
+              ),
+
               // DottedLineDividerWidget(),
             ].columnInPadding(10)),
       ),
