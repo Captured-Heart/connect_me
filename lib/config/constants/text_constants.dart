@@ -9,6 +9,7 @@ abstract class TextConstant {
   static const weAreGladYouAreHere = 'We are glad you are here';
   static const weAreGladYouAreBack = 'We are glad you are back';
   static const emailAddress = 'Email Address';
+  
   static const username = 'Username';
 
   static const password = 'Password';
@@ -27,6 +28,8 @@ abstract class TextConstant {
   static const createYourAcct = 'Create your account';
   static const login = 'Login';
   static const logOut = 'Log out';
+  static const deleteAccount = 'Delete Account';
+
 
   static const forgottenPassword = 'Forgotten Password?';
   static const dontHaveAnAcct = "Don't have an account?";
@@ -141,6 +144,8 @@ NB: This is diplayed in your Qr_Code card and is visible to all''';
 
   static const socialMediaHandles = 'Social Media Handles';
   static const delete = 'Delete';
+  static const theUserAccountHasBeenDeleted = 'The user account has been deleted successfully';
+
   static const helpCenter247 = '24/7 Help Center';
   static const tellUsHowWeCanHelpYou = 'Tell us how we can help you';
   static const superHumansWithABody =

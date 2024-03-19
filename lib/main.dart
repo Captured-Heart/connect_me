@@ -118,7 +118,7 @@ class _MainAppState extends ConsumerState<MainApp> {
     return Consumer(builder: (context, ref, _) {
       final themeMode = ref.watch(themeProvider);
 
-      final analytics = ref.watch(analyticsProvider);
+      // final analytics = ref.watch(analyticsProvider);
 
       return MaterialApp(
         restorationScopeId: 'connectMe',
@@ -132,9 +132,9 @@ class _MainAppState extends ConsumerState<MainApp> {
         darkTheme: themeBuilder(
           defaultTheme: ThemeData.dark(),
         ),
-        navigatorObservers: [
-          FirebaseAnalyticsObserver(analytics: analytics),
-        ],
+        // navigatorObservers: [
+        //   FirebaseAnalyticsObserver(analytics: analytics),
+        // ],
         home: const SplashScreen(),
       );
     });
