@@ -1,10 +1,9 @@
 import 'package:connect_me/app.dart';
 import 'package:flutter/gestures.dart';
 
-final flipCardControllerProvider =
-    Provider.autoDispose<FlipCardController>((ref) {
-  return FlipCardController();
-});
+// final flipCardControllerProvider = Provider.autoDispose<FlipCardController>((ref) {
+//   return FlipCardController();
+// });
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -14,11 +13,19 @@ class LoginScreen extends ConsumerStatefulWidget {
 }
 
 class _LoginScreenState extends ConsumerState<LoginScreen> {
+  late FlipCardController _flipController;
+
+  @override
+  void initState() {
+    _flipController = FlipCardController();
+    super.initState();
+  }
+
   bool isFrontOfCard = false;
   final PageController pageController = PageController();
   @override
   Widget build(BuildContext context) {
-    final controller = ref.watch(flipCardControllerProvider);
+    final controller = _flipController;
     final isLoading = ref.watch(loginWithEmailNotifierProvider).isLoading;
     final isLoadingGoogle = ref.watch(signInGoogleNotifierProvider).isLoading;
 
@@ -50,8 +57,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     child: ListView(
                       shrinkWrap: true,
                       dragStartBehavior: DragStartBehavior.start,
-                      keyboardDismissBehavior:
-                          ScrollViewKeyboardDismissBehavior.onDrag,
+                      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
                       // mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         FlipCard(
@@ -86,26 +92,26 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       ForgotPasswordCard(
                         pageController: pageController,
                       ),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Flexible(
-                            child: Flash(
-                              duration: const Duration(seconds: 3),
-                              animate: true,
-                              infinite: true,
-                              child: const Icon(
-                                Icons.arrow_back,
-                                size: 23,
+                      GestureDetector(
+                        onTap: () {
+                          pageController.jumpToPage(0);
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Flexible(
+                              child: Flash(
+                                duration: const Duration(seconds: 3),
+                                animate: true,
+                                infinite: true,
+                                child: const Icon(
+                                  Icons.arrow_back,
+                                  size: 23,
+                                ),
                               ),
                             ),
-                          ),
-                          Flexible(
-                            child: GestureDetector(
-                              onTap: () {
-                                pageController.jumpToPage(0);
-                              },
+                            Flexible(
                               child: AutoSizeText(
                                 TextConstant.returnToLogin,
                                 style: context.textTheme.bodyMedium?.copyWith(
@@ -113,9 +119,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                 ),
                                 maxLines: 1,
                               ),
-                            ),
-                          )
-                        ].rowInPadding(10),
+                            )
+                          ].rowInPadding(10),
+                        ),
                       ),
                     ].columnInPadding(10),
                   ).padSymmetric(horizontal: 10),

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:connect_me/app.dart';
 
 class SignUpCardWidget extends ConsumerStatefulWidget {
@@ -211,19 +213,25 @@ class _SignUpCardWidgetState extends ConsumerState<SignUpCardWidget> {
                             ),
                           ],
                         ),
-                        Text(TextConstant.or.toTitleCase()),
-                        //sign in with google btn
-                        SocialButtons(
-                          iconData: googleIcon,
-                          text: TextConstant.signUpWithGoogle,
-                          onTap: () {
-                            // if (Platform.isAndroid) {
-                            ref
-                                .read(signInGoogleNotifierProvider.notifier)
-                                .signinWithGoogle(isSignUp: true);
-                            // } else {}
-                          },
-                        ),
+                        Platform.isIOS
+                            ? const SizedBox.shrink()
+                            : Column(
+                                children: [
+                                  Text(TextConstant.or.toTitleCase()).padOnly(bottom: 5),
+                                  //sign in with google btn
+                                  SocialButtons(
+                                    iconData: googleIcon,
+                                    text: TextConstant.signUpWithGoogle,
+                                    onTap: () {
+                                      // if (Platform.isAndroid) {
+                                      ref
+                                          .read(signInGoogleNotifierProvider.notifier)
+                                          .signinWithGoogle(isSignUp: true);
+                                      // } else {}
+                                    },
+                                  ),
+                                ],
+                              ),
                       ],
                     ).padAll(15)),
               ),

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:connect_me/app.dart';
 
 final obscureTextProvider = StateProvider<bool>((ref) {
@@ -21,7 +23,6 @@ class SignInCardWidget extends ConsumerWidget {
 
     final obscureText = ref.watch(obscureTextProvider);
     ref.listen(loginWithEmailNotifierProvider, (previous, next) {
-
       log('${next.user}');
       if (next.errorMessage != null) {
         showScaffoldSnackBarMessageNoColor(
@@ -112,27 +113,37 @@ class SignInCardWidget extends ConsumerWidget {
                   ),
 
                   //sign in with google btn
-                  SocialButtons(
-                    iconData: googleIcon,
-                    text: TextConstant.signInWithGoogle,
-                    onTap: () {
-                      // if (Platform.isAndroid) {
+                  Platform.isIOS
+                      ? const SizedBox.shrink()
+                      : Column(
+                          children: [
+                            SocialButtons(
+                              iconData: googleIcon,
+                              text: TextConstant.signInWithGoogle,
+                              onTap: () {
+                                // if (Platform.isAndroid) {
 
-                      ref
-                          .read(signInGoogleNotifierProvider.notifier)
-                          .signinWithGoogle(isSignUp: false);
-                      // } else {}
-                    },
-                  ),
+                                ref
+                                    .read(signInGoogleNotifierProvider.notifier)
+                                    .signinWithGoogle(isSignUp: false);
+                                // } else {}
+                              },
+                            ),
 
-                  // divider with text
-                  Row(
-                    children: [
-                      const Expanded(child: Divider()),
-                      const Text(TextConstant.orContinueWith).padSymmetric(horizontal: 20),
-                      const Expanded(child: Divider()),
-                    ],
-                  ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            // divider with text
+                            Row(
+                              children: [
+                                const Expanded(child: Divider()),
+                                const Text(TextConstant.orContinueWith)
+                                    .padSymmetric(horizontal: 20),
+                                const Expanded(child: Divider()),
+                              ],
+                            ),
+                          ],
+                        ),
 
                   // textfield in a container
                   // EmailAndPasswordWidget(),
