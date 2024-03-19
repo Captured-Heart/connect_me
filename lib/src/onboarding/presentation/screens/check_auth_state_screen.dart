@@ -37,6 +37,7 @@ class CheckAuthStateScreen extends ConsumerWidget {
         ? const LoginScreen()
         : user.when(
             data: (data) {
+              // ref.invalidate(fetchProfileProvider);
               final authUserData = ref.watch(fetchProfileProvider);
 
               if (data == null) {

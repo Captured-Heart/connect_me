@@ -5,10 +5,12 @@ import 'package:connect_me/app.dart';
 class AccountInfoImpl extends AccountInfoRepository {
   final FirebaseFirestore firebaseFirestore;
   final FirebaseStorage firebaseStorage;
+  final FirebaseAuth firebaseAuth;
 
   AccountInfoImpl({
     required this.firebaseFirestore,
     required this.firebaseStorage,
+    required this.firebaseAuth,
   });
 
   @override
@@ -59,6 +61,39 @@ class AccountInfoImpl extends AccountInfoRepository {
       );
     }
   }
+
+  @override
+  Future<Either<AppException, void>> deleteAccount({
+    required String email,
+    required String uuid,
+  }) async {
+    try {
+      //delete img from storage
+      await deleteImgFromStorage(childPath: uuid);
+
+      //delete connects
+      var connects = await firebaseFirestore
+          .collection(FirebaseCollectionEnums.connects.value)
+          .where(FirebaseDocsFieldEnums.userId.name, isEqualTo: uuid)
+          .get();
+      for (var element in connects.docs) {
+        element.reference.delete();
+      }
+
+//
+      await firebaseFirestore.collection(FirebaseCollectionEnums.users.value).doc(uuid).delete();
+
+      var deleteAuthAccount = firebaseAuth.currentUser?.delete();
+      // delete account
+      return Right(deleteAuthAccount);
+    } catch (e) {
+      return Left(
+        AppException(
+          e.toString(),
+        ),
+      );
+    }
+  }
 }
 
 Future<String> addImgToStorage({required String filePath, required String childPath}) async {
@@ -79,4 +114,10 @@ Future<String> addImgToStorage({required String filePath, required String childP
   });
 
   return uploadedFile.ref.getDownloadURL();
+}
+
+Future<void> deleteImgFromStorage({required String childPath}) async {
+  Reference storageRef =
+      FirebaseStorage.instance.ref(FirebaseCollectionEnums.accountInfo.value).child(childPath);
+  return storageRef.delete();
 }

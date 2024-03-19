@@ -1,5 +1,4 @@
 import 'package:connect_me/app.dart';
-import 'package:flutter/services.dart';
 
 class AccountInfoModalBody extends ConsumerStatefulWidget {
   const AccountInfoModalBody({
@@ -58,7 +57,6 @@ class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
   final ValueNotifier<String> imgUrlFirebaseNotifier = ValueNotifier<String>('');
   final ValueNotifier<bool> deletedImageNotifier = ValueNotifier<bool>(false);
   final _formKey = GlobalKey<FormState>();
-  final _websiteKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -126,6 +124,7 @@ class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
                       child: AuthTextFieldWidget(
@@ -135,6 +134,13 @@ class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
                         initialValue: fnameNotifier.value,
                         onChanged: (value) {
                           fnameNotifier.value = value;
+                        },
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return TextConstant.required;
+                          } else {
+                            return null;
+                          }
                         },
                       ),
                     ),
@@ -149,6 +155,13 @@ class _AccountInfoModalBodyState extends ConsumerState<AccountInfoModalBody> {
                         initialValue: lnameNotifier.value,
                         onChanged: (value) {
                           lnameNotifier.value = value;
+                        },
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return TextConstant.required;
+                          } else {
+                            return null;
+                          }
                         },
                       ),
                     ),
