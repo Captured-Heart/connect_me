@@ -85,6 +85,7 @@ class TextEditingControllerClass {
 class TextFieldFormattersHelper {
   static lowerCaseTextFormatter() => LowerCaseTextFormatter();
   static websiteValidator() => websiteValidatorMethod();
+  static requiredValidator(value) => requiredValidator(value);
 }
 
 class LowerCaseTextFormatter extends TextInputFormatter {
@@ -94,6 +95,14 @@ class LowerCaseTextFormatter extends TextInputFormatter {
       text: newValue.text.toLowerCase(),
       selection: newValue.selection,
     );
+  }
+}
+
+String? requiredValidator(String? value) {
+  if (value == null || value.isEmpty) {
+    return TextConstant.required;
+  } else {
+    return null;
   }
 }
 
