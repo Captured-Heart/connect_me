@@ -10,3 +10,4 @@ export './additional_info_body.dart';
 export './education_body.dart';
 export './social_media_body.dart';
 export './themes_modal.dart';
+export './delete_account_modal.dart';

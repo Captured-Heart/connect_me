@@ -21,6 +21,7 @@ class _AccountInformationSignUpScreenState extends ConsumerState<AccountInformat
   final ValueNotifier<String> bioNotifier = ValueNotifier<String>('');
   final ValueNotifier<String> imgUrl = ValueNotifier<String>('');
 
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     final authUserData = ref.watch(fetchProfileProvider).valueOrNull;
@@ -28,7 +29,7 @@ class _AccountInformationSignUpScreenState extends ConsumerState<AccountInformat
     ref.listen(addAccountInfoProvider, (previous, next) {
       if (next.valueOrNull == TextConstant.successful) {
         final refresh = ref.refresh(fetchProfileProvider);
-        if (refresh.hasValue) {
+        if (refresh.value != null) {
           pushReplacement(
             context,
             const SignUpMainScreen(),
@@ -69,14 +70,26 @@ class _AccountInformationSignUpScreenState extends ConsumerState<AccountInformat
                   Center(
                     child: GestureDetector(
                       onTap: () {
+                        setState(() {
+                          isLoading = true;
+                        });
                         if (imgUrl.value.isEmpty) {
                           pickImageFunction(pickCamera: false).then((value) {
+                            setState(() {
+                              isLoading = false;
+                            });
                             if (value != null) {
                               cropImageFunction(pickedFile: value, context: context).then((value) {
+                                setState(() {
+                                  isLoading = false;
+                                });
                                 if (value != null) {
                                   imgUrl.value = value.path;
                                 }
                               }).onError((error, stackTrace) {
+                                setState(() {
+                                  isLoading = false;
+                                });
                                 showScaffoldSnackBarMessage(error.toString(), isError: true);
                               });
                             }
@@ -125,10 +138,14 @@ class _AccountInformationSignUpScreenState extends ConsumerState<AccountInformat
                             : CustomPaint(
                                 willChange: true,
                                 painter: DottedBorderPainter(context),
-                                child: const Icon(
-                                  addImageIcon,
-                                  size: 50,
-                                ),
+                                child: isLoading == true
+                                    ? const Center(
+                                        child: CircularProgressIndicator(),
+                                      )
+                                    : const Icon(
+                                        addImageIcon,
+                                        size: 50,
+                                      ),
                               ),
                       ),
                     ),
