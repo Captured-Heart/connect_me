@@ -502,9 +502,9 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                           deleteAccountModal(
                             modalSheetContext: context,
                             authUserModel: authUserData,
-                          //   onDeleteBTN: () {
-                          // ref.read(deleteAccountInfoProvider.notifier).deleteAccountPermanently(email: authUserData.email , uuid: uuid)
-                          //   },
+                            //   onDeleteBTN: () {
+                            // ref.read(deleteAccountInfoProvider.notifier).deleteAccountPermanently(email: authUserData.email , uuid: uuid)
+                            //   },
                           ),
                         ];
                       },
@@ -512,7 +512,7 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
                   },
                 ),
               ),
-
+              Center(child: Text('Version ${appdata.valueOrNull?.appVersionNumber ?? ''}'))
               // DottedLineDividerWidget(),
             ].columnInPadding(10)),
       ),
