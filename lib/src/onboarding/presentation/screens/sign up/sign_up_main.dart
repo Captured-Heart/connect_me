@@ -14,10 +14,11 @@ class _SignUpMainScreenState extends ConsumerState<SignUpMainScreen> {
     final education = ref.watch(fetchEducationListProvider('')).valueOrNull;
     final workExperience = ref.watch(fetchWorkListProvider('')).valueOrNull;
     // inspect(education);
-    // log('''education $education,       work_experience: $workExperience''');
+    log('''education $authUserData,       work_experience: $workExperience''');
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text(' Complete '.hardCodedString + TextConstant.signUp),
       ),
       body: SafeArea(
@@ -33,7 +34,7 @@ class _SignUpMainScreenState extends ConsumerState<SignUpMainScreen> {
                   CustomListTileWidget(
                     title: 'To complete your sign up: '.hardCodedString,
                     subtitle:
-                        'The following sections needs to be filled up, \n*Account information is compulsory to complete registration while others are optional.'
+                        '*The following sections needs to be filled up. \n\n*Account information is compulsory to complete registration while others are optional.'
                             .hardCodedString,
                     subtitleTextAlign: TextAlign.start,
                     subtitleMaxLines: 4,

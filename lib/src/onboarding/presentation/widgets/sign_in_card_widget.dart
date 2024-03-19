@@ -21,6 +21,8 @@ class SignInCardWidget extends ConsumerWidget {
 
     final obscureText = ref.watch(obscureTextProvider);
     ref.listen(loginWithEmailNotifierProvider, (previous, next) {
+
+      log('${next.user}');
       if (next.errorMessage != null) {
         showScaffoldSnackBarMessageNoColor(
           next.errorMessage ?? '',
