@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:connect_me/app.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
@@ -11,7 +13,7 @@ class QrCodeScanScreen extends ConsumerStatefulWidget {
 
 class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
   BarcodeCapture? barcode;
-
+  AuthUserModel? authUserModel;
   final MobileScannerController controller = MobileScannerController(
     detectionSpeed: DetectionSpeed.unrestricted,
     detectionTimeoutMs: 500,
@@ -28,7 +30,9 @@ class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
       if (next.isCompleted == true && next.data != null) {
         ref.read(addAccountInfoProvider.notifier).updateScanCount();
         Vibration.vibrate(duration: 200);
-
+        setState(() {
+          authUserModel = (next.data as AuthUserModel);
+        });
         showDialog(
           context: context,
           barrierDismissible: false,
@@ -88,6 +92,7 @@ class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
                     inspect(arguments);
                     if (mounted && arguments?.numberOfCameras != null) {
                       numberOfCameras = arguments!.numberOfCameras;
+                      // log('this is the number of camera: $numberOfCameras');
                       setState(() {});
                     }
                   },
@@ -105,6 +110,7 @@ class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
                   },
                   fit: BoxFit.cover,
                   onDetect: (barcode) {
+                    controller.stop();
                     //check if the qr_code contains connect_me symbol/TAg
                     if (barcode.barcodes.first.rawValue?.startsWith(TextConstant.uuidPrefixTag) ==
                         true) {
@@ -114,8 +120,10 @@ class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
                           .read(qrCodeScanNotifierProvider.notifier)
                           .scanQrCodeMethod(scannedRawUUID: scannedRawUUID, ref: ref);
                     } else {
+                      log('show dialog');
                       showDialog(
                         context: context,
+                        barrierDismissible: false,
                         builder: (context) {
                           return AppCustomSuccessDialog(
                             dialogModel: DialogModel(
@@ -123,12 +131,17 @@ class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
                               hasImage: true,
                               postiveActionText: TextConstant.ok,
                               onPostiveAction: () {
-                                pop(context);
+                                // pop(context);
+                                Navigator.maybePop(context);
+                                Navigator.maybePop(context);
+
+                                // pop(context);
                               },
                             ),
                           );
                         },
                       );
+                      widget.tabController.animateTo(0);
                     }
                   },
                 ),
@@ -225,33 +238,39 @@ class _QrCodeScanScreenState extends ConsumerState<QrCodeScanScreen> {
                             if (image != null) {
                               await controller.analyzeImage(image.path);
                               if (await controller.analyzeImage(image.path)) {
-                                //TODO: ADD ANALYTICS TO SHOW SCAN METHOD
+                                if (authUserModel != null && authUserModel?.docId != null) {
+                                  unawaited(ref
+                                      .read(analyticsImplProvider)
+                                      .scanQrCodeMethod(authUserModel: authUserModel!));
+                                }
+
                                 showScaffoldSnackBarMessage(
                                   TextConstant.successful,
                                 );
-                              } else {
-                                if (!mounted) return;
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AppCustomSuccessDialog(
-                                      dialogModel: DialogModel(
-                                        title: 'Scan a Connect_Me\n QR Code instead',
-                                        hasImage: true,
-                                        postiveActionText: TextConstant.ok,
-                                        onPostiveAction: () {
-                                          pop(context);
-                                          widget.tabController.animateTo(0);
-                                        },
-                                      ),
-                                    );
-                                  },
-                                );
-                                showScaffoldSnackBarMessage(
-                                  'QR Code could not be recognized'.hardCodedString,
-                                  isError: true,
-                                );
                               }
+                              // else {
+                              //   if (!mounted) return;
+                              //   showDialog(
+                              //     context: context,
+                              //     builder: (context) {
+                              //       return AppCustomSuccessDialog(
+                              //         dialogModel: DialogModel(
+                              //           title: 'Scan a Connect_Me\n QR Code instead',
+                              //           hasImage: true,
+                              //           postiveActionText: TextConstant.ok,
+                              //           onPostiveAction: () {
+                              //             pop(context);
+                              //             widget.tabController.animateTo(0);
+                              //           },
+                              //         ),
+                              //       );
+                              //     },
+                              //   );
+                              //   showScaffoldSnackBarMessage(
+                              //     'QR Code could not be recognized'.hardCodedString,
+                              //     isError: true,
+                              //   );
+                              // }
                             }
                           },
                         ),
