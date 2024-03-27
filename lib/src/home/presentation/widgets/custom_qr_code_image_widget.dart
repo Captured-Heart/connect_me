@@ -17,7 +17,8 @@ class CustomQrCodeImageWidget extends StatelessWidget {
     return Container(
       margin: isDense == true
           ? const EdgeInsets.only(top: 7, right: 7, left: 7, bottom: 3)
-          : const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          : 
+          const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
       padding: EdgeInsets.symmetric(
           vertical: isDense == true ? 3 : 5, horizontal: isDense == true ? 3 : 5),
       decoration: BoxDecoration(

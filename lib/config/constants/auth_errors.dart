@@ -24,6 +24,7 @@ enum AuthErrors {
   networkRequestFailed('Network error, try again'),
   wrongPassword('The password is incorrect'),
   credentialsAlreadyInUse('login details is already associated with another user account'),
+  
   invalidLoginCredentials('invalid login credentials'),
 
   passwordDoesNotMatch('passwords do not match');
@@ -45,6 +46,8 @@ Left<AppException, User> firebaseAuthExceptionSwitch(FirebaseAuthException e) {
     'credential-already-in-use' =>
       Left(AppException(AuthErrors.credentialsAlreadyInUse.errorMessage)),
     'network-request-failed' => Left(AppException(AuthErrors.networkFailure.errorMessage)),
+      'INVALID_LOGIN_CREDENTIALS' =>
+           Left(AppException(AuthErrors.invalidLoginCredentials.errorMessage)),
     _ => Left(AppException(AuthErrors.serverFailure.errorMessage))
   };
 }
