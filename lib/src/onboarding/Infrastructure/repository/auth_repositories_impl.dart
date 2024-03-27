@@ -37,27 +37,7 @@ class AuthRepositoryImpl implements AuthRepository {
       }
       return Right(result.user);
     } on FirebaseAuthException catch (e) {
-      switch (e.code) {
-        case 'invalid-email':
-          return Left(AppException(AuthErrors.invalidEmail.errorMessage));
-        case 'user-disabled':
-          return Left(AppException(AuthErrors.userDisabled.errorMessage));
-        case 'user-not-found':
-          return Left(AppException(AuthErrors.userNotFound.errorMessage));
-        case 'too-many-requests':
-          return Left(AppException(AuthErrors.tooManyRequests.errorMessage));
-        case 'wrong-password':
-          return Left(AppException(AuthErrors.wrongPassword.errorMessage));
-        case 'network-request-failed':
-          return Left(AppException(AuthErrors.networkRequestFailed.errorMessage));
-        case 'requires-recent-login':
-          return Left(AppException(AuthErrors.requiresRecentLogin.errorMessage));
-        //
-        case 'INVALID_LOGIN_CREDENTIALS':
-          return Left(AppException(AuthErrors.invalidLoginCredentials.errorMessage));
-        default:
-          return Left(AppException(AuthErrors.networkFailure.errorMessage));
-      }
+      return firebaseAuthExceptionSwitch(e);
     }
     // }
   }
