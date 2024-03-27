@@ -24,29 +24,29 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
     final educationList = ref.watch(fetchEducationListProvider('')).valueOrNull;
     final workExpList = ref.watch(fetchWorkListProvider('')).valueOrNull;
 
-    ref.listen(logOutNotifierProvider, (previous, next) {
-      if (next.user == null) {
-        pushReplacement(
-          context,
-          ref: ref,
-          routeName: ScreenName.loginScreen,
-          const LoginScreen(),
-        );
-      }
-    });
+    // ref.listen(logOutNotifierProvider, (previous, next) {
+    //   if (next.user == null) {
+    //     pushReplacement(
+    //       context,
+    //       ref: ref,
+    //       routeName: ScreenName.loginScreen,
+    //       const LoginScreen(),
+    //     );
+    //   }
+    // });
 
-    ref.listen(deleteAccountInfoProvider, (previous, next) {
-      if (next.value != null) {
-        popAndPush(
-          context,
-          ref: ref,
-          routeName: ScreenName.loginScreen,
-          const LoginScreen(),
-        );
+    // ref.listen(deleteAccountInfoProvider, (previous, next) {
+    //   if (next.value != null) {
+    //     popAndPush(
+    //       context,
+    //       ref: ref,
+    //       routeName: ScreenName.loginScreen,
+    //       const LoginScreen(),
+    //     );
 
-        showScaffoldSnackBarMessage(next.value, isError: true);
-      }
-    });
+    //     showScaffoldSnackBarMessage(next.value, isError: true);
+    //   }
+    // });
 
     return Scaffold(
       // appBar: AppBar(),

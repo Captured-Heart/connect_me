@@ -30,6 +30,16 @@ SliverWoltModalSheetPage deleteAccountModal({
 
     // body
     child: Consumer(builder: (context, ref, _) {
+      ref.listen(deleteAccountInfoProvider, (previous, next) {
+        if (!next.hasError || next.value != null) {
+          pop(context);
+          pop(context);
+        }
+        if (next.hasError) {
+          pop(context);
+          pop(context);
+        }
+      });
       return Column(
         children: [
           const Text('Read Carefully: '),
@@ -87,14 +97,22 @@ SliverWoltModalSheetPage deleteAccountModal({
                                   'Are you sure you want to delete your account?'.hardCodedString,
                               content: null,
                               onPostiveAction: () {
+                                // Navigator.maybePop(context);
+
                                 ref
                                     .read(deleteAccountInfoProvider.notifier)
                                     .deleteAccountPermanently(
                                         email: ref.watch(_emailControllerProvider),
                                         uuid: authUserModel?.docId ?? 'null');
+
+                                // Navigator.maybePop(context);
+                                pop(modalSheetContext);
+
+                                // Navigator.maybePop(modalSheetContext);
                               },
                             ),
                           );
+                          // pop(modalSheetContext);
                         },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppThemeColorDark.textError,

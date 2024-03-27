@@ -21,9 +21,7 @@ class HomeScreenBodyWithQrCard extends StatelessWidget {
                 Center(
                   child: ProfilePicWidget(
                     authUserModel: data,
-                    onTap: () {
-                     
-                    },
+                    onTap: () {},
                   ),
                 ),
 
@@ -49,9 +47,7 @@ class HomeScreenBodyWithQrCard extends StatelessWidget {
       },
       error: (error, _) {
         return Center(
-          child: Text(
-            (error as AppException).message,
-          ),
+          child: Text('$error \nOoops! \nClose the app and start again'),
         );
       },
 

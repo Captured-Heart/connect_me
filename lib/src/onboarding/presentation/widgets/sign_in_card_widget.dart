@@ -84,7 +84,8 @@ class SignInCardWidget extends ConsumerWidget {
                   //logo
                   Column(
                     children: [
-                      Ink(
+                      Container(
+                        clipBehavior: Clip.hardEdge,
                         decoration: BoxDecoration(
                           borderRadius: AppBorderRadius.c12,
                           color: context.colorScheme.onSurface,
@@ -92,7 +93,7 @@ class SignInCardWidget extends ConsumerWidget {
                         child: Image(
                           height: context.sizeWidth(0.13),
                           image: const ResizeImage(
-                            AssetImage(
+                            AssetImage( 
                               ImagesConstant.appLogoBrown,
                             ),
                             height: 150,
