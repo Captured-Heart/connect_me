@@ -96,9 +96,9 @@ class _ShareQrCodeScreenState extends ConsumerState<ShareQrCodeScreen> {
                                 child: AnimatedContainer(
                                   duration: const Duration(milliseconds: 400),
                                   transformAlignment: Alignment.bottomLeft,
-                                  height: cardisVertNotifier.value == true
-                                      ? context.sizeHeight(0.42)
-                                      : context.sizeHeight(0.28),
+                                  // height: cardisVertNotifier.value == true
+                                  //     ? context.sizeHeight(0.45)
+                                  //     : context.sizeHeight(0.28),
                                   width: cardisVertNotifier.value == true
                                       ? context.sizeWidth(0.62)
                                       : context.sizeWidth(0.9),
@@ -171,9 +171,9 @@ class _ShareQrCodeScreenState extends ConsumerState<ShareQrCodeScreen> {
                                               : null,
                                           borderRadius: AppBorderRadius.c12,
                                         ),
-                                        child: const Icon(
+                                        child: Icon(
                                           qrCodeIcon,
-                                          size: 25,
+                                          size: context.sizeWidth(0.05),
                                           color: Colors.white,
                                         ),
                                       ),
@@ -209,8 +209,8 @@ class _ShareQrCodeScreenState extends ConsumerState<ShareQrCodeScreen> {
                             color: buttonColor(cardIndexNotifier.value),
                           )
                               .padSymmetric(horizontal: context.sizeWidth(0.08), vertical: 5)
-                              .padOnly(bottom: 10)
-                        ].columnInPadding(10),
+                              .padOnly(bottom: 5)
+                        ].columnInPadding(5),
                       ),
                     ),
                   ),
