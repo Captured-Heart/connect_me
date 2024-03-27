@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:connect_me/app.dart';
+import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 import 'package:quick_actions/quick_actions.dart';
@@ -25,7 +27,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  //request permission fro firebase messaging
+  //request perpmission fro firebase messaging
   container.read(fcmRepositoryImplProvider).requestPermissionAndSubscribe();
   // firebase messgaing listening to messages
   container.read(fcmRepositoryImplProvider).onListenToMessages();
@@ -43,7 +45,14 @@ void main() async {
     (_) => runApp(
       UncontrolledProviderScope(
         container: container,
-        child: const MainApp(),
+        child:
+            // DevicePreview(
+            //   enabled: !kReleaseMode,
+            //   builder: (context) =>
+
+            //   const MainApp(),
+            // ),
+            const MainApp(),
       ),
     ),
   );
@@ -126,6 +135,8 @@ class _MainAppState extends ConsumerState<MainApp> {
         debugShowCheckedModeBanner: false,
         scaffoldMessengerKey: rootScaffoldMessengerKey,
         themeMode: themeMode,
+        // builder: DevicePreview.appBuilder,
+        // useInheritedMediaQuery: true,
         theme: themeBuilder(
           defaultTheme: ThemeData.light(),
         ),
