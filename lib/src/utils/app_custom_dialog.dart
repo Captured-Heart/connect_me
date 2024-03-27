@@ -175,6 +175,7 @@ class _AppCustomSuccessDialogState extends State<AppCustomSuccessDialog> {
                 widget.dialogModel.title!,
                 textScaleFactor: 1.0,
                 textAlign: TextAlign.center,
+                style: context.textTheme.bodyMedium,
               ).padOnly(bottom: 10),
         content: widget.dialogModel.content ??
             (widget.dialogModel.hasImage == true
