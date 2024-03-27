@@ -1,5 +1,7 @@
 import 'package:connect_me/app.dart';
 
+enum ScanMethod { image, camera }
+
 abstract class AnalyticsRepository {
   Future<void> login({required String email, required String uid, required String loginMethod});
 
@@ -7,6 +9,8 @@ abstract class AnalyticsRepository {
   Future<void> shareQrCode(
       {required AuthUserModel authUserModel, required String sharedDestination});
   Future<void> scanQrCode({required AuthUserModel authUserModel});
+  Future<void> scanQrCodeMethod({required AuthUserModel authUserModel});
+
   Future<void> profileVisit({required AuthUserModel authUserModel});
   Future<void> setScreenName({required String screenName});
 }
@@ -81,5 +85,20 @@ class AnalyticsRepositoryImpl extends AnalyticsRepository {
   @override
   Future<void> setScreenName({required String screenName}) {
     return _analytics.setCurrentScreen(screenName: screenName);
+  }
+
+  @override
+  Future<void> scanQrCodeMethod({required AuthUserModel authUserModel}) {
+    return _analytics.logEvent(
+      name: 'Scanned Qr-Code Method',
+      parameters: {
+        'method': ScanMethod.image.name,
+        'Scanned email': authUserModel.email,
+        'country code': authUserModel.phonePrefix ?? '',
+        'full-name': authUserModel.fullname,
+        'country': authUserModel.additionalDetails?.country ?? '',
+        'state': authUserModel.additionalDetails?.state ?? ''
+      },
+    );
   }
 }

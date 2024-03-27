@@ -16,7 +16,8 @@ Future<void> pushNamed(BuildContext context, String routeName,
 Future<T?> push<T>(BuildContext context, Widget child,
     {required WidgetRef ref, required String routeName}) async {
   unawaited(ref.read(analyticsImplProvider).setScreenName(screenName: routeName));
-  return Navigator.of(context).push<T>(MaterialPageRoute(builder: (_) => child));
+  return Navigator.of(context)
+      .push<T>(MaterialPageRoute(builder: (_) => child, settings: RouteSettings(name: routeName)));
 }
 
 //push_as_void
@@ -24,7 +25,8 @@ void pushAsVoid(BuildContext context, Widget child,
     {required WidgetRef ref, required String routeName}) {
   unawaited(ref.read(analyticsImplProvider).setScreenName(screenName: routeName));
 
-  Navigator.of(context).push(MaterialPageRoute(builder: (context) => child));
+  Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => child, settings: RouteSettings(name: routeName)));
 }
 
 //pop and push
@@ -39,7 +41,8 @@ void popAndPush(BuildContext context, Widget child,
   unawaited(ref.read(analyticsImplProvider).setScreenName(screenName: routeName));
 
   pop(context);
-  Navigator.of(context).push(MaterialPageRoute(builder: (context) => child));
+  Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => child, settings: RouteSettings(name: routeName)));
 }
 
 //push_replacement
@@ -47,7 +50,8 @@ void pushReplacement(BuildContext context, Widget child,
     {required WidgetRef ref, required String routeName}) {
   unawaited(ref.read(analyticsImplProvider).setScreenName(screenName: routeName));
 
-  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => child));
+  Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => child, settings: RouteSettings(name: routeName)));
 }
 
 //push_replacement_named
@@ -83,19 +87,6 @@ void pushReplacementOnRootNav(BuildContext context, Widget child,
   Navigator.of(context, rootNavigator: true)
       .pushReplacement(MaterialPageRoute(builder: (context) => child));
 }
-
-// void navBarPush({
-//   required BuildContext context,
-//   required Widget child,
-//   required bool withNavBar,
-// }) =>
-//     // ignore: inference_failure_on_function_invocation
-//     PersistentNavBarNavigator.pushNewScreen(
-//       context,
-//       screen: child,
-//       withNavBar: withNavBar,
-//       pageTransitionAnimation: PageTransitionAnimation.cupertino,
-// );
 
 class HeroDialogRoute<T> extends PageRoute<T> {
   HeroDialogRoute({
