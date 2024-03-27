@@ -21,9 +21,6 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
       );
     });
     ref.read(analyticsProvider).logAppOpen();
-    // ref.read(fcmRepositoryImplProvider).requestPermissionAndSubscribe();
-    // ref.read(fcmRepositoryImplProvider).onListenToMessages();
-
     super.initState();
   }
 

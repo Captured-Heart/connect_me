@@ -25,6 +25,7 @@ class _SignUpCardWidgetState extends ConsumerState<SignUpCardWidget> {
   @override
   Widget build(BuildContext context) {
     final controller = ref.watch(textEditingControllerProvider);
+    final obscureText = ref.watch(obscureTextProvider);
 
     final isLoading = ref.watch(signUpNotifierProvider).isLoading;
 
@@ -170,6 +171,8 @@ class _SignUpCardWidgetState extends ConsumerState<SignUpCardWidget> {
                                 hintText: TextConstant.password,
                                 focusNode: controller.passwordFocusMode,
                                 fillColor: Colors.transparent,
+                                obscureText: obscureText,
+                                maxLines: 1,
                                 controller: controller.passWordController,
                                 noBorders: false,
                                 validator: (value) {
@@ -179,6 +182,16 @@ class _SignUpCardWidgetState extends ConsumerState<SignUpCardWidget> {
                                     return null;
                                   }
                                 },
+                                suffixIcon: IconButton(
+                                  onPressed: () {
+                                    ref
+                                        .read(obscureTextProvider.notifier)
+                                        .update((state) => !state);
+                                  },
+                                  icon: obscureText == true
+                                      ? const Icon(showPasswordIcon)
+                                      : const Icon(hidePasswordIcon),
+                                ),
                                 onChanged: (value) {
                                   passwordNotifier.value = value;
                                 },

@@ -89,14 +89,22 @@ class SignInCardWidget extends ConsumerWidget {
                           borderRadius: AppBorderRadius.c12,
                           color: context.colorScheme.onSurface,
                         ),
-                        child: Hero(
-                          tag: 'logo',
-                          child: Image.asset(
-                            ImagesConstant.appLogoBrown,
-                            height: context.sizeWidth(0.13),
-                            fit: BoxFit.cover,
+                        child: Image(
+                          height: context.sizeWidth(0.13),
+                          image: const ResizeImage(
+                            AssetImage(
+                              ImagesConstant.appLogoBrown,
+                            ),
+                            height: 150,
+                            width: 150,
                           ),
                         ),
+
+                        //  Image.asset(
+                        //   ImagesConstant.appLogoBrown,
+                        //   height: context.sizeWidth(0.13),
+                        //   fit: BoxFit.cover,
+                        // ),
                       ),
 
                       //
