@@ -33,6 +33,17 @@
             "04F779EC-DE4D-4E80-A242-419FEB72EDB0",
 
         },
+
+        {
+            "name": "ios_IPAD",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/main.dart",
+            "deviceId": 
+            "A0EB2855-799A-4DFF-846E-5313FA724042",
+
+
+        },
         {
             "name": "android_device_simulator",
             "type": "dart",

@@ -6,8 +6,8 @@
 <strong> Connect_Me is a user-friendly mobile application that empowers users to streamline their communication, networking, and information-sharing processes with the power of QR codes. Whether you're a professional seeking to exchange business details, a social media enthusiast connecting with new friends, or a tech-savvy individual looking for a convenient way to share information, Connect_Me is the ultimate solution for all your QR code needs. </strong>
 
 <br/>
-<a href=''><img alt='Download on the App Store' src='./screenshots/app_store.png' height='36px'/></a>
-<a href=''><img alt='Get it on Google Play' src='./screenshots/google_play.png' height='36px'/></a>
+<a href='https://apps.apple.com/ng/app/connect-me-digital-identity/id6478838388'><img alt='Download on the App Store' src='./screenshots/app_store.png' height='36px'/></a>
+<a href='https://play.google.com/store/apps/details?id=com.capturedHeart.connectMe'><img alt='Get it on Google Play' src='./screenshots/google_play.png' height='36px'/></a>
 
 <sub>Built by <a href="https://twitter.com/_Captured_Heart">Nkpozi Marcel Kelechi</a></sub>
 <br />
@@ -41,29 +41,38 @@ Install local `flutter` version.
 ```bash
 fvm install
 ```
+
 ---
 
 ### Firebase setup
+
 This project contains firebase analytics, cloud firestore, firebase storage, and firebase Auth files.
 
 1. If you haven't already, install the Firebase CLI.
 2. Log into Firebase using your Google account by running the following command:
+
 ```bash
 firebase login
 ```
+
 3. Install the FlutterFire CLI by running the following command from any directory:
+
 ```bash
 dart pub global activate flutterfire_cli
 ```
 
 4. From my project directory, run the following command to install the core plugin:
+
 ```bash
 flutter pub add firebase_core
 ```
+
 5. From your Flutter project directory, run the following command to ensure that your Flutter app's Firebase configuration is up-to-date:
+
 ```bash
 flutterfire configure
 ```
+
 To see the complete set-up process visit: [Firebase Google](https://firebase.google.com/docs/flutter/setup?platform=ios)
 
 # Key Features

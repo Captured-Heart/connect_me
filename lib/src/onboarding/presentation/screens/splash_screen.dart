@@ -12,6 +12,8 @@ class SplashScreen extends ConsumerStatefulWidget {
 class _SplashScreenState extends ConsumerState<SplashScreen> {
   @override
   void initState() {
+    ref.read(analyticsProvider).logAppOpen();
+
     navigateToNexToScreen().then((_) {
       pushReplacement(
         context,
@@ -20,7 +22,6 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
         routeName: ScreenName.checkAuthStateScreen,
       );
     });
-    ref.read(analyticsProvider).logAppOpen();
     super.initState();
   }
 
@@ -39,14 +40,11 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
             right: context.sizeWidth(0.0001),
             left: context.sizeWidth(0.0001),
             child: FadeInRightBig(
-              child: Hero(
-                tag: 'logo',
-                child: Image.asset(
-                  ImagesConstant.appLogoBrown,
-                  fit: BoxFit.contain,
-                  height: 200,
-                  width: 200,
-                ),
+              child: Image.asset(
+                ImagesConstant.appLogoBrown,
+                fit: BoxFit.contain,
+                height: 200,
+                width: 200,
               ),
             ),
           ),

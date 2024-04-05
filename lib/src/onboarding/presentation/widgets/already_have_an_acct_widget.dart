@@ -3,11 +3,11 @@ import 'package:connect_me/app.dart';
 class AlreadyHaveAnAcctWidget extends StatelessWidget {
   const AlreadyHaveAnAcctWidget({
     super.key,
-    required this.controller,
-    required this.isFrontOfCard,
+    required this.isLoginScreen,
+    required this.onTap,
   });
-  final FlipCardController controller;
-  final bool isFrontOfCard;
+  final bool isLoginScreen;
+  final VoidCallback onTap;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -16,27 +16,26 @@ class AlreadyHaveAnAcctWidget extends StatelessWidget {
       children: [
         Flexible(
           child: AutoSizeText(
-            isFrontOfCard == true ? TextConstant.alreadyHaveAnAcct : TextConstant.dontHaveAnAcct,
+            isLoginScreen == true ? TextConstant.alreadyHaveAnAcct : TextConstant.dontHaveAnAcct,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
         ),
         Flexible(
           child: GestureDetector(
-            onTap: () {
-              log('message');
-              controller.toggleCard();
-            },
+            onTap: onTap,
             child: AutoSizeText(
-              isFrontOfCard == true ? TextConstant.login : TextConstant.signUp,
-              style: context.textTheme.bodyMedium?.copyWith(
+              isLoginScreen == true ? TextConstant.login : TextConstant.signUp,
+              style: context.textTheme.titleLarge?.copyWith(
+                fontWeight: AppFontWeight.w600,
                 decoration: TextDecoration.underline,
               ),
+              textScaleFactor: 0.8,
               maxLines: 1,
             ),
           ),
         )
-      ].rowInPadding(10),
+      ].rowInPadding(5),
     );
   }
 }

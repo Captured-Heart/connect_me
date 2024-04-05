@@ -3,7 +3,8 @@ import 'dart:io';
 import 'package:connect_me/app.dart';
 
 class SignUpCardWidget extends ConsumerStatefulWidget {
-  const SignUpCardWidget({super.key});
+  const SignUpCardWidget({super.key, required this.controller});
+  final PageController controller;
 
   @override
   ConsumerState<SignUpCardWidget> createState() => _SignUpCardWidgetState();
@@ -26,8 +27,6 @@ class _SignUpCardWidgetState extends ConsumerState<SignUpCardWidget> {
   Widget build(BuildContext context) {
     final controller = ref.watch(textEditingControllerProvider);
     final obscureText = ref.watch(obscureTextProvider);
-
-    final isLoading = ref.watch(signUpNotifierProvider).isLoading;
 
     ref.listen(signUpNotifierProvider, (previous, next) {
       if (next.user?.uid != null) {
@@ -78,17 +77,19 @@ class _SignUpCardWidgetState extends ConsumerState<SignUpCardWidget> {
           ],
         ),
         builder: (context, child) {
-          return FullScreenLoader(
-            isLoading: isLoading,
-            child: Form(
-              key: _signUpformKey,
-              child: GestureDetector(
-                onTap: () {
-                  controller.emailFocusMode.unfocus();
-                  controller.passwordFocusMode.unfocus();
-                  controller.userNameFocusMode.unfocus();
-                },
-                child: Card(
+          return Form(
+            key: _signUpformKey,
+            child: GestureDetector(
+              onTap: () {
+                controller.emailFocusMode.unfocus();
+                controller.passwordFocusMode.unfocus();
+                controller.userNameFocusMode.unfocus();
+              },
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Card(
                     elevation: 5,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -196,7 +197,7 @@ class _SignUpCardWidgetState extends ConsumerState<SignUpCardWidget> {
                                   passwordNotifier.value = value;
                                 },
                               ).padSymmetric(horizontal: 8, vertical: 2),
-                            ].columnInPadding(10)),
+                            ].columnInPadding(15)),
                             //validator text in red
                           ],
                         ),
@@ -226,6 +227,7 @@ class _SignUpCardWidgetState extends ConsumerState<SignUpCardWidget> {
                             ),
                           ],
                         ),
+
                         Platform.isIOS
                             ? const SizedBox.shrink()
                             : Column(
@@ -246,7 +248,15 @@ class _SignUpCardWidgetState extends ConsumerState<SignUpCardWidget> {
                                 ],
                               ),
                       ],
-                    ).padAll(15)),
+                    ).padAll(15),
+                  ),
+                  AlreadyHaveAnAcctWidget(
+                    onTap: () {
+                      widget.controller.jumpToPage(0);
+                    },
+                    isLoginScreen: true,
+                  ).padOnly(top: 10),
+                ],
               ),
             ),
           );
