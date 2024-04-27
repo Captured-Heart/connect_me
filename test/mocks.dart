@@ -3,8 +3,12 @@ import 'package:mocktail/mocktail.dart';
 
 class MockFirebase extends Mock implements FirebaseApp {}
 
+class MockAnalytics extends Mock implements FirebaseAnalytics {}
+
 class MockAuthRepository extends Mock implements AuthRepositoryImpl {}
 
 class MockLoginProvider extends Mock implements LoginWithEmailNotifier {}
 
 class MockAppException extends Mock implements AppException {}
+
+class MockFirebaseMessaging extends Mock implements FirebaseMessaging {}

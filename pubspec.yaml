@@ -12,6 +12,7 @@ environment:
   sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
+  alphabet_scrollbar: ^0.0.5
   animate_do: ^3.0.2
   animated_custom_dropdown: ^2.0.0
   auto_size_text: ^3.0.0
@@ -28,9 +29,9 @@ dependencies:
   firebase_core: ^2.24.0
   firebase_messaging: ^14.7.10
   firebase_storage: ^11.5.6
-  # flip_card: ^0.7.0
   flutter:
     sdk: flutter
+  flutter_contacts: ^1.1.7+1
   flutter_datetime_picker_plus: ^2.1.0
   flutter_dotenv: ^5.1.0
   flutter_local_notifications: ^16.3.2

@@ -1,5 +1,6 @@
 import 'package:connect_me/app.dart';
 
+
 class ContactRepositoryImpl extends ContactRepository {
   final FirebaseFirestore _firebaseFirestore;
 
@@ -25,7 +26,6 @@ class ContactRepositoryImpl extends ContactRepository {
   @override
   Future<List<AuthUserModel>> fetchContactsProfile({required String uuid}) async {
     try {
-      log('started fetch connects');
       var connects = await _firebaseFirestore
           .collection(FirebaseCollectionEnums.connects.value)
           .where(FirebaseDocsFieldEnums.userId.name, isEqualTo: uuid)
@@ -38,7 +38,6 @@ class ContactRepositoryImpl extends ContactRepository {
         throw TextConstant.noRecordFound;
       }
 
-      log('this is the uuidList for contacts: $uuidList');
       var result = await _firebaseFirestore
           .collection(FirebaseCollectionEnums.users.value)
           .where(

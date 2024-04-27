@@ -68,22 +68,37 @@ class AccountInfoImpl extends AccountInfoRepository {
     required String uuid,
   }) async {
     try {
-      //delete img from storage
-      await deleteImgFromStorage(childPath: uuid);
+      // //delete img from storage
+      // await deleteImgFromStorage(childPath: uuid);
 
-      //delete connects
+      //delete connects from cloud firestore
       var connects = await firebaseFirestore
           .collection(FirebaseCollectionEnums.connects.value)
           .where(FirebaseDocsFieldEnums.userId.name, isEqualTo: uuid)
           .get();
-      for (var element in connects.docs) {
-        element.reference.delete();
+      if (connects.docs.isNotEmpty) {
+        for (var element in connects.docs) {
+          element.reference.delete();
+        }
       }
 
-//
-      await firebaseFirestore.collection(FirebaseCollectionEnums.users.value).doc(uuid).delete();
+//deleting user records in firetstore and storage
+      if (uuid.isNotEmpty == true) {
+        var user =
+            await firebaseFirestore.collection(FirebaseCollectionEnums.users.value).doc(uuid).get();
+        if (user.exists == true) {
+          var userMap = user.data();
+          if (userMap?[FirebaseDocsFieldEnums.imgUrl.name] != null) {
+            await deleteImgFromStorage(imgUrl: userMap?[FirebaseDocsFieldEnums.imgUrl.name]);
+          }
+          await user.reference.delete();
+          //  await firebaseAuth.currentUser?.delete();
+        }
+      }
+      // await firebaseFirestore.collection(FirebaseCollectionEnums.users.value).doc(uuid).delete();
 
-      var deleteAuthAccount = firebaseAuth.currentUser?.delete();
+      var deleteAuthAccount = await firebaseAuth.currentUser?.delete();
+
       // delete account
       return Right(deleteAuthAccount);
     } catch (e) {
@@ -116,8 +131,13 @@ Future<String> addImgToStorage({required String filePath, required String childP
   return uploadedFile.ref.getDownloadURL();
 }
 
-Future<void> deleteImgFromStorage({required String childPath}) async {
-  Reference storageRef =
-      FirebaseStorage.instance.ref(FirebaseCollectionEnums.accountInfo.value).child(childPath);
-  return storageRef.delete();
+Future<void> deleteImgFromStorage({required String imgUrl}) async {
+  var storageRef = FirebaseStorage.instance.refFromURL(imgUrl);
+  await storageRef.delete();
+  // //check if this file exist before deleting
+  // if (url != null || url.isNotEmpty == true || storageRef.fullPath.isNotEmpty == true) {
+  //   return storageRef.delete();
+  // }
+
+  // return storageRef.delete();
 }

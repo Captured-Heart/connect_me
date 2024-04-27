@@ -46,8 +46,10 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> with SingleTickerProv
       _setActiveTabIndex();
       _hideNavBar();
     });
+    
     ref.read(fcmRepositoryImplProvider).getTokenAndSaveToken(
-        uuid: SharedPreferencesHelper.getStringPref(SharedKeys.userUID.name) ?? '');
+          uuid: SharedPreferencesHelper.getStringPref(SharedKeys.userUID.name) ?? '',
+        );
     super.initState();
   }
 

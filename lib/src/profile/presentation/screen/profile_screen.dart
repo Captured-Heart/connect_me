@@ -41,6 +41,9 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 padding: AppEdgeInsets.eV12,
                 children: [
                   //! profile header
+                  // users.docId == null
+                  //     ? const SizedBox.shrink()
+                  //     :
                   ProfileScreenHeaderWidget(
                     users: widget.uuid?.isEmpty == true ? users : users,
                   ),

@@ -25,7 +25,7 @@ SliverWoltModalSheetPage additionalInfoModal(
 
     // body
     child: AdditionalInfoModalBody(
-      authUserModel: authUserModel!,
+      authUserModel: authUserModel ?? const AuthUserModel(),
     ).padAll(15),
   );
 }

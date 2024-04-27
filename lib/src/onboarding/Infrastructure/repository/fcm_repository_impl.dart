@@ -23,6 +23,8 @@ class FirebaseMessagingRepositoryImpl implements FirebaseMessagingRepository {
 
   @override
   Future<void> getTokenAndSaveToken({required String uuid}) async {
+    //check if the token exists
+
     String? token = await _fcmInstance.getToken();
     // log('this is the token: $token and this is the uuid: $uuid');
     if (token?.isNotEmpty == true && token != null) {
@@ -32,7 +34,7 @@ class FirebaseMessagingRepositoryImpl implements FirebaseMessagingRepository {
       return _firebaseFirestore
           .collection(FirebaseCollectionEnums.users.value)
           .doc(uuid)
-          .update({FirebaseDocsFieldEnums.token.name: token});
+          .set({FirebaseDocsFieldEnums.token.name: token}, SetOptions(merge: true));
     }
   }
 

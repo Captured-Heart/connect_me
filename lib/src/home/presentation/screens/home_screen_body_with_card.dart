@@ -10,6 +10,13 @@ class HomeScreenBodyWithQrCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return users.when(
       data: (data) {
+        if (data.docId == null) {
+          return Center(
+              child: const Text(
+            'This account records does not exist in our Database. Please sign out and sign in again.',
+            textAlign: TextAlign.center,
+          ).padSymmetric(horizontal: 20));
+        }
         return Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,

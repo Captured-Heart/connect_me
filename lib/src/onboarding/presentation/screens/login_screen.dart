@@ -55,48 +55,21 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               physics: const NeverScrollableScrollPhysics(),
               childrenDelegate: SliverChildListDelegate.fixed(
                 [
-                  // Column(
-                  //   // shrinkWrap: true,
-                  //   // keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: [
-                  //     // FlipCard(
-                  //     //   controller: controller,
-                  //     //   flipOnTouch: false,
-                  //     //   direction: FlipDirection.HORIZONTAL,
-                  //     //   side: CardSide.BACK,
-                  //     //   onFlipDone: (isFront) {
-                  //     //     setState(() {
-                  //     //       isFrontOfCard = isFront;
-                  //     //     });
-                  //     //   },
-                  //     //   fill: Fill.fillBack,
-                  //     //   back: const SignUpCardWidget(
-                  //     //     key: Key('sign-up_key'),
-                  //     //   ).padAll(15),
-                  //     //   front: SignInCardWidget(
-                  //     //     key: const Key('sign-in_key'),
-                  //     //     pageController: pageController,
-                  //     //   ).padAll(15),
-                  //     // ),
-                  //    AlreadyHaveAnAcctWidget(
-                  //       onTap: () {},
-                  //       isLoginScreen: false,
-                  //     ),
-                  //   ],
-                  // ),
-
                   Center(
-                    child: SignInCardWidget(
-                      key: const Key('sign-in_key'),
-                      pageController: pageController,
-                    ).padAll(15),
+                    child: SingleChildScrollView(
+                      child: SignInCardWidget(
+                        key: const Key('sign-in_key'),
+                        pageController: pageController,
+                      ).padAll(15),
+                    ),
                   ),
                   Center(
-                    child: SignUpCardWidget(
-                      key: const Key('sign-up_key'),
-                      controller: pageController,
-                    ).padAll(15),
+                    child: SingleChildScrollView(
+                      child: SignUpCardWidget(
+                        key: const Key('sign-up_key'),
+                        controller: pageController,
+                      ).padAll(15),
+                    ),
                   ),
                   Column(
                     key: UniqueKey(),

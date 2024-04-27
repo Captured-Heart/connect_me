@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:connect_me/app.dart';
+import 'package:connect_me/src/home/infrastructure/contact_repositories/contact_repository.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -26,6 +27,9 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  //read the contacts
+  container.read(getContactListProvider);
 
   //request perpmission fro firebase messaging
   container.read(fcmRepositoryImplProvider).requestPermissionAndSubscribe();

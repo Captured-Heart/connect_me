@@ -27,14 +27,14 @@ class CustomListTileWidget extends StatelessWidget {
           : CrossAxisAlignment.center,
       children: [
         AutoSizeText(
-          title,
-          maxLines: 1,
-          textAlign: subtitleTextAlign ?? TextAlign.center,
-          style: context.textTheme.bodyLarge?.copyWith(
-            color: isStaticTheme == true ? Colors.black : null,
-          ),
-          textScaleFactor: 0.95,
-        ).padOnly(bottom: 2),
+                title,
+                maxLines: 1,
+                textAlign: subtitleTextAlign ?? TextAlign.center,
+                style: context.textTheme.bodyLarge?.copyWith(
+                  color: isStaticTheme == true ? Colors.black : null,
+                ),
+                textScaleFactor: 0.95,
+              ).padOnly(bottom: 2),
         subtitle == null || subtitle?.isEmpty == true
             ? const SizedBox.shrink()
             : AutoSizeText(
@@ -49,15 +49,12 @@ class CustomListTileWidget extends StatelessWidget {
                       : context.colorScheme.onSurface.withOpacity(0.85),
                 ),
               ),
-      TextButtonWithBorderAndArrowIcon(
-                title: isSubtitleUrl ?? '',
-                onTap: () {
-                  subtitle != null
-                      ? UrlOptions.launchWeb(isSubtitleUrl!, launchModeEXT: true)
-                      : null;
-                },
-              )
-           ,
+        TextButtonWithBorderAndArrowIcon(
+          title: isSubtitleUrl ?? '',
+          onTap: () {
+            subtitle != null ? UrlOptions.launchWeb(isSubtitleUrl!, launchModeEXT: true) : null;
+          },
+        ),
       ].columnInPadding(2),
     );
   }
