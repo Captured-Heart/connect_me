@@ -36,6 +36,7 @@ dependencies:
   flutter_dotenv: ^5.1.0
   flutter_local_notifications: ^16.3.2
   flutter_riverpod: ^2.4.5
+  flutter_slidable: ^3.1.0
   flutter_svg: ^2.0.9
   google_sign_in: ^6.1.6
   icons_plus: ^4.0.0

@@ -38,7 +38,7 @@ class _ShareQrCodeScreenState extends ConsumerState<ShareQrCodeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final shareCode = ref.watch(qrcodeShareNotifierProvider);
+    final shareCode = ref.watch(qrcodeShareNotifierProvider(_globalKey));
 
     return Scaffold(
       // extendBody: true,
@@ -195,9 +195,8 @@ class _ShareQrCodeScreenState extends ConsumerState<ShareQrCodeScreen> {
                                 : () {
                                     if (widget.authUserModel != null) {
                                       ref
-                                          .read(qrcodeShareNotifierProvider.notifier)
+                                          .read(qrcodeShareNotifierProvider(_globalKey).notifier)
                                           .shareQrToOtherApps(
-                                            _globalKey,
                                             authUserModel: widget.authUserModel!,
                                           );
                                     }

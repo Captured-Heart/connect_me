@@ -3,10 +3,10 @@ import 'dart:async';
 import 'package:connect_me/app.dart';
 
 class QrCodeScanNotifier extends StateNotifier<QrCodeShareState> {
-  QrCodeScanNotifier(this.qrCodeRepositoryImpl, this._analyticsRepositoryImpl)
+  QrCodeScanNotifier(this.qrScanRepository, this._analyticsRepositoryImpl)
       : super(QrCodeShareState(isLoading: false));
 
-  final QrCodeRepositoryImpl qrCodeRepositoryImpl;
+  final QRScanRepository qrScanRepository;
   final AnalyticsRepositoryImpl _analyticsRepositoryImpl;
 
   Future scanQrCodeMethod({
@@ -15,7 +15,7 @@ class QrCodeScanNotifier extends StateNotifier<QrCodeShareState> {
   }) async {
     state = QrCodeShareState(isLoading: true, isCompleted: false);
     await Future.delayed(const Duration(seconds: 1));
-    var result = await qrCodeRepositoryImpl.scanQrCode(
+    var result = await qrScanRepository.scanQrCode(
       scannedRawUUID: scannedRawUUID,
       ref: ref,
     );
@@ -44,7 +44,7 @@ class QrCodeScanNotifier extends StateNotifier<QrCodeShareState> {
 
 final qrCodeScanNotifierProvider =
     StateNotifierProvider.autoDispose<QrCodeScanNotifier, QrCodeShareState>((ref) {
-  final qrCodeRepositoryImpl = ref.read(qrcodeRepositoryImplProvider);
+  final qrScanRepository = ref.read(qrScanRepositoryImplProvider);
   final analyticsImpl = ref.read(analyticsImplProvider);
-  return QrCodeScanNotifier(qrCodeRepositoryImpl, analyticsImpl);
+  return QrCodeScanNotifier(qrScanRepository, analyticsImpl);
 });

@@ -9,7 +9,7 @@ abstract class TextConstant {
   static const weAreGladYouAreHere = 'We are glad you are here';
   static const weAreGladYouAreBack = 'We are glad you are back';
   static const emailAddress = 'Email Address';
-  
+
   static const username = 'Username';
 
   static const password = 'Password';
@@ -29,7 +29,6 @@ abstract class TextConstant {
   static const login = 'Login';
   static const logOut = 'Log out';
   static const deleteAccount = 'Delete Account';
-
 
   static const forgottenPassword = 'Forgotten Password?';
   static const dontHaveAnAcct = "Don't have an account?";
@@ -52,6 +51,10 @@ abstract class TextConstant {
   static const enterRegisteredEmail = 'Enter your registered Email';
   static const confirm = 'Confirm';
   static const cancel = 'Cancel';
+  static const call = 'Call';
+  static const sms = 'Sms';
+  static const edit = 'Edit';
+
   static const ok = 'Ok';
   static const required = '*required';
   // static const lorem = 'or';
@@ -92,6 +95,8 @@ abstract class TextConstant {
   static const about = 'About';
   static const bio = 'Bio';
   static const myConnect = 'My Connect';
+  static const deviceContact = 'Device Contact';
+
   static const email = 'Email';
   static const twitter = 'Twitter';
   static const whatsapp = 'Whatsapp';

@@ -5,13 +5,37 @@ import 'dart:ui' as ui;
 import 'package:flutter/services.dart';
 // import 'package:path_provider/path_provider.dart';
 
-class QrCodeRepositoryImpl implements QrCodeRepository {
-  // final ProviderRef ref;
-
-  // QrCodeRepositoryImpl({required this.ref});
+class QRScanRepositoryImpl implements QRScanRepository {
   @override
-  Future<Either<AppException, ShareResult>> shareQrCodes(
-    GlobalKey<State<StatefulWidget>> globalKey, {
+  Future<Either<AppException, AuthUserModel?>> scanQrCode({
+    required String scannedRawUUID,
+    required WidgetRef ref,
+  }) async {
+    try {
+      final uuid = scannedRawUUID.toString().replaceAll(TextConstant.uuidPrefixTag, '').trim();
+      log('the uuid passed in scan method: $uuid');
+      // var contactProfile = ref.read(fetchOthersProfileProvider(uuid));
+      final fetchProfileRepoImpl = ref.read(fetchProfileRepoImplProvider);
+      var contactProfile = await fetchProfileRepoImpl.fetchProfile(uuid: uuid);
+
+      return Right(contactProfile);
+    } catch (e) {
+      AppException(e.toString()).toString();
+
+      return Left(AppException(e.toString()));
+    }
+  }
+}
+
+class QrCodeRepositoryImpl implements QrCodeRepository {
+  final GlobalKey<State<StatefulWidget>> globalKey;
+
+  QrCodeRepositoryImpl({
+    required this.globalKey,
+  });
+
+  @override
+  Future<Either<AppException, ShareResult>> shareQrCodes({
     required String sharedText,
   }) async {
     try {
@@ -43,29 +67,13 @@ class QrCodeRepositoryImpl implements QrCodeRepository {
       return Left(AppException(e.toString()));
     }
   }
-
-  @override
-  Future<Either<AppException, AuthUserModel?>> scanQrCode({
-    required String scannedRawUUID,
-    required WidgetRef ref,
-  }) async {
-    try {
-      final uuid = scannedRawUUID.toString().replaceAll(TextConstant.uuidPrefixTag, '').trim();
-      log('the uuid passed in scan method: $uuid');
-      // var contactProfile = ref.read(fetchOthersProfileProvider(uuid));
-      final fetchProfileRepoImpl = ref.read(fetchProfileRepoImplProvider);
-      var contactProfile = await fetchProfileRepoImpl.fetchProfile(uuid: uuid);
-
-      return Right(contactProfile);
-    } catch (e) {
-      AppException(e.toString()).toString();
-
-      return Left(AppException(e.toString()));
-    }
-  }
 }
 
-final qrcodeRepositoryImplProvider = Provider<QrCodeRepositoryImpl>((ref) {
-  // ref.read(fetchOthersProfileProvider(userUUid));
-  return QrCodeRepositoryImpl();
+final qrcodeRepositoryImplProvider =
+    Provider.family<QrCodeRepository, GlobalKey<State<StatefulWidget>>>((ref, globalKey) {
+  return QrCodeRepositoryImpl(globalKey: globalKey);
+});
+
+final qrScanRepositoryImplProvider = Provider<QRScanRepository>((ref) {
+  return QRScanRepositoryImpl();
 });

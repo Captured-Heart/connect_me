@@ -53,6 +53,34 @@ final getContactFromDeviceProvider = Provider<FetchDeviceContactRepository>((ref
   return FetchDeviceContactRepository();
 });
 
-final getContactListProvider = FutureProvider<List<Contact>>((ref) async {
-  return await FetchDeviceContactRepository().getContactsList();
-}, name: 'Get Device Contacts Provider');
+final getContactListProvider = FutureProvider<Map<String, List<Contact>>>(
+  (ref) async {
+    Map<String, List<Contact>> contactsByLetter = {};
+    var contactLists = await FetchDeviceContactRepository().getContactsList();
+    for (var contact in contactLists
+        .where((element) => element.displayName.isNotEmpty && element.phones.isNotEmpty)) {
+      String? firstLetter;
+      for (var rune in contact.displayName.runes) {
+        try {
+          firstLetter = String.fromCharCode(rune).toUpperCase();
+          break;
+        } catch (e) {
+          // If the character is not a well-formed UTF-16 character,
+          // continue to the next character.
+          continue;
+        }
+      }
+
+      if (firstLetter != null && firstLetter.isNotEmpty) {
+        if (contactsByLetter.containsKey(firstLetter)) {
+          contactsByLetter[firstLetter]?.add(contact);
+        } else {
+          contactsByLetter[firstLetter] = [contact];
+        }
+      }
+    }
+
+    return contactsByLetter;
+  },
+  name: 'Get Device Contacts Provider',
+);

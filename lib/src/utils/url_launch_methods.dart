@@ -26,6 +26,14 @@ class UrlOptions {
     await launchUrl(launchUri);
   }
 
+  static Future<void> sendSms(String phoneNumber) async {
+    final launchUri = Uri(
+      scheme: 'sms',
+      path: phoneNumber,
+    );
+    await launchUrl(launchUri);
+  }
+
   static Future<void> sendEmail(String email) async {
     final launchUri = Uri(
       scheme: 'mailto',

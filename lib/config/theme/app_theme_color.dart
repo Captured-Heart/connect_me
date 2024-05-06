@@ -16,6 +16,7 @@ class AppThemeColorDark {
   static const Color primaryColor = Color(0xff02367E);
   static const Color successColor = Color(0xff2DBE5B);
   static const Color warningColor = Color.fromARGB(255, 211, 240, 68);
+  static const Color skyBlue = Color(0xFF0392CF);
 }
 
 class AppThemeColorLight {
@@ -34,5 +35,4 @@ class AppThemeColorLight {
   static const Color primaryColor = Color(0xff2DBE5B);
   static const Color orange = Color(0xffF28A3E);
   static const Color yellow = Color(0xFFEBEB50);
-
 }
