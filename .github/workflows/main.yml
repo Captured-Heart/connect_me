@@ -23,6 +23,7 @@ jobs:
           flutter-version: "3.10.0"
           channel: "stable"
           cache: true
+      - run: echo ${{ secrets.ENV_FILE }} | base64 -d > .env
       - run: flutter clean
       - run: flutter pub get
       - run: flutter build apk --debug --split-per-abi
