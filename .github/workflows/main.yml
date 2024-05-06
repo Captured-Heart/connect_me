@@ -24,6 +24,7 @@ jobs:
           channel: "stable"
           cache: true
       - run: echo ${{ secrets.ENV_FILE }} | base64 -d > .env
+      - run: echo ${{ secrets.FIREBASE_FILE }} | base64 -d > android/app/google-services.json
       - run: flutter clean
       - run: flutter pub get
       - run: flutter build apk --debug --split-per-abi
