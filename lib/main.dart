@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:connect_me/app.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 void main() async {

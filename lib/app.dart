@@ -50,7 +50,6 @@ export 'package:firebase_storage/firebase_storage.dart';
 export './config/config.dart';
 export './src/utils/utils.dart';
 // FEATURES
-export './main.dart';
 export './src/home/home.dart';
 export './src/profile/profile.dart';
 export './src/onboarding/onboarding.dart';
