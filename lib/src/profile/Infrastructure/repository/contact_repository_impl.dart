@@ -1,5 +1,6 @@
-import 'package:connect_me/app.dart';
 
+
+import '../../../../app.dart';
 
 class ContactRepositoryImpl extends ContactRepository {
   final FirebaseFirestore _firebaseFirestore;
@@ -52,7 +53,7 @@ class ContactRepositoryImpl extends ContactRepository {
   }
 }
 
-final contactRepositoryImplProvider = Provider<ContactRepositoryImpl>((ref) {
+final contactRepositoryImplProvider = Provider<ContactRepository>((ref) {
   final firebaseFirestore = ref.read(cloudFirestoreProvider);
   return ContactRepositoryImpl(firebaseFirestore);
 });

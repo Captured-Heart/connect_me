@@ -2,8 +2,7 @@
 
 // ignore_for_file: depend_on_referenced_packages
 
-
-import 'package:connect_me/app.dart';
+import '../../../../../app.dart';
 
 SliverWoltModalSheetPage accountInformationModal(
   BuildContext modalSheetContext,

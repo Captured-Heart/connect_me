@@ -1,4 +1,5 @@
-import 'package:connect_me/app.dart';
+
+import '../../../../app.dart';
 
 class LandscapeQrCodeWIdget extends StatelessWidget {
   const LandscapeQrCodeWIdget({super.key, required this.authUserModel, s});

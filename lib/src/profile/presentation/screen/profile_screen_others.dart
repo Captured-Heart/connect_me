@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:connect_me/app.dart';
+import '../../../../app.dart';
 
 class ProfileScreenOthers extends ConsumerStatefulWidget {
   const ProfileScreenOthers({

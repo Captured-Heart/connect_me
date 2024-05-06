@@ -1,5 +1,3 @@
-// import 'package:connect_me/app.dart';
-
 class CreateFormMap {
   static Map<String, dynamic> createDataMap({
     required List<dynamic> controllersText,

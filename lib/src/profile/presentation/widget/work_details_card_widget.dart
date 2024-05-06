@@ -1,4 +1,4 @@
-import 'package:connect_me/app.dart';
+import '../../../../app.dart';
 
 class WorkDetailsCardWidget extends StatelessWidget {
   const WorkDetailsCardWidget({
@@ -10,7 +10,6 @@ class WorkDetailsCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -170,75 +169,75 @@ class EdiucationDetailsCardWidget extends StatelessWidget {
                                           pageListBuilder: (context) {
                                             return [
                                               WoltModalSheetPage(
-                                                isTopBarLayerAlwaysVisible: false,
-                                                navBarHeight: 10,
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  mainAxisSize: MainAxisSize.min,
-                                                  children: [
-                                                    Column(
-                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                      mainAxisSize: MainAxisSize.min,
-                                                      children: [
-                                                        //school
-                                                        Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment.stretch,
-                                                          children: [
-                                                            AutoSizeText(
-                                                              education?.school ?? '',
-                                                              style: context.textTheme.bodyLarge,
-                                                              textScaleFactor: 0.9,
-                                                              maxLines: 1,
-                                                              textAlign: TextAlign.center,
-                                                            ),
-                                                            //degree
-                                                            AutoSizeText(
-                                                              ' ${TextConstant.bulletList} ${education?.degree}',
-                                                              style: context.textTheme.labelMedium
-                                                                  ?.copyWith(
-                                                                      fontWeight:
-                                                                          AppFontWeight.w600),
-                                                              maxLines: 1,
-                                                              textScaleFactor: 0.95,
-                                                              textAlign: TextAlign.center,
-                                                            ),
+                                                  isTopBarLayerAlwaysVisible: false,
+                                                  navBarHeight: 10,
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    mainAxisSize: MainAxisSize.min,
+                                                    children: [
+                                                      Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment.start,
+                                                        mainAxisSize: MainAxisSize.min,
+                                                        children: [
+                                                          //school
+                                                          Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment.stretch,
+                                                            children: [
+                                                              AutoSizeText(
+                                                                education?.school ?? '',
+                                                                style: context.textTheme.bodyLarge,
+                                                                textScaleFactor: 0.9,
+                                                                maxLines: 1,
+                                                                textAlign: TextAlign.center,
+                                                              ),
+                                                              //degree
+                                                              AutoSizeText(
+                                                                ' ${TextConstant.bulletList} ${education?.degree}',
+                                                                style: context.textTheme.labelMedium
+                                                                    ?.copyWith(
+                                                                        fontWeight:
+                                                                            AppFontWeight.w600),
+                                                                maxLines: 1,
+                                                                textScaleFactor: 0.95,
+                                                                textAlign: TextAlign.center,
+                                                              ),
 
-                                                            AutoSizeText(
-                                                              '(${education?.startDate?.startMonthYearToString} - ${education?.endDate?.endDateMonthYearToString ?? ''})',
-                                                              style: context.textTheme.labelMedium
-                                                                  ?.copyWith(
-                                                                      fontWeight:
-                                                                          AppFontWeight.w300),
-                                                              textScaleFactor: 0.8,
-                                                              textAlign: TextAlign.center,
-                                                            ),
-                                                          ].columnInPadding(7),
-                                                        ),
+                                                              AutoSizeText(
+                                                                '(${education?.startDate?.startMonthYearToString} - ${education?.endDate?.endDateMonthYearToString ?? ''})',
+                                                                style: context.textTheme.labelMedium
+                                                                    ?.copyWith(
+                                                                        fontWeight:
+                                                                            AppFontWeight.w300),
+                                                                textScaleFactor: 0.8,
+                                                                textAlign: TextAlign.center,
+                                                              ),
+                                                            ].columnInPadding(7),
+                                                          ),
 
-                                                        Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment.stretch,
-                                                          children: [
-                                                            AdditionalInfoListTileWidget(
-                                                              keys: TextConstant.grade,
-                                                              values: education?.grade ?? '',
-                                                            ),
-                                                            AdditionalInfoListTileWidget(
-                                                              keys: TextConstant.awardAndHonours,
-                                                              values: education?.award ?? '',
-                                                            ),
-                                                            AdditionalInfoListTileWidget(
-                                                              keys: TextConstant.activitiesAndOrg,
-                                                              values: education?.activities ?? '',
-                                                            ),
-                                                          ].columnInPadding(4),
-                                                        ).padOnly(left: 20),
-                                                      ].columnInPadding(5),
-                                                    ).padOnly(top: 3),
-                                                  ],
-                                                ).padOnly(bottom: 10)
-                                              ),
+                                                          Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment.stretch,
+                                                            children: [
+                                                              AdditionalInfoListTileWidget(
+                                                                keys: TextConstant.grade,
+                                                                values: education?.grade ?? '',
+                                                              ),
+                                                              AdditionalInfoListTileWidget(
+                                                                keys: TextConstant.awardAndHonours,
+                                                                values: education?.award ?? '',
+                                                              ),
+                                                              AdditionalInfoListTileWidget(
+                                                                keys: TextConstant.activitiesAndOrg,
+                                                                values: education?.activities ?? '',
+                                                              ),
+                                                            ].columnInPadding(4),
+                                                          ).padOnly(left: 20),
+                                                        ].columnInPadding(5),
+                                                      ).padOnly(top: 3),
+                                                    ],
+                                                  ).padOnly(bottom: 10)),
                                             ];
                                           },
                                         );

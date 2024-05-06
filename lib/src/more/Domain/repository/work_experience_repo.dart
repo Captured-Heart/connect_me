@@ -1,4 +1,6 @@
-import 'package:connect_me/app.dart';
+
+
+import '../../../../app.dart';
 
 abstract class WorkExperienceRepository {
   Future<Either<AppException, void>> addWorkExperience({

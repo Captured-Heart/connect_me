@@ -1,3 +1,3 @@
-import 'package:connect_me/app.dart';
+import '../../../../app.dart';
 
 typedef DocumentSnapshotMap = DocumentSnapshot<Map<String, dynamic>>;

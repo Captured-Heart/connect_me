@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:connect_me/app.dart';
+import '../../../../app.dart';
 
 class SignUpCardWidget extends ConsumerStatefulWidget {
   const SignUpCardWidget({super.key, required this.controller});

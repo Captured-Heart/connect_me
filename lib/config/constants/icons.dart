@@ -1,4 +1,5 @@
-import 'package:connect_me/app.dart';
+
+import '../../app.dart';
 
 const IconData googleIcon = Bootstrap.google;
 const IconData userProfileIcon = Icons.person;

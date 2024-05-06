@@ -1,5 +1,5 @@
-import 'package:connect_me/app.dart';
-import 'package:flutter/services.dart';
+
+import '../../../../../app.dart';
 
 class SocialMediaBody extends ConsumerStatefulWidget {
   const SocialMediaBody({

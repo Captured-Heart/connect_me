@@ -1,4 +1,6 @@
-import 'package:connect_me/app.dart';
+
+
+import '../../../../app.dart';
 
 class WorkExperienceImpl implements WorkExperienceRepository {
   final FirebaseFirestore _firebaseFirestore;
@@ -48,7 +50,7 @@ class WorkExperienceImpl implements WorkExperienceRepository {
   }
 }
 
-final workExperienceImplProvider = Provider<WorkExperienceImpl>((ref) {
+final workExperienceImplProvider = Provider<WorkExperienceRepository>((ref) {
   final cloudFirestore = ref.read(cloudFirestoreProvider);
   return WorkExperienceImpl(cloudFirestore);
 });

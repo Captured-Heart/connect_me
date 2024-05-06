@@ -1,4 +1,4 @@
-import 'package:connect_me/app.dart';
+import '../../../../app.dart';
 
 class ProfileScreen1 extends ConsumerWidget {
   const ProfileScreen1({super.key});

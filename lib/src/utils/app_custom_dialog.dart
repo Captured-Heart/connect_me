@@ -1,7 +1,8 @@
 import 'dart:io';
 
-import 'package:connect_me/app.dart';
 import 'package:flutter/cupertino.dart';
+
+import '../../app.dart';
 
 Future<void> warningDialogs({
   required BuildContext context,

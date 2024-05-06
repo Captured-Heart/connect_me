@@ -1,11 +1,12 @@
-import 'package:connect_me/app.dart';
+
+import '../../../../app.dart';
 
 class AddUsersToContactNotifier extends StateNotifier<AsyncValue> {
   AddUsersToContactNotifier(this.uuid, this._contactRepositoryImpl)
       : super(const AsyncValue.data(null));
 
   final String uuid;
-  final ContactRepositoryImpl _contactRepositoryImpl;
+  final ContactRepository _contactRepositoryImpl;
 
   Future addUsersToContactsMethod({
     required MapDynamicString map,

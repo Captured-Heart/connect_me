@@ -1,7 +1,8 @@
 // ignore_for_file: inference_failure_on_function_return_type
 
-import 'package:connect_me/app.dart';
 import 'package:flutter/services.dart';
+
+import '../../app.dart';
 
 class AuthTextFieldWidget extends StatelessWidget {
   const AuthTextFieldWidget({

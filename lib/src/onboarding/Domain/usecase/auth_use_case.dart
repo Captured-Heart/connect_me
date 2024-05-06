@@ -1,4 +1,4 @@
-import 'package:connect_me/app.dart';
+import '../../../../app.dart';
 
 abstract class AuthUseCase {
   Future<Either<AppException, User?>> loginWithEmail(

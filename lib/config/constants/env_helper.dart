@@ -1,4 +1,5 @@
-import 'package:connect_me/app.dart';
+
+import '../../app.dart';
 
 enum EnvKeys {
   fcmServerKeys('FCM_SERVER_KEYS'),

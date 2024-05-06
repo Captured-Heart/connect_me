@@ -1,4 +1,4 @@
-import 'package:connect_me/app.dart';
+import '../../../../../app.dart';
 
 class WorkExperienceSignUpScreen extends ConsumerStatefulWidget {
   const WorkExperienceSignUpScreen({super.key});

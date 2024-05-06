@@ -1,6 +1,7 @@
 import 'dart:io';
 
-import 'package:connect_me/app.dart';
+import '../../../../app.dart';
+
 
 class AccountInfoImpl extends AccountInfoRepository {
   final FirebaseFirestore firebaseFirestore;

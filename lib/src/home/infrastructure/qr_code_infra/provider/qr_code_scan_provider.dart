@@ -1,13 +1,13 @@
 import 'dart:async';
 
-import 'package:connect_me/app.dart';
+import '../../../../../app.dart';
 
 class QrCodeScanNotifier extends StateNotifier<QrCodeShareState> {
   QrCodeScanNotifier(this.qrScanRepository, this._analyticsRepositoryImpl)
       : super(QrCodeShareState(isLoading: false));
 
   final QRScanRepository qrScanRepository;
-  final AnalyticsRepositoryImpl _analyticsRepositoryImpl;
+  final AnalyticsRepository _analyticsRepositoryImpl;
 
   Future scanQrCodeMethod({
     required String scannedRawUUID,

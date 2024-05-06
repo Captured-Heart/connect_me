@@ -1,4 +1,5 @@
-import 'package:connect_me/app.dart';
+
+import '../../../../app.dart';
 
 final accountInfoImplProvider = Provider<AccountInfoImpl>((ref) {
   final firebaseFirestore = ref.read(cloudFirestoreProvider);

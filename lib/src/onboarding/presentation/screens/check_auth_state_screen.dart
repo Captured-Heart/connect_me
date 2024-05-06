@@ -1,4 +1,4 @@
-import 'package:connect_me/app.dart';
+import '../../../../app.dart';
 
 class CheckAuthStateScreen extends ConsumerWidget {
   const CheckAuthStateScreen({super.key});
@@ -6,24 +6,6 @@ class CheckAuthStateScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(authStateChangesProvider);
-
-    // ref.listen(authStateChangesProvider, (previous, next) {
-    //   final authUserData = ref.watch(fetchProfileProvider);
-
-    //   if (authUserData.valueOrNull?.completedSignUp == false) {
-    //     showScaffoldSnackBarMessage(
-    //       'Complete your registration'.hardCodedString,
-    //       isError: true,
-    //       duration: 10,
-    //     );
-    //   } else if (authUserData.valueOrNull?.completedSignUp == true) {
-    //     showScaffoldSnackBarMessage(
-    //       'signed in successfully as ${next.value?.email}',
-    //       isError: false,
-    //       duration: 3,
-    //     );
-    //   }
-    // });
 
     return user.value == null
         ? const LoginScreen()

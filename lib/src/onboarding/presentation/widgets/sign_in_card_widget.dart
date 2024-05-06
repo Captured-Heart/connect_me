@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:connect_me/app.dart';
+import '../../../../app.dart';
 
 final obscureTextProvider = StateProvider<bool>((ref) {
   return true;

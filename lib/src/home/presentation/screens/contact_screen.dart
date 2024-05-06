@@ -1,12 +1,8 @@
 import 'dart:math' hide log;
 
-import 'package:alphabet_scrollbar/alphabet_scrollbar.dart';
-import 'package:connect_me/app.dart';
-import 'package:connect_me/src/home/infrastructure/contact_repositories/contact_repository.dart';
-// import 'package:draggable_scrollbar/draggable_scrollbar.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_contacts/flutter_contacts.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
+
+import '../../../../app.dart';
 
 class ContactScreen extends ConsumerStatefulWidget {
   const ContactScreen({

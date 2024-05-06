@@ -1,5 +1,6 @@
-import 'package:connect_me/app.dart';
 import 'package:flutter/foundation.dart';
+
+import '../../../../app.dart';
 
 abstract class LocalNotificationRepository {
   Future<void> initializeLocalNotifications();
@@ -52,7 +53,6 @@ class LocalNotificationRepositoryImpl implements LocalNotificationRepository {
   //
   @override
   void showFlutterNotification(RemoteMessage message) {
-    
     RemoteNotification? notification = message.notification;
     // AndroidNotification? android = message.notification?.android;
     if (notification != null && !kIsWeb) {
@@ -80,6 +80,6 @@ class LocalNotificationRepositoryImpl implements LocalNotificationRepository {
   }
 }
 
-final localNotificationsProvider = Provider<LocalNotificationRepositoryImpl>((ref) {
+final localNotificationsProvider = Provider<LocalNotificationRepository>((ref) {
   return LocalNotificationRepositoryImpl();
 });

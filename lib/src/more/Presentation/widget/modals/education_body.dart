@@ -1,4 +1,4 @@
-import 'package:connect_me/app.dart';
+import '../../../../../app.dart';
 
 class EducationModalBody extends ConsumerStatefulWidget {
   const EducationModalBody({
@@ -14,8 +14,7 @@ class EducationModalBody extends ConsumerStatefulWidget {
 
 class _EducationModalBodyState extends ConsumerState<EducationModalBody> {
   final GlobalKey<FormState> educationFormKey = GlobalKey<FormState>();
-  // late ValueNotifier<TextEditingController> monthNotifier;
-  //  late ValueNotifier<TextEditingController> yearNotifier;
+
   late ValueNotifier<String> schoolNotifier;
   late ValueNotifier<String> degreeNotifier;
   late ValueNotifier<TextEditingController> monthNotifier;

@@ -2,7 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:connect_me/app.dart';
+
+import '../../../../app.dart';
 
 final _fcmInstance = FirebaseMessaging.instance;
 
@@ -17,9 +18,9 @@ enum FcmSubscriptionTopics {
 class FirebaseMessagingRepositoryImpl implements FirebaseMessagingRepository {
   final FirebaseFirestore _firebaseFirestore;
 
-  FirebaseMessagingRepositoryImpl(this._firebaseFirestore, this.localNotificationRepositoryImpl);
+  FirebaseMessagingRepositoryImpl(this._firebaseFirestore, this.localNotificationRepository);
 
-  LocalNotificationRepositoryImpl localNotificationRepositoryImpl;
+  LocalNotificationRepository localNotificationRepository;
 
   @override
   Future<void> getTokenAndSaveToken({required String uuid}) async {
@@ -70,7 +71,7 @@ class FirebaseMessagingRepositoryImpl implements FirebaseMessagingRepository {
       log('this is message from getInitial: ${message?.notification?.title}');
       log('this is message from getInitial: $message');
       if (message != null) {
-        localNotificationRepositoryImpl.showFlutterNotification(message);
+        localNotificationRepository.showFlutterNotification(message);
       }
       return _handleNotification(message: message, appState: AppState.onInitialMessage);
     });
@@ -79,7 +80,7 @@ class FirebaseMessagingRepositoryImpl implements FirebaseMessagingRepository {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       log('this is message from onMessage: ${message.notification?.title}');
       log('this is message from onMessage: $message');
-      return localNotificationRepositoryImpl.showFlutterNotification(message);
+      return localNotificationRepository.showFlutterNotification(message);
       // return _handleNotification(message: message, appState: AppState.inBackground);
     });
 
@@ -87,7 +88,7 @@ class FirebaseMessagingRepositoryImpl implements FirebaseMessagingRepository {
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       log('this is message from onMessageOpened: ${message.notification?.title}');
       log('this is message from onMessageOpened: $message');
-      return localNotificationRepositoryImpl.showFlutterNotification(message);
+      return localNotificationRepository.showFlutterNotification(message);
 
       // return _handleNotification(message: message, appState: AppState.openFromNotification);
     });
@@ -136,8 +137,8 @@ class FirebaseMessagingRepositoryImpl implements FirebaseMessagingRepository {
 
 final fcmRepositoryImplProvider = Provider<FirebaseMessagingRepositoryImpl>((ref) {
   final firebaseFirestore = ref.read(cloudFirestoreProvider);
-  final localNotificationRepositoryImpl = ref.read(localNotificationsProvider);
-  return FirebaseMessagingRepositoryImpl(firebaseFirestore, localNotificationRepositoryImpl);
+  final localNotificationRepository = ref.read(localNotificationsProvider);
+  return FirebaseMessagingRepositoryImpl(firebaseFirestore, localNotificationRepository);
 });
 
 //

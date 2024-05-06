@@ -1,5 +1,6 @@
-import 'package:connect_me/app.dart';
 import 'package:flutter/services.dart';
+
+import '../../../../app.dart';
 
 final textEditingControllerProvider = Provider<TextEditingControllerClass>((ref) {
   return TextEditingControllerClass();

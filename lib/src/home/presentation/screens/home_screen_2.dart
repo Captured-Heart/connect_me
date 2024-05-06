@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:math' hide log;
 
-import 'package:connect_me/app.dart';
+import '../../../../app.dart';
 
 class HomeScreen2 extends ConsumerStatefulWidget {
   const HomeScreen2({
@@ -46,7 +46,7 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> with SingleTickerProv
       _setActiveTabIndex();
       _hideNavBar();
     });
-    
+
     ref.read(fcmRepositoryImplProvider).getTokenAndSaveToken(
           uuid: SharedPreferencesHelper.getStringPref(SharedKeys.userUID.name) ?? '',
         );

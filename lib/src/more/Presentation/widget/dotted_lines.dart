@@ -1,4 +1,5 @@
-import 'package:connect_me/app.dart';
+
+import '../../../../app.dart';
 
 class DottedLineDividerWidget extends StatelessWidget {
   const DottedLineDividerWidget({super.key});

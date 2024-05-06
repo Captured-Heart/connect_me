@@ -1,8 +1,8 @@
 // EDUCATION MODEL
 
-import 'package:connect_me/app.dart';
 
-import '../../screens/more_screens.dart';
+
+import '../../../../../app.dart';
 
 SliverWoltModalSheetPage educationListTile(
   BuildContext modalSheetContext, {

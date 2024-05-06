@@ -1,4 +1,5 @@
-import 'package:connect_me/app.dart';
+
+import '../../../../app.dart';
 
 abstract class AccountInfoRepository {
   Future<Either<AppException, void>> addAccountInfo({

@@ -1,6 +1,5 @@
-import 'package:connect_me/app.dart';
-import 'package:connect_me/src/more/Presentation/screens/more_screens.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../../../app.dart';
 
 final bottomNavBarIndexProvider = StateProvider<int>((ref) {
   return 0;

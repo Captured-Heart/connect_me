@@ -1,6 +1,7 @@
-import 'package:connect_me/app.dart';
 
 // !fetch profile
+import '../../../../app.dart';
+
 final fetchProfileProvider = FutureProvider.autoDispose<AuthUserModel>((ref) async {
   String? uuid = ref.read(authStateChangesProvider).value?.uid;
 //

@@ -1,4 +1,4 @@
-import 'package:connect_me/app.dart';
+import '../../../../app.dart';
 
 final firebaseAuthProvider = Provider<FirebaseAuth>((ref) {
   return FirebaseAuth.instance;
@@ -22,11 +22,12 @@ final currentUUIDProvider = Provider<String>((ref) {
   final googleSign = ref.read(googleSignInProvider);
   final firestore = ref.read(cloudFirestoreProvider);
 
-  return AuthRepositoryImpl(ref.read(firebaseAuthProvider), googleSign, firestore).currentUUIDProvider!;
+  return AuthRepositoryImpl(ref.read(firebaseAuthProvider), googleSign, firestore)
+      .currentUUIDProvider!;
 });
 
 /// this is the auth provider [with_signIn_signout_google_signin]
-final authRepositoryProvider = Provider<AuthRepositoryImpl>((ref) {
+final authRepositoryProvider = Provider<AuthRepository>((ref) {
   final googleSign = ref.read(googleSignInProvider);
   final firestore = ref.read(cloudFirestoreProvider);
 
@@ -38,7 +39,7 @@ final authStateChangesProvider = StreamProvider<User?>((ref) async* {
   yield* ref.watch(firebaseAuthProvider).authStateChanges();
 });
 
-final analyticsImplProvider = Provider<AnalyticsRepositoryImpl>((ref) {
+final analyticsImplProvider = Provider<AnalyticsRepository>((ref) {
   final analytics = ref.read(analyticsProvider);
 
   return AnalyticsRepositoryImpl(analytics);

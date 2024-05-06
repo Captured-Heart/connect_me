@@ -3,7 +3,7 @@
 import 'dart:async';
 import 'dart:ui';
 
-import 'package:connect_me/app.dart';
+import '../../app.dart';
 
 //pushNamed
 Future<void> pushNamed(BuildContext context, String routeName,

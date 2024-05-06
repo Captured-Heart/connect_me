@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:connect_me/app.dart';
+import '../../../../../app.dart';
 
 class AccountInformationSignUpScreen extends ConsumerStatefulWidget {
   const AccountInformationSignUpScreen({super.key});

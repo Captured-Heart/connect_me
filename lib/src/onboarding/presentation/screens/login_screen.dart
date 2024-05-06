@@ -1,9 +1,4 @@
-import 'package:connect_me/app.dart';
-import 'package:flutter/gestures.dart';
-
-// final flipCardControllerProvider = Provider.autoDispose<FlipCardController>((ref) {
-//   return FlipCardController();
-// });
+import '../../../../app.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -13,14 +8,6 @@ class LoginScreen extends ConsumerStatefulWidget {
 }
 
 class _LoginScreenState extends ConsumerState<LoginScreen> {
-  // late FlipCardController _flipController;
-
-  // @override
-  // void initState() {
-  //   _flipController = FlipCardController();
-  //   super.initState();
-  // }
-
   bool isFrontOfCard = true;
   final PageController pageController = PageController();
   @override
@@ -35,21 +22,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         // backgroundColor: Colors.black,
-        body:
-
-            // Container(
-            //   decoration: const BoxDecoration(
-            //     image: DecorationImage(
-            //       image: AssetImage(ImagesConstant.puzzleBG3),
-            //       fit: BoxFit.fitHeight,
-            //       colorFilter: ColorFilter.mode(Colors.black12, BlendMode.darken),
-            //     ),
-            //   ),
-            //   child: BackdropFilter(
-            //     filter: ImageFilter.blur(sigmaX: 0.3, sigmaY: 0.5),
-            //     child:
-
-            SafeArea(
+        body: SafeArea(
           child: PageView.custom(
               controller: pageController,
               physics: const NeverScrollableScrollPhysics(),

@@ -1,4 +1,4 @@
-import 'package:connect_me/app.dart';
+import '../../app.dart';
 
 final dateTimeProvider = StateProvider<DateTime>((ref) {
   return DateTime.now();

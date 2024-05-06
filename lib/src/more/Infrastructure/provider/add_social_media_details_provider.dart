@@ -1,4 +1,5 @@
-import 'package:connect_me/app.dart';
+
+import '../../../../app.dart';
 
 class AddSocialMediaDetailsNotifier extends StateNotifier<AsyncValue> {
   AddSocialMediaDetailsNotifier(
@@ -6,7 +7,7 @@ class AddSocialMediaDetailsNotifier extends StateNotifier<AsyncValue> {
     this.uuid,
   ) : super(const AsyncValue.data(null));
 
-  final SocialMediaImpl socialMediaImpl;
+  final SocialMediaRepository socialMediaImpl;
   final String uuid;
   Future addSocialMediaMethod({required MapDynamicString map}) async {
     state = const AsyncValue.loading();

@@ -1,15 +1,15 @@
 import 'dart:async';
 
-import 'package:connect_me/app.dart';
+import '../../../../../app.dart';
 
 class SignUpNotifier extends StateNotifier<AuthUseCaseState> {
-  SignUpNotifier(this.authUseCase, this.analyticsRepositoryImpl) : super(AuthUseCaseState());
+  SignUpNotifier(this.authUseCase, this.analyticsRepositoryImpl) : super(const AuthUseCaseState());
   final AuthUseCase authUseCase;
-  final AnalyticsRepositoryImpl analyticsRepositoryImpl;
+  final AnalyticsRepository analyticsRepositoryImpl;
 // CREATE ACCOUNT
   Future createAccount(
       {required String email, required String password, required String username}) async {
-    state = AuthUseCaseState(isLoading: true);
+    state = const AuthUseCaseState(isLoading: true);
 
     var user = await authUseCase.createAccount(
       email: email,

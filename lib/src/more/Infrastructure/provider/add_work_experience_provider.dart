@@ -1,4 +1,5 @@
-import 'package:connect_me/app.dart';
+
+import '../../../../app.dart';
 
 class AddWorkExperienceNotifier extends StateNotifier<AsyncValue> {
   AddWorkExperienceNotifier(
@@ -6,7 +7,7 @@ class AddWorkExperienceNotifier extends StateNotifier<AsyncValue> {
     this.uuid,
   ) : super(const AsyncValue.data(null));
 
-  final WorkExperienceImpl workExperienceImpl;
+  final WorkExperienceRepository workExperienceImpl;
   final String uuid;
   Future addWorkExperienceMethod({
     required MapDynamicString map,

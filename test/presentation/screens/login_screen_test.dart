@@ -1,8 +1,6 @@
 import 'package:connect_me/app.dart';
 import 'package:connect_me/src/utils/create_app_widet.dart';
 import 'package:flutter_test/flutter_test.dart';
-// import 'package:connect_me/src/home/presentation/screens/main_screen.dart' as app;
-import '../../mocks.dart';
 
 void main() async {
   setUpAll(() async {
@@ -37,7 +35,6 @@ void main() async {
       await widgetTester.pump();
 
       final iconAbc = find.text(TextConstant.returnToLogin);
-
 
       expect(iconAbc, findsOneWidget);
     });

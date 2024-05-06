@@ -1,6 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
-import 'package:connect_me/app.dart';
+import '../../app.dart';
 
 final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey =
     GlobalKey<ScaffoldMessengerState>();
@@ -15,9 +13,8 @@ void showScaffoldSnackBarMessage(
 }) =>
     rootScaffoldMessengerKey.currentState?.showSnackBar(
       SnackBar(
-        backgroundColor: isError
-            ? AppThemeColorDark.textError.withOpacity(0.6)
-            : AppThemeColorDark.successColor,
+        backgroundColor:
+            isError ? AppThemeColorDark.textError.withOpacity(0.6) : AppThemeColorDark.successColor,
         content: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -82,8 +79,7 @@ void showScaffoldSnackBarMessageNoColor(
           minFontSize: 8,
           maxFontSize: 12,
           overflow: TextOverflow.ellipsis,
-          style: context.textTheme.bodyLarge
-              ?.copyWith(color: AppThemeColorDark.textDark),
+          style: context.textTheme.bodyLarge?.copyWith(color: AppThemeColorDark.textDark),
         ),
         duration: Duration(seconds: duration ?? 2),
       ),
@@ -110,21 +106,9 @@ Future<void> showDialogForQrCodes(
               ).padOnly(bottom: 10)
             : null,
         content: content,
-
         contentPadding: const EdgeInsets.only(top: 5),
         actionsAlignment: MainAxisAlignment.spaceAround,
         contentTextStyle: context.theme.textTheme.bodyMedium,
-        // actionsPadding: EdgeInsets.zero,
-        // actions: [
-        // TextButton(
-        //     onPressed: onNegativeAction ??
-        //         () {
-        //           pop(context);
-        //         },
-        //     style: TextButton.styleFrom(foregroundColor: TagoLight.textError),
-        //     child: const Text(TextConstant.cancel)),
-        // TextButton(onPressed: onPostiveAction, child: const Text(TextConstant.confirm))
-        // ],
       );
     },
   );

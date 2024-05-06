@@ -1,4 +1,5 @@
-import 'package:connect_me/app.dart';
+
+import '../../../../app.dart';
 
 class AdditionalDetailsImpl extends AdditionalDetailsRepository {
   final FirebaseFirestore cloudFirestore;
@@ -20,7 +21,7 @@ class AdditionalDetailsImpl extends AdditionalDetailsRepository {
   }
 }
 
-final additionalImplProvider = Provider<AdditionalDetailsImpl>((ref) {
+final additionalImplProvider = Provider<AdditionalDetailsRepository>((ref) {
   final cloudFirestore = ref.read(cloudFirestoreProvider);
   return AdditionalDetailsImpl(cloudFirestore);
 });

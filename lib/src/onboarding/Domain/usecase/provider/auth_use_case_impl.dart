@@ -1,6 +1,6 @@
-import 'package:connect_me/app.dart';
+import '../../../../../app.dart';
 
-final createUserProvider = Provider<AuthUseCaseImpl>((ref) {
+final createUserProvider = Provider<AuthUseCase>((ref) {
   final authRepo = ref.read(authRepositoryProvider);
   return AuthUseCaseImpl(authRepo);
 });
@@ -31,8 +31,7 @@ class AuthUseCaseImpl implements AuthUseCase {
   @override
   Future<Either<AppException, User?>> loginWithEmail(
       {required String email, required String password}) async {
-    return await _authRepository.signInWithEmail(
-        email: email, password: password);
+    return await _authRepository.signInWithEmail(email: email, password: password);
   }
 
   @override
@@ -43,7 +42,6 @@ class AuthUseCaseImpl implements AuthUseCase {
   @override
   Future<Either<AppException, User?>> loginWithGoogle({required bool isSignUp}) async {
     try {
-      
       return await _authRepository.signInWithGoogle(isSignUp: isSignUp);
     } on AppException catch (e) {
       return Left(AppException(e.message));

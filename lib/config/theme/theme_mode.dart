@@ -1,7 +1,8 @@
 // Theme mode enum
-import 'package:connect_me/app.dart';
 
 // Theme notifier class
+import '../../app.dart';
+
 class ThemeNotifier extends StateNotifier<ThemeMode> {
   ThemeNotifier() : super(ThemeMode.system);
   // getThemeMode();

@@ -3,7 +3,8 @@
 
 import 'dart:convert';
 
-import 'package:connect_me/app.dart';
+import '../../../../../app.dart';
+
 
 SliverWoltModalSheetPage socialMediaModal(
   BuildContext modalSheetContext, {

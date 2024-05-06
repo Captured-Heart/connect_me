@@ -1,4 +1,4 @@
-import 'package:connect_me/app.dart';
+import '../../../../app.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({

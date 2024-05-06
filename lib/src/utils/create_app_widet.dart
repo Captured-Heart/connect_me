@@ -1,4 +1,4 @@
-import 'package:connect_me/app.dart';
+import '../../app.dart';
 
 Widget createAppRoot({
   required Widget child,

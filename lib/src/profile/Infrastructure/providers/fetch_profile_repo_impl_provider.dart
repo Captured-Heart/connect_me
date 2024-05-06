@@ -1,6 +1,6 @@
-import 'package:connect_me/app.dart';
+import '../../../../app.dart';
 
-final fetchProfileRepoImplProvider = Provider<FetchProfileRepoImpl>((ref) {
+final fetchProfileRepoImplProvider = Provider<ProfileRepository>((ref) {
   final firebaseFirestore = ref.read(cloudFirestoreProvider);
   return FetchProfileRepoImpl(firebaseFirestore);
 });

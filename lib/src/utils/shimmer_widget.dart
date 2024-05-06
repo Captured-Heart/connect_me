@@ -1,4 +1,4 @@
-import 'package:connect_me/app.dart';
+import '../../app.dart';
 
 class ShimmerWidget extends StatelessWidget {
   const ShimmerWidget({

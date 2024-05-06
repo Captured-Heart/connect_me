@@ -1,5 +1,4 @@
-import 'package:connect_me/app.dart';
-// import 'package:connect_me/config/theme/theme_mode.dart';
+import '../../../../app.dart';
 
 final educationIndexNotifier = StateProvider<int>((ref) {
   return 0;
@@ -23,30 +22,6 @@ class _MoreScreenState extends ConsumerState<MoreScreen> {
     final authUserData = ref.watch(fetchProfileProvider).valueOrNull;
     final educationList = ref.watch(fetchEducationListProvider('')).valueOrNull;
     final workExpList = ref.watch(fetchWorkListProvider('')).valueOrNull;
-
-    // ref.listen(logOutNotifierProvider, (previous, next) {
-    //   if (next.user == null) {
-    //     pushReplacement(
-    //       context,
-    //       ref: ref,
-    //       routeName: ScreenName.loginScreen,
-    //       const LoginScreen(),
-    //     );
-    //   }
-    // });
-
-    // ref.listen(deleteAccountInfoProvider, (previous, next) {
-    //   if (next.value != null) {
-    //     popAndPush(
-    //       context,
-    //       ref: ref,
-    //       routeName: ScreenName.loginScreen,
-    //       const LoginScreen(),
-    //     );
-
-    //     showScaffoldSnackBarMessage(next.value, isError: true);
-    //   }
-    // });
 
     return Scaffold(
       // appBar: AppBar(),

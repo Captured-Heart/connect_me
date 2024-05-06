@@ -1,9 +1,11 @@
-import 'package:connect_me/app.dart';
 
-class FetchAppDataImpl extends FetchAppDataRepository {
+
+import '../../../../app.dart';
+
+class FetchAppDataRepositoryImpl extends FetchAppDataRepository {
   final FirebaseFirestore _firebaseFirestore;
 
-  FetchAppDataImpl(this._firebaseFirestore);
+  FetchAppDataRepositoryImpl(this._firebaseFirestore);
 
   @override
   Future<AppDataModel> fetchAppData() async {
@@ -15,7 +17,7 @@ class FetchAppDataImpl extends FetchAppDataRepository {
   }
 }
 
-final fetchDataImplProvider = Provider<FetchAppDataImpl>((ref) {
+final fetchDataImplProvider = Provider<FetchAppDataRepository>((ref) {
   final cloudFirestore = ref.read(cloudFirestoreProvider);
-  return FetchAppDataImpl(cloudFirestore);
+  return FetchAppDataRepositoryImpl(cloudFirestore);
 });

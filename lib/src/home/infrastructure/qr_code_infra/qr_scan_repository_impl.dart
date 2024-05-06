@@ -1,8 +1,8 @@
-import 'package:connect_me/app.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'dart:ui' as ui;
 
-import 'package:flutter/services.dart';
+import '../../../../app.dart';
 // import 'package:path_provider/path_provider.dart';
 
 class QRScanRepositoryImpl implements QRScanRepository {

@@ -1,4 +1,6 @@
-import 'package:connect_me/app.dart';
+
+
+import '../../../../app.dart';
 
 class SocialMediaImpl extends SocialMediaRepository {
   final FirebaseFirestore cloudFirestore;
@@ -47,7 +49,7 @@ class SocialMediaImpl extends SocialMediaRepository {
   }
 }
 
-final socialMediaImplProvider = Provider<SocialMediaImpl>((ref) {
+final socialMediaImplProvider = Provider<SocialMediaRepository>((ref) {
   final cloudFirestore = ref.read(cloudFirestoreProvider);
   return SocialMediaImpl(cloudFirestore);
 });

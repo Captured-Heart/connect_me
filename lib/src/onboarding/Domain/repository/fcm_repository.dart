@@ -1,5 +1,6 @@
-import 'package:connect_me/app.dart';
 // ignore: depend_on_referenced_packages
+
+import '../../../../app.dart';
 
 abstract class FirebaseMessagingRepository {
   Future<void> requestPermissionAndSubscribe();

@@ -1,4 +1,5 @@
-import 'package:connect_me/app.dart';
+
+import '../../app.dart';
 
 class SharedPreferencesHelper {
   static SharedPreferences? prefs;

@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 // EDUCATION MODEL
-import 'package:clipboard/clipboard.dart';
-import 'package:connect_me/app.dart';
+
+import '../../../../../app.dart';
 
 SliverWoltModalSheetPage supportModal({
   required BuildContext modalSheetContext,

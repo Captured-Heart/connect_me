@@ -1,4 +1,5 @@
-import 'package:connect_me/app.dart';
+
+import '../../app.dart';
 
 enum AuthErrors {
   requiredValue('this is a required field'),

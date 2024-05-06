@@ -1,18 +1,16 @@
 import 'dart:ui';
 
-import 'package:connect_me/app.dart';
+import '../../app.dart';
 
 class FullScreenLoader extends StatelessWidget {
   const FullScreenLoader({
     required this.child,
     required this.isLoading,
-    // required this.title,
     super.key,
     this.loaderStyleWidget,
   });
   final Widget child;
   final bool isLoading;
-  // final String title;
   final Widget? loaderStyleWidget;
   @override
   Widget build(BuildContext context) {

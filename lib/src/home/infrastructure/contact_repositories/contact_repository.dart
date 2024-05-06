@@ -1,5 +1,4 @@
-import 'package:connect_me/app.dart';
-import 'package:flutter_contacts/flutter_contacts.dart';
+import '../../../../app.dart';
 
 class FetchDeviceContactRepository {
   // See installation notes below regarding AndroidManifest.xml and Info.plist

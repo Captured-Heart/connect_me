@@ -1,4 +1,4 @@
-import 'package:connect_me/app.dart';
+import '../../app.dart';
 
 class UrlOptions {
   static Future<void> launchWeb(String url, {bool? launchModeEXT = false}) async {

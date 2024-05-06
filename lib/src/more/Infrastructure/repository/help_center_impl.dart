@@ -1,4 +1,4 @@
-import 'package:connect_me/app.dart';
+import '../../../../app.dart';
 
 class HelpCenterImpl extends HelpCenterRepository {
   @override
@@ -56,6 +56,6 @@ class HelpCenterImpl extends HelpCenterRepository {
   }
 }
 
-final helpCenterImplProvider = Provider<HelpCenterImpl>((ref) {
+final helpCenterImplProvider = Provider<HelpCenterRepository>((ref) {
   return HelpCenterImpl();
 });

@@ -1,4 +1,6 @@
-import 'package:connect_me/app.dart';
+
+
+import '../../../../app.dart';
 
 class AdditionalDetailsModel extends Equatable {
   final String? dateOfBirth;

@@ -1,16 +1,16 @@
-import 'package:connect_me/app.dart';
+import '../../../../app.dart';
 
 class AddAdditionalDetailsNotifier extends StateNotifier<AsyncValue> {
   AddAdditionalDetailsNotifier(
-    this.additionalDetailsImpl,
+    this.additionalDetailsRepository,
     this.uuid,
   ) : super(const AsyncValue.data(null));
 
-  final AdditionalDetailsImpl additionalDetailsImpl;
+  final AdditionalDetailsRepository additionalDetailsRepository;
   final String uuid;
   Future addAdditionalDetails({required MapDynamicString map}) async {
     state = const AsyncValue.loading();
-    var addInfo = await additionalDetailsImpl.addAdditionalDetailsInfo(
+    var addInfo = await additionalDetailsRepository.addAdditionalDetailsInfo(
         uuid: uuid, map: {FirebaseDocsFieldEnums.additionalDetails.name: map});
 
     state = addInfo.fold(
@@ -30,8 +30,7 @@ class AddAdditionalDetailsNotifier extends StateNotifier<AsyncValue> {
 }
 
 final addAdditionalDetailsProvider =
-    StateNotifierProvider.autoDispose<AddAdditionalDetailsNotifier, AsyncValue>(
-        (ref) {
+    StateNotifierProvider.autoDispose<AddAdditionalDetailsNotifier, AsyncValue>((ref) {
   final additionalImpl = ref.read(additionalImplProvider);
   final uuid = ref.read(currentUUIDProvider);
 

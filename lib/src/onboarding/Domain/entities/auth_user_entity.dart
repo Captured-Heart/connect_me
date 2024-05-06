@@ -1,4 +1,4 @@
-import 'package:connect_me/app.dart';
+import '../../../../app.dart';
 
 class AuthUserModel extends Equatable {
   final String? username;

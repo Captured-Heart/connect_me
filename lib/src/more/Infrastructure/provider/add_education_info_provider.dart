@@ -1,4 +1,5 @@
-import 'package:connect_me/app.dart';
+
+import '../../../../app.dart';
 
 class AddEducationInfoNotifier extends StateNotifier<AsyncValue> {
   AddEducationInfoNotifier(
@@ -6,7 +7,7 @@ class AddEducationInfoNotifier extends StateNotifier<AsyncValue> {
     this.uuid,
   ) : super(const AsyncValue.data(null));
 
-  final EducationRepositoryImpl educationRepositoryImpl;
+  final EducationRepository educationRepositoryImpl;
   final String uuid;
   Future addEducationInfoMethod({
     required MapDynamicString map,

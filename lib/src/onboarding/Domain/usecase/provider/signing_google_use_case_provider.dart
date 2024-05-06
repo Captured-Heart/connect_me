@@ -1,17 +1,17 @@
 import 'dart:async';
 
-import 'package:connect_me/app.dart';
+import '../../../../../app.dart';
 
 class SignInGoogleNotifier extends StateNotifier<AuthUseCaseState> {
-  SignInGoogleNotifier(this.authUseCase, this._analyticsImpl) : super(AuthUseCaseState());
+  SignInGoogleNotifier(this.authUseCase, this._analyticsImpl) : super(const AuthUseCaseState());
   final AuthUseCase authUseCase;
-  final AnalyticsRepositoryImpl _analyticsImpl;
+  final AnalyticsRepository _analyticsImpl;
   // LOGIN IN USER WITH GOOGLE
   Future signinWithGoogle({required bool isSignUp}) async {
-    state = AuthUseCaseState(isLoading: true);
+    state = const AuthUseCaseState(isLoading: true);
 
     var user = await authUseCase.loginWithGoogle(isSignUp: isSignUp);
-    state = AuthUseCaseState(isLoading: false);
+    state = const AuthUseCaseState(isLoading: false);
 
     state = user.fold(
       (failure) => AuthUseCaseState(errorMessage: failure.message, isLoading: false),

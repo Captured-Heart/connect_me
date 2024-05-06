@@ -1,5 +1,6 @@
-import 'package:connect_me/app.dart';
 import 'package:flutter/foundation.dart';
+
+import '../../app.dart';
 
 extension DebugBorderWidgetExtension on Widget {
   Widget debugBorder({Color? color}) {
