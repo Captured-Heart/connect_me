@@ -69,7 +69,7 @@ flutter:
   assets:
     - assets/images/
     - assets/Icon_SVG_Unselected/
-    - .env
+    # - .env
   fonts:
     #kenia
     - family: Kenia
