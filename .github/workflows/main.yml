@@ -17,14 +17,14 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           java-version: "11"
-          distribution: "adopt"
+          distribution: "zulu"
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: "3.10.0"
           channel: "stable"
           cache: true
+      - run: flutter clean
       - run: flutter pub get
-    #   - run: flutter test
       - run: flutter build apk --debug --split-per-abi
       - run: |
           flutter build ios --no-codesign
