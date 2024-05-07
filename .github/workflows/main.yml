@@ -13,8 +13,8 @@ jobs:
     name: Build & Release APK and IPA
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-java@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
         with:
           java-version: "11"
           distribution: "zulu"
@@ -24,7 +24,7 @@ jobs:
           channel: "stable"
           cache: true
       - run: echo ${{ secrets.ENV_FILE }} | base64 -d > .env
-      - run: echo ${{ secrets.FIREBASE_FILE }} | base64 -d > android/app/google-services.json
+      - run: echo ${{ secrets.FIREBASE_ANDROID_FILE }} | base64 -d > android/app/google-services.json
       - run: echo ${{ secrets.FIREBASE_IOS_FILE }} | base64 -d > ios/Runner/GoogleService-Info.plist
       - run: flutter clean
       - run: flutter pub get
