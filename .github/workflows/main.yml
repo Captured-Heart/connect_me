@@ -25,6 +25,7 @@ jobs:
           cache: true
       - run: echo ${{ secrets.ENV_FILE }} | base64 -d > .env
       - run: echo ${{ secrets.FIREBASE_FILE }} | base64 -d > android/app/google-services.json
+      - run: echo ${{ secrets.FIREBASE_IOS_FILE }} | base64 -d > ios/Runner/GoogleService-Info.plist
       - run: flutter clean
       - run: flutter pub get
       - run: flutter build apk --debug --split-per-abi
