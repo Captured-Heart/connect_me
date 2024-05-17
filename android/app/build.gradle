@@ -38,7 +38,7 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace "com.capturedHeart.connectMe"
     compileSdkVersion 34
-    ndkVersion "25.1.8937393"
+    ndkVersion "26.1.10909125"
 
     // ndkVersion flutter.ndkVersion
 

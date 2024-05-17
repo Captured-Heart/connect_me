@@ -27,6 +27,7 @@ dependencies:
   firebase_analytics: ^10.7.4
   firebase_auth: ^4.15.0
   firebase_core: ^2.24.0
+  # ^2.27.0
   firebase_messaging: ^14.7.10
   firebase_storage: ^11.5.6
   flutter:
@@ -61,7 +62,12 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
+  firebase_auth_mocks: ^0.13.0
+  google_sign_in_mocks: ^0.3.0
+  firebase_storage_mocks: ^0.6.1
+  fake_cloud_firestore: ^2.4.8
   mocktail: ^1.0.3
+  # web: ^0.5.1
 
 flutter:
   uses-material-design: true
@@ -69,7 +75,7 @@ flutter:
   assets:
     - assets/images/
     - assets/Icon_SVG_Unselected/
-    # - .env
+    - .env
   fonts:
     #kenia
     - family: Kenia
