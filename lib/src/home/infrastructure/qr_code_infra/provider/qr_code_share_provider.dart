@@ -5,7 +5,7 @@ import '../../../../../app.dart';
 
 class QrCodeShareNotifier extends StateNotifier<QrCodeShareState> {
   QrCodeShareNotifier(this.qrCodeRepository, this._analytics, this.fetchAppData)
-      : super(QrCodeShareState(isLoading: false));
+      : super(const QrCodeShareState(isLoading: false));
 
   final QrCodeRepository qrCodeRepository;
   final AnalyticsRepository _analytics;
@@ -16,7 +16,7 @@ class QrCodeShareNotifier extends StateNotifier<QrCodeShareState> {
       {
     required AuthUserModel authUserModel,
   }) async {
-    state = QrCodeShareState(isLoading: true, isCompleted: false);
+    state = const QrCodeShareState(isLoading: true, isCompleted: false);
     var fetchedData = await fetchAppData.fetchAppData();
     // await Future.delayed(const Duration(milliseconds: 700));
     var result = await qrCodeRepository.shareQrCodes(
@@ -39,7 +39,7 @@ class QrCodeShareNotifier extends StateNotifier<QrCodeShareState> {
             ),
           );
         }
-        return QrCodeShareState(
+        return const QrCodeShareState(
           isCompleted: true,
           isLoading: false,
           // successMessage: successShare.status.name,
