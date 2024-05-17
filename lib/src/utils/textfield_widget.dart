@@ -33,6 +33,8 @@ class AuthTextFieldWidget extends StatelessWidget {
     this.contentPadding,
     this.maxLines,
     this.labelWidget,
+    this.inputBorder,
+    this.focusedInputBorder,
   });
   final TextEditingController? controller;
 
@@ -64,6 +66,7 @@ class AuthTextFieldWidget extends StatelessWidget {
   final bool? noBorders;
   final TextInputAction? textInputAction;
   final String? Function(String?)? validator;
+  final InputBorder? inputBorder, focusedInputBorder;
   // final borderDesign(context) = noBorders == true
   //     ? InputBorder.none
   //     : OutlineInputBorder(
@@ -132,10 +135,12 @@ class AuthTextFieldWidget extends StatelessWidget {
               ),
 
               label: labelWidget,
+              floatingLabelAlignment: FloatingLabelAlignment.center,
               labelStyle: context.textTheme.bodyMedium?.copyWith(
                 fontWeight: AppFontWeight.w100,
                 color: context.colorScheme.onSurface.withOpacity(0.5),
               ),
+
               labelText: labelWidget == null ? labelMaterial : null,
               prefixIcon: prefixIcon,
               suffixIcon: suffixIcon,
@@ -147,9 +152,9 @@ class AuthTextFieldWidget extends StatelessWidget {
               //   color: AppThemeColorLight.textHint,
               // ),
 
-              border: borderDesign(context),
-              focusedBorder: borderDesign(context, isFocused: true),
-              enabledBorder: borderDesign(context),
+              border: inputBorder ?? borderDesign(context),
+              focusedBorder: focusedInputBorder ?? borderDesign(context, isFocused: true),
+              enabledBorder: inputBorder ?? borderDesign(context),
               errorBorder: borderDesign(context, isError: true),
               errorMaxLines: 1,
             ),
