@@ -80,6 +80,12 @@ class _ContactScreenState extends ConsumerState<ContactScreen> with TickerProvid
                         tooltip: 'Add contacts',
                         backgroundColor: AppThemeColorDark.successColor.withOpacity(0.2),
                         iconColor: AppThemeColorDark.successColor,
+                        onTap: () => push(
+                          context,
+                          AddEditContactScreen(contact: Contact()),
+                          ref: ref,
+                          routeName: 'add/edit contact screen',
+                        ),
                       ),
                       CircleChipButton(
                         iconData: Icons.switch_left_rounded,
@@ -279,26 +285,35 @@ class _ContactScreenState extends ConsumerState<ContactScreen> with TickerProvid
                                                 ],
                                               ),
                                               child: DeviceContactListTile(
-                                                isLastContact: isLastContact,
-                                                isFirstContact: isFirstContact,
-                                                contactInfo: contactInfo,
-                                                listOfConnects: listOfConnects ?? [],
-                                                onTap: () {
-                                                  slidableIndex.value = index;
-                                                  slidableController.openEndActionPane();
-                                                },
-                                                onLongTap: () => WoltModalSheet.show(
-                                                  context: context,
-                                                  pageListBuilder: (context) {
-                                                    return [
-                                                      themesModal(
-                                                        modalSheetContext: context,
-                                                        appDataModel: AppDataModel(),
-                                                      ),
-                                                    ];
+                                                  isLastContact: isLastContact,
+                                                  isFirstContact: isFirstContact,
+                                                  contactInfo: contactInfo,
+                                                  listOfConnects: listOfConnects ?? [],
+                                                  onTap: () {
+                                                    slidableIndex.value = index;
+                                                    slidableController.openEndActionPane();
                                                   },
-                                                ),
-                                              ),
+                                                  onLongTap: () => push(
+                                                        context,
+                                                        AddEditContactScreen(
+                                                          contact: contactInfo,
+                                                        ),
+                                                        ref: ref,
+                                                        routeName: 'Add/Edit contact screen',
+                                                      )
+
+                                                  //  WoltModalSheet.show(
+                                                  //   context: context,
+                                                  //   pageListBuilder: (context) {
+                                                  //     return [
+                                                  //       themesModal(
+                                                  //         modalSheetContext: context,
+                                                  //         appDataModel: const AppDataModel(),
+                                                  //       ),
+                                                  //     ];
+                                                  //   },
+                                                  // ),
+                                                  ),
                                             );
                                           }),
                                         ],
@@ -526,67 +541,78 @@ class FrequentContactsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       // color: Colors.red,
-      height: 120,
+      height: 130,
       width: context.sizeWidth(1),
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          var contactTrial = Contact(
-            displayName: 'okafor Johnson magnus fdtyudfudtut yufyufyku',
-            phones: [
-              Phone('a24534646'),
-            ],
-          );
-          return SizedBox(
-            // height: 150,
-            width: 120,
-            child: Card(
-              margin: AppEdgeInsets.eA4,
-              color: context.theme.cardColor,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Flexible(
-                    child: deviceContactImgLeadingWidget(
-                      context,
-                      contactInfo: contactTrial,
-                      size: 0.8,
-                    ).padOnly(left: 3, top: 2),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Frequent Contacts'.hardCodedString,
+          ).padOnly(bottom: 5),
+          Expanded(
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                var contactTrial = Contact(
+                  displayName: 'okafor Johnson magnus fdtyudfudtut yufyufyku',
+                  phones: [
+                    Phone('a24534646'),
+                  ],
+                );
+                return SizedBox(
+                  // height: 150,
+                  width: 120,
+                  child: Card(
+                    margin: AppEdgeInsets.eA4,
+                    color: context.theme.cardColor,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Flexible(
+                          child: deviceContactImgLeadingWidget(
+                            context,
+                            contactInfo: contactTrial,
+                            size: 0.8,
+                          ).padOnly(left: 3, top: 2),
+                        ),
+                        Flexible(
+                          child: AutoSizeText(
+                            contactTrial.displayName,
+                            overflow: TextOverflow.ellipsis,
+                            minFontSize: 12,
+                            maxFontSize: 15,
+                            maxLines: 1,
+                          ).padOnly(left: 7, top: 3),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            CircleChipButton(
+                              iconData: Icons.phone,
+                              tooltip: 'Call'.hardCodedString,
+                              padding: const EdgeInsets.all(5),
+                              iconSize: 12,
+                            ),
+                            CircleChipButton(
+                              iconData: Icons.phone,
+                              tooltip: 'Call'.hardCodedString,
+                              padding: const EdgeInsets.all(5),
+                              iconSize: 12,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                  Flexible(
-                    child: AutoSizeText(
-                      contactTrial.displayName,
-                      overflow: TextOverflow.ellipsis,
-                      minFontSize: 12,
-                      maxFontSize: 15,
-                      maxLines: 1,
-                    ).padOnly(left: 7, top: 3),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      CircleChipButton(
-                        iconData: Icons.phone,
-                        tooltip: 'Call'.hardCodedString,
-                        padding: const EdgeInsets.all(5),
-                        iconSize: 12,
-                      ),
-                      CircleChipButton(
-                        iconData: Icons.phone,
-                        tooltip: 'Call'.hardCodedString,
-                        padding: const EdgeInsets.all(5),
-                        iconSize: 12,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                );
+              },
+              itemCount: 10,
             ),
-          );
-        },
-        itemCount: 10,
+          ),
+        ],
       ),
     );
   }
