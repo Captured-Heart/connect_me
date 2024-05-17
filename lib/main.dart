@@ -58,8 +58,11 @@ void main() async {
 }
 
 class MainApp extends ConsumerStatefulWidget {
-  const MainApp({super.key});
-
+  const MainApp({
+    super.key,
+    this.child,
+  });
+  final Widget? child;
   @override
   ConsumerState<MainApp> createState() => _MainAppState();
 }
@@ -145,7 +148,7 @@ class _MainAppState extends ConsumerState<MainApp> {
         navigatorObservers: [
           FirebaseAnalyticsObserver(analytics: analytics),
         ],
-        home: const SplashScreen(),
+        home: widget.child ?? const SplashScreen(),
       );
     });
   }
