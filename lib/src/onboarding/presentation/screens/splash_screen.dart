@@ -1,4 +1,17 @@
-import '../../../../app.dart';
+// import '../../../../app.dart';
+
+import 'package:animate_do/animate_do.dart';
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:connect_me/config/extensions/extensions.dart';
+import 'package:connect_me/src/onboarding/Presentation/screens/check_auth_state_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../../config/constants/image_constants.dart';
+import '../../../../config/constants/screens_constants.dart';
+import '../../../../config/theme/theme.dart';
+import '../../../utils/utils.dart';
+import '../../Infrastructure/repository/auth_repo_provider.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({
@@ -17,7 +30,9 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     navigateToNexToScreen().then((_) {
       pushReplacement(
         context,
-        const CheckAuthStateScreen(),
+        const CheckAuthStateScreen(
+          key: ValueKey('check_auth_state_screen'),
+        ),
         ref: ref,
         routeName: ScreenName.checkAuthStateScreen,
       );

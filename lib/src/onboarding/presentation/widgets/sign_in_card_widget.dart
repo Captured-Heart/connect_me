@@ -170,6 +170,7 @@ class SignInCardWidget extends ConsumerWidget {
                                 //
                                 //  EMAIL textfields
                                 AuthTextFieldWidget(
+                                  key: const Key('sign-in-email-field'),
                                   hintText: TextConstant.emailAddress,
                                   fillColor: Colors.transparent,
                                   controller: controller.emailController,
@@ -194,6 +195,7 @@ class SignInCardWidget extends ConsumerWidget {
                                 ),
                                 //PASSWORD textfields
                                 AuthTextFieldWidget(
+                                  key: const Key('sign-in-password-field'),
                                   hintText: TextConstant.password,
                                   fillColor: Colors.transparent,
                                   focusNode: controller.passwordFocusMode,
@@ -241,6 +243,7 @@ class SignInCardWidget extends ConsumerWidget {
                           SizedBox(
                             width: context.sizeWidth(1),
                             child: ElevatedButton(
+                              key: const Key('login-btn'),
                               onPressed: () {
                                 if (_signInformKey.currentState!.validate()) {
                                   ref.read(loginWithEmailNotifierProvider.notifier).loggingUser(
