@@ -1,7 +1,5 @@
 // EDUCATION MODEL
 
-
-
 import '../../../../../app.dart';
 
 SliverWoltModalSheetPage workExperienceListTile(
@@ -74,18 +72,21 @@ SliverWoltModalSheetPage workExperienceListTile(
                             deleteIcon,
                             color: modalSheetContext.colorScheme.error,
                             size: 17,
-                          ).onTapWidget(onTap: () {
-                            ref
-                                .read(addWorkExperienceProvider.notifier)
-                                .deleteWorkExperienceMethod(
-                                    docId: workExperienceList?[index].docId ?? '')
-                                .whenComplete(
-                              () {
-                                ref.invalidate(fetchWorkListProvider(''));
-                              },
-                            );
-                            Navigator.of(modalSheetContext).pop;
-                          }).tooltipWidget(TextConstant.delete),
+                          ).onTapWidget(
+                            onTap: () {
+                              ref
+                                  .read(addWorkExperienceProvider.notifier)
+                                  .deleteWorkExperienceMethod(
+                                      docId: workExperienceList?[index].docId ?? '')
+                                  .whenComplete(
+                                () {
+                                  ref.invalidate(fetchWorkListProvider(''));
+                                },
+                              );
+                              Navigator.of(modalSheetContext).pop;
+                            },
+                            tooltip: TextConstant.delete,
+                          ),
                         ),
                       ),
                     ).padSymmetric(vertical: 1),

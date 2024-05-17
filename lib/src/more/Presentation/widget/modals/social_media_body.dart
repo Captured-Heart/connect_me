@@ -1,4 +1,3 @@
-
 import '../../../../../app.dart';
 
 class SocialMediaBody extends ConsumerStatefulWidget {
@@ -130,7 +129,7 @@ class _SocialMediaBodyState extends ConsumerState<SocialMediaBody> {
                             deleteIcon,
                             color: context.colorScheme.error,
                             size: 17,
-                          ).tooltipWidget(TextConstant.delete).onTapWidget(
+                          ).onTapWidget(
                             onTap: () {
                               log('this is the social key tapped on ${socialType!.key}');
                               ref
@@ -145,6 +144,7 @@ class _SocialMediaBodyState extends ConsumerState<SocialMediaBody> {
                                 },
                               );
                             },
+                            tooltip: TextConstant.delete,
                           ),
                         ),
                       ],
@@ -178,12 +178,13 @@ class _SocialMediaBodyState extends ConsumerState<SocialMediaBody> {
                     deleteIcon,
                     color: context.colorScheme.error,
                     size: 17,
-                  ).tooltipWidget(TextConstant.delete).onTapWidget(
+                  ).onTapWidget(
                     onTap: () {
                       setState(() {
                         index >= 0 ? textEditingControllerList.removeAt(index) : null;
                       });
                     },
+                    tooltip: TextConstant.delete,
                   ),
                 ),
               ],

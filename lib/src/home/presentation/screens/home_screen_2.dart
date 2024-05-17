@@ -199,6 +199,7 @@ class _HomeScreen2State extends ConsumerState<HomeScreen2> with SingleTickerProv
             onTap: () {
               ref.read(bottomNavBarIndexProvider.notifier).update((state) => 3);
             },
+            tooltip: 'complete your profile'.hardCodedString,
           );
         });
   }

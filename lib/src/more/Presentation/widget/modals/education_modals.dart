@@ -1,7 +1,5 @@
 // EDUCATION MODEL
 
-
-
 import '../../../../../app.dart';
 
 SliverWoltModalSheetPage educationListTile(
@@ -71,19 +69,22 @@ SliverWoltModalSheetPage educationListTile(
                         deleteIcon,
                         color: modalSheetContext.colorScheme.error,
                         size: 17,
-                      ).tooltipWidget(TextConstant.delete).onTapWidget(onTap: () {
-                        ref
-                            .read(addEducationInfoProvider.notifier)
-                            .deleteEducationMethod(docId: educationList?[index].docId ?? '')
-                            .whenComplete(
-                          () {
-                            ref.invalidate(
-                              fetchEducationListProvider(''),
-                            );
-                          },
-                        );
-                        Navigator.of(modalSheetContext).pop;
-                      }),
+                      ).onTapWidget(
+                        onTap: () {
+                          ref
+                              .read(addEducationInfoProvider.notifier)
+                              .deleteEducationMethod(docId: educationList?[index].docId ?? '')
+                              .whenComplete(
+                            () {
+                              ref.invalidate(
+                                fetchEducationListProvider(''),
+                              );
+                            },
+                          );
+                          Navigator.of(modalSheetContext).pop;
+                        },
+                        tooltip: TextConstant.delete,
+                      ),
                     ),
                   ).padOnly(bottom: 1, top: 1),
                 ),
@@ -133,7 +134,9 @@ SliverWoltModalSheetPage educationModal(
       final educationList = ref.watch(fetchEducationListProvider('')).valueOrNull;
 
       return EducationModalBody(
-        educationModel: isEditMode == true || educationList?.isEmpty == true ? null : educationList?[educationIndex],
+        educationModel: isEditMode == true || educationList?.isEmpty == true
+            ? null
+            : educationList?[educationIndex],
         pageIndexNotifier: pageIndexNotifier,
       ).padAll(15);
     }),
