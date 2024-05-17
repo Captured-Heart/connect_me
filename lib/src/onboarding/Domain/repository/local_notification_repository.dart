@@ -20,18 +20,20 @@ class LocalNotificationRepositoryImpl implements LocalNotificationRepository {
     const DarwinInitializationSettings initializationSettingsIOS = DarwinInitializationSettings();
     const InitializationSettings initializationSettings = InitializationSettings(
         android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
-    flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onDidReceiveNotificationResponse: (NotificationResponse? notificationResponse) async {
-      // Handle notification taps
-      log('this is notification response: ${notificationResponse?.payload}');
-    });
+    flutterLocalNotificationsPlugin.initialize(
+      initializationSettings,
+      onDidReceiveNotificationResponse: (NotificationResponse? notificationResponse) async {
+        // Handle notification taps
+        log('this is notification response: ${notificationResponse?.payload}');
+      },
+    );
 
-//  Initialize Android Channel
+    //  Initialize Android Channel
     channel = const AndroidNotificationChannel(
       'connect_channel', // id
       'Connect_Me Notifications', // title
       description: 'This channel is used for important notifications.', // description
-      importance: Importance.high,
+      importance: Importance.high, 
     );
 
     /// Create an Android Notification Channel.

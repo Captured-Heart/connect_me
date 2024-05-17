@@ -93,13 +93,6 @@ class AuthRepositoryImpl implements AuthRepository {
 //!SIGN OUT FUNCTION
   @override
   Future<void> signOut() async {
-    // var isConnected = await status;
-
-    // if (!isConnected) {
-    //   showScaffoldSnackBarMessage(AuthErrors.networkFailure.errorMessage, isError: true);
-    // }
-
-    // else {
     try {
       await _googleSignIn.signOut();
       return await _firebaseAuth.signOut();
