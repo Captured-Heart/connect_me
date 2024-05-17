@@ -4,7 +4,7 @@ import '../../../../../app.dart';
 
 class QrCodeScanNotifier extends StateNotifier<QrCodeShareState> {
   QrCodeScanNotifier(this.qrScanRepository, this._analyticsRepositoryImpl)
-      : super(QrCodeShareState(isLoading: false));
+      : super(const QrCodeShareState(isLoading: false));
 
   final QRScanRepository qrScanRepository;
   final AnalyticsRepository _analyticsRepositoryImpl;
@@ -13,7 +13,7 @@ class QrCodeScanNotifier extends StateNotifier<QrCodeShareState> {
     required String scannedRawUUID,
     required WidgetRef ref,
   }) async {
-    state = QrCodeShareState(isLoading: true, isCompleted: false);
+    state = const QrCodeShareState(isLoading: true, isCompleted: false);
     await Future.delayed(const Duration(seconds: 1));
     var result = await qrScanRepository.scanQrCode(
       scannedRawUUID: scannedRawUUID,
