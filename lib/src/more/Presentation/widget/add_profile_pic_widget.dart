@@ -2,7 +2,6 @@ import 'dart:io';
 
 import '../../../../app.dart';
 
-
 class AddProfilePictureWidget extends StatelessWidget {
   const AddProfilePictureWidget({
     super.key,
