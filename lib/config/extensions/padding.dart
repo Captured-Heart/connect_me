@@ -135,12 +135,12 @@ extension TooltipExtension on Widget {
 }
 
 extension GestureDetectorExtension on Widget {
-  Widget onTapWidget({VoidCallback? onTap, VoidCallback? onLongPress}) {
+  Widget onTapWidget({VoidCallback? onTap, VoidCallback? onLongPress, required String tooltip}) {
     return GestureDetector(
       onTap: onTap,
       onLongPress: onLongPress,
       child: this,
-    );
+    ).tooltipWidget(tooltip);
   }
 }
 
