@@ -10,6 +10,13 @@ class LoginScreen extends ConsumerStatefulWidget {
 class _LoginScreenState extends ConsumerState<LoginScreen> {
   bool isFrontOfCard = true;
   final PageController pageController = PageController();
+
+  @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     // final controller = _flipController;
@@ -28,30 +35,36 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               physics: const NeverScrollableScrollPhysics(),
               childrenDelegate: SliverChildListDelegate.fixed(
                 [
+                  //sign in card
                   Center(
                     child: SingleChildScrollView(
                       child: SignInCardWidget(
-                        key: const Key('sign-in_key'),
+                        key: const Key('sign-in-key'),
                         pageController: pageController,
                       ).padAll(15),
                     ),
                   ),
+
+                  //sign up card
                   Center(
                     child: SingleChildScrollView(
                       child: SignUpCardWidget(
-                        key: const Key('sign-up_key'),
+                        key: const Key('sign-up-key'),
                         controller: pageController,
                       ).padAll(15),
                     ),
                   ),
+
+                  //forgot password card
                   Column(
-                    key: UniqueKey(),
+                    key: Key('return-login-column'),
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ForgotPasswordCard(
                         pageController: pageController,
                       ),
                       GestureDetector(
+                        key: const Key('return-to-login'),
                         onTap: () {
                           pageController.jumpToPage(0);
                         },
